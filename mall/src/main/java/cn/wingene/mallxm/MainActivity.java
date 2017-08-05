@@ -1,9 +1,14 @@
-package cn.wingene.mall;
+package cn.wingene.mallxm;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import cn.wingene.mall.R;
+import cn.wingene.mallxf.ui.MyBaseActivity;
+
+/**
+ * 主界面
+ */
+public class MainActivity extends MyBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
