@@ -8,6 +8,9 @@ import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.multidex.MultiDex;
+
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import cn.wingene.mallxm.MainActivity;
 import cn.wingene.mall.R;
@@ -69,9 +72,15 @@ public class MyApp extends Application implements CrashHandleAble {
                 }
             }).start();
         }
+
+        Fresco.initialize(this);
     }
 
-
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     @Override
     public void handle(CrashHander hander, ErrorInfo info, Thread thread, Throwable throwable) {
