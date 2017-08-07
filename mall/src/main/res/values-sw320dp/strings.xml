@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- measure -->
+    <string name="measure">标题</string>
+    <string name="contentDescription">contentDescription</string>
+
+</resources>

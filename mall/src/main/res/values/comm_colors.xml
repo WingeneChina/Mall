@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="comm_transparent_4">#4000</color>
+    <color name="comm_lightskyblue_4">#4487CEEB</color>
+    <color name="comm_lightskyblue_8">#8887CEEB</color>
+    <color name="comm_font_normal">#3e3e3e</color>
+
+</resources>

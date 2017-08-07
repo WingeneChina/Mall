@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app=" http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/red"
+        android:layout_height="@dimen/height_action_bar">
+
+        <junze.widget.Tile
+            style="@style/LinearLayout.ActionBarBox"
+            app:tileImgSrc="@drawable/ic_back"
+            app:tileMaskSrc="@drawable/comm_btn_mask">
+        </junze.widget.Tile>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="1"
+        android:background="@color/orange"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/p610"
+            android:background="@color/blue"></LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/p18"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/p86"
+            android:background="@color/lightblue"></LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_weight="0"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/red"
+        android:layout_height="@dimen/height_action_bar">
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
