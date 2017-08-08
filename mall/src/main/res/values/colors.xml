@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="menuGroup_bg">#F4C19F</color>
+    <color name="menu_selected_color">#BC7356</color>
+    <color name="menu_unSelected_color">#C79472</color>
+
+    <color name="translucent">#20333333</color>
 </resources>

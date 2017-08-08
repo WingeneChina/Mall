@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.wingene.mallxm.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/contentV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        />
+
+    <RadioGroup
+        android:id="@+id/menuGroup"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/menuGroup_bg"
+        android:orientation="horizontal"
+        >
+
+        <RadioButton
+            android:id="@+id/firstMenuV"
+            style="@style/menu_style"
+            android:text="@string/first_menu"
+            />
+
+        <RadioButton
+            android:id="@+id/secondMenuV"
+            style="@style/menu_style"
+            android:text="@string/second_menu"
+            />
+
+        <RadioButton
+            android:id="@+id/thirdMenuV"
+            style="@style/menu_style"
+            android:text="@string/third_menu"
+            />
+
+        <RadioButton
+            android:id="@+id/fourthMenuV"
+            style="@style/menu_style"
+            android:text="@string/fourth_menu"
+            />
+
+        <RadioButton
+            android:id="@+id/fiveMenuV"
+            style="@style/menu_style"
+            android:text="@string/five_menu"
+            />
+    </RadioGroup>
+</LinearLayout>
