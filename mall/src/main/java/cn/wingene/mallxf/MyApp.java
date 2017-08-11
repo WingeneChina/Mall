@@ -64,7 +64,7 @@ public class MyApp extends Application implements CrashHandleAble {
         Thread.setDefaultUncaughtExceptionHandler(CrashHander.getInstance()
                 .init(this.getResources().getString(R.string.app_name), this).setUncaughtHandler(this));
 
-        LocationHelper.getInstance().init(this);
+//        LocationHelper.getInstance().init(this);
 
         if (AppManager.isFirstStart()) {
             AppManager.saveVisionCode();

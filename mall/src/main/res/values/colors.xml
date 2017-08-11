@@ -9,4 +9,15 @@
     <color name="menu_unSelected_color">#C79472</color>
 
     <color name="translucent">#20333333</color>
+
+    <color name="three_text_color">#333333</color>
+    <color name="six_text_color">#666666</color>
+    <color name="nine_text_color">#999999</color>
+
+    <color name="orange_mall">#FF8800</color>
+    <color name="deepRed">#ff5757</color>
+
+    <color name="light_green">#dcE9d4</color>
+
+    <color name="deep_green">#DAE4C7</color>
 </resources>
