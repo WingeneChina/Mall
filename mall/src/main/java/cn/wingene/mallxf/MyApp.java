@@ -11,6 +11,10 @@ import android.content.Intent;
 import android.support.multidex.MultiDex;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.yanzhenjie.nohttp.InitializationConfig;
+import com.yanzhenjie.nohttp.Logger;
+import com.yanzhenjie.nohttp.NoHttp;
+import com.yanzhenjie.nohttp.OkHttpNetworkExecutor;
 
 import cn.wingene.mallxm.MainActivity;
 import cn.wingene.mall.R;
@@ -60,7 +64,7 @@ public class MyApp extends Application implements CrashHandleAble {
         Thread.setDefaultUncaughtExceptionHandler(CrashHander.getInstance()
                 .init(this.getResources().getString(R.string.app_name), this).setUncaughtHandler(this));
 
-        LocationHelper.getInstance().init(this);
+//        LocationHelper.getInstance().init(this);
 
         if (AppManager.isFirstStart()) {
             AppManager.saveVisionCode();
@@ -74,6 +78,9 @@ public class MyApp extends Application implements CrashHandleAble {
         }
 
         Fresco.initialize(this);
+        NoHttp.initialize(InitializationConfig.newBuilder(this).networkExecutor(new OkHttpNetworkExecutor())
+                .build());
+        Logger.setDebug(true);
     }
 
     @Override

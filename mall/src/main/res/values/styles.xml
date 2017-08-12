@@ -6,6 +6,21 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
+
+    <style name="menu_style">
+        <item name="android:textSize">12sp</item>
+        <!--<item name="android:textColor">@drawable/menu_text_selector</item>-->
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="recommend_item_title_style">
+
+    </style>
 </resources>

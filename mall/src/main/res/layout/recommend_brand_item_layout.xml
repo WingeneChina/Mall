@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:stateListAnimator="@animator/raise"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/translucent"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            >
+
+            <TextView
+                android:id="@+id/brandProductNameV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="新秀丽制造商"
+                android:textColor="@color/six_text_color"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/brandProductPriceV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/brandProductNameV"
+                android:text="59元起"
+                android:textColor="@color/nine_text_color"
+                android:textSize="12sp"
+                />
+
+            <ImageView
+                android:id="@+id/brandProductMarkV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/brandProductPriceV"/>
+        </RelativeLayout>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/brandProductImgV"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            fresco:placeholderImage="@drawable/placeholder"
+            />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

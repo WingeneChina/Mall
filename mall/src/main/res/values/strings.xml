@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Mall</string>
+    <string name="first_menu">首页</string>
+    <string name="second_menu">专题</string>
+    <string name="third_menu">周边</string>
+    <string name="fourth_menu">企业</string>
+    <string name="five_menu">个人</string>
 </resources>
