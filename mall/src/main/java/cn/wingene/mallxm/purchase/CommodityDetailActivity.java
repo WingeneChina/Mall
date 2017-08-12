@@ -11,10 +11,12 @@ import cn.wingene.mallxf.ui.MyBaseActivity;
 
 public class CommodityDetailActivity extends MyBaseActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commdity_detail);
+
 //        junze.android.R.dimen.
     }
 }
