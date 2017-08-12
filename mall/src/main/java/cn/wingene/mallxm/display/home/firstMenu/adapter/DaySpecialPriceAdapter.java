@@ -1,18 +1,15 @@
 package cn.wingene.mallxm.display.home.firstMenu.adapter;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 
 import cn.wingene.mall.R;
 
 /**
  * Created by wangcq on 2017/8/11.
+ * 天天特价
  */
 
 public class DaySpecialPriceAdapter extends RecyclerView.Adapter {
