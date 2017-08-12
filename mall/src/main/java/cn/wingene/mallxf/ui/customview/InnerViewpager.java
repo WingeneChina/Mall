@@ -37,14 +37,13 @@ public class InnerViewpager extends ViewPager {
                 if (getChildCount() <= 1) {
                     return super.onTouchEvent(event);
                 }
-
-                if (this.getChildCount() > 1) {
-                    this.getParent().requestDisallowInterceptTouchEvent(true);
-                }
+//                if (this.getChildCount() > 1) {
+//                    this.getParent().requestDisallowInterceptTouchEvent(true);
+//                }
                 break;
             case MotionEvent.ACTION_MOVE:
 
-                if (this.getChildCount() > 1) {
+                if (this.getChildCount() > 1 && currP.x - downP.x > 15 && currP.y - downP.y < 100) {
                     this.getParent().requestDisallowInterceptTouchEvent(true);
                 }
                 break;
@@ -62,18 +61,6 @@ public class InnerViewpager extends ViewPager {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-
-//        int height = 0;
-//        for (int i = 0; i < getChildCount(); i++) {
-//            View child = getChildAt(i);
-//            child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-//            int h = child.getMeasuredHeight();
-//            if (h > height) {
-//                height = h;
-//            }
-//        }
-//
-//        heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }

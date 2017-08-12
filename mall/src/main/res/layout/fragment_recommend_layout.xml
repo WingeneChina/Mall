@@ -1,142 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
-        <cn.wingene.mallxf.ui.customview.InnerViewpager
-            android:id="@+id/rollPagerV"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/menuGroup_bg">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="品牌制造商直供"
-                android:textColor="@color/menu_selected_color"
-                android:textSize="14sp"/>
-        </RelativeLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/brandProductRecyclerV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="125dp"
-            android:background="@color/menuGroup_bg">
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/perWeekBGV"
+            <cn.wingene.mallxf.ui.customview.InnerViewpager
+                android:id="@+id/rollPagerV"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="200dp"
+                />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="vertical"
-                >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/menuGroup_bg">
 
                 <TextView
-                    android:id="@+id/perWeekNameV"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="周一周四-新品首发"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="品牌制造商直供"
                     android:textColor="@color/menu_selected_color"
-                    android:textSize="16sp"/>
+                    android:textSize="14sp"/>
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/brandProductRecyclerV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:background="@color/menuGroup_bg">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/perWeekBGV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:id="@+id/perWeekNameV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="周一周四-新品首发"
+                        android:textColor="@color/menu_selected_color"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="3dp"
+                        android:text="查看全部"
+                        android:textColor="@color/menu_unSelected_color"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/perWeekRecyclerV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/menuGroup_bg">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="3dp"
-                    android:text="查看全部"
-                    android:textColor="@color/menu_unSelected_color"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="人气推荐"
+                    android:textColor="@color/menu_selected_color"
                     android:textSize="14sp"/>
-            </LinearLayout>
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/perWeekRecyclerV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/personRecommendRecyclerV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/menuGroup_bg">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/menuGroup_bg">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="人气推荐"
-                android:textColor="@color/menu_selected_color"
-                android:textSize="14sp"/>
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="天天特价"
+                    android:textColor="@color/menu_selected_color"
+                    android:textSize="14sp"/>
+            </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/personRecommendRecyclerV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/daySpecialPRecyclerV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/menuGroup_bg">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/menuGroup_bg">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="天天特价"
-                android:textColor="@color/menu_selected_color"
-                android:textSize="14sp"/>
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="猜你喜欢"
+                    android:textColor="@color/menu_selected_color"
+                    android:textSize="14sp"/>
+            </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/daySpecialPRecyclerV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/menuGroup_bg">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="猜你喜欢"
-                android:textColor="@color/menu_selected_color"
-                android:textSize="14sp"/>
-        </RelativeLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/youLikeRecyclerV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/youLikeRecyclerV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout>

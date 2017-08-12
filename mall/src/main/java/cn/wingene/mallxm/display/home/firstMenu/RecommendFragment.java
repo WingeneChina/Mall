@@ -21,6 +21,7 @@ import java.util.List;
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.adapter.ImagePagerAdapter;
 import cn.wingene.mallxf.ui.MyBaseFragment;
+import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.BrandProductAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.DaySpecialPriceAdapter;
@@ -42,6 +43,7 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     private RecyclerView personRecommendRecyclerV;
     private RecyclerView daySpecialPRecyclerV;
     private RecyclerView youLikeRecyclerV;
+    private JDRefreshLayout mJDRefreshLayout;
 
     private ImagePagerAdapter mImagePagerAdapter;
     private List<String> urlList = new ArrayList<>();
@@ -75,6 +77,7 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     }
 
     private void initView(View root) {
+        mJDRefreshLayout = (JDRefreshLayout) root.findViewById(R.id.refreshLayout);
         mRollViewPager = (ViewPager) root.findViewById(R.id.rollPagerV);
         brandProductRecyclerV = (RecyclerView) root.findViewById(R.id.brandProductRecyclerV);
         perWeekBGV = (SimpleDraweeView) root.findViewById(R.id.perWeekBGV);
@@ -96,6 +99,7 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
      * 猜你喜欢
      */
     private void initYouLike() {
+        youLikeRecyclerV.setNestedScrollingEnabled(false);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         youLikeRecyclerV.setLayoutManager(gridLayoutManager);
 
@@ -110,6 +114,7 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
      * 天天特价
      */
     private void initDaySpecial() {
+        daySpecialPRecyclerV.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager
                 .VERTICAL, false);
         daySpecialPRecyclerV.setLayoutManager(linearLayoutManager);
@@ -126,6 +131,7 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
      * 人气推荐
      */
     private void initPersonRecommend() {
+        personRecommendRecyclerV.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
                 false);
         personRecommendRecyclerV.setLayoutManager(linearLayoutManager);
@@ -141,6 +147,7 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
      * 每周新品
      */
     private void initPerWeekProduct() {
+        perWeekRecyclerV.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager
                 .HORIZONTAL, false);
         perWeekRecyclerV.setLayoutManager(linearLayoutManager);
@@ -156,6 +163,8 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
      * 品牌大厂
      */
     private void initBrandProduct() {
+        brandProductRecyclerV.setNestedScrollingEnabled(false);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
         brandProductRecyclerV.setLayoutManager(gridLayoutManager);
 
