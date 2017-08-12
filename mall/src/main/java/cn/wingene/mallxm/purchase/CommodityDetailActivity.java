@@ -11,7 +11,6 @@ import android.view.View.OnClickListener;
 import android.webkit.WebView;
 
 import cn.wingene.mall.R;
-import cn.wingene.mall.util.TextViewHtmlLoader;
 import cn.wingene.mallx.frame.FileUtil;
 import cn.wingene.mallxf.adapter.ImagePagerAdapter;
 import cn.wingene.mallxf.ui.MyBaseActivity;
@@ -27,7 +26,6 @@ import junze.androidxf.tool.HtmlLoader;
 public class CommodityDetailActivity extends MyBaseActivity {
     private ImagePagerAdapter mImagePagerAdapter;
     private List<String> urlList = new ArrayList<>();
-    private TextViewHtmlLoader mHtmlLoad;
 
     private Tile tlBack;
     private ViewPager vpImage;
@@ -58,16 +56,13 @@ public class CommodityDetailActivity extends MyBaseActivity {
             InputStream inputStream = getAssets().open("temp/commodity_detail.txt");
             String htmlCode = FileUtil.readTextfile(inputStream,"utf-8");
             if(htmlCode!=null){
-                mHtmlLoad = new TextViewHtmlLoader(this);
                 HtmlLoader.loadWebViewByHtmlCode(this,wvDetail,getHtmlData(htmlCode));
-//                mHtmlLoad.loadTextViewByHtmlCode(tvDetail,String.format("<html>%s</html>",htmlCode),null);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
-//        junze.android.R.dimen.
     }
 
     private void initRollPager() {
@@ -93,13 +88,6 @@ public class CommodityDetailActivity extends MyBaseActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(mHtmlLoad !=  null){
-            mHtmlLoad.onDestory();
-        }
-    }
 
     private String getHtmlData(String bodyHTML) {
         String head = "<head>" +
