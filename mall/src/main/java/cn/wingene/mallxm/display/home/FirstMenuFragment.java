@@ -76,7 +76,6 @@ public class FirstMenuFragment extends MyBaseFragment {
 
         List<IndexModel> fragmentList = new ArrayList<>();
         fragmentList.add(new IndexModel("推荐", RecommendFragment.newInstance(null)));
-//        fragmentList.add(new IndexModel("历史浏览", HistoryFragment.newInstance()));
         fragmentList.add(new IndexModel("天天特价", SpecialOfferFragment.newInstance(null)));
         fragmentList.add(new IndexModel("新品", NewProductFragment.newInstance(null)));
         fragmentList.add(new IndexModel("居家", IndoorFragment.newInstance(null)));
