@@ -1,7 +1,5 @@
 package cn.wingene.mallxm.purchase;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,14 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import cn.wingene.mall.R;
-import cn.wingene.mallx.frame.FileUtil;
 import cn.wingene.mallxf.adapter.ImagePagerAdapter;
 import cn.wingene.mallxf.ui.MyBaseActivity;
+import cn.wingene.mallxm.JumpHelper;
 import junze.widget.Tile;
 import junze.widget.ViewPager;
 
+import junze.android.util.FileUtil;
 import junze.androidxf.tool.HtmlLoader;
 
 /**
@@ -30,12 +31,19 @@ public class CommodityDetailActivity extends MyBaseActivity {
     private Tile tlBack;
     private ViewPager vpImage;
     private WebView wvDetail;
+    private ImageView ivCart;
+    private TextView tvBuy;
+    private TextView tvAddCart;
 
     protected void initComponent(){
         tlBack = (Tile) super.findViewById(R.id.tl_back);
         vpImage = (ViewPager) super.findViewById(R.id.vp_image);
         wvDetail = (WebView) super.findViewById(R.id.wv_detail);
+        ivCart = (ImageView) super.findViewById(R.id.iv_cart);
+        tvBuy = (TextView) super.findViewById(R.id.tv_buy);
+        tvAddCart = (TextView) super.findViewById(R.id.tv_add_cart);
     }
+
 
 
 
@@ -44,25 +52,35 @@ public class CommodityDetailActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commdity_detail);
         initComponent();
-
         tlBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-        initRollPager();
-        try {
-            InputStream inputStream = getAssets().open("temp/commodity_detail.txt");
-            String htmlCode = FileUtil.readTextfile(inputStream,"utf-8");
-            if(htmlCode!=null){
-                HtmlLoader.loadWebViewByHtmlCode(this,wvDetail,getHtmlData(htmlCode));
+        ivCart.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JumpHelper.startShoppingCartActivity(getActivity());
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        });
+        tvAddCart.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JumpHelper.startShoppingCartActivity(getActivity());
+            }
+        });
+        initRollPager();
+        loadWebData();
+
+
+    }
+
+    private void loadWebData() {
+        String htmlCode = FileUtil.readTextFileFromAssets(getActivity(), "temp/commodity_detail.txt");
+        if (htmlCode != null) {
+            HtmlLoader.loadWebViewByHtmlCode(this, wvDetail, htmlCode, true);
         }
-
-
     }
 
     private void initRollPager() {
@@ -88,12 +106,4 @@ public class CommodityDetailActivity extends MyBaseActivity {
 
     }
 
-
-    private String getHtmlData(String bodyHTML) {
-        String head = "<head>" +
-                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
-                "<style>img{max-width: 100%; width:auto; height:auto;}</style>" +
-                "</head>";
-        return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
-    }
 }

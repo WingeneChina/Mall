@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name="cn.wingene.mallxm.purchase.CommodityDetailActivity"/>
+        <activity android:name="cn.wingene.mallxm.purchase.ShoppingCartActivity"/>
     </application>
 
 </manifest>

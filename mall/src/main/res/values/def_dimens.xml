@@ -2,4 +2,6 @@
 <resources>
     <dimen name="f35">@dimen/pxd35_360xh</dimen>
     <dimen name="f40">@dimen/pxd40_360xh</dimen>
+
+    <dimen name="def_action_bar_title_font">@dimen/f35</dimen>
 </resources>

@@ -31,8 +31,8 @@ dependencies {
     })
     //compile
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile(name:'android-widget-0.0.8',ext:'aar')
-    compile(name:'android-frame-0.0.51',ext:'aar')
+    compile(name:'android-widget',ext:'aar')
+    compile(name:'android-frame',ext:'aar')
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.facebook.fresco:fresco:0.12.0'
     compile 'com.cm:rxbus:1.0'
