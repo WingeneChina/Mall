@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="cn.wingene.mall"
-    >
+          package="cn.wingene.mall">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
@@ -24,6 +23,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name="cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity">
+        </activity>
+        <activity android:name="cn.wingene.mallxm.game.LuckyActivity">
         </activity>
         <activity android:name="cn.wingene.mallxm.purchase.CommodityDetailActivity"/>
         <activity android:name="cn.wingene.mallxm.purchase.ShoppingCartActivity"/>

@@ -1,5 +1,6 @@
 package cn.wingene.mallxm.display.home.firstMenu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -22,7 +24,9 @@ import cn.wingene.mall.R;
 import cn.wingene.mallxf.adapter.ImagePagerAdapter;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
+import cn.wingene.mallxf.util.ActivityUtils;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
+import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.BrandProductAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.DaySpecialPriceAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.PerWeekProductAdapter;
@@ -34,7 +38,7 @@ import cn.wingene.mallxm.display.home.firstMenu.adapter.YouLikeProduceAdapter;
  * 推荐
  */
 
-public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener {
+public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener, View.OnClickListener {
     private ViewPager mRollViewPager;
     private RecyclerView brandProductRecyclerV;
     private SimpleDraweeView perWeekBGV;
@@ -59,6 +63,11 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
 
         }
     };
+    private RelativeLayout brandTitleGroupV;
+    private RelativeLayout perWeekTitleGroupV;
+    private RelativeLayout personRecommendTitleGroupV;
+    private RelativeLayout daySpecialTitleGroupV;
+    private RelativeLayout youLikeTitleGroupV;
 
     public static RecommendFragment newInstance(Bundle bundle) {
         RecommendFragment recommendFragment = new RecommendFragment();
@@ -73,6 +82,7 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
             savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommend_layout, container, false);
         initView(view);
+        initEvent();
         return view;
     }
 
@@ -87,12 +97,50 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
         daySpecialPRecyclerV = (RecyclerView) root.findViewById(R.id.daySpecialPRecyclerV);
         youLikeRecyclerV = (RecyclerView) root.findViewById(R.id.youLikeRecyclerV);
 
+        brandTitleGroupV = (RelativeLayout) root.findViewById(R.id.brandTitleGroupV);
+        perWeekTitleGroupV = (RelativeLayout) root.findViewById(R.id.perWeekTitleGroupV);
+        personRecommendTitleGroupV = (RelativeLayout) root.findViewById(R.id.personRecommendTitleGroupV);
+        daySpecialTitleGroupV = (RelativeLayout) root.findViewById(R.id.daySpecialTitleGroupV);
+        youLikeTitleGroupV = (RelativeLayout) root.findViewById(R.id.youLikeTitleGroupV);
+
         initRollPager();
         initBrandProduct();
         initPerWeekProduct();
         initPersonRecommend();
         initDaySpecial();
         initYouLike();
+    }
+
+    /**
+     * 初始化事件
+     */
+    private void initEvent() {
+        brandTitleGroupV.setOnClickListener(this);
+        perWeekTitleGroupV.setOnClickListener(this);
+        personRecommendTitleGroupV.setOnClickListener(this);
+        daySpecialTitleGroupV.setOnClickListener(this);
+        youLikeTitleGroupV.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.brandTitleGroupV:
+
+            case R.id.perWeekTitleGroupV:
+
+            case R.id.personRecommendTitleGroupV:
+
+            case R.id.daySpecialTitleGroupV:
+
+            case R.id.youLikeTitleGroupV:
+
+            default:
+                Intent intent = new Intent(this.getActivity(), ProductActivity.class);
+                startActivity(intent);
+
+                break;
+        }
     }
 
     /**
@@ -222,4 +270,5 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
             mRollViewPager.setCurrentItem(currentIndex, false);
         }
     }
+
 }

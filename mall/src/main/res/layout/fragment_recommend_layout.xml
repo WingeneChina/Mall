@@ -26,6 +26,7 @@
                 />
 
             <RelativeLayout
+                android:id="@+id/brandTitleGroupV"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/menuGroup_bg">
@@ -46,6 +47,7 @@
                 android:layout_height="wrap_content"/>
 
             <RelativeLayout
+                android:id="@+id/perWeekTitleGroupV"
                 android:layout_width="match_parent"
                 android:layout_height="125dp"
                 android:background="@color/menuGroup_bg">
@@ -87,6 +89,7 @@
                 android:layout_height="wrap_content"/>
 
             <RelativeLayout
+                android:id="@+id/personRecommendTitleGroupV"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/menuGroup_bg">
@@ -107,6 +110,7 @@
                 android:layout_height="wrap_content"/>
 
             <RelativeLayout
+                android:id="@+id/daySpecialTitleGroupV"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/menuGroup_bg">
@@ -127,6 +131,7 @@
                 android:layout_height="wrap_content"/>
 
             <RelativeLayout
+                android:id="@+id/youLikeTitleGroupV"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/menuGroup_bg">
