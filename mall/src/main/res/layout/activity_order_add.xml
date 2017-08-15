@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_action_bar"
+        android:orientation="horizontal">
+
+        <junze.widget.Tile
+            android:id="@+id/tl_back"
+            style="@style/LinearLayout.ActionBarBox"
+            app:tileImgSrc="@drawable/slic_all_back"
+            ></junze.widget.Tile>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="填写订单"
+            android:textSize="@dimen/def_action_bar_title_font"/>
+
+        <junze.widget.Tile
+            android:visibility="invisible"
+            style="@style/LinearLayout.ActionBarBox"
+            android:layout_weight="0"
+            app:tileText="编辑"
+            app:tileTextColor="@color/black"
+            ></junze.widget.Tile>
+
+    </LinearLayout>
+
+    <View style="@style/Line.Horizontal"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            
+            <LinearLayout
+                android:layout_marginTop="@dimen/p20"
+                android:layout_width="match_parent"
+                android:background="@drawable/bg_address_envelope"
+                android:layout_height="@dimen/p10"></LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="#fffced"
+                android:layout_height="@dimen/p140"></LinearLayout>
+
+
+            <!--<junze.widget.Tile-->
+                <!--android:layout_marginLeft="@dimen/p16"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="@dimen/p100"-->
+                <!--android:layout_gravity="left|center_vertical"-->
+                <!--app:tileImgSrc="@drawable/temp_ic_empty_100"-->
+                <!--app:tileOrientation="horizontal"-->
+                <!--app:tileText="看了该商品的人还买了"-->
+                <!--app:tileTextColor="@color/black"-->
+                <!--&gt;</junze.widget.Tile>-->
+
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/rv_other_buy"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>-->
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <View style="@style/Line.Horizontal" />
+
+    <LinearLayout
+        android:layout_weight="0"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p100">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/p16"
+            android:textColor="@color/darkred"
+            android:text="应付:￥86.00"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_order"
+            android:layout_weight="0"
+            android:layout_width="@dimen/p260"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@color/darkred"
+            android:text="下单"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
