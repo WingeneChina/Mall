@@ -105,9 +105,13 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
                 switchFragment(2, hidePosition);
                 hidePosition = 2;
                 break;
-            case R.id.fiveMenuV:
+            case R.id.fourthMenuV:
                 switchFragment(3, hidePosition);
                 hidePosition = 3;
+                break;
+            case R.id.fiveMenuV:
+                switchFragment(4, hidePosition);
+                hidePosition = 4;
                 break;
         }
     }
