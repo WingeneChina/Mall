@@ -1,24 +1,35 @@
 package cn.wingene.mallxm.display.home;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxf.adapter.MailFragmentPagerAdapter;
+import cn.wingene.mallxf.model.IndexModel;
 import cn.wingene.mallxf.ui.MyBaseFragment;
+import cn.wingene.mallxm.display.home.secondMenu.SelectedFragment;
 
 /**
  * Created by wangcq on 2017/8/7.
+ * 专题
  */
 
 public class SecondMenuFragment extends MyBaseFragment {
 
-    private SimpleDraweeView rollPagerItemV;
+    private View mRootView;
+    private ViewPager specialPagerV;
+    private TabLayout selectTabLayout;
+    private MailFragmentPagerAdapter mMailFragmentPagerAdapter;
+
 
     public static SecondMenuFragment newInstance(Bundle args) {
         SecondMenuFragment secondMenuFragment = new SecondMenuFragment();
@@ -32,16 +43,42 @@ public class SecondMenuFragment extends MyBaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_secondmenu_layout, container, false);
-        initViews(view);
-
+//        mRootView = view;
+//        initViews(view);
+//        initViewPagerData();
         return view;
     }
 
+
     private void initViews(View root) {
-        rollPagerItemV = (SimpleDraweeView) root.findViewById(R.id.rollPagerItemV);
-        Uri uri = Uri.parse("https://timgsa.baidu" +
-                ".com/timg?image&quality=80&size=b9999_10000&sec=1502895322&di=228c7770fb082ec620cf1f373649b161" +
-                "&imgtype=jpg&er=1&src=http%3A%2F%2Fimgcache.cjmx.com%2Ffilm%2F201608%2F20160830144736364.jpg");
-        rollPagerItemV.setImageURI(uri);
+//        specialPagerV = (ViewPager) root.findViewById(R.id.specialPagerV);
+//        selectTabLayout = (TabLayout) root.findViewById(R.id.selectTabLayout);
+
+    }
+
+    private void initViewPagerData() {
+        try {
+
+            List<IndexModel> indexModelList = new ArrayList<>();
+            indexModelList.add(new IndexModel("精选", SelectedFragment.newInstance(null)));
+            indexModelList.add(new IndexModel("家居", SelectedFragment.newInstance(null)));
+            indexModelList.add(new IndexModel("家电", SelectedFragment.newInstance(null)));
+            indexModelList.add(new IndexModel("汽车", SelectedFragment.newInstance(null)));
+
+            Log.e(this.getClass().getName(), "indexList.size() = " + indexModelList.size());
+            mMailFragmentPagerAdapter = new MailFragmentPagerAdapter(getChildFragmentManager(), indexModelList);
+            specialPagerV.setAdapter(mMailFragmentPagerAdapter);
+
+            selectTabLayout.setupWithViewPager(specialPagerV, true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        Log.e(this.getClass().getName(), "hidden = " + hidden);
     }
 }

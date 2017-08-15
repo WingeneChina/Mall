@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -82,6 +83,7 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
 
     private void switchFragment(int showPosition, int hidePosition) {
         if (mFragments[showPosition] == null) {
+            Log.e(this.getClass().getName(),"qie target = null");
             initFragments(null);
         }
         ActivityUtils.showHideFragment(getSupportFragmentManager(), mFragments[showPosition], mFragments[hidePosition]);
@@ -97,6 +99,7 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
             case R.id.secondMenuV:
                 switchFragment(1, hidePosition);
                 hidePosition = 1;
+//                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),SecondMenuFragment.newInstance(null),R.id.contentV);
                 break;
             case R.id.thirdMenuV:
                 switchFragment(2, hidePosition);

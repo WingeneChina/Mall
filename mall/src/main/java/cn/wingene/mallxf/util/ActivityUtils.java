@@ -42,14 +42,14 @@ public class ActivityUtils {
     }
 
     public static void addMulFragmentToActivity(@NonNull FragmentManager fragmentManager,
-                                                @NonNull Fragment[] fragments, int showPositoon, int frameId) {
+                                                @NonNull Fragment[] fragments, int showPosition, int frameId) {
         checkNotNull(fragmentManager);
         checkNotNull(fragments);
         FragmentTransaction transaction = fragmentManager.beginTransaction().setTransition(4097);
         for (int i = 0; i < fragments.length; i++) {
             Fragment fragment = fragments[i];
             transaction.add(frameId, fragment, fragment.getClass().getSimpleName());
-            if (i != showPositoon) {
+            if (i != showPosition) {
                 transaction.hide(fragment);
             }
         }
@@ -58,7 +58,8 @@ public class ActivityUtils {
 
     public static void showHideFragment(@NonNull FragmentManager fragmentManager,
                                         @NonNull Fragment showFragment, @NonNull Fragment hideFragment) {
-        fragmentManager.beginTransaction().show(showFragment).hide(hideFragment).commit();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.hide(hideFragment).show(showFragment).commit();
 
     }
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import cn.wingene.mall.R;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 
 /**
@@ -25,6 +26,8 @@ public class FiveMenuFragment extends MyBaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_five_menu_layout, container, false);
+
+        return view;
     }
 }

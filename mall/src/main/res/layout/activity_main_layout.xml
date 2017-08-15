@@ -20,38 +20,48 @@
         android:id="@+id/menuGroup"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/menuGroup_bg"
+        android:background="@color/white"
         android:orientation="horizontal"
+        android:padding="5dp"
         >
 
         <RadioButton
             android:id="@+id/firstMenuV"
             style="@style/menu_style"
             android:text="@string/first_menu"
+            android:drawableTop="@drawable/home_selector"
+            android:checked="true"
             />
 
         <RadioButton
             android:id="@+id/secondMenuV"
             style="@style/menu_style"
             android:text="@string/second_menu"
+            android:drawableTop="@drawable/special_selector"
             />
 
         <RadioButton
             android:id="@+id/thirdMenuV"
             style="@style/menu_style"
             android:text="@string/third_menu"
+            android:drawableTop="@drawable/zhoubian_selector"
+
             />
 
         <RadioButton
             android:id="@+id/fourthMenuV"
             style="@style/menu_style"
             android:text="@string/fourth_menu"
+            android:drawableTop="@drawable/car_selector"
+
             />
 
         <RadioButton
             android:id="@+id/fiveMenuV"
             style="@style/menu_style"
             android:text="@string/five_menu"
+            android:drawableTop="@drawable/person_selector"
+
             />
     </RadioGroup>
 </LinearLayout>
