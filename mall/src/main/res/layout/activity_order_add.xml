@@ -44,33 +44,206 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="match_parent">
-            
+
             <LinearLayout
                 android:layout_marginTop="@dimen/p20"
                 android:layout_width="match_parent"
                 android:background="@drawable/bg_address_envelope"
                 android:layout_height="@dimen/p10"></LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:background="#fffced"
-                android:layout_height="@dimen/p140"></LinearLayout>
+                android:layout_height="@dimen/p140">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="210"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/p30"
+                        android:paddingTop="@dimen/p35"
+                        android:text="默认地址"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/p30"
+                        android:layout_marginTop="@dimen/p10"
+                        android:background="@drawable/shape_darkgray_stroke"
+                        android:text="默认"/>
 
 
-            <!--<junze.widget.Tile-->
-                <!--android:layout_marginLeft="@dimen/p16"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="@dimen/p100"-->
-                <!--android:layout_gravity="left|center_vertical"-->
-                <!--app:tileImgSrc="@drawable/temp_ic_empty_100"-->
-                <!--app:tileOrientation="horizontal"-->
-                <!--app:tileText="看了该商品的人还买了"-->
-                <!--app:tileTextColor="@color/black"-->
-                <!--&gt;</junze.widget.Tile>-->
+                </LinearLayout>
 
-            <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/rv_other_buy"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="450"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/p10"
+                        android:paddingTop="@dimen/p35"
+                        android:text="电话"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/p10"
+                        android:paddingTop="@dimen/p10"
+                        android:text="详情地址"/>
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/p10"
+                    android:layout_marginRight="@dimen/p30"
+                    android:layout_weight="0"
+                    android:src="@drawable/ic_goods_arrow_right_gray"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/p20"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:paddingLeft="@dimen/p30"
+                android:layout_height="@dimen/p104">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:text="使用应币:30"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="left|center_vertical"
+                    android:gravity="right"
+                    android:text="现有应币3000"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/p10"
+                    android:layout_marginRight="@dimen/p30"
+                    android:layout_weight="0"
+                    android:src="@drawable/ic_goods_arrow_right_gray"/>
+
+            </LinearLayout>
+
+            <View
+                style="@style/Line.Horizontal"
+                android:layout_marginLeft="@dimen/p30"/>
+
+            <LinearLayout
+                android:background="@color/white"
+                android:paddingLeft="@dimen/p30"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/p104">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="left|center_vertical"
+                    android:text="游币余额：100"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/p10"
+                    android:layout_marginRight="@dimen/p30"
+                    android:layout_weight="0"
+                    android:src="@drawable/ic_goods_arrow_right_gray"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/p20"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:paddingLeft="@dimen/p30"
+                android:orientation="horizontal"
+                android:layout_height="@dimen/p104">
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:text="商品原价"
+                android:layout_height="wrap_content"/>
+                <TextView
+                    android:gravity="right"
+                    android:paddingRight="@dimen/p30"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="right|center_vertical"
+                    android:text="Y299.00"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <View
+                style="@style/Line.Horizontal"
+                android:layout_marginLeft="@dimen/p30"/>
+
+            <LinearLayout
+                android:background="@color/white"
+                android:paddingLeft="@dimen/p30"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/p104">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:text="应币抵扣：-Y30        游币抵扣：-Y100"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <View
+                style="@style/Line.Horizontal"
+                android:layout_marginLeft="@dimen/p30"/>
+
+            <LinearLayout
+                android:background="@color/white"
+                android:paddingLeft="@dimen/p30"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/p104">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:text="运费"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:gravity="right"
+                    android:paddingRight="@dimen/p30"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="right|center_vertical"
+                    android:text="Y0.00"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+            <CheckBox
+                android:layout_marginLeft="@dimen/p30"
+                android:layout_width="wrap_content"
+                android:text="我已同意《服务协议》"
+                android:layout_marginBottom="@dimen/p150"
+                android:layout_height="wrap_content"/>
+
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

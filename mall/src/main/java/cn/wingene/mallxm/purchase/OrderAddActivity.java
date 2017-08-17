@@ -2,6 +2,7 @@ package cn.wingene.mallxm.purchase;
 
 import android.os.Bundle;
 
+import cn.wingene.mall.R;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 
 /**
@@ -12,6 +13,7 @@ public class OrderAddActivity extends MyBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_order_add);
 
     }
 }
