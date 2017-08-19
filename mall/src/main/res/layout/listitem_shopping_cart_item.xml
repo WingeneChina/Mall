@@ -22,7 +22,7 @@
             android:id="@+id/tv_title"
             android:layout_alignParentTop="true"
             android:layout_width="match_parent"
-            android:textSize="@dimen/f35"
+            android:textSize="@dimen/f36"
             android:text="这是商品这是商品这是商品"
             android:layout_height="wrap_content"/>
         <TextView

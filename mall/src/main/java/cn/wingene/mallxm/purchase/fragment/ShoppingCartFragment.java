@@ -9,11 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
+import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.YouLikeProduceAdapter;
+import cn.wingene.mallxm.purchase.adapter.CartItemAdapter;
 import junze.widget.Tile;
 
 /**
@@ -24,13 +27,14 @@ public class ShoppingCartFragment extends MyBaseFragment {
     private Tile tlBack;
     private RecyclerView rvCartItem;
     private RecyclerView rvOtherBuy;
+    private TextView tvOrder;
 
     protected void initComponent(View v){
         tlBack = (Tile) v.findViewById(R.id.tl_back);
         rvCartItem = (RecyclerView) v.findViewById(R.id.rv_cart_item);
         rvOtherBuy = (RecyclerView) v.findViewById(R.id.rv_other_buy);
+        tvOrder = (TextView) v.findViewById(R.id.tv_order);
     }
-
 
     @Nullable
     @Override
@@ -46,6 +50,13 @@ public class ShoppingCartFragment extends MyBaseFragment {
         });
         initCartItems();
         initOtherBuys();
+        tvOrder.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JumpHelper.startOrderAddActivity(getContext());
+            }
+        });
+
         return v;
     }
 

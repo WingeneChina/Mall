@@ -37,10 +37,13 @@
     <View style="@style/Line.Horizontal"/>
 
     <android.support.v4.widget.NestedScrollView
+        android:orientation="vertical"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="match_parent">
@@ -235,14 +238,17 @@
 
             </LinearLayout>
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_order_item"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
             <CheckBox
-                android:layout_marginLeft="@dimen/p30"
                 android:layout_width="wrap_content"
-                android:text="我已同意《服务协议》"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/p150"
-                android:layout_height="wrap_content"/>
+                android:layout_marginLeft="@dimen/p30"
+                android:text="我已同意《服务协议》"
+                android:textColor="@color/gray"/>
 
 
         </LinearLayout>
@@ -259,7 +265,7 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:gravity="left|center_vertical"
-            android:paddingLeft="@dimen/p16"
+            android:paddingLeft="@dimen/p30"
             android:textColor="@color/darkred"
             android:text="应付:￥86.00"
             android:layout_height="match_parent"/>
@@ -271,7 +277,7 @@
             android:gravity="center"
             android:textColor="@color/white"
             android:background="@color/darkred"
-            android:text="下单"
+            android:text="去付款"
             android:layout_height="match_parent"/>
 
 

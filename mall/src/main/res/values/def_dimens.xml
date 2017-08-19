@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="f35">@dimen/pxd35_360xh</dimen>
     <dimen name="f40">@dimen/pxd40_360xh</dimen>
+    <dimen name="f36">@dimen/pxd36_360xh</dimen>
+    <dimen name="f32">@dimen/pxd32_360xh</dimen>
+    <dimen name="f28">@dimen/pxd28_360xh</dimen>
+    <dimen name="f24">@dimen/pxd24_360xh</dimen>
 
-    <dimen name="def_action_bar_title_font">@dimen/f35</dimen>
+    <dimen name="def_action_bar_title_font">@dimen/f40</dimen>
 </resources>

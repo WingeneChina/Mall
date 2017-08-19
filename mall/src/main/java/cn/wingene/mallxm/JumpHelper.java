@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import cn.wingene.mallxm.purchase.CommodityDetailActivity;
+import cn.wingene.mallxm.purchase.OrderAddActivity;
 import cn.wingene.mallxm.purchase.ShoppingCartActivity;
 
 import junze.androidxf.core.Agent.Major.IntentBuilder;
@@ -20,6 +21,9 @@ public class JumpHelper {
     }
     public static void startShoppingCartActivity(Context context) {
         create(context, ShoppingCartActivity.class).startActivity();
+    }
+    public static void startOrderAddActivity(Context context) {
+        create(context, OrderAddActivity.class).startActivity();
     }
 
 

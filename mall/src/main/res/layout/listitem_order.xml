@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="horizontal"
+              android:padding="@dimen/p20">
+
+    <ImageView
+        android:layout_marginLeft="@dimen/p10"
+
+        android:layout_width="@dimen/p140"
+        android:layout_height="@dimen/p140"
+        android:background="@color/lightgray"
+        android:src="@drawable/temp_ic_empty_100"/>
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/p20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/p6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textSize="@dimen/p28"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="商品名称"
+                android:gravity="bottom"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="x 1"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:lineSpacingMultiplier="1"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/f24"
+            android:layout_marginTop="@dimen/p4"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:text="数量与规格"
+            android:textColor="@color/gray"/>
+
+        <TextView
+            android:lineSpacingMultiplier="1"
+            android:textSize="@dimen/f28"
+            android:layout_marginTop="@dimen/p13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:text="价格"
+            android:textColor="@color/black"/>
+
+
+    </LinearLayout>
+</LinearLayout>

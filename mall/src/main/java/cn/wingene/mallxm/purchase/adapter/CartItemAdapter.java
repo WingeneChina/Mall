@@ -1,4 +1,4 @@
-package cn.wingene.mallxm.purchase.fragment;
+package cn.wingene.mallxm.purchase.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
