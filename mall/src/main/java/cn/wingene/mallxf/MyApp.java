@@ -2,6 +2,7 @@ package cn.wingene.mallxf;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 import android.app.AlarmManager;
 import android.app.Application;
@@ -43,14 +44,14 @@ import junze.androidxf.manager.FileManager;
 
 public class MyApp extends Application implements CrashHandleAble {
     public final static String TAG = "MyApp";
-    public static Application mApp = null;
+    public static WeakReference<Application> mApp = null;
     private final static AppState appState = AppState.TEST;
 
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mApp = this;
+        mApp = new WeakReference<Application>(this);
         if (getAppstate() == AppState.RELEASE) {
             AUtil.setDevelopModel(false);
             junze.android.util.Log.setShowLog(false);
