@@ -34,7 +34,7 @@
             android:text="黑色的商品"
             android:layout_height="wrap_content"/>
         <LinearLayout
-            android:background="@drawable/shape_darkgray_stroke"
+            android:background="@drawable/shape_stroke_darkgray"
             android:id="@+id/_llyt_number"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"

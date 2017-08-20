@@ -31,6 +31,8 @@
         <activity android:name="cn.wingene.mallxm.purchase.CommodityDetailActivity"/>
         <activity android:name="cn.wingene.mallxm.purchase.ShoppingCartActivity"/>
         <activity android:name="cn.wingene.mallxm.purchase.OrderAddActivity"/>
+        <activity android:name="cn.wingene.mallxm.purchase.AddressAddActivity"/>
+        <activity android:name="cn.wingene.mallxm.purchase.AddressManagerActivity"/>
     </application>
 
 </manifest>

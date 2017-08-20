@@ -2,6 +2,7 @@ package cn.wingene.mallxf;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.Thread.UncaughtExceptionHandler;
 
 import android.app.AlarmManager;
 import android.app.Application;
@@ -45,6 +46,7 @@ public class MyApp extends Application implements CrashHandleAble {
     public final static String TAG = "MyApp";
     public static Application mApp = null;
     private final static AppState appState = AppState.TEST;
+    UncaughtExceptionHandler mDefaultHandler;
 
 
     @Override
@@ -61,6 +63,7 @@ public class MyApp extends Application implements CrashHandleAble {
                 .setDataBaseHelper(MyDBHelper.class).build();
         AndroidFramer.getInstance().init(config);
 
+        mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(CrashHander.getInstance()
                 .init(this.getResources().getString(R.string.app_name), this).setUncaughtHandler(this));
 
@@ -93,26 +96,14 @@ public class MyApp extends Application implements CrashHandleAble {
     public void handle(CrashHander hander, ErrorInfo info, Thread thread, Throwable throwable) {
         try {
             FileUtil.export(info.toString() + "\r\n", FileManager.getInstance().getCreashLogFile(), true);
-//            final BugInfo buginfo = new BugInfo();
-            //            buginfo.setVersion(info.getPackageName() + info.getVersionName());
-            //            buginfo.setError(info.getErrorInfo());
-            //            buginfo.setContext(info.getMobileInfo());
-            //            if (!UserInfoManager.getInstance().isLogined()) {
-            //                // 强制下线可能引发空指针的问题。无须提示。
-            //                reStart();
-            //                hander.killMyAppAfter(2);
-            //                return;
-            //            }
+
             if (throwable instanceof OutOfMemoryError) {
                 hander.showToast(String.format("%s 内存溢出，即将退出！", info.getAppName()));
-                reStart();
-                hander.killMyAppAfter(2);
-
             } else {
                 hander.showToast(String.format("%s 发生异常，即将退出！", info.getAppName()));
                 try {
                     // 在andorid 5的系统下会自动kill，所以要先睡住。
-                    Thread.sleep(5000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -120,6 +111,7 @@ public class MyApp extends Application implements CrashHandleAble {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        mDefaultHandler.uncaughtException(thread,throwable);
     }
 
     private void reStart() {

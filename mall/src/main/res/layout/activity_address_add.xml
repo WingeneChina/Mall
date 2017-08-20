@@ -1,7 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_action_bar"
+        android:orientation="horizontal">
+
+        <junze.widget.Tile
+            android:id="@+id/tl_back"
+            style="@style/LinearLayout.ActionBarBox"
+            app:tileImgSrc="@drawable/slic_all_back"
+            ></junze.widget.Tile>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="新建地址"
+            android:textSize="@dimen/def_action_bar_title_font"/>
+
+        <junze.widget.Tile
+            style="@style/LinearLayout.ActionBarBox"
+            android:layout_weight="0"
+            android:visibility="visible"
+            app:tileText="保存"
+            app:tileTextColor="@color/black"
+            ></junze.widget.Tile>
+
+    </LinearLayout>
+    <View style="@style/Line.Horizontal"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p100"
+        android:gravity="center_vertical"
+        android:hint="省份、城市、区县"
+        android:layout_marginLeft="@dimen/p30"/>
+
+    <View
+        style="@style/Line.Horizontal"
+        android:layout_marginLeft="@dimen/p30"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p100"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/f28"
+        android:background="@color/transparent"
+        android:hint="详情地址，如街道、楼牌号等"
+        android:layout_marginLeft="@dimen/p30"/>
+
+    <View
+        style="@style/Line.Horizontal"
+        android:layout_marginLeft="@dimen/p30"/>
+
+    <EditText
+        android:background="@color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p100"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/f28"
+        android:hint="姓名"
+        android:layout_marginLeft="@dimen/p30"/>
+
+    <View
+        style="@style/Line.Horizontal"
+        android:layout_marginLeft="@dimen/p30"/>
+
+    <EditText
+        android:background="@color/transparent"
+        android:layout_width="match_parent"
+        android:textSize="@dimen/f28"
+        android:layout_height="@dimen/p100"
+        android:gravity="center_vertical"
+        android:inputType="phone"
+        android:hint="手机号"
+        android:layout_marginLeft="@dimen/p30"/>
+
+    <View
+        style="@style/Line.Horizontal"
+        android:layout_marginLeft="@dimen/p30"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/p150"
+            android:layout_marginLeft="@dimen/p30"
+            android:text="设为默认地址"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
 
 </LinearLayout>

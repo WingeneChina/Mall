@@ -3,6 +3,8 @@ package cn.wingene.mallxm;
 import android.app.Activity;
 import android.content.Context;
 
+import cn.wingene.mallxm.purchase.AddressAddActivity;
+import cn.wingene.mallxm.purchase.AddressManagerActivity;
 import cn.wingene.mallxm.purchase.CommodityDetailActivity;
 import cn.wingene.mallxm.purchase.OrderAddActivity;
 import cn.wingene.mallxm.purchase.ShoppingCartActivity;
@@ -24,6 +26,12 @@ public class JumpHelper {
     }
     public static void startOrderAddActivity(Context context) {
         create(context, OrderAddActivity.class).startActivity();
+    }
+    public static void startAddressManagerActivity(Context context) {
+        create(context, AddressManagerActivity.class).startActivity();
+    }
+    public static void startAddressAddActivity(Context context) {
+        create(context, AddressAddActivity.class).startActivity();
     }
 
 
