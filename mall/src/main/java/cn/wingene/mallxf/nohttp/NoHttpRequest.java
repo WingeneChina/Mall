@@ -10,6 +10,7 @@ import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.download.DownloadListener;
 import com.yanzhenjie.nohttp.download.DownloadRequest;
 import com.yanzhenjie.nohttp.rest.CacheMode;
+import com.yanzhenjie.nohttp.rest.Request;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,7 +29,7 @@ import cn.wingene.mallxf.util.MD5Util;
  * @author wangcq
  */
 public class NoHttpRequest<T> {
-
+    private Request<String> mStringRequest;
     private JsonBeanRequest<T> request;
     private Class<T> mTClass;
 
@@ -55,12 +56,14 @@ public class NoHttpRequest<T> {
                                 isCache) {
         Logger.e("url = " + url);
         request = new JsonBeanRequest<>(url, RequestMethod.POST, mTClass);
+        if(hashParams!=null) {
+            request.add(hashParams);
+        }
         request.setCancelSign(cancelSign);
         if (isCache) {
             request.setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE);
         }
         initPublicParams();
-        request.add(hashParams);
 
         // 设置无证书https请求
         SSLContext sslContext = SSLContextUtil.getDefaultSLLContext();
@@ -74,7 +77,6 @@ public class NoHttpRequest<T> {
                     request, callback, canCancel, isShowDialog);
         }
     }
-
 
     /**
      * 上传文件
@@ -131,7 +133,8 @@ public class NoHttpRequest<T> {
 
         }
         signBuffer.append(SignParams.signKey);
-        String sign = MD5Util.getMD5String(signBuffer.toString());
+        Log.e("","签名参数 = "+signBuffer.toString());
+        String sign = MD5Util.getMD5String(signBuffer.toString()).toUpperCase();
         Log.e("","输出签名 = "+sign);
         return sign;
     }
