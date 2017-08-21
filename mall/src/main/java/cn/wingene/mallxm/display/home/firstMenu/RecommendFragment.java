@@ -16,12 +16,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.adapter.ImagePagerAdapter;
+import cn.wingene.mallxf.http.HttpConstant;
+import cn.wingene.mallxf.model.BaseResponse;
+import cn.wingene.mallxf.nohttp.HttpListener;
+import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
 import cn.wingene.mallxf.util.ActivityUtils;
@@ -38,7 +43,7 @@ import cn.wingene.mallxm.display.home.firstMenu.adapter.YouLikeProduceAdapter;
  * 推荐
  */
 
-public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener, View.OnClickListener {
+public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener, View.OnClickListener,HttpListener<BaseResponse> {
     private ViewPager mRollViewPager;
     private RecyclerView brandProductRecyclerV;
     private SimpleDraweeView perWeekBGV;
@@ -83,7 +88,16 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
         View view = inflater.inflate(R.layout.fragment_recommend_layout, container, false);
         initView(view);
         initEvent();
+        requestData();
         return view;
+    }
+
+    /**
+     *请求数据
+     */
+    private void requestData(){
+        NoHttpRequest<BaseResponse> responseNoHttpRequest = new NoHttpRequest<>(BaseResponse.class);
+        responseNoHttpRequest.request(getActivity(), HttpConstant.HOME_RECOMMEND,null,1,this,false,"recommend",true,true);
     }
 
     private void initView(View root) {
@@ -271,4 +285,13 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
         }
     }
 
+    @Override
+    public void onSucceed(int what, Response<BaseResponse> response) {
+
+    }
+
+    @Override
+    public void onFailed(int what, Object tag, Exception exception, int responseCode, long networkMillis) {
+
+    }
 }

@@ -7,5 +7,5 @@ package cn.wingene.mallxf.model;
 
 public class SignParams {
     public static String signKey = "key=BING2017@2028";
-    public static String[] signParams = {"UserId=1,DeviceType=1","DeviceKey=SWAN20187454SWAN","VerifiCode=SWDFGTRFVG","TimeStamp=1499220171"};
+    public static String[] signParams = {"UserId=1","DeviceType=1","DeviceKey=SWAN20187454SWAN","VerifiCode=SWDFGTRFVG","TimeStamp=1499220171"};
 }
