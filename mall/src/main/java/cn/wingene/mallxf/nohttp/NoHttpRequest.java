@@ -133,8 +133,9 @@ public class NoHttpRequest<T> {
 
         }
         signBuffer.append(SignParams.signKey);
-        Log.e("","签名参数 = "+signBuffer.toString());
-        String sign = MD5Util.getMD5String(signBuffer.toString()).toUpperCase();
+//        String paramStr = "DeviceType=2&TimeStamp=1503325039&UserId=0&key=BING2017@2028";
+        Log.e("","签名参数 = "+signBuffer.toString());//signBuffer.toString()
+        String sign = MD5Util.getMD5String(signBuffer.toString()).toUpperCase();//signBuffer.toString()
         Log.e("","输出签名 = "+sign);
         return sign;
     }
@@ -144,12 +145,21 @@ public class NoHttpRequest<T> {
      */
     private void initPublicParams(){
         if(request !=null){
+            String[] params = new String[]{"UserId="+UserData.getUserId(),"DeviceType="+2,"DeviceKey="+UserData.getDeviceKey(),"VerifiCode="+UserData.getverifiCode(),"TimeStamp="+System.currentTimeMillis()/1000};
+
             request.add("UserId", UserData.getUserId());//如果用户已经登陆需要传入值
             request.add("DeviceType",2);//0 网页，1/ios  2/安卓
             request.add("DeviceKey",UserData.getDeviceKey());//推送key
             request.add("VerifiCode",UserData.getverifiCode());
             request.add("TimeStamp",System.currentTimeMillis()/1000);
-            request.add("Sign",signParams(SignParams.signParams));
+            request.add("Sign",signParams(params));
+
+//            request.add("UserId",1);//如果用户已经登陆需要传入值
+//            request.add("DeviceType",1);//0 网页，1/ios  2/安卓
+//            request.add("DeviceKey","SWAN20187454SWAN ");//推送key
+//            request.add("VerifiCode","SWDFGTRFVG");
+//            request.add("TimeStamp",System.currentTimeMillis()/1000);
+//            request.add("Sign",signParams(SignParams.signParams));
         }
     }
 }

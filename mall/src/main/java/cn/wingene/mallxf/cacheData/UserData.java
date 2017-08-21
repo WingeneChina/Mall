@@ -43,7 +43,7 @@ public class UserData {
      * @return
      */
     public static String getDeviceKey(){
-        return   MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getString("DeviceKey",null);
+        return   MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getString("DeviceKey","");
     }
 
     /**
@@ -56,7 +56,7 @@ public class UserData {
     }
 
     public static String getverifiCode(){
-        return   MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getString("VerifiCode",null);
+        return   MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getString("VerifiCode","");
 
     }
 }
