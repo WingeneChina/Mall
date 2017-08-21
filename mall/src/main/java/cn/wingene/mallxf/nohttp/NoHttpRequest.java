@@ -1,6 +1,7 @@
 package cn.wingene.mallxf.nohttp;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.yanzhenjie.nohttp.FileBinary;
 import com.yanzhenjie.nohttp.Logger;
@@ -10,10 +11,16 @@ import com.yanzhenjie.nohttp.download.DownloadListener;
 import com.yanzhenjie.nohttp.download.DownloadRequest;
 import com.yanzhenjie.nohttp.rest.CacheMode;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
+
+import cn.wingene.mallxf.cacheData.UserData;
+import cn.wingene.mallxf.model.SignParams;
+import cn.wingene.mallxf.util.MD5Util;
 
 /**
  * nohttp 网络请求框架
@@ -37,21 +44,22 @@ public class NoHttpRequest<T> {
      * @param hashParams   请求字段和值
      * @param what         谁在请求
      * @param callback     请求结果回调
-     * @param canCancle    是否能取消
-     * @param cancleSign   如果canCancle 为true 则必须传取消标记
-     * @param isShowDislog 是否显示加载进度对话框
+     * @param canCancel    是否能取消
+     * @param cancelSign   如果canCancle 为true 则必须传取消标记
+     * @param isShowDialog 是否显示加载进度对话框
      * @param isCache      是否使用缓存
      */
     public void request(Activity activity, String url, HashMap<String, Object> hashParams,
-                        int what, HttpListener<T> callback, boolean canCancle, String cancleSign, boolean
-                                isShowDislog, boolean
+                        int what, HttpListener<T> callback, boolean canCancel, String cancelSign, boolean
+                                isShowDialog, boolean
                                 isCache) {
         Logger.e("url = " + url);
         request = new JsonBeanRequest<>(url, RequestMethod.POST, mTClass);
-        request.setCancelSign(cancleSign);
+        request.setCancelSign(cancelSign);
         if (isCache) {
             request.setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE);
         }
+        initPublicParams();
         request.add(hashParams);
 
         // 设置无证书https请求
@@ -63,7 +71,7 @@ public class NoHttpRequest<T> {
         }
         if (request != null) {
             CallServer.getRequestInstance().add(activity, what,
-                    request, callback, canCancle, isShowDislog);
+                    request, callback, canCancel, isShowDialog);
         }
     }
 
@@ -80,9 +88,7 @@ public class NoHttpRequest<T> {
     public void upLoadFile(Activity activity, int what, String url, FileBinary uploadFile, String platCode,
                            HttpListener<T>
                                    listener) {
-
         request = new JsonBeanRequest<>(url, RequestMethod.POST, mTClass);
-
         request.add("file", uploadFile);
         request.add("platCode", platCode);
         CallServer.getRequestInstance().add(activity, what, request, listener, false, false);
@@ -100,11 +106,47 @@ public class NoHttpRequest<T> {
         CallServer.getDownloadInstance().add(what, downloadRequest, listener);
     }
 
+    /**
+     * 取消所有
+     */
     public void cancel() {
         CallServer.getRequestInstance().cancelAll();
     }
 
+    /**
+     * 取消某一个请求
+     * @param requestSign
+     */
     public void cancelSpecialRequest(Object requestSign) {
         CallServer.getRequestInstance().cancelBySign(requestSign);
+    }
+
+
+    public static String signParams(String[] listParams){
+        StringBuffer signBuffer = new StringBuffer();
+        Arrays.sort(listParams);
+        for(int i=0;i<listParams.length;i++){
+            signBuffer.append(listParams[i]);
+            signBuffer.append("&");
+
+        }
+        signBuffer.append(SignParams.signKey);
+        String sign = MD5Util.getMD5String(signBuffer.toString());
+        Log.e("","输出签名 = "+sign);
+        return sign;
+    }
+
+    /**
+     * 初始化公共参数
+     */
+    private void initPublicParams(){
+        if(request !=null){
+            request.add("UserId", UserData.getUserId());//如果用户已经登陆需要传入值
+            request.add("DeviceType",2);//0 网页，1/ios  2/安卓
+            request.add("DeviceKey",UserData.getDeviceKey());//推送key
+            request.add("VerifiCode",UserData.getverifiCode());
+            request.add("TimeStamp",System.currentTimeMillis()/1000);
+            request.add("Sign",signParams(SignParams.signParams));
+        }
     }
 }
