@@ -14,6 +14,8 @@ import cn.wingene.mall.R;
 import cn.wingene.mallxf.adapter.ImagePagerAdapter;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxm.JumpHelper;
+import cn.wingene.mallxm.purchase.ask.AskProductDetail;
+import cn.wingene.mallxm.purchase.ask.AskProductDetail.Response;
 import junze.widget.Tile;
 import junze.widget.ViewPager;
 
@@ -72,7 +74,12 @@ public class CommodityDetailActivity extends MyBaseActivity {
         });
         initRollPager();
         loadWebData();
-
+        ask(new AskProductDetail.Request(1, 0) {
+            @Override
+            public void updateUI(Response rsp) {
+                super.updateUI(rsp);
+            }
+        });
 
     }
 
