@@ -52,8 +52,8 @@ public class ProductListFragment extends MyBaseFragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         productListRecyclerV.setLayoutManager(gridLayoutManager);
 
-        YouLikeProduceAdapter youLikeProduceAdapter = new YouLikeProduceAdapter();
-        productListRecyclerV.setAdapter(youLikeProduceAdapter);
+//        YouLikeProduceAdapter youLikeProduceAdapter = new YouLikeProduceAdapter();
+//        productListRecyclerV.setAdapter(youLikeProduceAdapter);
 
         SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
         productListRecyclerV.addItemDecoration(spaceItemDecoration);

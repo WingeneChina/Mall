@@ -10,7 +10,7 @@
     <color name="menu_selected_color">#BC7356</color>
     <color name="menu_unSelected_color">#C79472</color>
 
-    <color name="translucent">#20333333</color>
+    <color name="translucent">#20999999</color>
 
     <color name="three_text_color">#333333</color>
     <color name="six_text_color">#666666</color>

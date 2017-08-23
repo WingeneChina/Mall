@@ -77,8 +77,8 @@ public class ShoppingCartFragment extends MyBaseFragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         rvOtherBuy.setLayoutManager(gridLayoutManager);
 
-        YouLikeProduceAdapter youLikeProduceAdapter = new YouLikeProduceAdapter();
-        rvOtherBuy.setAdapter(youLikeProduceAdapter);
+//        YouLikeProduceAdapter youLikeProduceAdapter = new YouLikeProduceAdapter();
+//        rvOtherBuy.setAdapter(youLikeProduceAdapter);
 
         SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
         rvOtherBuy.addItemDecoration(spaceItemDecoration);

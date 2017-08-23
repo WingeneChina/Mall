@@ -4,13 +4,14 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="110dp"
+    android:elevation="1dp"
     android:stateListAnimator="@animator/raise"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/translucent"
+        android:background="@android:color/white"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -18,16 +19,20 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:paddingLeft="15dp"
+            android:paddingRight="5dp"
             android:paddingTop="10dp"
+            android:visibility="gone"
             >
 
             <TextView
                 android:id="@+id/brandProductNameV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
                 android:text="新秀丽制造商"
                 android:textColor="@color/six_text_color"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 />
 
             <TextView
@@ -40,20 +45,31 @@
                 android:textSize="12sp"
                 />
 
-            <ImageView
+            <TextView
                 android:id="@+id/brandProductMarkV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/brandProductPriceV"/>
+                android:layout_below="@+id/brandProductPriceV"
+                android:layout_marginTop="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/brandProductMarkTwoV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/brandProductPriceV"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/brandProductMarkV"
+                android:visibility="gone"/>
         </RelativeLayout>
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/brandProductImgV"
-            android:layout_width="70dp"
-            android:layout_height="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
             fresco:placeholderImage="@drawable/placeholder"
             />
 

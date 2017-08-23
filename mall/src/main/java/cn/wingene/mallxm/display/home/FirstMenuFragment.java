@@ -11,12 +11,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.common.collect.Collections2;
+import com.yanzhenjie.nohttp.rest.Response;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.adapter.MailFragmentPagerAdapter;
+import cn.wingene.mallxf.http.HttpConstant;
+import cn.wingene.mallxf.model.BaseResponse;
 import cn.wingene.mallxf.model.IndexModel;
+import cn.wingene.mallxf.nohttp.GsonUtil;
+import cn.wingene.mallxf.nohttp.HttpListener;
+import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxm.display.home.firstMenu.BeautyFragment;
 import cn.wingene.mallxm.display.home.firstMenu.CarUseFragment;
@@ -29,13 +38,14 @@ import cn.wingene.mallxm.display.home.firstMenu.PersonalCareFragment;
 import cn.wingene.mallxm.display.home.firstMenu.RecommendFragment;
 import cn.wingene.mallxm.display.home.firstMenu.SnacksFragment;
 import cn.wingene.mallxm.display.home.firstMenu.SpecialOfferFragment;
+import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
 
 /**
  * Created by wangcq on 2017/8/7.
  * 首页
  */
 
-public class FirstMenuFragment extends MyBaseFragment {
+public class FirstMenuFragment extends MyBaseFragment implements HttpListener<String> {
 
     private ImageView logoV;
     private TextView searchMarkV;
@@ -59,6 +69,7 @@ public class FirstMenuFragment extends MyBaseFragment {
         View view = inflater.inflate(R.layout.fragment_firstmenu_layout, container, false);
         initViews(view);
         initViewPager();
+//        requestData();
 
         return view;
     }
@@ -70,6 +81,15 @@ public class FirstMenuFragment extends MyBaseFragment {
         mTabLayout = (TabLayout) root.findViewById(R.id.tabLayout);
         contentPagerV = (ViewPager) root.findViewById(R.id.contentPagerV);
 
+    }
+
+    /**
+     * 请求数据
+     */
+    private void requestData() {
+        NoHttpRequest<BaseResponse> responseNoHttpRequest = new NoHttpRequest<>(BaseResponse.class);
+        responseNoHttpRequest.request(getActivity(), HttpConstant.HOME_RECOMMEND, null, 1, this, false, "recommend",
+                true, true);
     }
 
     private void initViewPager() {
@@ -91,5 +111,16 @@ public class FirstMenuFragment extends MyBaseFragment {
         mMailFragmentPagerAdapter = new MailFragmentPagerAdapter(getChildFragmentManager(), fragmentList);
         contentPagerV.setAdapter(mMailFragmentPagerAdapter);
         mTabLayout.setupWithViewPager(contentPagerV, true);//同步
+    }
+
+    @Override
+    public void onSucceed(int what, Response<String> response) {
+        GsonUtil<RecommendModel> gsonUtil = new GsonUtil<>(RecommendModel.class);
+        RecommendModel recommendModel = gsonUtil.fromJson(response.get());
+    }
+
+    @Override
+    public void onFailed(int what, Object tag, Exception exception, int responseCode, long networkMillis) {
+
     }
 }

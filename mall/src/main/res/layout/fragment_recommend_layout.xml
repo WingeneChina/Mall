@@ -30,7 +30,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/menuGroup_bg">
-
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/brandBackV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -38,13 +41,15 @@
                     android:gravity="center"
                     android:text="品牌制造商直供"
                     android:textColor="@color/menu_selected_color"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:visibility="gone"/>
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/brandProductRecyclerV"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"/>
 
             <RelativeLayout
                 android:id="@+id/perWeekTitleGroupV"
@@ -70,7 +75,8 @@
                         android:layout_height="wrap_content"
                         android:text="周一周四-新品首发"
                         android:textColor="@color/menu_selected_color"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -79,7 +85,8 @@
                         android:layout_marginTop="3dp"
                         android:text="查看全部"
                         android:textColor="@color/menu_unSelected_color"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:visibility="gone"/>
                 </LinearLayout>
             </RelativeLayout>
 
@@ -93,13 +100,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/menuGroup_bg">
-
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/personRecommendBgV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:text="人气推荐"
+                    android:visibility="gone"
                     android:textColor="@color/menu_selected_color"
                     android:textSize="14sp"/>
             </RelativeLayout>
@@ -114,13 +125,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/menuGroup_bg">
-
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/daySpecialBgV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:text="天天特价"
+                    android:visibility="gone"
                     android:textColor="@color/menu_selected_color"
                     android:textSize="14sp"/>
             </RelativeLayout>
@@ -136,6 +151,10 @@
                 android:layout_height="40dp"
                 android:background="@color/menuGroup_bg">
 
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/youLikeBgV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -143,7 +162,8 @@
                     android:gravity="center"
                     android:text="猜你喜欢"
                     android:textColor="@color/menu_selected_color"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:visibility="gone"/>
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView

@@ -23,7 +23,7 @@ public class BaseResponse {
     /**
      * 位置参数
      */
-    public String act;
+    public Object act;
     /**
      * 请求数据
      */
