@@ -19,12 +19,15 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.adapter.ImagePagerAdapter;
 import cn.wingene.mallxf.http.HttpConstant;
 import cn.wingene.mallxf.model.BaseResponse;
+import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.ui.MyBaseFragment;
@@ -37,13 +40,14 @@ import cn.wingene.mallxm.display.home.firstMenu.adapter.DaySpecialPriceAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.PerWeekProductAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.PersonRecommendAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.YouLikeProduceAdapter;
+import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
 
 /**
  * Created by wangcq on 2017/8/8.
  * 推荐
  */
 
-public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener, View.OnClickListener,HttpListener<BaseResponse> {
+public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener, View.OnClickListener,HttpListener<String> {
     private ViewPager mRollViewPager;
     private RecyclerView brandProductRecyclerV;
     private SimpleDraweeView perWeekBGV;
@@ -73,6 +77,11 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     private RelativeLayout personRecommendTitleGroupV;
     private RelativeLayout daySpecialTitleGroupV;
     private RelativeLayout youLikeTitleGroupV;
+
+    private SimpleDraweeView brandBackV;
+    private SimpleDraweeView personRecommendBgV;
+    private SimpleDraweeView daySpecialBgV;
+    private SimpleDraweeView youLikeBgV;
 
     public static RecommendFragment newInstance(Bundle bundle) {
         RecommendFragment recommendFragment = new RecommendFragment();
@@ -117,12 +126,14 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
         daySpecialTitleGroupV = (RelativeLayout) root.findViewById(R.id.daySpecialTitleGroupV);
         youLikeTitleGroupV = (RelativeLayout) root.findViewById(R.id.youLikeTitleGroupV);
 
-        initRollPager();
-        initBrandProduct();
-        initPerWeekProduct();
-        initPersonRecommend();
-        initDaySpecial();
-        initYouLike();
+        brandBackV = (SimpleDraweeView) root.findViewById(R.id.brandBackV);
+        personRecommendBgV = (SimpleDraweeView) root.findViewById(R.id.personRecommendBgV);
+        daySpecialBgV = (SimpleDraweeView) root.findViewById(R.id.daySpecialBgV);
+        youLikeBgV = (SimpleDraweeView) root.findViewById(R.id.youLikeBgV);
+//        initPerWeekProduct();
+//        initPersonRecommend();
+//        initDaySpecial();
+//        initYouLike();
     }
 
     /**
@@ -160,12 +171,14 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     /**
      * 猜你喜欢
      */
-    private void initYouLike() {
+    private void initYouLike(RecommendModel.DataBean.LikeBean likeBean) {
         youLikeRecyclerV.setNestedScrollingEnabled(false);
+        youLikeBgV.setImageURI(likeBean.getImage());
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         youLikeRecyclerV.setLayoutManager(gridLayoutManager);
 
-        YouLikeProduceAdapter youLikeProduceAdapter = new YouLikeProduceAdapter();
+        YouLikeProduceAdapter youLikeProduceAdapter = new YouLikeProduceAdapter(likeBean.getProductList());
         youLikeRecyclerV.setAdapter(youLikeProduceAdapter);
 
         SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
@@ -175,13 +188,14 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     /**
      * 天天特价
      */
-    private void initDaySpecial() {
+    private void initDaySpecial(RecommendModel.DataBean.SpecialsBean specialsBean) {
         daySpecialPRecyclerV.setNestedScrollingEnabled(false);
+        daySpecialBgV.setImageURI(specialsBean.getImage());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager
                 .VERTICAL, false);
         daySpecialPRecyclerV.setLayoutManager(linearLayoutManager);
 
-        DaySpecialPriceAdapter daySpecialPriceAdatper = new DaySpecialPriceAdapter();
+        DaySpecialPriceAdapter daySpecialPriceAdatper = new DaySpecialPriceAdapter(specialsBean.getProductList());
         daySpecialPRecyclerV.setAdapter(daySpecialPriceAdatper);
 
         SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
@@ -192,13 +206,15 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     /**
      * 人气推荐
      */
-    private void initPersonRecommend() {
+    private void initPersonRecommend(RecommendModel.DataBean.RecommendBean recommendBean) {
         personRecommendRecyclerV.setNestedScrollingEnabled(false);
+        personRecommendBgV.setImageURI(recommendBean.getImage());
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
                 false);
         personRecommendRecyclerV.setLayoutManager(linearLayoutManager);
 
-        PersonRecommendAdapter personRecommendAdapter = new PersonRecommendAdapter();
+        PersonRecommendAdapter personRecommendAdapter = new PersonRecommendAdapter(recommendBean.getProductList());
         personRecommendRecyclerV.setAdapter(personRecommendAdapter);
 
         SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
@@ -208,13 +224,14 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     /**
      * 每周新品
      */
-    private void initPerWeekProduct() {
+    private void initPerWeekProduct(RecommendModel.DataBean.NewBean newBean) {
         perWeekRecyclerV.setNestedScrollingEnabled(false);
+        perWeekBGV.setImageURI(newBean.getImage());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager
                 .HORIZONTAL, false);
         perWeekRecyclerV.setLayoutManager(linearLayoutManager);
 
-        PerWeekProductAdapter perWeekProductAdapter = new PerWeekProductAdapter();
+        PerWeekProductAdapter perWeekProductAdapter = new PerWeekProductAdapter(newBean.getProductList());
         perWeekRecyclerV.setAdapter(perWeekProductAdapter);
 
         SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
@@ -224,13 +241,15 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     /**
      * 品牌大厂
      */
-    private void initBrandProduct() {
+    private void initBrandProduct(RecommendModel.DataBean.BrandBean brandBean) {
         brandProductRecyclerV.setNestedScrollingEnabled(false);
+
+        brandBackV.setImageURI(brandBean.getImage());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
         brandProductRecyclerV.setLayoutManager(gridLayoutManager);
 
-        BrandProductAdapter brandProductAdapter = new BrandProductAdapter();
+        BrandProductAdapter brandProductAdapter = new BrandProductAdapter(brandBean.getProductList());
         brandProductRecyclerV.setAdapter(brandProductAdapter);
 
         SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
@@ -238,23 +257,15 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
 
     }
 
-    private void initRollPager() {
-        urlList.add("https://timgsa.baidu" +
-                ".com/timg?image&quality=80&size=b9999_10000&sec=1502895397&di=98518077960d23213c0aa954ca4dc156" +
-                "&imgtype=jpg&er=1&src=http%3A%2F%2Fatt.bbs.duowan.com%2Fforum%2F201504%2F22%2F1910368waa9k0z0z9y9c8a" +
-                ".jpg");
-        urlList.add("https://timgsa.baidu" +
-                ".com/timg?image&quality=80&size=b9999_10000&sec=1502895322&di=228c7770fb082ec620cf1f373649b161" +
-                "&imgtype=jpg&er=1&src=http%3A%2F%2Fimgcache.cjmx.com%2Ffilm%2F201608%2F20160830144736364.jpg");
-        urlList.add("http://mpic.tiankong.com/ecc/3e3/ecc3e349338dbe58603cf270d9cd7c9c/640.jpg?x-oss-process=image" +
-                "/resize,m_lfit,h_600,w_600/watermark,image_cXVhbmppbmcucG5n,t_90,g_ne,x_5,y_5");
-        urlList.add("https://timgsa.baidu" +
-                ".com/timg?image&quality=80&size=b9999_10000&sec=1502895397&di=98518077960d23213c0aa954ca4dc156" +
-                "&imgtype=jpg&er=1&src=http%3A%2F%2Fatt.bbs.duowan.com%2Fforum%2F201504%2F22%2F1910368waa9k0z0z9y9c8a" +
-                ".jpg");
-        urlList.add("https://timgsa.baidu" +
-                ".com/timg?image&quality=80&size=b9999_10000&sec=1502895322&di=228c7770fb082ec620cf1f373649b161" +
-                "&imgtype=jpg&er=1&src=http%3A%2F%2Fimgcache.cjmx.com%2Ffilm%2F201608%2F20160830144736364.jpg");
+    private void initRollPager(List<RecommendModel.DataBean.BannerListBean> bannerListBeens) {
+        Collections.sort(bannerListBeens);
+        urlList.add(bannerListBeens.get(bannerListBeens.size()-1).getImage());
+
+        for(RecommendModel.DataBean.BannerListBean bannerListBean:bannerListBeens){
+            urlList.add(bannerListBean.getImage());
+        }
+        urlList.add(bannerListBeens.get(0).getImage());
+
 
         mImagePagerAdapter = new ImagePagerAdapter(urlList);
         mRollViewPager.setAdapter(mImagePagerAdapter);
@@ -286,7 +297,15 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     }
 
     @Override
-    public void onSucceed(int what, Response<BaseResponse> response) {
+    public void onSucceed(int what, Response<String> response) {
+        GsonUtil<RecommendModel> gsonUtil = new GsonUtil<>(RecommendModel.class);
+        RecommendModel recommendModel = gsonUtil.fromJson(response.get());
+        initRollPager(recommendModel.getData().getBannerList());
+        initBrandProduct(recommendModel.getData().getBrand());
+        initPerWeekProduct(recommendModel.getData().getNew());
+        initPersonRecommend(recommendModel.getData().getRecommend());
+        initDaySpecial(recommendModel.getData().getSpecials());
+        initYouLike(recommendModel.getData().getLike());
 
     }
 

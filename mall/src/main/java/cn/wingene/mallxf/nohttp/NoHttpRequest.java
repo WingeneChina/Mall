@@ -29,8 +29,8 @@ import cn.wingene.mallxf.util.MD5Util;
  * @author wangcq
  */
 public class NoHttpRequest<T> {
-    private Request<String> mStringRequest;
-    private JsonBeanRequest<T> request;
+    private Request<String> request;
+//    private JsonBeanRequest<T> request;
     private Class<T> mTClass;
 
     public NoHttpRequest(Class<T> tClass) {
@@ -51,11 +51,12 @@ public class NoHttpRequest<T> {
      * @param isCache      是否使用缓存
      */
     public void request(Activity activity, String url, HashMap<String, Object> hashParams,
-                        int what, HttpListener<T> callback, boolean canCancel, String cancelSign, boolean
+                        int what, HttpListener<String> callback, boolean canCancel, String cancelSign, boolean
                                 isShowDialog, boolean
                                 isCache) {
         Logger.e("url = " + url);
-        request = new JsonBeanRequest<>(url, RequestMethod.POST, mTClass);
+//        request = new JsonBeanRequest<>(url, RequestMethod.POST, mTClass);
+        request = NoHttp.createStringRequest(url);
         if(hashParams!=null) {
             request.add(hashParams);
         }
@@ -90,7 +91,7 @@ public class NoHttpRequest<T> {
     public void upLoadFile(Activity activity, int what, String url, FileBinary uploadFile, String platCode,
                            HttpListener<T>
                                    listener) {
-        request = new JsonBeanRequest<>(url, RequestMethod.POST, mTClass);
+        JsonBeanRequest<T> request = new JsonBeanRequest<>(url, RequestMethod.POST, mTClass);
         request.add("file", uploadFile);
         request.add("platCode", platCode);
         CallServer.getRequestInstance().add(activity, what, request, listener, false, false);
@@ -133,9 +134,8 @@ public class NoHttpRequest<T> {
 
         }
         signBuffer.append(SignParams.signKey);
-//        String paramStr = "DeviceType=2&TimeStamp=1503325039&UserId=0&key=BING2017@2028";
-        Log.e("","签名参数 = "+signBuffer.toString());//signBuffer.toString()
-        String sign = MD5Util.getMD5String(signBuffer.toString()).toUpperCase();//signBuffer.toString()
+        Log.e("","签名参数 = "+signBuffer.toString());
+        String sign = MD5Util.getMD5String(signBuffer.toString()).toUpperCase();
         Log.e("","输出签名 = "+sign);
         return sign;
     }
