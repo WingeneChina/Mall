@@ -11,4 +11,9 @@ public class HttpAddress extends HttpConstant{
      * 2.1.2.2、商品详情
      */
     public final static String PRODUCT_DETAIL = SERVER_ADDRESS + "Mall/Product/Detail";
+
+    /**
+     * 2.1.2.4、加入购物车
+     */
+    public final static String CART_ADD = SERVER_ADDRESS + "User/Cart/Add";
 }

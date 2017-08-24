@@ -1,7 +1,9 @@
 package cn.wingene.mallxf.http;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import cn.wingene.mall.RequestArgUtil;
 import cn.wingene.mallxf.cacheData.UserData;
@@ -15,21 +17,41 @@ import junze.androidxf.http.BaseParamsRequest;
 import junze.androidxf.http.BaseResponse;
 import junze.androidxf.http.requestargs.ArgsResult;
 import junze.androidxf.http.requestargs.RequestArgs;
-import junze.androidxf.http.requestargs.RequestArgsUtils;
+import junze.androidxf.kit.AKit;
 
 /**
  * Created by Wingene on 2017/5/23.
  */
 
 public class Ask {
-    public abstract static class MyBaseResponse extends BaseResponse {
+    public abstract static class MyBaseResponse<T> extends BaseResponse {
+        private Result<T> result;
+        public Integer err;
+        public String msg;
+        public String act;
+        public T data;
 
         @Override
         protected void performatInitResponse(String strResponse) throws Exception {
-            initData(strResponse);
+            result = AKit.fromJson(strResponse, getTypeOfResult());
+            err = result.err;
+            msg = result.msg;
+            act = result.act;
+            data = result.data;
+            if (err != null && err != 0) {
+                throw new RuntimeException(msg);
+            }
         }
 
-        protected abstract void initData(String data);
+        public abstract Type getTypeOfResult();
+
+    }
+
+    public static class Result<T> {
+        Integer err;
+        String msg;
+        String act;
+        T data;
     }
 
     public static class MyBaseRequest<T extends IResponse> extends BaseParamsRequest<T> {
@@ -87,23 +109,31 @@ public class Ask {
         /**
          * 签名	不可 详见1.1签名算法
          */
-        @RequestArgs
+        // 手动添加到map中。
         @SerializedName("Sign")
         private String sign;
 
         public BaseSignRequest(String mUrl, T mResponse) {
             super(mUrl, mResponse);
-            String[] params = new String[]{"UserId=" + UserData.getUserId(), "DeviceType=" + 2, "DeviceKey=" +
-                    UserData.getDeviceKey(), "VerifiCode=" + UserData.getverifiCode(), "TimeStamp=" + System
-                    .currentTimeMillis() / 1000};
             userId = UserData.getUserId();
             deviceType = 2;
             deviceKey = UserData.getDeviceKey();
             verifiCode = UserData.getverifiCode();
             timeStamp = System.currentTimeMillis() / 1000;
-            sign = NoHttpRequest.signParams(params);
+        }
 
-            //            putForURLEncoder();
+        @Override
+        public Map<String, Object> getMap() throws Exception {
+            Map<String, Object> map = super.getMap();
+            String[] params = new String[map.size()];
+            int index = 0;
+            for (Entry<String, Object> entry : map.entrySet()) {
+                params[index++] = String.format("%s=%s", entry.getKey(), entry.getValue() != null ? entry.getValue
+                        () : "");
+            }
+            sign = NoHttpRequest.signParams(params);
+            map.put("Sign", sign);
+            return map;
         }
     }
 

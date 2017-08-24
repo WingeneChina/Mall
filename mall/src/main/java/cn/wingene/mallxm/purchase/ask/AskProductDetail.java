@@ -1,11 +1,14 @@
 package cn.wingene.mallxm.purchase.ask;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import cn.wingene.mallxf.http.Ask.BaseSignRequest;
 import cn.wingene.mallxf.http.Ask.MyBaseRequest;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
+import cn.wingene.mallxf.http.Ask.Result;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 
 import junze.androidxf.http.requestargs.RequestArgs;
 import junze.androidxf.kit.AKit;
@@ -15,12 +18,11 @@ import junze.androidxf.kit.AKit;
  */
 
 public class AskProductDetail {
-    public static class Response extends MyBaseResponse{
-        public Data result;
-
+    public static class Response extends MyBaseResponse<Data> {
         @Override
-        protected void initData(String data) {
-            result = AKit.fromJson(data, Data.class);
+        public Type getTypeOfResult() {
+            return new TypeToken<Result<Data>>() {
+            }.getType();
         }
     }
 

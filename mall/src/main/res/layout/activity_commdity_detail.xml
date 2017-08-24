@@ -61,14 +61,20 @@
                 android:layout_height="@dimen/p120"
                 android:background="#F9F9F9">
                 <junze.widget.Tile
+                    android:id="@+id/tl_1"
                     android:layout_weight="1"
                     app:tileImgSrc="@drawable/temp_ic_empty_100"
+                    app:tileImgHeight="@dimen/p100"
+                    app:tileImgWidth="@dimen/p100"
                     app:tileText="产品很好\r\n产品很好"
                     app:tileTextColor="@color/black"
                     app:tileOrientation="horizontal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"></junze.widget.Tile>
                 <junze.widget.Tile
+                    app:tileImgHeight="@dimen/p100"
+                    app:tileImgWidth="@dimen/p100"
+                    android:id="@+id/tl_2"
                     android:layout_weight="1"
                     app:tileOrientation="horizontal"
                     app:tileImgSrc="@drawable/temp_ic_empty_100"
@@ -77,6 +83,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"></junze.widget.Tile>
                 <junze.widget.Tile
+                    app:tileImgHeight="@dimen/p100"
+                    app:tileImgWidth="@dimen/p100"
+                    android:id="@+id/tl_3"
                     android:layout_weight="1"
                     app:tileOrientation="horizontal"
                     app:tileImgSrc="@drawable/temp_ic_empty_100"
@@ -96,6 +105,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/f40"
@@ -103,6 +113,7 @@
                     android:text="这是商品这是商品"
                     />
                 <TextView
+                    android:id="@+id/tv_sub_title"
                     android:layout_marginTop="@dimen/p20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -110,6 +121,7 @@
                     android:text="买吧买吧买吧"
                     />
                 <TextView
+                    android:id="@+id/tv_price"
                     android:layout_marginTop="@dimen/p30"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
