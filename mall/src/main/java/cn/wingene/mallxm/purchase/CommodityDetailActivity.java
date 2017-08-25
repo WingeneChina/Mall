@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CoordinatorLayout;
@@ -17,6 +18,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -102,12 +104,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 onBackPressed();
             }
         });
-        ivCart.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JumpHelper.startShoppingCartActivity(getActivity());
-            }
-        });
+        ivCart.setOnClickListener(onCartClick());
         tvAddCart.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,6 +136,16 @@ public class CommodityDetailActivity extends MyBaseActivity {
 
         });
 
+    }
+
+    @NonNull
+    private OnClickListener onCartClick() {
+        return new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JumpHelper.startShoppingCartActivity(getActivity());
+            }
+        };
     }
 
     private void loadWebData() {
@@ -197,6 +204,10 @@ public class CommodityDetailActivity extends MyBaseActivity {
             mUiData.getAdapters().clear();
             View view = getLayoutInflater().inflate(R.layout.bottom_sheet, null);
             LinearLayout llList = (LinearLayout) view.findViewById(R.id.ll_list);//列表
+            Button btnCart = (Button) view.findViewById(R.id.cart);//列表
+            Button btnBuy = (Button) view.findViewById(R.id.buy);//列表
+            btnCart.setOnClickListener(onCartClick());
+            btnBuy.setOnClickListener(onCartClick());
             //添加list组
             for (int i = 0; i < testData.getAttributes().size(); i++) {
                 View viewList = getLayoutInflater().inflate(R.layout.bottom_sheet_group, null);

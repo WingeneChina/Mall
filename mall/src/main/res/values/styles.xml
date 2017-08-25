@@ -24,4 +24,11 @@
     <style name="recommend_item_title_style">
 
     </style>
+
+    <style name="AppStart" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_start</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 </resources>
