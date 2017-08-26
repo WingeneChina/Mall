@@ -17,22 +17,22 @@ import junze.androidxf.kit.AKit;
 
 public class AskProductDetail {
     public static class Response extends MyBaseResponse {
-        Data result;
+        Data data;
         @Override
-        protected void initData(JsonElement value) {
-            result = AKit.getGson().fromJson(value,Data.class);
+        protected void initData(JsonElement json) {
+            data = AKit.getGson().fromJson(json,Data.class);
         }
 
         public Product getProduct() {
-            return result.getProduct();
+            return data.getProduct();
         }
 
         public List<ProductImageList> getProductImageList() {
-            return result.getProductImageList();
+            return data.getProductImageList();
         }
 
         public List<ProductSpecList> getProductSpecList() {
-            return result.getProductSpecList();
+            return data.getProductSpecList();
         }
     }
 

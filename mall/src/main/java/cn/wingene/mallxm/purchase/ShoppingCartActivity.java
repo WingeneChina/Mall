@@ -5,6 +5,8 @@ import android.widget.FrameLayout;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.ui.MyBaseActivity;
+import cn.wingene.mallxm.purchase.ask.AskCartList;
+import cn.wingene.mallxm.purchase.ask.AskCartList.Response;
 import cn.wingene.mallxm.purchase.fragment.ShoppingCartFragment;
 
 /**
@@ -19,5 +21,7 @@ public class ShoppingCartActivity extends MyBaseActivity{
         setContentView(R.layout.activity_fragment);
         initFragmentParentId(R.id.flyt_content);
         turntoFragment(ShoppingCartFragment.class,null);
+
+
     }
 }

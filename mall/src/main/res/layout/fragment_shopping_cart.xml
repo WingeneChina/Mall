@@ -43,10 +43,14 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="match_parent">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_cart_item"
+            <ListView
+                android:id="@+id/lv_cart_item"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                android:layout_height="wrap_content"></ListView>
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/rv_cart_item"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>-->
 
             <junze.widget.Tile
                 android:layout_marginLeft="@dimen/p16"

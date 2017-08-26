@@ -46,7 +46,7 @@ public class Ask {
             }
         }
 
-        protected void initData(JsonElement data) {
+        protected void initData(JsonElement json) {
 
         }
     }

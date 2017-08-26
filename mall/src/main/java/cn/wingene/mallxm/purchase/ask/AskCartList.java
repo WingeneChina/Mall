@@ -1,7 +1,11 @@
 package cn.wingene.mallxm.purchase.ask;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.JsonElement;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 
 import junze.androidxf.kit.AKit;
 
@@ -14,11 +18,13 @@ import cn.wingene.mallxf.http.Ask.MyBaseResponse;
 
 public class AskCartList {
     public static class Response extends MyBaseResponse {
-        private Data result;
+        public List<CartItem> data;
         @Override
-        protected void initData(JsonElement data) {
-            result = AKit.getGson().fromJson(data,Data.class);
+        protected void initData(JsonElement json) {
+            data = AKit.getGson().fromJson(json, new TypeToken<ArrayList<CartItem>>() {
+            }.getType());
         }
+
     }
 
     public static class Request extends BaseSignRequest<Response> {
@@ -27,7 +33,7 @@ public class AskCartList {
         }
     }
 
-    private static class Data {
+    public static class CartItem {
         /**
          * 购物车ID	不可
          */

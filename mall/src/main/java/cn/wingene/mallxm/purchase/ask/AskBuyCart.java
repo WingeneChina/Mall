@@ -2,8 +2,6 @@ package cn.wingene.mallxm.purchase.ask;
 
 import java.util.List;
 
-import android.content.Context;
-
 import com.google.gson.JsonElement;
 import com.google.gson.annotations.SerializedName;
 
@@ -19,10 +17,10 @@ import cn.wingene.mallxf.http.Ask.MyBaseResponse;
 
 public class AskBuyCart {
     public static class Response extends MyBaseResponse {
-        private Data result;
+        private Data data;
         @Override
-        protected void initData(JsonElement data) {
-            result = AKit.getGson().fromJson(data,Data.class);
+        protected void initData(JsonElement json) {
+            data = AKit.getGson().fromJson(json,Data.class);
         }
     }
 

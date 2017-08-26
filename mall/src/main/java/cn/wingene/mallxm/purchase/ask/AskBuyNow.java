@@ -15,47 +15,47 @@ import cn.wingene.mallxf.http.Ask.MyBaseResponse;
 
 public class AskBuyNow {
     public static class Response extends MyBaseResponse {
-        private Data result;
+        private Data data;
 
         @Override
-        protected void initData(JsonElement data) {
-            result = AKit.getGson().fromJson(data, Data.class);
+        protected void initData(JsonElement json) {
+            data = AKit.getGson().fromJson(json, Data.class);
         }
 
         public Product getProduct() {
-            return result.getProduct();
+            return data.getProduct();
         }
 
         public Account getAccount() {
-            return result.getAccount();
+            return data.getAccount();
         }
 
         public Address getAddress() {
-            return result.getAddress();
+            return data.getAddress();
         }
 
         public Double getDiscountPrice() {
-            return result.getDiscountPrice();
+            return data.getDiscountPrice();
         }
 
         public Integer getSumNumber() {
-            return result.getSumNumber();
+            return data.getSumNumber();
         }
 
         public Double getDiscount() {
-            return result.getDiscount();
+            return data.getDiscount();
         }
 
         public Double getSumPrice() {
-            return result.getSumPrice();
+            return data.getSumPrice();
         }
 
         public Double getDeliveryFee() {
-            return result.getDeliveryFee();
+            return data.getDeliveryFee();
         }
 
         public Double getPayPrice() {
-            return result.getPayPrice();
+            return data.getPayPrice();
         }
     }
 
