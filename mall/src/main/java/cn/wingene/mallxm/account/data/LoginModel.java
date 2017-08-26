@@ -122,6 +122,30 @@ public class LoginModel {
         public void setAvatar(String Avatar) {
             this.Avatar = Avatar;
         }
+
+        public String getVerifiCode() {
+            return VerifiCode;
+        }
+
+        public void setVerifiCode(String verifiCode) {
+            VerifiCode = verifiCode;
+        }
+
+        public String getLoginTime() {
+            return LoginTime;
+        }
+
+        public void setLoginTime(String loginTime) {
+            LoginTime = loginTime;
+        }
+
+        public String getShareTag() {
+            return ShareTag;
+        }
+
+        public void setShareTag(String shareTag) {
+            ShareTag = shareTag;
+        }
     }
 
 

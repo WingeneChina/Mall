@@ -1,5 +1,6 @@
 package cn.wingene.mallxm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.util.ActivityUtils;
@@ -44,6 +46,12 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
         initEvent();
         initFragments(savedInstanceState);
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.e(this.getClass().getName(), "VerifiCode = " + UserData.getverifiCode());
     }
 
     private void initViews() {

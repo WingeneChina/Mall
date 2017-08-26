@@ -174,7 +174,6 @@ public class NoHttpRequest<T> {
 
         if (request != null) {
             request.add("Sign", signParams(signParamArray));
-
         }
     }
 
