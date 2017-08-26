@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.wingene.mallxm.account.LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        >
+
+        <ImageView
+            android:id="@+id/backIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            android:src="@drawable/sjdl_y"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="登陆光合"
+            android:textColor="@color/three_text_color"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="11dp"
+        android:src="@drawable/sjdl_logo"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="10dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="11"
+        >
+
+        <AutoCompleteTextView
+            android:id="@+id/phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:drawableLeft="@drawable/sjdl_sjh"
+            android:drawablePadding="10dp"
+            android:hint="请输入你的手机号"
+            android:imeActionId="@+id/next"
+            android:imeActionLabel="下一个"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLines="1"
+            android:singleLine="true"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="12"
+        app:passwordToggleEnabled="true"
+        >
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:drawableLeft="@drawable/sjdl_mm"
+            android:drawablePadding="10dp"
+            android:hint="请输入您的密码"
+            android:imeActionId="@+id/login"
+            android:imeActionLabel="登录"
+            android:imeOptions="actionSend"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:minEms="6"
+            android:singleLine="true"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/registerDesV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="5dp"
+        android:text="密码长度6-12位,支持数字、字母和字符"
+        android:textColor="@color/six_text_color"
+        android:textSize="12sp"
+        android:visibility="visible"
+        />
+
+    <Button
+        android:id="@+id/registerBtnV"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/login"
+        android:gravity="center"
+        android:text="注册"
+        android:textColor="@color/six_text_color"
+        android:textSize="14sp"/>
+</LinearLayout>
+

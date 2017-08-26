@@ -5,4 +5,12 @@
     <string name="third_menu">周边</string>
     <string name="fourth_menu">驾培</string>
     <string name="five_menu">个人</string>
+
+    <string name="forget_pwd">
+        <u>忘记密码</u>
+    </string>
+
+    <string name="to_register">
+        <u>还没账号</u>
+    </string>
 </resources>

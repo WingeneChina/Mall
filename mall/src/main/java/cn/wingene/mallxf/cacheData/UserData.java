@@ -13,50 +13,103 @@ public class UserData {
 
     /**
      * 保存用户登陆ID
+     *
      * @param userId
      */
-    public static void saveUserId(int userId){
-        MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).edit().putInt("UserId",userId).apply();
+    public static void saveUserId(int userId) {
+        MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).edit().putInt("UserId", userId).apply();
 
     }
 
     /**
      * 获取登录用户ID
+     *
      * @return
      */
-    public static int getUserId(){
-      return   MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getInt("UserId",0);
+    public static int getUserId() {
+        return MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getInt("UserId", 0);
 
     }
 
     /**
      * 保存用户推送key
+     *
      * @param deviceKey
      */
-    public static void saveDeviceKey(String deviceKey){
-        MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).edit().putString("DeviceKey",deviceKey).apply();
+    public static void saveDeviceKey(String deviceKey) {
+        MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).edit().putString("DeviceKey",
+                deviceKey).apply();
 
     }
 
     /**
      * 获取用户推送key
+     *
      * @return
      */
-    public static String getDeviceKey(){
-        return   MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getString("DeviceKey","");
+    public static String getDeviceKey() {
+        return MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getString("DeviceKey", "");
     }
 
     /**
      * 保存用户验证码
+     *
      * @param verifiCode
      */
-    public static void saveVerifiCode(String verifiCode){
-        MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).edit().putString("VerifiCode",verifiCode).apply();
+    public static void saveVerifiCode(String verifiCode) {
+        MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).edit().putString("VerifiCode",
+                verifiCode).apply();
 
     }
 
-    public static String getverifiCode(){
-        return   MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getString("VerifiCode","");
+    /**
+     * 获取用户验证码
+     *
+     * @return
+     */
+    public static String getverifiCode() {
+        return MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getString("VerifiCode", "");
+
+    }
+
+    /**
+     * 保存用户头像
+     *
+     * @param personHeadUrl
+     */
+    public static void savePersonHeadUrl(String personHeadUrl) {
+        MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).edit().putString("personHeadUrl",
+                personHeadUrl).apply();
+
+    }
+
+    /**
+     * 获取用户验证码
+     *
+     * @return
+     */
+    public static String getPersonHeadUrl() {
+        return MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getString("personHeadUrl", null);
+
+    }
+
+    /**
+     * 保存用户信息json串
+     *
+     * @param userJson
+     */
+    public static void saveUserInfo(String userJson) {
+        MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).edit().putString("userInfo",
+                userJson).apply();
+    }
+
+    /**
+     * 获取用户json串
+     *
+     * @return
+     */
+    public static String getUserInfo() {
+        return MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getString("userInfo", null);
 
     }
 }

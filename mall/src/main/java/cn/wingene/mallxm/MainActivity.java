@@ -64,27 +64,56 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
     private void initFragments(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             mFragments[0] = FirstMenuFragment.newInstance(null);
-            mFragments[1] = SecondMenuFragment.newInstance(null);
-            mFragments[2] = ThirdMenuFragment.newInstance(null);
-            mFragments[3] = FourthMenuFragment.newInstance(null);
-            mFragments[4] = FiveMenuFragment.newInstance(null);
+//            mFragments[1] = SecondMenuFragment.newInstance(null);
+//            mFragments[2] = ThirdMenuFragment.newInstance(null);
+//            mFragments[3] = FourthMenuFragment.newInstance(null);
+//            mFragments[4] = FiveMenuFragment.newInstance(null);
+//            ActivityUtils.addMulFragmentToActivity(getSupportFragmentManager(), mFragments, 0, R.id.contentV);
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), FirstMenuFragment.newInstance(null), R
+                    .id.contentV);
 
-            ActivityUtils.addMulFragmentToActivity(getSupportFragmentManager(), mFragments, 0, R.id.contentV);
-
-
-        } else {
-            mFragments[0] = getSupportFragmentManager().findFragmentByTag(FirstMenuFragment.class.getSimpleName());
-            mFragments[1] = getSupportFragmentManager().findFragmentByTag(SecondMenuFragment.class.getSimpleName());
-            mFragments[2] = getSupportFragmentManager().findFragmentByTag(ThirdMenuFragment.class.getSimpleName());
-            mFragments[3] = getSupportFragmentManager().findFragmentByTag(FourthMenuFragment.class.getSimpleName());
-            mFragments[4] = getSupportFragmentManager().findFragmentByTag(FiveMenuFragment.class.getSimpleName());
         }
+//        else {
+//            mFragments[0] = getSupportFragmentManager().findFragmentByTag(FirstMenuFragment.class.getSimpleName());
+//            mFragments[1] = getSupportFragmentManager().findFragmentByTag(SecondMenuFragment.class.getSimpleName());
+//            mFragments[2] = getSupportFragmentManager().findFragmentByTag(ThirdMenuFragment.class.getSimpleName());
+//            mFragments[3] = getSupportFragmentManager().findFragmentByTag(FourthMenuFragment.class.getSimpleName());
+//            mFragments[4] = getSupportFragmentManager().findFragmentByTag(FiveMenuFragment.class.getSimpleName());
+//        }
     }
 
     private void switchFragment(int showPosition, int hidePosition) {
         if (mFragments[showPosition] == null) {
-            Log.e(this.getClass().getName(),"qie target = null");
-            initFragments(null);
+            Log.e(this.getClass().getName(), "qie target = null");
+//            initFragments(null);
+            switch (showPosition) {
+                case 0:
+                    ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), FirstMenuFragment.newInstance
+                            (null), R
+                            .id.contentV);
+                    break;
+                case 1:
+                    mFragments[1] = SecondMenuFragment.newInstance(null);
+                    ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[1], R
+                            .id.contentV);
+                    break;
+                case 2:
+                    mFragments[2] = ThirdMenuFragment.newInstance(null);
+                    ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[2], R
+                            .id.contentV);
+                    break;
+                case 3:
+                    mFragments[3] = FourthMenuFragment.newInstance(null);
+                    ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[3], R
+                            .id.contentV);
+                    break;
+                case 4:
+                    mFragments[4] = FiveMenuFragment.newInstance(null);
+                    ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[4], R
+                            .id.contentV);
+                    break;
+            }
+            return;
         }
         ActivityUtils.showHideFragment(getSupportFragmentManager(), mFragments[showPosition], mFragments[hidePosition]);
     }
@@ -99,7 +128,8 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
             case R.id.secondMenuV:
                 switchFragment(1, hidePosition);
                 hidePosition = 1;
-//                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),SecondMenuFragment.newInstance(null),R.id.contentV);
+//                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),SecondMenuFragment.newInstance
+// (null),R.id.contentV);
                 break;
             case R.id.thirdMenuV:
                 switchFragment(2, hidePosition);
