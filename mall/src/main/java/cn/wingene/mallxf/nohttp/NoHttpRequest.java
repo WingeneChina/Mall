@@ -12,9 +12,11 @@ import com.yanzhenjie.nohttp.download.DownloadRequest;
 import com.yanzhenjie.nohttp.rest.CacheMode;
 import com.yanzhenjie.nohttp.rest.Request;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
@@ -30,11 +32,22 @@ import cn.wingene.mallxf.util.MD5Util;
  */
 public class NoHttpRequest<T> {
     private Request<String> request;
-//    private JsonBeanRequest<T> request;
+    //    private JsonBeanRequest<T> request;
     private Class<T> mTClass;
+//    private String[] params = new String[]{"UserId=" + UserData.getUserId(), "DeviceType=" + 2, "DeviceKey=" +
+//            UserData.getDeviceKey(), "VerifiCode=" + UserData.getverifiCode(), "TimeStamp=" + System
+//            .currentTimeMillis() / 1000};
+
+    private List<String> allParmas = new ArrayList<>();
 
     public NoHttpRequest(Class<T> tClass) {
         this.mTClass = tClass;
+        allParmas.clear();
+        allParmas.add("UserId=" + UserData.getUserId());
+        allParmas.add("DeviceType=" + 2);
+        allParmas.add("DeviceKey=" + UserData.getDeviceKey());
+        allParmas.add("VerifiCode=" + UserData.getverifiCode());
+        allParmas.add("TimeStamp=" + System.currentTimeMillis() / 1000);
     }
 
     /**
@@ -57,14 +70,15 @@ public class NoHttpRequest<T> {
         Logger.e("url = " + url);
 //        request = new JsonBeanRequest<>(url, RequestMethod.POST, mTClass);
         request = NoHttp.createStringRequest(url);
-        if(hashParams!=null) {
+        if (hashParams != null) {
             request.add(hashParams);
         }
         request.setCancelSign(cancelSign);
         if (isCache) {
             request.setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE);
         }
-        initPublicParams();
+//        initPublicParams();
+        mergeParams(hashParams);
 
         // 设置无证书https请求
         SSLContext sslContext = SSLContextUtil.getDefaultSLLContext();
@@ -118,6 +132,7 @@ public class NoHttpRequest<T> {
 
     /**
      * 取消某一个请求
+     *
      * @param requestSign
      */
     public void cancelSpecialRequest(Object requestSign) {
@@ -125,41 +140,55 @@ public class NoHttpRequest<T> {
     }
 
 
-    public static String signParams(String[] listParams){
+    public static String signParams(String[] listParams) {
         StringBuffer signBuffer = new StringBuffer();
         Arrays.sort(listParams);
-        for(int i=0;i<listParams.length;i++){
+        for (int i = 0; i < listParams.length; i++) {
             signBuffer.append(listParams[i]);
             signBuffer.append("&");
 
         }
         signBuffer.append(SignParams.signKey);
-        Log.e("","签名参数 = "+signBuffer.toString());
+        Log.e("", "签名参数 = " + signBuffer.toString());
         String sign = MD5Util.getMD5String(signBuffer.toString()).toUpperCase();
-        Log.e("","输出签名 = "+sign);
+        Log.e("", "输出签名 = " + sign);
         return sign;
+    }
+
+    /**
+     * 合并公共参数并且签名
+     *
+     * @param params
+     */
+    private void mergeParams(HashMap<String, Object> params) {
+        if (params != null) {
+            for (Map.Entry<String, Object> entry : params.entrySet()) {
+                String param = entry.getKey() + "=" + entry.getValue();
+                allParmas.add(param);
+            }
+        }
+        String[] signParamArray = new String[allParmas.size()];
+        for (int i = 0; i < signParamArray.length; i++) {
+            signParamArray[i] = allParmas.get(i);
+        }
+
+        if (request != null) {
+            request.add("Sign", signParams(signParamArray));
+
+        }
     }
 
     /**
      * 初始化公共参数
      */
-    private void initPublicParams(){
-        if(request !=null){
-            String[] params = new String[]{"UserId="+UserData.getUserId(),"DeviceType="+2,"DeviceKey="+UserData.getDeviceKey(),"VerifiCode="+UserData.getverifiCode(),"TimeStamp="+System.currentTimeMillis()/1000};
-
+    private void initPublicParams() {
+        if (request != null) {
             request.add("UserId", UserData.getUserId());//如果用户已经登陆需要传入值
-            request.add("DeviceType",2);//0 网页，1/ios  2/安卓
-            request.add("DeviceKey",UserData.getDeviceKey());//推送key
-            request.add("VerifiCode",UserData.getverifiCode());
-            request.add("TimeStamp",System.currentTimeMillis()/1000);
-            request.add("Sign",signParams(params));
-
-//            request.add("UserId",1);//如果用户已经登陆需要传入值
-//            request.add("DeviceType",1);//0 网页，1/ios  2/安卓
-//            request.add("DeviceKey","SWAN20187454SWAN ");//推送key
-//            request.add("VerifiCode","SWDFGTRFVG");
-//            request.add("TimeStamp",System.currentTimeMillis()/1000);
-//            request.add("Sign",signParams(SignParams.signParams));
+            request.add("DeviceType", 2);//0 网页，1/ios  2/安卓
+            request.add("DeviceKey", UserData.getDeviceKey());//推送key
+            request.add("VerifiCode", UserData.getverifiCode());
+            request.add("TimeStamp", System.currentTimeMillis() / 1000);
+//            request.add("Sign", signParams(params));
         }
     }
 }
