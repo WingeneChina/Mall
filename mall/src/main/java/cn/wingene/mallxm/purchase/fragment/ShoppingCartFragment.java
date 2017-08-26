@@ -1,5 +1,8 @@
 package cn.wingene.mallxm.purchase.fragment;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,10 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallx.universalimageloader.ImageHelper;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
 import cn.wingene.mallxm.JumpHelper;
@@ -33,6 +38,7 @@ import junze.android.ui.ItemViewHolder;
 
 public class ShoppingCartFragment extends MyBaseFragment {
     private ItemHolder mItemHolder;
+    Map<Integer, CartItemLocal> mCheckItemStates;
 
     private Tile tlBack;
     private ListView lvCartItem;
@@ -53,13 +59,19 @@ public class ShoppingCartFragment extends MyBaseFragment {
             savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_shopping_cart, container,false);
         initComponent(v);
+
+
         tlBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
             }
         });
+        mCheckItemStates = new HashMap<>();
         mItemHolder = new ItemHolder(getContext(), lvCartItem);
+        mItemHolder.setCheckItemStates(mCheckItemStates);
+        //        TextView
+        //        lvCartItem.setEmptyView();
         initOtherBuys();
         tvOrder.setOnClickListener(new OnClickListener() {
             @Override
@@ -96,14 +108,25 @@ public class ShoppingCartFragment extends MyBaseFragment {
     }
 
     private static class ItemHolder extends ItemViewHolder<CartItem> {
+        Map<Integer, CartItemLocal> __checkItemStates;
+
+        private ImageView ivCheck;
+        private ImageView ivProduct;
         private TextView tvTitle;
         private TextView tvSubTitle;
+        private TextView tvNumber;
+        private TextView tvPrice;
 
         @Override
         protected void initComponent() {
+            ivCheck = (ImageView) super.findViewById(R.id.iv_check);
+            ivProduct = (ImageView) super.findViewById(R.id.iv_product);
             tvTitle = (TextView) super.findViewById(R.id.tv_title);
             tvSubTitle = (TextView) super.findViewById(R.id.tv_sub_title);
+            tvNumber = (TextView) super.findViewById(R.id.tv_number);
+            tvPrice = (TextView) super.findViewById(R.id.tv_price);
         }
+
 
         public ItemHolder(Context mContext, ListView lv) {
             super(mContext, lv, R.layout.listitem_shopping_cart_item);
@@ -115,11 +138,33 @@ public class ShoppingCartFragment extends MyBaseFragment {
         }
 
         @Override
-        public void display(int i, CartItem cartItem) {
-            tvTitle.setText(cartItem.getProductName());
-            tvSubTitle.setText(cartItem.getProductSpec());
+        protected ItemHolder getHeader() {
+            return (ItemHolder) super.getHeader();
         }
 
+        public Map<Integer, CartItemLocal> getCheckItemStates() {
+            return getHeader().__checkItemStates;
+        }
+
+        public void setCheckItemStates(Map<Integer, CartItemLocal> __checkItemStates) {
+            getHeader().__checkItemStates = __checkItemStates;
+        }
+
+        @Override
+        public void display(int i, CartItem cartItem) {
+            CartItemLocal local = getCheckItemStates().get(cartItem.getId());
+            ivCheck.setSelected(local.isChecked);
+            ImageHelper.displayImage(cartItem.getProductImage(), ivProduct);
+            tvTitle.setText(cartItem.getProductName());
+            tvSubTitle.setText(cartItem.getProductSpec());
+            tvNumber.setText(cartItem.getProductNumber());
+            tvPrice.setText(String.format("￥%.2f", cartItem.getProductPrice()));
+        }
+
+    }
+
+    public static class CartItemLocal {
+        boolean isChecked;
     }
 
 

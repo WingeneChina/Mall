@@ -3,12 +3,15 @@
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="@dimen/p200">
+
     <ImageView
+        android:id="@+id/iv_check"
         android:layout_width="@dimen/p100"
         android:scaleType="center"
         android:src="@drawable/slic_image_cb_enabled"
         android:layout_height="match_parent"/>
     <ImageView
+        android:id="@+id/iv_product"
         android:scaleType="center"
         android:layout_width="@dimen/p100"
         android:src="@drawable/temp_ic_empty_100"
@@ -31,16 +34,17 @@
             android:id="@+id/tv_sub_title"
             android:layout_below="@+id/tv_title"
             android:layout_width="match_parent"
+            android:textColor="@color/gray"
             android:text="黑色的商品"
             android:layout_height="wrap_content"/>
         <LinearLayout
             android:background="@drawable/shape_stroke_darkgray"
             android:id="@+id/_llyt_number"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:layout_width="@dimen/p250"
-            android:layout_marginRight="@dimen/p16"
-            android:layout_marginBottom="@dimen/p60"
+            android:layout_marginLeft="@dimen/p16"
+            android:layout_marginBottom="@dimen/p16"
             android:layout_height="@dimen/p60">
             <TextView
                 android:layout_weight="1"
@@ -51,6 +55,7 @@
             <View
                 style="@style/Line.Vertical"/>
             <TextView
+                android:id="@+id/tv_number"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_width="wrap_content"
@@ -68,9 +73,10 @@
 
         </LinearLayout>
         <TextView
+            android:id="@+id/tv_price"
             android:layout_marginBottom="@dimen/p16"
-            android:layout_marginLeft="@dimen/p16"
-            android:layout_alignParentLeft="true"
+            android:layout_marginRight="@dimen/p16"
+            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
             android:text="￥86.00"

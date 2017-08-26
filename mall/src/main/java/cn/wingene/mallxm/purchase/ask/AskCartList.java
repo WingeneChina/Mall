@@ -166,6 +166,9 @@ public class AskCartList {
 
         /**
          * 状态	不可
+         * 1、正常
+         * 2、库存不足
+         * 3、产品已下架
          */
         public Integer getState() {
             return state;

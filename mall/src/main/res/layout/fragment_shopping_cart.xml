@@ -78,6 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/p100">
         <junze.widget.Tile
+            android:id="@+id/tl_select"
             app:tileText="全选"
             android:paddingLeft="@dimen/p32"
             android:layout_width="wrap_content"
@@ -87,6 +88,7 @@
             app:tileTextColor="@color/darkgray"
             android:layout_height="match_parent"/>
         <TextView
+            android:id="@+id/tv_total"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:gravity="right|center_vertical"

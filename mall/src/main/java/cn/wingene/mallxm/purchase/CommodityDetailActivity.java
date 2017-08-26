@@ -40,6 +40,7 @@ import junze.androidxf.core.Agent;
 import junze.androidxf.tool.HtmlLoader;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallx.universalimageloader.ImageHelper;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxm.purchase.adapter.CommodityImagePagerAdapter;
 import cn.wingene.mallxm.purchase.adapter.SkuAdapter;
@@ -153,7 +154,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 Tile[] tiles = new Tile[]{tl1, tl2, tl3};
                 for (int i = 0; i < imageList.size(); i++) {
                     if (i < 3) {
-                        ImageLoader.getInstance().displayImage(imageList.get(i).getThumbSrc(), tiles[i].getIvImage());
+                        ImageHelper.displayImage(imageList.get(i).getThumbSrc(), tiles[i].getIvImage());
                     }
                 }
                 tvTitle.setText(mProduct.getName());
