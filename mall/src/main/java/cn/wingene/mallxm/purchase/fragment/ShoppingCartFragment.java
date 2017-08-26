@@ -1,6 +1,8 @@
 package cn.wingene.mallxm.purchase.fragment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
@@ -17,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import junze.java.util.StringUtil;
+
 import cn.wingene.mall.R;
 import cn.wingene.mallx.universalimageloader.ImageHelper;
 import cn.wingene.mallxf.ui.MyBaseFragment;
@@ -24,6 +28,7 @@ import cn.wingene.mallxf.util.SpaceItemDecoration;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.YouLikeProduceAdapter;
 import cn.wingene.mallxm.purchase.adapter.CartItemAdapter;
+import cn.wingene.mallxm.purchase.ask.AskBuyCart;
 import cn.wingene.mallxm.purchase.ask.AskCartList;
 import cn.wingene.mallxm.purchase.ask.AskCartList.CartItem;
 import cn.wingene.mallxm.purchase.ask.AskCartList.Response;
@@ -31,6 +36,7 @@ import cn.wingene.mallxm.purchase.ask.AskCartList.Response;
 import junze.widget.Tile;
 
 import junze.android.ui.ItemViewHolder;
+import junze.android.ui.ItemViewHolder.OnItemViewClickListener;
 
 /**
  * Created by Wingene on 2017/8/13.
@@ -42,13 +48,15 @@ public class ShoppingCartFragment extends MyBaseFragment {
 
     private Tile tlBack;
     private ListView lvCartItem;
-    private RecyclerView rvOtherBuy;
+    private Tile tlSelectAll;
+    private TextView tvTotal;
     private TextView tvOrder;
 
     protected void initComponent(View v){
         tlBack = (Tile) v.findViewById(R.id.tl_back);
         lvCartItem = (ListView) v.findViewById(R.id.lv_cart_item);
-        rvOtherBuy = (RecyclerView) v.findViewById(R.id.rv_other_buy);
+        tlSelectAll = (Tile) v.findViewById(R.id.tl_select_all);
+        tvTotal = (TextView) v.findViewById(R.id.tv_total);
         tvOrder = (TextView) v.findViewById(R.id.tv_order);
     }
 
@@ -70,16 +78,89 @@ public class ShoppingCartFragment extends MyBaseFragment {
         mCheckItemStates = new HashMap<>();
         mItemHolder = new ItemHolder(getContext(), lvCartItem);
         mItemHolder.setCheckItemStates(mCheckItemStates);
-        //        TextView
-        //        lvCartItem.setEmptyView();
-        initOtherBuys();
+        mItemHolder.setOnItemViewClick("check", onIvCheckClick());
+        //        initOtherBuys();
+        tlSelectAll.setOnClickListener(onSelectAllClick());
         tvOrder.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpHelper.startOrderAddActivity(getContext());
+                List<String> list = new ArrayList();
+                for (CartItem item : mItemHolder.getList()) {
+                    CartItemLocal local = mCheckItemStates.get(item.getId());
+                    if (local != null && local.isChecked) {
+                        list.add(""+item.getId());
+                    }
+                }
+                agent().ask(new AskBuyCart.Request(StringUtil.spellBy(list)){
+                    @Override
+                    public void updateUI(AskBuyCart.Response rsp) {
+                        super.updateUI(rsp);
+                    }
+                });
+//                JumpHelper.startOrderAddActivity(getContext());
             }
         });
         return v;
+    }
+
+    private OnItemViewClickListener onIvCheckClick() {
+        return new OnItemViewClickListener() {
+            @Override
+            public void onItemViewClick(View view, String s, ItemViewHolder<?> itemViewHolder, int i) {
+                CartItem item = mItemHolder.getItem(i);
+                CartItemLocal local = mCheckItemStates.get(item.getId());
+                if (local != null) {
+                    local.isChecked = !local.isChecked;
+                } else {
+                    local = new CartItemLocal(true);
+                    mCheckItemStates.put(item.getId(), local);
+                }
+            }
+        };
+    }
+
+    private OnClickListener onSelectAllClick() {
+        return new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isAllSelect()) {
+                    mCheckItemStates.clear();
+                } else {
+                    for (CartItem item : mItemHolder.getList()) {
+                        mCheckItemStates.put(item.getId(), new CartItemLocal(true));
+                    }
+                }
+                refreshUI();
+            }
+        };
+    }
+
+    public boolean isAllSelect() {
+        if (mItemHolder.getList().size() == 0) {
+            return false;
+        }
+        if (mItemHolder.getList().size() == mCheckItemStates.size()) {
+            for (CartItemLocal value : mCheckItemStates.values()) {
+                if (!value.isChecked) {
+                    return false;
+                }
+            }
+        }
+        return true;
+
+    }
+
+
+    public void refreshUI() {
+        double total = 0;
+        for (CartItem item : mItemHolder.getList()) {
+            CartItemLocal local = mCheckItemStates.get(item.getId());
+            if (local != null && local.isChecked) {
+                total += item.getProductNumber() * item.getProductPrice();
+            }
+        }
+        tlSelectAll.setSelected(isAllSelect());
+        tvTotal.setText(String.format("￥%.2f", total));
     }
 
     @Override
@@ -91,20 +172,9 @@ public class ShoppingCartFragment extends MyBaseFragment {
                 mItemHolder.clear();
                 mItemHolder.addAll(rsp.data);
                 mItemHolder.notifyDataSetChanged();
+
             }
         });
-    }
-
-    private void initOtherBuys() {
-        rvOtherBuy.setNestedScrollingEnabled(false);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-        rvOtherBuy.setLayoutManager(gridLayoutManager);
-
-//        YouLikeProduceAdapter youLikeProduceAdapter = new YouLikeProduceAdapter();
-//        rvOtherBuy.setAdapter(youLikeProduceAdapter);
-
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
-        rvOtherBuy.addItemDecoration(spaceItemDecoration);
     }
 
     private static class ItemHolder extends ItemViewHolder<CartItem> {
@@ -165,6 +235,10 @@ public class ShoppingCartFragment extends MyBaseFragment {
 
     public static class CartItemLocal {
         boolean isChecked;
+
+        public CartItemLocal(boolean isChecked) {
+            this.isChecked = isChecked;
+        }
     }
 
 

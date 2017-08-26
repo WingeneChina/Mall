@@ -3,6 +3,6 @@
 
     <!-- auto create by Img2Selector on 2017-08-11 20:26:40; -->
 
-    <item android:drawable="@drawable/ic_image_cb_checked_enabled" android:state_checked="true"/>
+    <item android:drawable="@drawable/ic_image_cb_checked_enabled" android:state_selected="true"/>
     <item android:drawable="@drawable/ic_image_cb_not_checked_enabled"/>
 </selector>

@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
@@ -43,11 +44,11 @@ public class NoHttpRequest<T> {
     public NoHttpRequest(Class<T> tClass) {
         this.mTClass = tClass;
         allParmas.clear();
-        allParmas.add("UserId=" + UserData.getUserId());
-        allParmas.add("DeviceType=" + 2);
-        allParmas.add("DeviceKey=" + UserData.getDeviceKey());
-        allParmas.add("VerifiCode=" + UserData.getverifiCode());
-        allParmas.add("TimeStamp=" + System.currentTimeMillis() / 1000);
+        //        allParmas.add("UserId=" + UserData.getUserId());
+        //        allParmas.add("DeviceType=" + 2);
+        //        allParmas.add("DeviceKey=" + UserData.getDeviceKey());
+        //        allParmas.add("VerifiCode=" + UserData.getverifiCode());
+        //        allParmas.add("TimeStamp=" + System.currentTimeMillis() / 1000);
     }
 
     /**
@@ -70,9 +71,9 @@ public class NoHttpRequest<T> {
         Logger.e("url = " + url);
 //        request = new JsonBeanRequest<>(url, RequestMethod.POST, mTClass);
         request = NoHttp.createStringRequest(url);
-        if (hashParams != null) {
-            request.add(hashParams);
-        }
+//        if (hashParams != null) {
+//            request.add(hashParams);
+//        }
         request.setCancelSign(cancelSign);
         if (isCache) {
             request.setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE);
@@ -161,11 +162,15 @@ public class NoHttpRequest<T> {
      * @param params
      */
     private void mergeParams(HashMap<String, Object> params) {
-        if (params != null) {
-            for (Map.Entry<String, Object> entry : params.entrySet()) {
-                String param = entry.getKey() + "=" + entry.getValue();
-                allParmas.add(param);
-            }
+        params = params != null ? params : new HashMap<String, Object>();
+//        params.put("UserId", UserData.getUserId());//如果用户已经登陆需要传入值
+        params.put("DeviceType", 2);//0 网页，1/ios  2/安卓
+        params.put("DeviceKey", UserData.getDeviceKey());//推送key
+//        params.put("VerifiCode", UserData.getverifiCode());
+        params.put("TimeStamp", System.currentTimeMillis() / 1000);
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            String param = entry.getKey() + "=" + entry.getValue();
+            allParmas.add(param);
         }
         String[] signParamArray = new String[allParmas.size()];
         for (int i = 0; i < signParamArray.length; i++) {
@@ -173,6 +178,7 @@ public class NoHttpRequest<T> {
         }
 
         if (request != null) {
+            request.add(params);
             request.add("Sign", signParams(signParamArray));
         }
     }
