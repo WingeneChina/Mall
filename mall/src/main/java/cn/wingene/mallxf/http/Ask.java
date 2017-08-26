@@ -8,6 +8,10 @@ import java.util.Map.Entry;
 import cn.wingene.mall.RequestArgUtil;
 import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 import junze.java.net.IHttpElement.IResponse;
@@ -24,35 +28,37 @@ import junze.androidxf.kit.AKit;
  */
 
 public class Ask {
-    public abstract static class MyBaseResponse<T> extends BaseResponse {
-        private Result<T> result;
+    public static class MyBaseResponse extends BaseResponse {
         public Integer err;
         public String msg;
         public String act;
-        public T data;
 
         @Override
         protected void performatInitResponse(String strResponse) throws Exception {
-            result = AKit.fromJson(strResponse, getTypeOfResult());
+            Result result = AKit.fromJson(strResponse, Result.class);
             err = result.err;
             msg = result.msg;
             act = result.act;
-            data = result.data;
             if (err != null && err != 0) {
                 throw new RuntimeException(msg);
+            }else{
+                initData(result.data);
             }
         }
 
-        public abstract Type getTypeOfResult();
+        protected void initData(JsonElement data) {
 
+        }
     }
 
-    public static class Result<T> {
+    public static class Result {
         Integer err;
         String msg;
         String act;
-        T data;
+        JsonElement data;
     }
+
+
 
     public static class MyBaseRequest<T extends IResponse> extends BaseParamsRequest<T> {
         Map<String, Object> mMap;

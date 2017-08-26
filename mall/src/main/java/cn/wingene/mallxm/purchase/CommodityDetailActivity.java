@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -23,29 +25,34 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sennie.skulib.Sku;
 import com.sennie.skulib.model.BaseSkuModel;
+import org.json.JSONObject;
+
+import junze.java.util.CheckUtil;
 
 import junze.widget.Tile;
 import junze.widget.ViewPager;
 
-import junze.android.util.FileUtil;
+import junze.androidxf.core.Agent;
 import junze.androidxf.tool.HtmlLoader;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.ui.MyBaseActivity;
-import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.purchase.adapter.CommodityImagePagerAdapter;
 import cn.wingene.mallxm.purchase.adapter.SkuAdapter;
+import cn.wingene.mallxm.purchase.ask.AskBuyNow;
+import cn.wingene.mallxm.purchase.ask.AskCartAdd;
 import cn.wingene.mallxm.purchase.ask.AskProductDetail;
-import cn.wingene.mallxm.purchase.ask.AskProductDetail.Data;
 import cn.wingene.mallxm.purchase.ask.AskProductDetail.Product;
 import cn.wingene.mallxm.purchase.ask.AskProductDetail.ProductImageList;
 import cn.wingene.mallxm.purchase.ask.AskProductDetail.ProductSpecList;
 import cn.wingene.mallxm.purchase.ask.AskProductDetail.Response;
 import cn.wingene.mallxm.purchase.bean.ProductModel;
 import cn.wingene.mallxm.purchase.bean.ProductModel.AttributesEntity;
+import cn.wingene.mallxm.purchase.bean.ProductModel.AttributesEntity.AttributeMembersEntity;
 import cn.wingene.mallxm.purchase.bean.UiData;
 import cn.wingene.mallxm.purchase.listener.ItemClickListener;
 
@@ -54,11 +61,15 @@ import cn.wingene.mallxm.purchase.listener.ItemClickListener;
  */
 
 public class CommodityDetailActivity extends MyBaseActivity {
+    public static Major major = new Major(CommodityDetailActivity.class);
     private CommodityImagePagerAdapter mImagePagerAdapter;
+    int mProductId;
+    int mPromotionId;
+    int mBuyNumber;
     Product mProduct;
     List<ProductSpecList> mSpecList;
     private List<String> urlList = new ArrayList<>();
-    private ProductModel testData;
+    private ProductModel mModel;
 
     UiData mUiData;
 
@@ -96,8 +107,18 @@ public class CommodityDetailActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commdity_detail);
         initComponent();
-        mUiData = new UiData();
+        Params params = major.parseParams(this);
+        if (params != null) {
+            mProductId = params.productId;
+            mPromotionId = params.promotionId;
+        }else{
+            finish();
+            return;
+        }
+        // TODO: 2017/8/26
+        mBuyNumber = 1;
 
+        mUiData = new UiData();
         tlBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,14 +132,23 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 showBottomSheetDialog(buildProductModel());
             }
         });
-        ask(new AskProductDetail.Request(1, 0) {
+        tvBuy.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        askProductDetail();
+
+    }
+
+    private void askProductDetail() {
+        ask(new AskProductDetail.Request(mProductId, mPromotionId) {
             @Override
             public void updateUI(Response rsp) {
-                super.updateUI(rsp);
-                Data data = rsp.data;
-                mProduct = data.getProduct();
-                mSpecList = data.getProductSpecList();
-                List<ProductImageList> imageList = data.getProductImageList();
+                mProduct = rsp.getProduct();
+                mSpecList = rsp.getProductSpecList();
+                List<ProductImageList> imageList = rsp.getProductImageList();
                 initRollPager(imageList);
                 Tile[] tiles = new Tile[]{tl1, tl2, tl3};
                 for (int i = 0; i < imageList.size(); i++) {
@@ -129,13 +159,12 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 tvTitle.setText(mProduct.getName());
                 tvSubTitle.setText(mProduct.getSellingPoint());
                 tvPrice.setText(String.format("￥%.2f", mProduct.getPrice()));
-                loadWebData(rsp.data.getProduct().getDetail());
+                loadWebData(rsp.getProduct().getDetail());
 
 
             }
 
         });
-
     }
 
     @NonNull
@@ -143,15 +172,69 @@ public class CommodityDetailActivity extends MyBaseActivity {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpHelper.startShoppingCartActivity(getActivity());
+
+                StringBuilder sb = new StringBuilder();
+                Integer[] ids = new Integer[2];
+                for (AttributeMembersEntity key : mUiData.getSelectedEntities()) {
+                    sb.append(String.format("name : %s%ngroupid : %s%nmemberId : %s%nstatus:%s%n ", key.getName(), 
+                            key.getAttributeGroupId(), key.getAttributeMemberId(), key.getStatus()));
+                    ids[key.getAttributeGroupId() - 1] = key.getAttributeMemberId();
+                }
+                if (ids[0] == null || ids[1] == null) {
+                    showToast("请继续选择");
+                    return;
+                }
+                for (ProductSpecList item : mSpecList) {
+                    if (CheckUtil.isEquals(ids[0], item.getSpec1ValueId()) && CheckUtil.isEquals(ids[1], item
+                            .getSpec2ValueId())) {
+                        showMsgDialog(String.format("您选择了%s", item));
+                    }
+                }
             }
         };
     }
 
-    private void loadWebData() {
-        String htmlCode = FileUtil.readTextFileFromAssets(getActivity(), "temp/commodity_detail.txt");
-        loadWebData(htmlCode);
+    @NonNull
+    private OnClickListener onOperaClick(final boolean buyNow) {
+        return new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StringBuilder sb = new StringBuilder();
+                Integer[] ids = new Integer[2];
+                for (AttributeMembersEntity key : mUiData.getSelectedEntities()) {
+                    sb.append(String.format("name : %s%ngroupid : %s%nmemberId : %s%nstatus:%s%n ", key.getName(), 
+                            key.getAttributeGroupId(), key.getAttributeMemberId(), key.getStatus()));
+                    ids[key.getAttributeGroupId() - 1] = key.getAttributeMemberId();
+                }
+                if (ids[0] == null || ids[1] == null) {
+                    showToast("请继续选择");
+                    return;
+                }
+                for (ProductSpecList item : mSpecList) {
+                    if (CheckUtil.isEquals(ids[0], item.getSpec1ValueId()) && CheckUtil.isEquals(ids[1], item
+                            .getSpec2ValueId())) {
+                        if (buyNow) {
+                            ask(new AskBuyNow.Request(mProductId, item.getId(), mPromotionId, mBuyNumber) {
+                                @Override
+                                public void updateUI(AskBuyNow.Response rsp) {
+//                                    super.updateUI(rsp);
+                                    showToast(rsp.msg);
+                                }
+                            });
+                        } else {
+                            ask(new AskCartAdd.Request(mProductId, mBuyNumber, item.getId()) {
+                                @Override
+                                public void updateUI(AskCartAdd.Response rsp) {
+                                    showToast(rsp.msg);
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        };
     }
+
 
     private void loadWebData(String htmlCode) {
         if (htmlCode != null) {
@@ -169,34 +252,26 @@ public class CommodityDetailActivity extends MyBaseActivity {
     }
 
     public ProductModel buildProductModel() {
-        if (testData == null) {
+        if (mModel == null) {
             // 设置模拟数据
-            testData = new ProductModel();
+            mModel = new ProductModel();
             Map<Integer, String> colorMap = new HashMap<>();
             Map<Integer, String> sizeMap = new HashMap<>();
             for (ProductSpecList item : mSpecList) {
-                testData.getProductStocks().put(String.format("%s;%s", item.getSpec1ValueId(), item.getSpec2ValueId
-                        ()), new BaseSkuModel(item.getPrice(), item.getStock()));
-                colorMap.put(item.getSpec1ValueId(), item.getSpec1Value());
-                sizeMap.put(item.getSpec2ValueId(), item.getSpec2Value());
+                Integer spec1ValueId = item.getSpec1ValueId();
+                Integer spec2ValueId = item.getSpec2ValueId();
+                mModel.getProductStocks().put(buildKey(spec1ValueId, spec2ValueId), new BaseSkuModel(item.getPrice
+                        (), item.getStock()));
+                colorMap.put(spec1ValueId, item.getSpec1Value());
+                sizeMap.put(spec2ValueId, item.getSpec2Value());
             }
 
-            addSpecGroup(1, mProduct.getSpecDesp1(), colorMap);
-            addSpecGroup(2, mProduct.getSpecDesp2(), sizeMap);
+            addSpecGroup(mModel, 1, mProduct.getSpecDesp1(), colorMap);
+            addSpecGroup(mModel, 2, mProduct.getSpecDesp2(), sizeMap);
         }
-        return testData;
+        return mModel;
     }
 
-    private void addSpecGroup(Integer groupId, String desp, Map<Integer, String> specMap) {
-        // 设置对应的品种和规格
-        ProductModel.AttributesEntity group01 = new ProductModel.AttributesEntity();
-        group01.setName(desp);
-        for (Entry<Integer, String> entry : specMap.entrySet()) {
-            group01.getAttributeMembers().add(new ProductModel.AttributesEntity.AttributeMembersEntity(groupId,
-                    entry.getKey(), entry.getValue()));
-        }
-        testData.getAttributes().add(group01);//第一组
-    }
 
     private void showBottomSheetDialog(ProductModel productModel) {
         if (mUiData.getBottomSheetDialog() == null) {
@@ -206,14 +281,14 @@ public class CommodityDetailActivity extends MyBaseActivity {
             LinearLayout llList = (LinearLayout) view.findViewById(R.id.ll_list);//列表
             Button btnCart = (Button) view.findViewById(R.id.cart);//列表
             Button btnBuy = (Button) view.findViewById(R.id.buy);//列表
-            btnCart.setOnClickListener(onCartClick());
-            btnBuy.setOnClickListener(onCartClick());
+            btnBuy.setOnClickListener(onOperaClick(true));
+            btnCart.setOnClickListener(onOperaClick(false));
             //添加list组
-            for (int i = 0; i < testData.getAttributes().size(); i++) {
+            for (int i = 0; i < mModel.getAttributes().size(); i++) {
                 View viewList = getLayoutInflater().inflate(R.layout.bottom_sheet_group, null);
                 TextView tvTitle = (TextView) viewList.findViewById(R.id.tv_title);
                 RecyclerView recyclerViewBottom = (RecyclerView) viewList.findViewById(R.id.recycler_bottom);
-                AttributesEntity attributesEntity = testData.getAttributes().get(i);
+                AttributesEntity attributesEntity = mModel.getAttributes().get(i);
                 SkuAdapter skuAdapter = new SkuAdapter(attributesEntity.getAttributeMembers());
                 tvTitle.setText(attributesEntity.getName());
                 mUiData.getAdapters().add(skuAdapter);
@@ -224,7 +299,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 llList.addView(viewList);
             }
             // SKU 计算
-            mUiData.setResult(Sku.skuCollection(testData.getProductStocks()));
+            mUiData.setResult(Sku.skuCollection(mModel.getProductStocks()));
             for (String key : mUiData.getResult().keySet()) {
                 Log.d("SKU Result", "key = " + key + " value = " + mUiData.getResult().get(key));
             }
@@ -256,6 +331,46 @@ public class CommodityDetailActivity extends MyBaseActivity {
             mUiData.getBottomSheetDialog().show();
         } else {
             mUiData.getBottomSheetDialog().show();
+        }
+    }
+
+    private static void addSpecGroup(ProductModel model, Integer groupId, String desp, Map<Integer, String> specMap) {
+        // 设置对应的品种和规格
+        ProductModel.AttributesEntity group01 = new ProductModel.AttributesEntity();
+        group01.setName(desp);
+        for (Entry<Integer, String> entry : specMap.entrySet()) {
+            group01.getAttributeMembers().add(new ProductModel.AttributesEntity.AttributeMembersEntity(groupId, 
+                    entry.getKey(), entry.getValue()));
+        }
+        model.getAttributes().add(group01);//第一组
+    }
+
+    private static String buildKey(Integer spec1ValueId, Integer spec2ValueId) {
+        return String.format("%s;%s", spec1ValueId, spec2ValueId);
+    }
+
+    public static class Major extends Agent.Major {
+
+        public Major(Class<? extends CommodityDetailActivity> clazz) {
+            super(clazz);
+        }
+
+        public void startActivity(Context src, int productId, int promotionId) {
+            buildParams(src, new Params(productId, promotionId)).startActivity();
+        }
+
+        public Params parseParams(Activity target) {
+            return parseParam(target, Params.class);
+        }
+    }
+
+    private static class Params {
+        int productId;
+        int promotionId;
+
+        public Params(int productId, int promotionId) {
+            this.productId = productId;
+            this.promotionId = promotionId;
         }
     }
 

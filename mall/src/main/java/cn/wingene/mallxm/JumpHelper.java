@@ -18,9 +18,16 @@ import junze.androidxf.core.Agent.Major.IntentBuilder;
 
 public class JumpHelper {
 
+    @Deprecated
     public static void startCommodityDetailActivity(Context context) {
-        create(context,CommodityDetailActivity.class).startActivity();
+        startCommodityDetailActivity(context, 1, 0);
     }
+
+    public static void startCommodityDetailActivity(Context src, int productId, int promotionId) {
+        CommodityDetailActivity.major.startActivity(src, productId, promotionId);
+    }
+
+
     public static void startShoppingCartActivity(Context context) {
         create(context, ShoppingCartActivity.class).startActivity();
     }

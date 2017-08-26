@@ -2,6 +2,7 @@ package cn.wingene.mallxm.purchase.ask;
 
 import java.lang.reflect.Type;
 
+import cn.wingene.mallxf.http.Ask.BaseSignRequest;
 import cn.wingene.mallxf.http.Ask.MyBaseRequest;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
 import cn.wingene.mallxf.http.Ask.Result;
@@ -16,15 +17,12 @@ import junze.androidxf.http.requestargs.RequestArgs;
 
 public class AskCartAdd {
 
-    public static class Response extends MyBaseResponse<Object> {
+    public static class Response extends MyBaseResponse {
 
-        @Override
-        public Type getTypeOfResult() {
-            return new TypeToken<Result<Object>>(){}.getType();
-        }
+
     }
 
-    public static class Request extends MyBaseRequest<Response> {
+    public static class Request extends BaseSignRequest<Response> {
         /**
          * 商品ID	不可
          */

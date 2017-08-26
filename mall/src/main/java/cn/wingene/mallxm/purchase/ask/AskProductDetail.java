@@ -1,14 +1,12 @@
 package cn.wingene.mallxm.purchase.ask;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import cn.wingene.mallxf.http.Ask.BaseSignRequest;
-import cn.wingene.mallxf.http.Ask.MyBaseRequest;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
-import cn.wingene.mallxf.http.Ask.Result;
+
+import com.google.gson.JsonElement;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 
 import junze.androidxf.http.requestargs.RequestArgs;
 import junze.androidxf.kit.AKit;
@@ -18,11 +16,23 @@ import junze.androidxf.kit.AKit;
  */
 
 public class AskProductDetail {
-    public static class Response extends MyBaseResponse<Data> {
+    public static class Response extends MyBaseResponse {
+        Data result;
         @Override
-        public Type getTypeOfResult() {
-            return new TypeToken<Result<Data>>() {
-            }.getType();
+        protected void initData(JsonElement value) {
+            result = AKit.getGson().fromJson(value,Data.class);
+        }
+
+        public Product getProduct() {
+            return result.getProduct();
+        }
+
+        public List<ProductImageList> getProductImageList() {
+            return result.getProductImageList();
+        }
+
+        public List<ProductSpecList> getProductSpecList() {
+            return result.getProductSpecList();
         }
     }
 
@@ -570,6 +580,18 @@ public class AskProductDetail {
             return priceMarket;
         }
 
-
+        @Override
+        public String toString() {
+            return "ProductSpecList{" +
+                    "id=" + id +
+                    ", spec1ValueId=" + spec1ValueId +
+                    ", spec1Value='" + spec1Value + '\'' +
+                    ", spec2ValueId=" + spec2ValueId +
+                    ", spec2Value='" + spec2Value + '\'' +
+                    ", stock=" + stock +
+                    ", price=" + price +
+                    ", priceMarket=" + priceMarket +
+                    '}';
+        }
     }
 }
