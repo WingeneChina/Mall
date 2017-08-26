@@ -1,6 +1,5 @@
 package cn.wingene.mallxf.http;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -9,9 +8,7 @@ import cn.wingene.mall.RequestArgUtil;
 import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 import junze.java.net.IHttpElement.IResponse;
@@ -40,10 +37,11 @@ public class Ask {
             msg = result.msg;
             act = result.act;
             if (err != null && err != 0) {
+                if (err == -1) {
+                    throw new NeedLoginException(msg);
+                }
                 throw new RuntimeException(msg);
-            }else{
-                initData(result.data);
-            }
+            } initData(result.data);
         }
 
         protected void initData(JsonElement json) {
@@ -154,6 +152,12 @@ public class Ask {
         @Override
         public Map<String, Object> getMap() throws Exception {
             return mMap;
+        }
+    }
+
+    public static class NeedLoginException extends RuntimeException {
+        public NeedLoginException(String message) {
+            super(message);
         }
     }
 }
