@@ -1,8 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-    android:background="@mipmap/person">
+              android:background="@color/white"
+              android:orientation="vertical"
+    >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/grzx_bg">
+
+        <ImageView
+            android:id="@+id/settingV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:src="@drawable/grzx_sz"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/personHeadV"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:layout_centerInParent="true"
+            fresco:failureImage="@drawable/nologin"
+            fresco:placeholderImage="@drawable/nologin"
+            fresco:placeholderImageScaleType="fitCenter"
+            fresco:roundAsCircle="true"
+            fresco:roundingBorderColor="@color/yellow_mall"
+            fresco:roundingBorderWidth="2dp"
+            />
+
+        <TextView
+            android:id="@+id/personNameV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/personHeadV"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="HCI_WHAT"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/personNameV"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/yingMoneyV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="9999999999应币"
+                android:textColor="@color/white"
+                android:textSize="12sp"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="3dp"
+                android:background="@android:color/white"/>
+
+            <TextView
+                android:id="@+id/youMoneyV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="游币9999999999999"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                />
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

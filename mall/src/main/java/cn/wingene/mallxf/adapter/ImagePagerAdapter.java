@@ -43,13 +43,8 @@ public class ImagePagerAdapter extends PagerAdapter {
         View mView = LayoutInflater.from(container.getContext()).inflate(R.layout.rollpager_item_layout, container,
                 false);
         SimpleDraweeView simpleDraweeView = (SimpleDraweeView) mView.findViewById(R.id.rollPagerItemV);
-//        if(position != urlList.size()-2) {
-            Uri uri = Uri.parse(urlList.get(position));
-            simpleDraweeView.setImageURI(uri);
-//        }else{
-//            simpleDraweeView.setImageURI("res://cn.wingene.mall/" +
-//                    R.drawable.choujiang);
-//        }
+        Uri uri = Uri.parse(urlList.get(position));
+        simpleDraweeView.setImageURI(uri);
 
         container.addView(mView);
 
