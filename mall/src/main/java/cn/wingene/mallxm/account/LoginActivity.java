@@ -114,8 +114,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     GsonUtil<LoginModel> gsonUtil = new GsonUtil(LoginModel.class);
                     LoginModel loginModel = gsonUtil.fromJson(response.get());
                     int resultCode = loginModel.getErr();
-                    Log.e(this.getClass().getName(), "loginModel errorCode = " + resultCode);
                     UserData.saveUserInfo(response.get());
+                    UserData.saveUserId(loginModel.getData().getUserId());
+                    UserData.saveVerifiCode(loginModel.getData().getVerifiCode());
+
                     if (resultCode == 0) {
                         Log.e(this.getClass().getName(), "登陆成功");
                         JumpHelper.startMainActivity(this);

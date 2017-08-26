@@ -78,8 +78,8 @@
             android:drawablePadding="10dp"
             android:hint="请输入验证码"
             android:imeActionId="@+id/login"
-            android:imeActionLabel="登录"
-            android:imeOptions="actionSend"
+            android:imeActionLabel="下一步"
+            android:imeOptions="actionNext"
             android:inputType="number"
             android:maxLines="1"
             android:singleLine="true"/>

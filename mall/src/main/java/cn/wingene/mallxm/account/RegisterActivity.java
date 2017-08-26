@@ -115,9 +115,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             LoginModel loginModel = gsonUtil.fromJson(response.get());
             if (loginModel != null && loginModel.getErr() == 0) {
                 UserData.saveUserInfo(response.get());
+                UserData.saveUserId(loginModel.getData().getUserId());
+                UserData.saveVerifiCode(loginModel.getData().getVerifiCode());
                 ToastUtil.show("注册成功", this);
                 JumpHelper.startMainActivity(this);
                 finish();
+            } else {
+                ToastUtil.show(loginModel.getMsg(), this);
+
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -69,13 +69,12 @@
         android:layout_marginRight="35dp"
         app:passwordToggleEnabled="true"
         >
-        <!--android:drawableLeft="@drawable/sjdl_mm"-->
 
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/sjdl_mm"
             android:hint="请输入您的密码"
             android:imeActionId="@+id/login"
             android:imeActionLabel="登录"
@@ -97,7 +96,6 @@
         android:text="@string/forget_pwd"
         android:textColor="@color/six_text_color"
         android:textSize="12sp"/>
-
     <Button
         android:id="@+id/loginBtnV"
         android:layout_width="match_parent"
