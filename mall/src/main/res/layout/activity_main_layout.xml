@@ -28,39 +28,39 @@
         <RadioButton
             android:id="@+id/firstMenuV"
             style="@style/menu_style"
-            android:text="@string/first_menu"
-            android:drawableTop="@drawable/home_selector"
             android:checked="true"
+            android:drawableTop="@drawable/home_selector"
+            android:text="@string/first_menu"
             />
 
         <RadioButton
             android:id="@+id/secondMenuV"
             style="@style/menu_style"
-            android:text="@string/second_menu"
             android:drawableTop="@drawable/special_selector"
+            android:text="@string/second_menu"
             />
 
         <RadioButton
             android:id="@+id/thirdMenuV"
             style="@style/menu_style"
-            android:text="@string/third_menu"
             android:drawableTop="@drawable/zhoubian_selector"
+            android:text="@string/third_menu"
 
             />
 
         <RadioButton
             android:id="@+id/fourthMenuV"
             style="@style/menu_style"
-            android:text="@string/fourth_menu"
             android:drawableTop="@drawable/car_selector"
+            android:text="@string/fourth_menu"
 
             />
 
         <RadioButton
             android:id="@+id/fiveMenuV"
             style="@style/menu_style"
-            android:text="@string/five_menu"
             android:drawableTop="@drawable/person_selector"
+            android:text="@string/five_menu"
 
             />
     </RadioGroup>
