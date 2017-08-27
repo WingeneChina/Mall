@@ -33,22 +33,52 @@ import cn.wingene.mallxf.util.MD5Util;
  */
 public class NoHttpRequest<T> {
     private Request<String> request;
-    //    private JsonBeanRequest<T> request;
     private Class<T> mTClass;
-//    private String[] params = new String[]{"UserId=" + UserData.getUserId(), "DeviceType=" + 2, "DeviceKey=" +
-//            UserData.getDeviceKey(), "VerifiCode=" + UserData.getverifiCode(), "TimeStamp=" + System
-//            .currentTimeMillis() / 1000};
 
     private List<String> allParmas = new ArrayList<>();
 
     public NoHttpRequest(Class<T> tClass) {
         this.mTClass = tClass;
         allParmas.clear();
-        //        allParmas.add("UserId=" + UserData.getUserId());
-        //        allParmas.add("DeviceType=" + 2);
-        //        allParmas.add("DeviceKey=" + UserData.getDeviceKey());
-        //        allParmas.add("VerifiCode=" + UserData.getverifiCode());
-        //        allParmas.add("TimeStamp=" + System.currentTimeMillis() / 1000);
+    }
+
+    /**
+     * 登录相关，公共参数不一致，影响参数签名
+     *
+     * @param activity
+     * @param url
+     * @param hashParams
+     * @param what
+     * @param callback
+     * @param canCancel
+     * @param cancelSign
+     * @param isShowDialog
+     * @param isCache
+     */
+    public void accountInfoCommit(Activity activity, String url, HashMap<String, Object> hashParams,
+                                  int what, HttpListener<String> callback, boolean canCancel, String cancelSign, boolean
+                                          isShowDialog, boolean
+                                          isCache) {
+        Logger.e("url = " + url);
+        request = NoHttp.createStringRequest(url);
+
+        request.setCancelSign(cancelSign);
+        if (isCache) {
+            request.setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE);
+        }
+        loginMergeParams(hashParams);
+
+        // 设置无证书https请求
+        SSLContext sslContext = SSLContextUtil.getDefaultSLLContext();
+        if (sslContext != null) {
+            SSLSocketFactory socketFactory = sslContext.getSocketFactory();
+            request.setSSLSocketFactory(socketFactory);
+            request.setHostnameVerifier(SSLContextUtil.HOSTNAME_VERIFIER);
+        }
+        if (request != null) {
+            CallServer.getRequestInstance().add(activity, what,
+                    request, callback, canCancel, isShowDialog);
+        }
     }
 
     /**
@@ -69,16 +99,12 @@ public class NoHttpRequest<T> {
                                 isShowDialog, boolean
                                 isCache) {
         Logger.e("url = " + url);
-//        request = new JsonBeanRequest<>(url, RequestMethod.POST, mTClass);
         request = NoHttp.createStringRequest(url);
-//        if (hashParams != null) {
-//            request.add(hashParams);
-//        }
+
         request.setCancelSign(cancelSign);
         if (isCache) {
             request.setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE);
         }
-//        initPublicParams();
         mergeParams(hashParams);
 
         // 设置无证书https请求
@@ -163,11 +189,38 @@ public class NoHttpRequest<T> {
      */
     private void mergeParams(HashMap<String, Object> params) {
         params = params != null ? params : new HashMap<String, Object>();
-//        params.put("UserId", UserData.getUserId());//如果用户已经登陆需要传入值
+        params.put("UserId", UserData.getUserId());//如果用户已经登陆需要传入值
         params.put("DeviceType", 2);//0 网页，1/ios  2/安卓
         params.put("DeviceKey", UserData.getDeviceKey());//推送key
-//        params.put("VerifiCode", UserData.getverifiCode());
+        params.put("VerifiCode", UserData.getverifiCode());
         params.put("TimeStamp", System.currentTimeMillis() / 1000);
+
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            String param = entry.getKey() + "=" + entry.getValue();
+            allParmas.add(param);
+        }
+        String[] signParamArray = new String[allParmas.size()];
+        for (int i = 0; i < signParamArray.length; i++) {
+            signParamArray[i] = allParmas.get(i);
+        }
+
+        if (request != null) {
+            request.add(params);
+            request.add("Sign", signParams(signParamArray));
+        }
+    }
+
+    /**
+     * 登录流程公共参数设置
+     *
+     * @param params
+     */
+    private void loginMergeParams(HashMap<String, Object> params) {
+        params = params != null ? params : new HashMap<String, Object>();
+        params.put("DeviceType", 2);//0 网页，1/ios  2/安卓
+        params.put("DeviceKey", UserData.getDeviceKey());//推送key
+        params.put("TimeStamp", System.currentTimeMillis() / 1000);
+
         for (Map.Entry<String, Object> entry : params.entrySet()) {
             String param = entry.getKey() + "=" + entry.getValue();
             allParmas.add(param);

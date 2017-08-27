@@ -11,6 +11,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yanzhenjie.nohttp.rest.Response;
@@ -33,6 +34,8 @@ public class RegisterFirstStepActivity extends AppCompatActivity implements View
     private EditText verifiCodeV;
     private Button requestVerificodeV;
     private Button registerNextV;
+    private TextView titleV;
+
     private int countTime = 60;
     private int alreadyTime = 0;
     private Handler mHandler = new Handler() {
@@ -58,6 +61,9 @@ public class RegisterFirstStepActivity extends AppCompatActivity implements View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_first_step);
         initViews();
+        if (getIntent() != null) {
+            titleV.setText(getIntent().getStringExtra("title"));
+        }
     }
 
     private void initViews() {
@@ -66,6 +72,7 @@ public class RegisterFirstStepActivity extends AppCompatActivity implements View
         verifiCodeV = (EditText) findViewById(R.id.verifiCodeV);
         requestVerificodeV = (Button) findViewById(R.id.requestVerificodeV);
         registerNextV = (Button) findViewById(R.id.registerNextV);
+        titleV = (TextView) findViewById(R.id.titleV);
 
         initEvent();
     }
@@ -94,6 +101,7 @@ public class RegisterFirstStepActivity extends AppCompatActivity implements View
                 Intent intent = new Intent(this, RegisterActivity.class);
                 intent.putExtra("userPhone", userPhone);
                 intent.putExtra("verifiCode", verifiCode);
+                intent.putExtra("title", titleV.getText());
                 startActivity(intent);
                 break;
             case R.id.requestVerificodeV:
@@ -103,7 +111,7 @@ public class RegisterFirstStepActivity extends AppCompatActivity implements View
                     HashMap<String, Object> params = new HashMap<>();
                     params.put("Phone", userPhoneNumber);
                     params.put("Type", 0);//0注册 1登录 2、修改密码
-                    noHttpRequest.request(this, HttpConstant.REQUEST_CODE, params, 1, this, false, "verificode",
+                    noHttpRequest.accountInfoCommit(this, HttpConstant.REQUEST_CODE, params, 1, this, false, "verificode",
                             false, false);
 
                 } else {

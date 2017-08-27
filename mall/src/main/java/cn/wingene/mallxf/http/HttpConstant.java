@@ -23,6 +23,11 @@ public class HttpConstant {
     public static final String ALL_PRODUCT_CATEGOURY = HOST + "Mall/ProductCategory/List";
 
     /**
+     * 商品分页
+     */
+    public static final String PRODUCT_LIST = HOST + "Mall/Product/List";
+
+    /**
      * 登陆
      */
     public static final String LOGIN = HOST + "Account/LoginPwd";
@@ -41,4 +46,24 @@ public class HttpConstant {
      * 获取短信验证码
      */
     public static final String REQUEST_CODE = HOST + "Sms/SendSMS";
+
+    /**
+     * 专题分类
+     */
+    public static final String SPECIAL_MENU = HOST + "ArticleCategory/SpecialList";
+
+    /**
+     * 专题列表
+     */
+    public static final String SPECIAL_LIST = HOST + "Article/SpecialList";
+
+    /**
+     * 周边菜单
+     */
+    public static final String NEARBY_MENU = HOST + "ArticleCategory/AmbitusList";
+
+    /**
+     * 周边内容列表
+     */
+    public static final String NEARBY_LIST = HOST + "Article/AmbitusList";
 }

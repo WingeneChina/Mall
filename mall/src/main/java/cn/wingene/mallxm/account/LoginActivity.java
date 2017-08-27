@@ -1,5 +1,6 @@
 package cn.wingene.mallxm.account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -84,10 +85,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 commitUserInfo(userPhone, userPwd);
                 break;
             case R.id.forgetPwdV:
-
+                Intent intent = new Intent(this, RegisterFirstStepActivity.class);
+                intent.putExtra("title", "修改密码");
+                startActivity(intent);
                 break;
             case R.id.toRegisterV:
-                JumpHelper.starRegisterFirstStepActivity(this);
+                Intent intent1 = new Intent(this, RegisterFirstStepActivity.class);
+                intent1.putExtra("title", "加入光合");
+                startActivity(intent1);
+//                JumpHelper.starRegisterFirstStepActivity(this);
                 break;
             case R.id.backIcon:
                 onBackPressed();
@@ -103,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         HashMap<String, Object> paramsMap = new HashMap<>();
         paramsMap.put("Phone", userPhone);
         paramsMap.put("Pwd", userPwd);
-        noHttpRequest.request(this, HttpConstant.LOGIN, paramsMap, NORMAL_PWD_LOGIN, this, false, "login", true, false);
+        noHttpRequest.accountInfoCommit(this, HttpConstant.LOGIN, paramsMap, NORMAL_PWD_LOGIN, this, false, "login", true, false);
     }
 
     @Override

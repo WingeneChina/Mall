@@ -6,31 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--<android.support.v4.widget.NestedScrollView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="vertical">-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <cn.wingene.mallxf.ui.customview.InnerViewpager
+                android:id="@+id/rollPagerV"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="200dp"
+                android:background="@color/menu_unSelected_color"
+                />
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/rollPagerV"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
-        <!--</android.support.v4.widget.NestedScrollView>-->
-    </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/specialRecyclerV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout>

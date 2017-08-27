@@ -34,6 +34,7 @@ import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
 import cn.wingene.mallxf.util.ActivityUtils;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
+import cn.wingene.mallxm.display.home.FirstMenuFragment;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.BrandProductAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.DaySpecialPriceAdapter;
@@ -47,7 +48,8 @@ import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
  * 推荐
  */
 
-public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener, View.OnClickListener,HttpListener<String> {
+public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener, View
+        .OnClickListener, HttpListener<String> {
     private ViewPager mRollViewPager;
     private RecyclerView brandProductRecyclerV;
     private SimpleDraweeView perWeekBGV;
@@ -97,16 +99,20 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
         View view = inflater.inflate(R.layout.fragment_recommend_layout, container, false);
         initView(view);
         initEvent();
-        requestData();
+//        requestData();
+        if (getArguments() != null) {
+            getDataFromJson(getArguments().getString(FirstMenuFragment.RESULT_ARG));
+        }
         return view;
     }
 
     /**
-     *请求数据
+     * 请求数据
      */
-    private void requestData(){
+    private void requestData() {
         NoHttpRequest<BaseResponse> responseNoHttpRequest = new NoHttpRequest<>(BaseResponse.class);
-        responseNoHttpRequest.request(getActivity(), HttpConstant.HOME_RECOMMEND,null,1,this,false,"recommend",true,true);
+        responseNoHttpRequest.request(getActivity(), HttpConstant.HOME_RECOMMEND, null, 1, this, false, "recommend",
+                true, true);
     }
 
     private void initView(View root) {
@@ -130,10 +136,7 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
         personRecommendBgV = (SimpleDraweeView) root.findViewById(R.id.personRecommendBgV);
         daySpecialBgV = (SimpleDraweeView) root.findViewById(R.id.daySpecialBgV);
         youLikeBgV = (SimpleDraweeView) root.findViewById(R.id.youLikeBgV);
-//        initPerWeekProduct();
-//        initPersonRecommend();
-//        initDaySpecial();
-//        initYouLike();
+
     }
 
     /**
@@ -260,9 +263,9 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     private void initRollPager(List<RecommendModel.DataBean.BannerListBean> bannerListBeens) {
         Collections.sort(bannerListBeens);
         urlList.clear();
-        urlList.add(bannerListBeens.get(bannerListBeens.size()-1).getImage());
+        urlList.add(bannerListBeens.get(bannerListBeens.size() - 1).getImage());
 
-        for(RecommendModel.DataBean.BannerListBean bannerListBean:bannerListBeens){
+        for (RecommendModel.DataBean.BannerListBean bannerListBean : bannerListBeens) {
             urlList.add(bannerListBean.getImage());
         }
         urlList.add(bannerListBeens.get(0).getImage());
@@ -299,15 +302,23 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
 
     @Override
     public void onSucceed(int what, Response<String> response) {
-        GsonUtil<RecommendModel> gsonUtil = new GsonUtil<>(RecommendModel.class);
-        RecommendModel recommendModel = gsonUtil.fromJson(response.get());
-        initRollPager(recommendModel.getData().getBannerList());
-        initBrandProduct(recommendModel.getData().getBrand());
-        initPerWeekProduct(recommendModel.getData().getNew());
-        initPersonRecommend(recommendModel.getData().getRecommend());
-        initDaySpecial(recommendModel.getData().getSpecials());
-        initYouLike(recommendModel.getData().getLike());
+        getDataFromJson(response.get());
 
+    }
+
+    private void getDataFromJson(String resultJson) {
+        try {
+            GsonUtil<RecommendModel> gsonUtil = new GsonUtil<>(RecommendModel.class);
+            RecommendModel recommendModel = gsonUtil.fromJson(resultJson);
+            initRollPager(recommendModel.getData().getBannerList());
+            initBrandProduct(recommendModel.getData().getBrand());
+            initPerWeekProduct(recommendModel.getData().getNew());
+            initPersonRecommend(recommendModel.getData().getRecommend());
+            initDaySpecial(recommendModel.getData().getSpecials());
+            initYouLike(recommendModel.getData().getLike());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

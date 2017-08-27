@@ -38,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Button registerBtnV;
     private String mUserPhone;
     private String mVerificode;
+    private TextView titleV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         password = (EditText) findViewById(R.id.password);
         registerDesV = (TextView) findViewById(R.id.registerDesV);
         registerBtnV = (Button) findViewById(R.id.registerBtnV);
+        titleV = (TextView) findViewById(R.id.titleV);
 
+        titleV.setText(getIntent().getStringExtra("title"));
         phoneNumber.setText(mUserPhone);
         initEvent();
     }
@@ -105,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         params.put("Phone", phone);
         params.put("Pwd", password);
         params.put("SMSCode", SMSCode);
-        noHttpRequest.request(this, HttpConstant.REGISTER, params, 1, this, false, "register", true, false);
+        noHttpRequest.accountInfoCommit(this, HttpConstant.REGISTER, params, 1, this, false, "register", true, false);
     }
 
     @Override

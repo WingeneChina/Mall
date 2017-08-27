@@ -1,4 +1,4 @@
-package cn.wingene.mallxm.display.home.secondMenu.adapter;
+package cn.wingene.mallxm.display.home.thridMenu.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,36 +11,37 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.List;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxm.display.home.secondMenu.adapter.SelectItemAdapter;
 import cn.wingene.mallxm.display.home.secondMenu.data.MenuItemContentModel;
 
 /**
- * Created by wangcq on 2017/8/14.
- * 精选适配器
+ * Created by wangcq on 2017/8/27.
+ * 周边子页面adapter
  */
 
-public class SelectItemAdapter extends RecyclerView.Adapter {
+public class ThirdMenuItemAdatper extends RecyclerView.Adapter {
     private List<MenuItemContentModel.DataBean.ListBean> mListBean;
 
-
-    public SelectItemAdapter(List<MenuItemContentModel.DataBean.ListBean> listBean) {
+    public ThirdMenuItemAdatper(List<MenuItemContentModel.DataBean.ListBean> listBean) {
         mListBean = listBean;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_select_item_layout, parent,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.third_menu_item_layout, parent,
                 false);
-        return new SelectHolder(view);
+        return new ThirdMenuItemHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (mListBean.size() > 0) {
-            SelectHolder selectHolder = (SelectHolder) holder;
+            ThirdMenuItemHolder selectHolder = (ThirdMenuItemHolder) holder;
             MenuItemContentModel.DataBean.ListBean listBean = mListBean.get(position);
             selectHolder.titleV.setText(listBean.getTitle());
             selectHolder.markOneV.setText(listBean.getFrom());
             selectHolder.markTwoV.setText(String.valueOf(listBean.getClick()));
+
             for (int i = 0; i < listBean.getImageList().size(); i++) {
                 switch (i) {
                     case 0:
@@ -61,11 +62,11 @@ public class SelectItemAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
+
         return mListBean.size() > 0 ? mListBean.size() : 8;
     }
 
-    class SelectHolder extends RecyclerView.ViewHolder {
-
+    class ThirdMenuItemHolder extends RecyclerView.ViewHolder {
         private TextView titleV;
         private SimpleDraweeView desOneImgV;
         private SimpleDraweeView desTwoImgV;
@@ -73,7 +74,7 @@ public class SelectItemAdapter extends RecyclerView.Adapter {
         private TextView markOneV;
         private TextView markTwoV;
 
-        public SelectHolder(View itemView) {
+        public ThirdMenuItemHolder(View itemView) {
             super(itemView);
             initViews(itemView);
         }
