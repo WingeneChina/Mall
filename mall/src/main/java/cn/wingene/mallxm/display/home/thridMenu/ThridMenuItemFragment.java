@@ -1,4 +1,4 @@
-package cn.wingene.mallxm.display.home.secondMenu;
+package cn.wingene.mallxm.display.home.thridMenu;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.baidu.location.BDLocation;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.HashMap;
@@ -18,29 +19,30 @@ import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.ui.MyBaseFragment;
+import cn.wingene.mallxm.display.home.ThirdMenuFragment;
 import cn.wingene.mallxm.display.home.secondMenu.adapter.SelectItemAdapter;
 import cn.wingene.mallxm.display.home.secondMenu.data.MenuItemContentModel;
+import cn.wingene.mallxm.display.home.thridMenu.adapter.ThirdMenuItemAdatper;
+import junze.androidx.baidu.LocationHelper;
 
 import static cn.wingene.mallxm.display.home.SecondMenuFragment.MENU_CODE_ARG;
 
 /**
- * Created by wangcq on 2017/8/14.
- * 精选
+ * Created by wangcq on 2017/8/27.
  */
 
-public class SelectedFragment extends MyBaseFragment implements HttpListener<String> {
-
+public class ThridMenuItemFragment extends MyBaseFragment implements HttpListener<String> {
     private RecyclerView selectRecyclerV;
-    private SelectItemAdapter mSelectItemAdapter;
+    private ThirdMenuItemAdatper mSelectItemAdapter;
 
     private int mOrderBy = 0;
     private int mPagerIndex = 1;//分页索引
 
-    public static SelectedFragment newInstance(Bundle bundle) {
-        SelectedFragment selectedFragment = new SelectedFragment();
-        selectedFragment.setArguments(bundle);
+    public static ThridMenuItemFragment newInstance(Bundle bundle) {
+        ThridMenuItemFragment thirdMenuItemFragment = new ThridMenuItemFragment();
+        thirdMenuItemFragment.setArguments(bundle);
 
-        return selectedFragment;
+        return thirdMenuItemFragment;
     }
 
     @Nullable
@@ -61,19 +63,23 @@ public class SelectedFragment extends MyBaseFragment implements HttpListener<Str
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
                 false);
         selectRecyclerV.setLayoutManager(linearLayoutManager);
-        mSelectItemAdapter = new SelectItemAdapter(menuItemContentModel.getData().getList());
+        mSelectItemAdapter = new ThirdMenuItemAdatper(menuItemContentModel.getData().getList());
         selectRecyclerV.setAdapter(mSelectItemAdapter);
     }
 
     private void requestData() {
         if (getArguments() != null) {
+            BDLocation location = LocationHelper.getInstance().getLocation();
+
             NoHttpRequest<MenuItemContentModel> noHttpRequest = new NoHttpRequest<>(MenuItemContentModel.class);
             HashMap<String, Object> hashMapParams = new HashMap<>();
             hashMapParams.put("CategoryCode", getArguments().getString(MENU_CODE_ARG));
             hashMapParams.put("OrderBy", mOrderBy);
             hashMapParams.put("PageIndex", mPagerIndex);
-            noHttpRequest.request(getActivity(), HttpConstant.SPECIAL_LIST, hashMapParams, 1, this, false,
-                    "menuList", false, true);
+            hashMapParams.put("Lat", location.getLatitude());
+            hashMapParams.put("Lng", location.getLongitude());
+            noHttpRequest.request(getActivity(), HttpConstant.NEARBY_LIST, hashMapParams, 1, this, false,
+                    "thirdMenuList", false, true);
         }
     }
 

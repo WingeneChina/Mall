@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import cn.wingene.mallxf.model.IndexModel;
 import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
+import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxm.display.home.firstMenu.BeautyFragment;
 import cn.wingene.mallxm.display.home.firstMenu.CarUseFragment;
@@ -46,7 +48,8 @@ import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
  */
 
 public class FirstMenuFragment extends MyBaseFragment implements HttpListener<String> {
-
+    public static final String RESULT_ARG = "resultJson";
+    public static final String PRODUCT_PARAMS = "CategoryCode";
     private ImageView logoV;
     private TextView searchMarkV;
     private ImageView ShoppingCart;
@@ -68,8 +71,8 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
             savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_firstmenu_layout, container, false);
         initViews(view);
-        initViewPager();
-//        requestData();
+//        initViewPager();
+        requestData();
 
         return view;
     }
@@ -92,20 +95,29 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
                 true, true);
     }
 
-    private void initViewPager() {
+    private void initViewPager(RecommendModel recommendModel, String resultJson) {
+        Bundle bundle = new Bundle();
+        bundle.putString(RESULT_ARG, resultJson);
 
         List<IndexModel> fragmentList = new ArrayList<>();
-        fragmentList.add(new IndexModel("推荐", RecommendFragment.newInstance(null)));
-        fragmentList.add(new IndexModel("天天特价", SpecialOfferFragment.newInstance(null)));
-        fragmentList.add(new IndexModel("新品", NewProductFragment.newInstance(null)));
-        fragmentList.add(new IndexModel("居家", IndoorFragment.newInstance(null)));
-        fragmentList.add(new IndexModel("零食", SnacksFragment.newInstance(null)));
-        fragmentList.add(new IndexModel("美妆", BeautyFragment.newInstance(null)));
-        fragmentList.add(new IndexModel("服饰", ClothesFragment.newInstance(null)));
-        fragmentList.add(new IndexModel("洗护", PersonalCareFragment.newInstance(null)));
-        fragmentList.add(new IndexModel("户外", OutdoorsFragment.newInstance(null)));
-        fragmentList.add(new IndexModel("电竞", GamingFragment.newInstance(null)));
-        fragmentList.add(new IndexModel("汽车用品", CarUseFragment.newInstance(null)));
+        fragmentList.add(new IndexModel("推荐", RecommendFragment.newInstance(bundle)));
+        fragmentList.add(new IndexModel("天天特价", SpecialOfferFragment.newInstance(bundle)));
+        fragmentList.add(new IndexModel("新品", NewProductFragment.newInstance(bundle)));
+        for (RecommendModel.DataBean.HeadMenuListBean headMenuListBean : recommendModel.getData().getHeadMenuList()) {
+            if (!TextUtils.isEmpty(headMenuListBean.getParam())) {
+                bundle.putString(PRODUCT_PARAMS, headMenuListBean.getParam());
+                fragmentList.add(new IndexModel(headMenuListBean.getTitle(), IndoorFragment.newInstance(bundle)));
+
+            }
+        }
+//        fragmentList.add(new IndexModel("居家", IndoorFragment.newInstance(bundle)));
+//        fragmentList.add(new IndexModel("零食", SnacksFragment.newInstance(bundle)));
+//        fragmentList.add(new IndexModel("美妆", BeautyFragment.newInstance(bundle)));
+//        fragmentList.add(new IndexModel("服饰", ClothesFragment.newInstance(bundle)));
+//        fragmentList.add(new IndexModel("洗护", PersonalCareFragment.newInstance(bundle)));
+//        fragmentList.add(new IndexModel("户外", OutdoorsFragment.newInstance(bundle)));
+//        fragmentList.add(new IndexModel("电竞", GamingFragment.newInstance(bundle)));
+//        fragmentList.add(new IndexModel("汽车用品", CarUseFragment.newInstance(bundle)));
 
 
         mMailFragmentPagerAdapter = new MailFragmentPagerAdapter(getChildFragmentManager(), fragmentList);
@@ -117,6 +129,11 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
     public void onSucceed(int what, Response<String> response) {
         GsonUtil<RecommendModel> gsonUtil = new GsonUtil<>(RecommendModel.class);
         RecommendModel recommendModel = gsonUtil.fromJson(response.get());
+        if (recommendModel.getErr() == 0) {
+            initViewPager(recommendModel, response.get());
+        } else {
+            ToastUtil.show("加载首页信息失败", getContext());
+        }
     }
 
     @Override
