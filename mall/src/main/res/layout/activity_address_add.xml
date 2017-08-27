@@ -25,6 +25,7 @@
             android:textSize="@dimen/def_action_bar_title_font"/>
 
         <junze.widget.Tile
+            android:id="@+id/tl_save"
             style="@style/LinearLayout.ActionBarBox"
             android:layout_weight="0"
             android:visibility="visible"
@@ -35,6 +36,7 @@
     </LinearLayout>
     <View style="@style/Line.Horizontal"/>
     <TextView
+        android:id="@+id/tv_area"
         android:layout_width="match_parent"
         android:layout_height="@dimen/p100"
         android:gravity="center_vertical"
@@ -46,6 +48,7 @@
         android:layout_marginLeft="@dimen/p30"/>
 
     <EditText
+        android:id="@+id/et_address"
         android:layout_width="match_parent"
         android:layout_height="@dimen/p100"
         android:gravity="center_vertical"
@@ -59,6 +62,7 @@
         android:layout_marginLeft="@dimen/p30"/>
 
     <EditText
+        android:id="@+id/et_name"
         android:background="@color/transparent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/p100"
@@ -72,6 +76,7 @@
         android:layout_marginLeft="@dimen/p30"/>
 
     <EditText
+        android:id="@+id/et_phone"
         android:background="@color/transparent"
         android:layout_width="match_parent"
         android:textSize="@dimen/f28"
@@ -90,6 +95,7 @@
         android:gravity="center_horizontal"
         android:layout_height="wrap_content">
         <CheckBox
+            android:id="@+id/cb_is_default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/p150"

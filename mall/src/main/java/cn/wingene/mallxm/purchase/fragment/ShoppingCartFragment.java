@@ -27,6 +27,7 @@ import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.YouLikeProduceAdapter;
+import cn.wingene.mallxm.purchase.OrderAddActivity;
 import cn.wingene.mallxm.purchase.adapter.CartItemAdapter;
 import cn.wingene.mallxm.purchase.ask.AskBuyCart;
 import cn.wingene.mallxm.purchase.ask.AskCartList;
@@ -78,7 +79,7 @@ public class ShoppingCartFragment extends MyBaseFragment {
         mCheckItemStates = new HashMap<>();
         mItemHolder = new ItemHolder(getContext(), lvCartItem);
         mItemHolder.setCheckItemStates(mCheckItemStates);
-        mItemHolder.setOnItemViewClick("check", onIvCheckClick());
+        mItemHolder.setOnItemViewClick("iv", onIvCheckClick());
         //        initOtherBuys();
         tlSelectAll.setOnClickListener(onSelectAllClick());
         tvOrder.setOnClickListener(new OnClickListener() {
@@ -91,13 +92,13 @@ public class ShoppingCartFragment extends MyBaseFragment {
                         list.add(""+item.getId());
                     }
                 }
-                agent().ask(new AskBuyCart.Request(StringUtil.spellBy(list)){
+                final String cartIds = StringUtil.spellBy(list);
+                agent().ask(new AskBuyCart.Request(cartIds) {
                     @Override
                     public void updateUI(AskBuyCart.Response rsp) {
-                        super.updateUI(rsp);
+                        OrderAddActivity.major.startActivity(getActivity(), cartIds, rsp.data);
                     }
                 });
-//                JumpHelper.startOrderAddActivity(getContext());
             }
         });
         return v;
@@ -115,6 +116,7 @@ public class ShoppingCartFragment extends MyBaseFragment {
                     local = new CartItemLocal(true);
                     mCheckItemStates.put(item.getId(), local);
                 }
+                refreshUI();
             }
         };
     }
@@ -126,6 +128,7 @@ public class ShoppingCartFragment extends MyBaseFragment {
                 if (isAllSelect()) {
                     mCheckItemStates.clear();
                 } else {
+                    mCheckItemStates.clear();
                     for (CartItem item : mItemHolder.getList()) {
                         mCheckItemStates.put(item.getId(), new CartItemLocal(true));
                     }
@@ -145,8 +148,9 @@ public class ShoppingCartFragment extends MyBaseFragment {
                     return false;
                 }
             }
+            return true;
         }
-        return true;
+        return false;
 
     }
 
@@ -159,8 +163,10 @@ public class ShoppingCartFragment extends MyBaseFragment {
                 total += item.getProductNumber() * item.getProductPrice();
             }
         }
+        mItemHolder.notifyDataSetChanged();
         tlSelectAll.setSelected(isAllSelect());
         tvTotal.setText(String.format("￥%.2f", total));
+
     }
 
     @Override
@@ -171,8 +177,7 @@ public class ShoppingCartFragment extends MyBaseFragment {
             public void updateUI(Response rsp) {
                 mItemHolder.clear();
                 mItemHolder.addAll(rsp.data);
-                mItemHolder.notifyDataSetChanged();
-
+                refreshUI();
             }
         });
     }
@@ -223,11 +228,12 @@ public class ShoppingCartFragment extends MyBaseFragment {
         @Override
         public void display(int i, CartItem cartItem) {
             CartItemLocal local = getCheckItemStates().get(cartItem.getId());
-            ivCheck.setSelected(local.isChecked);
+            ivCheck.setSelected(local != null && local.isChecked);
+            ivCheck.setOnClickListener(buildClickForItem("iv", i));
             ImageHelper.displayImage(cartItem.getProductImage(), ivProduct);
             tvTitle.setText(cartItem.getProductName());
             tvSubTitle.setText(cartItem.getProductSpec());
-            tvNumber.setText(cartItem.getProductNumber());
+            tvNumber.setText("" + cartItem.getProductNumber());
             tvPrice.setText(String.format("￥%.2f", cartItem.getProductPrice()));
         }
 

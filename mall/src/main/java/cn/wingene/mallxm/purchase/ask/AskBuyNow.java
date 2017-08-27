@@ -1,5 +1,8 @@
 package cn.wingene.mallxm.purchase.ask;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.JsonElement;
 import com.google.gson.annotations.SerializedName;
 
@@ -8,6 +11,10 @@ import junze.androidxf.kit.AKit;
 
 import cn.wingene.mallxf.http.Ask.BaseSignRequest;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
+import cn.wingene.mallxm.purchase.bean.Account;
+import cn.wingene.mallxm.purchase.bean.Address;
+import cn.wingene.mallxm.purchase.bean.Product;
+import cn.wingene.mallxm.purchase.bean.able.IAddOrder;
 
 /**
  * Created by Wingene on 2017/8/26.
@@ -15,47 +22,11 @@ import cn.wingene.mallxf.http.Ask.MyBaseResponse;
 
 public class AskBuyNow {
     public static class Response extends MyBaseResponse {
-        private Data data;
+        public BuyNowData data;
 
         @Override
         protected void initData(JsonElement json) {
-            data = AKit.getGson().fromJson(json, Data.class);
-        }
-
-        public Product getProduct() {
-            return data.getProduct();
-        }
-
-        public Account getAccount() {
-            return data.getAccount();
-        }
-
-        public Address getAddress() {
-            return data.getAddress();
-        }
-
-        public Double getDiscountPrice() {
-            return data.getDiscountPrice();
-        }
-
-        public Integer getSumNumber() {
-            return data.getSumNumber();
-        }
-
-        public Double getDiscount() {
-            return data.getDiscount();
-        }
-
-        public Double getSumPrice() {
-            return data.getSumPrice();
-        }
-
-        public Double getDeliveryFee() {
-            return data.getDeliveryFee();
-        }
-
-        public Double getPayPrice() {
-            return data.getPayPrice();
+            data = AKit.getGson().fromJson(json, BuyNowData.class);
         }
     }
 
@@ -97,7 +68,7 @@ public class AskBuyNow {
         }
     }
 
-    private static class Data {
+    public static class BuyNowData implements IAddOrder {
         /**
          * 商品信息	不可
          */
@@ -157,9 +128,17 @@ public class AskBuyNow {
             return Product;
         }
 
+        @Override
+        public List<Product> getProductList() {
+            List<Product> list = new ArrayList<>();
+            list.add(getProduct());
+            return list;
+        }
+
         /**
          * 会员账户	不可
          */
+        @Override
         public Account getAccount() {
             return Account;
         }
@@ -167,6 +146,7 @@ public class AskBuyNow {
         /**
          * 收货地址	可空
          */
+        @Override
         public Address getAddress() {
             return Address;
         }
@@ -174,6 +154,7 @@ public class AskBuyNow {
         /**
          * 总购买数量	不可
          */
+        @Override
         public Integer getSumNumber() {
             return sumNumber;
         }
@@ -181,6 +162,7 @@ public class AskBuyNow {
         /**
          * 总金额	不可
          */
+        @Override
         public Double getSumPrice() {
             return sumPrice;
         }
@@ -188,6 +170,7 @@ public class AskBuyNow {
         /**
          * 折扣率	不可
          */
+        @Override
         public Double getDiscount() {
             return discount;
         }
@@ -195,6 +178,7 @@ public class AskBuyNow {
         /**
          * 折扣金额	不可
          */
+        @Override
         public Double getDiscountPrice() {
             return discountPrice;
         }
@@ -202,6 +186,7 @@ public class AskBuyNow {
         /**
          * 运费金额	不可
          */
+        @Override
         public Double getDeliveryFee() {
             return deliveryFee;
         }
@@ -209,257 +194,9 @@ public class AskBuyNow {
         /**
          * 实付金额	不可
          */
+        @Override
         public Double getPayPrice() {
             return payPrice;
-        }
-
-
-    }
-
-    public static class Product {
-        /**
-         * 商品ID	不可
-         */
-        @SerializedName("Id")
-        private Integer id;
-
-        /**
-         * 商品名称	不可
-         */
-        @SerializedName("Name")
-        private String name;
-
-        /**
-         * 图片路径	不可
-         */
-        @SerializedName("DefaultImage")
-        private String defaultImage;
-
-        /**
-         * 销售价格	不可
-         */
-        @SerializedName("Price")
-        private Double price;
-
-        /**
-         * 市场价格	不可
-         */
-        @SerializedName("PriceMarket")
-        private Double priceMarket;
-
-        /**
-         * 库存数量	不可
-         */
-        @SerializedName("Stock")
-        private Integer stock;
-
-        /**
-         * 购买数量	不可
-         */
-        @SerializedName("BuyNum")
-        private Integer buyNum;
-
-        /**
-         * 规格ID	不可
-         */
-        @SerializedName("SpecId")
-        private Integer specId;
-
-        /**
-         * 规格名称	可空
-         */
-        @SerializedName("SpecValue")
-        private String specValue;
-
-        /**
-         * 促销活动ID	可空
-         */
-        @SerializedName("PromotionId")
-        private Integer promotionId;
-
-
-        /**
-         * 商品ID	不可
-         */
-        public Integer getId() {
-            return id;
-        }
-
-        /**
-         * 商品名称	不可
-         */
-        public String getName() {
-            return name;
-        }
-
-        /**
-         * 图片路径	不可
-         */
-        public String getDefaultImage() {
-            return defaultImage;
-        }
-
-        /**
-         * 销售价格	不可
-         */
-        public Double getPrice() {
-            return price;
-        }
-
-        /**
-         * 市场价格	不可
-         */
-        public Double getPriceMarket() {
-            return priceMarket;
-        }
-
-        /**
-         * 库存数量	不可
-         */
-        public Integer getStock() {
-            return stock;
-        }
-
-        /**
-         * 购买数量	不可
-         */
-        public Integer getBuyNum() {
-            return buyNum;
-        }
-
-        /**
-         * 规格ID	不可
-         */
-        public Integer getSpecId() {
-            return specId;
-        }
-
-        /**
-         * 规格名称	可空
-         */
-        public String getSpecValue() {
-            return specValue;
-        }
-
-        /**
-         * 促销活动ID	可空
-         */
-        public Integer getPromotionId() {
-            return promotionId;
-        }
-
-
-    }
-
-    public static class Account {
-        /**
-         * 游币	不可 使用比例 1:1
-         */
-        @SerializedName("Amount")
-        private Double amount;
-
-        /**
-         * 应币	不可 使用比例 100:1
-         */
-        @SerializedName("Integral")
-        private Integer integral;
-
-
-        /**
-         * 游币	不可 使用比例 1:1
-         */
-        public Double getAmount() {
-            return amount;
-        }
-
-        /**
-         * 应币	不可 使用比例 100:1
-         */
-        public Integer getIntegral() {
-            return integral;
-        }
-
-
-    }
-
-    public static class Address {
-        /**
-         * 地址ID	不可
-         */
-        @SerializedName("Id")
-        private Integer id;
-
-        /**
-         * 手机号码	不可
-         */
-        @SerializedName("Mobile")
-        private String mobile;
-
-        /**
-         * 联系人	不可
-         */
-        @SerializedName("Consignee")
-        private String consignee;
-
-        /**
-         * 区域名称	不可
-         */
-        @SerializedName("Region")
-        private String region;
-
-        /**
-         * 区域编码	不可
-         */
-        @SerializedName("RegionCode")
-        private String regionCode;
-
-        /**
-         * 地址详情	不可
-         */
-        @SerializedName("Address")
-        private String address;
-
-
-        /**
-         * 地址ID	不可
-         */
-        public Integer getId() {
-            return id;
-        }
-
-        /**
-         * 手机号码	不可
-         */
-        public String getMobile() {
-            return mobile;
-        }
-
-        /**
-         * 联系人	不可
-         */
-        public String getConsignee() {
-            return consignee;
-        }
-
-        /**
-         * 区域名称	不可
-         */
-        public String getRegion() {
-            return region;
-        }
-
-        /**
-         * 区域编码	不可
-         */
-        public String getRegionCode() {
-            return regionCode;
-        }
-
-        /**
-         * 地址详情	不可
-         */
-        public String getAddress() {
-            return address;
         }
 
 

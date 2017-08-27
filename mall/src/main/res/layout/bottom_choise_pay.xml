@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@color/lightgray"
+              android:layout_height="match_parent">
+    <RelativeLayout
+        android:background="@color/whitesmoke"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/p100">
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:textSize="@dimen/f36"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:text="付款方式"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_alignParentRight="true"
+            android:scaleType="center"
+            android:layout_weight="0"
+            android:layout_width="@dimen/p100"
+            android:src="@drawable/ic_pay_chosie_close"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:background="@color/whitesmoke"
+        android:layout_marginTop="@dimen/p16"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/p100">
+        <TextView
+            android:id="@+id/tv_sum"
+            android:layout_weight="1"
+            android:textSize="@dimen/f36"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:text="Y73.00"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llyt_pay"
+        android:background="@color/whitesmoke"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/p100">
+        <ImageView
+            android:layout_marginLeft="@dimen/p32"
+            android:layout_alignParentRight="true"
+            android:scaleType="center"
+            android:layout_weight="0"
+            android:layout_width="@dimen/p100"
+            android:src="@drawable/ic_pay"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:textSize="@dimen/f36"
+            android:gravity="left|center_vertical"
+            android:layout_width="match_parent"
+            android:text="支付宝"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:id="@+id/iv_pay_select"
+            android:layout_alignParentRight="true"
+            android:scaleType="center"
+            android:layout_weight="0"
+            android:layout_width="@dimen/p100"
+            android:src="@drawable/slic_image_cb_enabled"
+            android:layout_marginRight="@dimen/p32"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+    <View style="@style/Line.Horizontal" />
+
+    <LinearLayout
+        android:id="@+id/llyt_wx"
+        android:background="@color/whitesmoke"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/p100">
+        <ImageView
+            android:layout_marginLeft="@dimen/p32"
+            android:layout_alignParentRight="true"
+            android:scaleType="center"
+            android:layout_weight="0"
+            android:layout_width="@dimen/p100"
+            android:src="@drawable/ic_wx"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:textSize="@dimen/f36"
+            android:gravity="left|center_vertical"
+            android:layout_width="match_parent"
+            android:text="微信"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:id="@+id/iv_wx_select"
+            android:layout_alignParentRight="true"
+            android:scaleType="center"
+            android:layout_weight="0"
+            android:layout_width="@dimen/p100"
+            android:layout_marginRight="@dimen/p32"
+            android:src="@drawable/slic_image_cb_enabled"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/whitesmoke"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/p32">
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_ok"
+        android:background="@color/def_darkYellow"
+        android:text="确认支付"
+        android:gravity="center"
+        android:textSize="@dimen/f36"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/p100">
+    </TextView>
+
+
+</LinearLayout>

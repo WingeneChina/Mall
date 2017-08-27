@@ -25,11 +25,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.JsonObject;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sennie.skulib.Sku;
 import com.sennie.skulib.model.BaseSkuModel;
-import org.json.JSONObject;
 
 import junze.java.util.CheckUtil;
 
@@ -42,12 +39,13 @@ import junze.androidxf.tool.HtmlLoader;
 import cn.wingene.mall.R;
 import cn.wingene.mallx.universalimageloader.ImageHelper;
 import cn.wingene.mallxf.ui.MyBaseActivity;
+import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.purchase.adapter.CommodityImagePagerAdapter;
 import cn.wingene.mallxm.purchase.adapter.SkuAdapter;
 import cn.wingene.mallxm.purchase.ask.AskBuyNow;
 import cn.wingene.mallxm.purchase.ask.AskCartAdd;
 import cn.wingene.mallxm.purchase.ask.AskProductDetail;
-import cn.wingene.mallxm.purchase.ask.AskProductDetail.Product;
+import cn.wingene.mallxm.purchase.ask.AskProductDetail.ProductDetail;
 import cn.wingene.mallxm.purchase.ask.AskProductDetail.ProductImageList;
 import cn.wingene.mallxm.purchase.ask.AskProductDetail.ProductSpecList;
 import cn.wingene.mallxm.purchase.ask.AskProductDetail.Response;
@@ -67,7 +65,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
     int mProductId;
     int mPromotionId;
     int mBuyNumber;
-    Product mProduct;
+    ProductDetail mProduct;
     List<ProductSpecList> mSpecList;
     private List<String> urlList = new ArrayList<>();
     private ProductModel mModel;
@@ -136,7 +134,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
         tvBuy.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showBottomSheetDialog(buildProductModel());
             }
         });
         askProductDetail();
@@ -173,24 +171,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                StringBuilder sb = new StringBuilder();
-                Integer[] ids = new Integer[2];
-                for (AttributeMembersEntity key : mUiData.getSelectedEntities()) {
-                    sb.append(String.format("name : %s%ngroupid : %s%nmemberId : %s%nstatus:%s%n ", key.getName(), 
-                            key.getAttributeGroupId(), key.getAttributeMemberId(), key.getStatus()));
-                    ids[key.getAttributeGroupId() - 1] = key.getAttributeMemberId();
-                }
-                if (ids[0] == null || ids[1] == null) {
-                    showToast("请继续选择");
-                    return;
-                }
-                for (ProductSpecList item : mSpecList) {
-                    if (CheckUtil.isEquals(ids[0], item.getSpec1ValueId()) && CheckUtil.isEquals(ids[1], item
-                            .getSpec2ValueId())) {
-                        showMsgDialog(String.format("您选择了%s", item));
-                    }
-                }
+                JumpHelper.startShoppingCartActivity(getActivity());
             }
         };
     }
@@ -218,8 +199,8 @@ public class CommodityDetailActivity extends MyBaseActivity {
                             ask(new AskBuyNow.Request(mProductId, item.getId(), mPromotionId, mBuyNumber) {
                                 @Override
                                 public void updateUI(AskBuyNow.Response rsp) {
-//                                    super.updateUI(rsp);
-                                    showToast(rsp.msg);
+                                    OrderAddActivity.major.startActivity(getActivity(),rsp.data);
+                                    mUiData.getBottomSheetDialog().hide();
                                 }
                             });
                         } else {
@@ -227,6 +208,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
                                 @Override
                                 public void updateUI(AskCartAdd.Response rsp) {
                                     showToast(rsp.msg);
+                                    mUiData.getBottomSheetDialog().hide();
                                 }
                             });
                         }

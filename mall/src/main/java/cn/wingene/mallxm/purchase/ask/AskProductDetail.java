@@ -23,7 +23,7 @@ public class AskProductDetail {
             data = AKit.getGson().fromJson(json,Data.class);
         }
 
-        public Product getProduct() {
+        public ProductDetail getProduct() {
             return data.getProduct();
         }
 
@@ -63,7 +63,7 @@ public class AskProductDetail {
         /**
          * 商品信息	不可
          */
-        private Product Product;
+        private ProductDetail Product;
 
         /**
          * 商品图片列表	不可
@@ -79,7 +79,7 @@ public class AskProductDetail {
         /**
          * 商品信息	不可
          */
-        public Product getProduct() {
+        public ProductDetail getProduct() {
             return Product;
         }
 
@@ -100,7 +100,7 @@ public class AskProductDetail {
 
     }
 
-    public static class Product {
+    public static class ProductDetail {
         /**
          * 商品ID	不可
          */

@@ -98,7 +98,7 @@ public class AskCartList {
          * 状态说明	不可
          */
         @SerializedName("StateDesp")
-        private Integer stateDesp;
+        private String stateDesp;
 
 
         /**
@@ -177,7 +177,7 @@ public class AskCartList {
         /**
          * 状态说明	不可
          */
-        public Integer getStateDesp() {
+        public String getStateDesp() {
             return stateDesp;
         }
 

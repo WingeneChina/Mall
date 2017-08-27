@@ -6,6 +6,8 @@
     <color name="colorPrimaryDark">#FAFAFA</color>
     <color name="colorBackground">#F4F4F4</color>
 
+    <color name="def_darkYellow">#f7cd11</color>
+
     <color name="menuGroup_bg">#F4C19F</color>
     <color name="menu_selected_color">#BC7356</color>
     <color name="menu_unSelected_color">#C79472</color>
