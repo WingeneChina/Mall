@@ -72,6 +72,7 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
             savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_firstmenu_layout, container, false);
         initViews(view);
+        initEvent();
 //        initViewPager();
         requestData();
 
@@ -85,6 +86,10 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
         mTabLayout = (TabLayout) root.findViewById(R.id.tabLayout);
         contentPagerV = (ViewPager) root.findViewById(R.id.contentPagerV);
 
+    }
+
+    private void initEvent() {
+        shoppingCart.setOnClickListener(this);
     }
 
     /**
