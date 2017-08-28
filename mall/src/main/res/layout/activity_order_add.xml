@@ -161,26 +161,56 @@
                 android:paddingLeft="@dimen/p30"
                 android:layout_height="@dimen/p104">
                 <TextView
+                    android:layout_weight="1"
                     android:id="@+id/tv_integral"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_gravity="left|center_vertical"
                     android:text="应币可抵用15元"
                     android:layout_height="wrap_content"/>
-                <!--<TextView-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_gravity="left|center_vertical"-->
-                    <!--android:gravity="right"-->
-                    <!--android:text="现有应币3000"-->
-                    <!--android:layout_height="wrap_content"/>-->
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center_vertical"-->
-                    <!--android:layout_marginLeft="@dimen/p10"-->
-                    <!--android:layout_marginRight="@dimen/p30"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:src="@drawable/ic_goods_arrow_right_gray"/>-->
+                <LinearLayout
+                    android:layout_marginRight="@dimen/p16"
+                    android:layout_weight="0"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/llyt_integral_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/p60"
+                    android:layout_below="@+id/tv_title"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/shape_stroke_darkgray">
+
+                    <TextView
+                        android:id="@+id/tv_integral_reduce"
+                        android:layout_width="@dimen/p80"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="-"
+                        android:textSize="@dimen/f40"
+                        android:textStyle="bold"/>
+
+                    <View
+                        style="@style/Line.Vertical"/>
+
+                    <TextView
+                        android:id="@+id/tv_integral_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:minWidth="@dimen/p80"
+                        android:text="1"
+                        android:textSize="@dimen/f36"/>
+
+                    <View
+                        style="@style/Line.Vertical"/>
+
+                    <TextView
+                        android:id="@+id/tv_integral_increase"
+                        android:layout_width="@dimen/p80"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="+"
+                        android:textSize="@dimen/f40"
+                        android:textStyle="bold"/>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -200,14 +230,50 @@
                     android:layout_gravity="left|center_vertical"
                     android:text="游币可抵用8元"
                     android:layout_height="wrap_content"/>
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center_vertical"-->
-                    <!--android:layout_marginLeft="@dimen/p10"-->
-                    <!--android:layout_marginRight="@dimen/p30"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:src="@drawable/ic_goods_arrow_right_gray"/>-->
+                <LinearLayout
+                    android:layout_marginRight="@dimen/p16"
+                    android:layout_weight="0"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/llyt_amount_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/p60"
+                    android:layout_below="@+id/tv_title"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/shape_stroke_darkgray">
+
+                    <TextView
+                        android:id="@+id/tv_amount_reduce"
+                        android:layout_width="@dimen/p80"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="-"
+                        android:textSize="@dimen/f40"
+                        android:textStyle="bold"/>
+
+                    <View
+                        style="@style/Line.Vertical"/>
+
+                    <TextView
+                        android:id="@+id/tv_amount_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:minWidth="@dimen/p80"
+                        android:text="1"
+                        android:textSize="@dimen/f36"/>
+
+                    <View
+                        style="@style/Line.Vertical"/>
+
+                    <TextView
+                        android:id="@+id/tv_amount_increase"
+                        android:layout_width="@dimen/p80"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="+"
+                        android:textSize="@dimen/f40"
+                        android:textStyle="bold"/>
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -237,7 +303,7 @@
                     android:paddingRight="@dimen/p30"
                     android:layout_width="match_parent"
                     android:layout_gravity="right|center_vertical"
-                    android:text="Y0.00"
+                    android:text="免费"
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>

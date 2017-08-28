@@ -43,7 +43,7 @@ public class JumpHelper {
      * @param state 订单状态 -1、全部 0、待付款 1、待发货 3、待确认 4、交易完成 5、交易完成已评价
      */
     public static void startOrderListActivity(Context src, int state) {
-        create(src, OrderListActivity.class).startActivity();
+        OrderListActivity.major.startForOrderState(src,state);
     }
 
     /**

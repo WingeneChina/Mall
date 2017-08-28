@@ -117,7 +117,6 @@ public class CommodityDetailActivity extends MyBaseActivity {
             finish();
             return;
         }
-        // TODO: 2017/8/26
         mBuyNumber = 1;
 
         mUiData = new UiData();
@@ -290,10 +289,10 @@ public class CommodityDetailActivity extends MyBaseActivity {
             super(context, R.layout.bottom_sheet);
         }
 
-        public void dispaly(OnClickListener onCartClick, OnClickListener onBuyClick, ProductModel mModel, UiData
+        public void dispaly(OnClickListener onBuyClick,OnClickListener onCartClick , ProductModel mModel, UiData
                 mUiData, int number, final ICallBack<Integer> numberCallback) {
-            cart.setOnClickListener(onCartClick);
             buy.setOnClickListener(onBuyClick);
+            cart.setOnClickListener(onCartClick);
             tvNumber.setText("" + number);
             tvReduce.setOnClickListener(new OnClickListener() {
                 @Override

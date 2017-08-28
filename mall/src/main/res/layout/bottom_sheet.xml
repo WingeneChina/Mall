@@ -73,6 +73,12 @@
         android:layout_marginTop="16dp"
         android:background="@android:color/white"
         android:orientation="horizontal">
+        <Button
+            android:id="@+id/buy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="购买"/>
 
         <Button
             android:id="@+id/cart"
@@ -82,12 +88,7 @@
             android:text="加入购物车"/>
 
 
-        <Button
-            android:id="@+id/buy"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="购买"/>
+
 
     </LinearLayout>
 </RelativeLayout>

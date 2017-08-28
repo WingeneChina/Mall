@@ -33,5 +33,11 @@ public class Account {
         return integral;
     }
 
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
 
+    public void setIntegral(Integer integral) {
+        this.integral = integral;
+    }
 }
