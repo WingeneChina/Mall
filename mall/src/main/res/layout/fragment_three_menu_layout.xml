@@ -20,7 +20,7 @@
         android:id="@+id/selectTabLayout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        app:tabIndicatorColor="@color/menu_selected_color"
+        app:tabIndicatorColor="@color/yellow_mall"
         app:tabIndicatorHeight="2dp"
         app:tabSelectedTextColor="@color/menu_selected_color"
         app:tabTextColor="@color/nine_text_color"/>
