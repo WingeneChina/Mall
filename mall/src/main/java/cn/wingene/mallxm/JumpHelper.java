@@ -25,6 +25,7 @@ public class JumpHelper {
     public static void startCommodityDetailActivity(Context context) {
         startCommodityDetailActivity(context, 1, 0);
     }
+
     /**
      * 进入商品详情界面
      *
@@ -34,6 +35,11 @@ public class JumpHelper {
      */
     public static void startCommodityDetailActivity(Context src, int productId, int promotionId) {
         CommodityDetailActivity.major.startActivity(src, productId, promotionId);
+    }
+
+    public static void startCommodityDetailActivity(Context src, int productId) {
+        CommodityDetailActivity.major.startActivity(src, productId, 0);
+
     }
 
     /**
@@ -48,6 +54,7 @@ public class JumpHelper {
 
     /**
      * 进入购物车界面
+     *
      * @param context
      */
     public static void startShoppingCartActivity(Context context) {
@@ -56,6 +63,7 @@ public class JumpHelper {
 
     /**
      * 地址管理界面
+     *
      * @param context
      */
     public static void startAddressManagerActivity(Context context) {

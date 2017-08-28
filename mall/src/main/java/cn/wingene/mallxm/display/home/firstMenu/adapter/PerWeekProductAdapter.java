@@ -12,6 +12,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.List;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
 
 /**
@@ -36,23 +37,31 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        PerWeekHolder perWeekHolder = (PerWeekHolder) holder;
-        RecommendModel.DataBean.NewBean.ProductListBean productListBean = mProductListBeen.get(position);
+        final PerWeekHolder perWeekHolder = (PerWeekHolder) holder;
+        final RecommendModel.DataBean.NewBean.ProductListBean productListBean = mProductListBeen.get(position);
         perWeekHolder.perWeekProductNameV.setText(productListBean.getProductName());
         perWeekHolder.perWeekProductImgV.setImageURI(productListBean.getProductImage());
         perWeekHolder.perWeekProductNameV.setText(productListBean.getProductName());
         perWeekHolder.perWeekProductDesV.setVisibility(View.GONE);
-        if(!TextUtils.isEmpty(productListBean.getTag())) {
+        if (!TextUtils.isEmpty(productListBean.getTag())) {
             perWeekHolder.perWeekItemMarkTwoV.setText(productListBean.getTag().replace(",", "/"));
         }
-        perWeekHolder.perWeekProductPriceV.setText("¥"+String.valueOf(productListBean.getProductPrice()));
+        perWeekHolder.perWeekProductPriceV.setText("¥" + String.valueOf(productListBean.getProductPrice()));
+
+        perWeekHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JumpHelper.startCommodityDetailActivity(perWeekHolder.perWeekProductPriceV.getContext()
+                        , productListBean
+                                .getProductId());
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mProductListBeen.size();
     }
-
 
 
     class PerWeekHolder extends RecyclerView.ViewHolder {

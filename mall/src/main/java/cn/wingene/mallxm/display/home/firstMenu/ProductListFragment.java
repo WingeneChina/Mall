@@ -11,27 +11,45 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yanzhenjie.nohttp.rest.Response;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.adapter.ImagePagerAdapter;
+import cn.wingene.mallxf.http.HttpConstant;
+import cn.wingene.mallxf.model.BaseResponse;
+import cn.wingene.mallxf.nohttp.GsonUtil;
+import cn.wingene.mallxf.nohttp.HttpListener;
+import cn.wingene.mallxf.nohttp.NoHttpRequest;
+import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.ui.customview.InnerViewpager;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
+import cn.wingene.mallxm.display.home.firstMenu.adapter.ProductListCommentAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.YouLikeProduceAdapter;
+import cn.wingene.mallxm.display.home.firstMenu.data.ProductListModel;
+
+import static cn.wingene.mallxm.display.home.FirstMenuFragment.PRODUCT_PARAMS;
 
 /**
  * Created by wangcq on 2017/8/13.
  * 商品列表页面
  */
 
-public class ProductListFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener {
+public class ProductListFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener,
+        HttpListener<String> {
 
     private RecyclerView productListRecyclerV;
     private InnerViewpager rollPagerV;
     private ImagePagerAdapter mImagePagerAdapter;
     private List<String> urlList = new ArrayList<>();
+
+    private int orderBy = 0;//0 综合、2 金额降序 、1 金额升序
+    private int mPagerIndex = 1;
+
     int currentIndex = 0;
     Handler mHandler = new Handler() {
         @Override
@@ -56,8 +74,9 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
             savedInstanceState) {
         View rootView = inflater.inflate(R.layout.product_list_layout, container, false);
         initViews(rootView);
-        initProductListData();
+//        initProductListData();
         initRollPagerV();
+        requestData();
         return rootView;
     }
 
@@ -77,16 +96,31 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
         mHandler.sendEmptyMessageDelayed(1, 1000);
     }
 
+    private void requestData() {
+        NoHttpRequest<BaseResponse> responseNoHttpRequest = new NoHttpRequest<>(BaseResponse.class);
+        HashMap<String, Object> hasmapParams = new HashMap<>();
+        hasmapParams.put("OrderBy", orderBy);
+        hasmapParams.put("PageIndex", mPagerIndex);
+        hasmapParams.put("Type", 20);
+        hasmapParams.put("CategoryCode", getArguments().getString(PRODUCT_PARAMS));
+        responseNoHttpRequest.request(getActivity(), HttpConstant.PRODUCT_LIST, hasmapParams, 1, this, false,
+                "specialOffer",
+                false, true);
+    }
+
     /**
      * 初始化商品数据
      */
-    private void initProductListData() {
+    private void initProductListData(ProductListModel productListModel) {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         productListRecyclerV.setLayoutManager(gridLayoutManager);
 
 //        YouLikeProduceAdapter youLikeProduceAdapter = new YouLikeProduceAdapter();
 //        productListRecyclerV.setAdapter(youLikeProduceAdapter);
-
+        ProductListCommentAdapter productListCommentAdapter = new ProductListCommentAdapter(productListModel
+                .getData().getList
+                        ());
+        productListRecyclerV.setAdapter(productListCommentAdapter);
         SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
         productListRecyclerV.addItemDecoration(spaceItemDecoration);
     }
@@ -112,5 +146,24 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
         if (state == ViewPager.SCROLL_STATE_IDLE) {
             rollPagerV.setCurrentItem(currentIndex, false);
         }
+    }
+
+    @Override
+    public void onSucceed(int what, Response<String> response) {
+        try {
+            GsonUtil<ProductListModel> gsonUtil = new GsonUtil(ProductListModel.class);
+            ProductListModel productListModel = gsonUtil.fromJson(response.get());
+            initProductListData(productListModel);
+            if (productListModel.getData().getList().size() == 0) {
+                ToastUtil.show("暂无商品", getContext());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onFailed(int what, Object tag, Exception exception, int responseCode, long networkMillis) {
+
     }
 }
