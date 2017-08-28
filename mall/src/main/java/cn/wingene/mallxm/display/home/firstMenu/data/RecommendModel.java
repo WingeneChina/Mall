@@ -375,9 +375,9 @@ public class RecommendModel {
         public static class BrandBean {
             private String Image;
             private String Title;
-            private int Type;
+            private String Type;
             private String Param;
-            private int OrderIndex;
+            private String OrderIndex;
             /**
              * ProductId : 3
              * ProductImage : http://img.usoft100.com/upload/image/20170815/s_1502766942430946_300X300.jpg
@@ -406,11 +406,11 @@ public class RecommendModel {
                 this.Title = Title;
             }
 
-            public int getType() {
+            public String getType() {
                 return Type;
             }
 
-            public void setType(int Type) {
+            public void setType(String Type) {
                 this.Type = Type;
             }
 
@@ -422,11 +422,11 @@ public class RecommendModel {
                 this.Param = Param;
             }
 
-            public int getOrderIndex() {
+            public String getOrderIndex() {
                 return OrderIndex;
             }
 
-            public void setOrderIndex(int OrderIndex) {
+            public void setOrderIndex(String OrderIndex) {
                 this.OrderIndex = OrderIndex;
             }
 

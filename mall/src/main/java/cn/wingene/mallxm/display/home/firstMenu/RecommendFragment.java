@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dalong.refreshlayout.OnRefreshListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yanzhenjie.nohttp.rest.Response;
 
@@ -36,6 +37,7 @@ import cn.wingene.mallxf.util.ActivityUtils;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
 import cn.wingene.mallxm.display.home.FirstMenuFragment;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
+import cn.wingene.mallxm.display.home.firstMenu.activity.ProductSecondActivity;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.BrandProductAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.DaySpecialPriceAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.PerWeekProductAdapter;
@@ -62,6 +64,8 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
 
     private ImagePagerAdapter mImagePagerAdapter;
     private List<String> urlList = new ArrayList<>();
+
+    private RecommendModel recommendModel;
 
     int currentIndex = 0;
     Handler mHandler = new Handler() {
@@ -117,6 +121,7 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
 
     private void initView(View root) {
         mJDRefreshLayout = (JDRefreshLayout) root.findViewById(R.id.refreshLayout);
+
         mRollViewPager = (ViewPager) root.findViewById(R.id.rollPagerV);
         brandProductRecyclerV = (RecyclerView) root.findViewById(R.id.brandProductRecyclerV);
         perWeekBGV = (SimpleDraweeView) root.findViewById(R.id.perWeekBGV);
@@ -137,6 +142,17 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
         daySpecialBgV = (SimpleDraweeView) root.findViewById(R.id.daySpecialBgV);
         youLikeBgV = (SimpleDraweeView) root.findViewById(R.id.youLikeBgV);
 
+        mJDRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mJDRefreshLayout.stopRefresh(true);
+            }
+
+            @Override
+            public void onLoadMore() {
+                mJDRefreshLayout.stopLoadMore(true);
+            }
+        });
     }
 
     /**
@@ -152,10 +168,21 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent(this.getActivity(), ProductSecondActivity.class);
+
         switch (v.getId()) {
             case R.id.brandTitleGroupV:
+                if (recommendModel != null) {
+                    intent.putExtra("typeCode", recommendModel.getData().getBrand().getType());
+                    intent.putExtra("key", recommendModel.getData().getBrand().getParam());
+                }
 
+                break;
             case R.id.perWeekTitleGroupV:
+//                Intent intent = new Intent(this.getActivity(), ProductActivity.class);
+//                startActivity(intent);
+
+                break;
 
             case R.id.personRecommendTitleGroupV:
 
@@ -164,11 +191,13 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
             case R.id.youLikeTitleGroupV:
 
             default:
-                Intent intent = new Intent(this.getActivity(), ProductActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(this.getActivity(), ProductActivity.class);
+//                startActivity(intent);
 
                 break;
         }
+        startActivity(intent);
+
     }
 
     /**
@@ -309,13 +338,14 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     private void getDataFromJson(String resultJson) {
         try {
             GsonUtil<RecommendModel> gsonUtil = new GsonUtil<>(RecommendModel.class);
-            RecommendModel recommendModel = gsonUtil.fromJson(resultJson);
+            recommendModel = gsonUtil.fromJson(resultJson);
             initRollPager(recommendModel.getData().getBannerList());
             initBrandProduct(recommendModel.getData().getBrand());
             initPerWeekProduct(recommendModel.getData().getNew());
             initPersonRecommend(recommendModel.getData().getRecommend());
             initDaySpecial(recommendModel.getData().getSpecials());
             initYouLike(recommendModel.getData().getLike());
+
         } catch (Exception e) {
             e.printStackTrace();
         }

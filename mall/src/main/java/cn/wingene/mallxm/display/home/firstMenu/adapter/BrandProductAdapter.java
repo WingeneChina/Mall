@@ -32,27 +32,30 @@ public class BrandProductAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recommend_brand_item_layout, parent,
                 false);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JumpHelper.startCommodityDetailActivity(parent.getContext());
-            }
-        });
+
         return new BrandHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        RecommendModel.DataBean.BrandBean.ProductListBean productListBean = mProductListBeen.get(position);
-        BrandHolder brandHolder = (BrandHolder) holder;
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        final RecommendModel.DataBean.BrandBean.ProductListBean productListBean = mProductListBeen.get(position);
+        final BrandHolder brandHolder = (BrandHolder) holder;
         brandHolder.brandProductNameV.setText(productListBean.getProductName());
         brandHolder.brandProductPriceV.setText(String.valueOf(productListBean.getProductPrice()));
         brandHolder.brandProductImgV.setImageURI(productListBean.getProductImage());
         if (!TextUtils.isEmpty(productListBean.getTag())) {
-            String tags = productListBean.getTag().replace(",","/");
+            String tags = productListBean.getTag().replace(",", "/");
             brandHolder.brandProductMarkV.setBackgroundResource(R.drawable.red_shape);
             brandHolder.brandProductMarkV.setText(tags);
         }
+
+        brandHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JumpHelper.startCommodityDetailActivity(brandHolder.brandProductImgV.getContext(), productListBean
+                        .getProductId());
+            }
+        });
     }
 
     @Override

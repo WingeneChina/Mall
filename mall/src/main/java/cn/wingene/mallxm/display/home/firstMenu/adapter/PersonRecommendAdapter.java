@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
 
 /**
@@ -31,18 +32,18 @@ public class PersonRecommendAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recommend_person_recommend_item_layout,
                 parent, false);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//            }
+//        });
         return new PersonRecommendHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        PersonRecommendHolder personRecommendHolder = (PersonRecommendHolder) holder;
-        RecommendModel.DataBean.RecommendBean.ProductListBean productListBean = mProductListBeen.get(position);
+        final PersonRecommendHolder personRecommendHolder = (PersonRecommendHolder) holder;
+        final RecommendModel.DataBean.RecommendBean.ProductListBean productListBean = mProductListBeen.get(position);
         personRecommendHolder.personRecommendItemImgV.setImageURI(productListBean.getProductImage());
         personRecommendHolder.personRecommendProductNameV.setText(productListBean.getProductName());
         personRecommendHolder.personRecommendItemMarkOneV.setVisibility(View.GONE);
@@ -50,6 +51,15 @@ public class PersonRecommendAdapter extends RecyclerView.Adapter {
         personRecommendHolder.personRecommendItemMarkTwoV.setText(productListBean.getTag().toString().replace(",",
                 "/"));
         personRecommendHolder.personRecommendProductPriceV.setText("¥" + productListBean.getProductPrice());
+
+        personRecommendHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JumpHelper.startCommodityDetailActivity(personRecommendHolder.personRecommendProductDesV.getContext()
+                        , productListBean
+                        .getProductId());
+            }
+        });
     }
 
     @Override

@@ -11,6 +11,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.List;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.firstMenu.data.ProductListModel;
 
 /**
@@ -40,8 +41,8 @@ public class SpecialOfferRecyclerVAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        SpecialHolder specialHolder = (SpecialHolder) holder;
-        ProductListModel.DataBean.ListBean productItemData = mDataBeanList.get(position);
+        final SpecialHolder specialHolder = (SpecialHolder) holder;
+        final ProductListModel.DataBean.ListBean productItemData = mDataBeanList.get(position);
 
         specialHolder.personRecommendItemImgV.setImageURI(productItemData.getDefaultImage());
         specialHolder.personRecommendProductNameV.setText(productItemData.getName());
@@ -50,6 +51,14 @@ public class SpecialOfferRecyclerVAdapter extends RecyclerView.Adapter {
         specialHolder.personRecommendItemMarkTwoV.setText(productItemData.getTag().toString().replace(",",
                 "/"));
         specialHolder.personRecommendProductPriceV.setText("¥" + productItemData.getPrice());
+
+        specialHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JumpHelper.startCommodityDetailActivity(specialHolder.personRecommendProductDesV.getContext()
+                        , productItemData.getId());
+            }
+        });
     }
 
     @Override

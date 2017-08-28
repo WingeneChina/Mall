@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dalong.refreshlayout.OnRefreshListener;
 import com.google.gson.JsonObject;
 import com.yanzhenjie.nohttp.rest.Response;
 
@@ -68,6 +69,18 @@ public class SpecialOfferFragment extends MyBaseFragment implements HttpListener
         rollPagerV = (InnerViewpager) root.findViewById(R.id.rollPagerV);
         specialRecyclerV = (RecyclerView) root.findViewById(R.id.specialRecyclerV);
         refreshLayout = (JDRefreshLayout) root.findViewById(R.id.refreshLayout);
+
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshLayout.stopRefresh(true);
+            }
+
+            @Override
+            public void onLoadMore() {
+                refreshLayout.stopLoadMore(true);
+            }
+        });
     }
 
     /**

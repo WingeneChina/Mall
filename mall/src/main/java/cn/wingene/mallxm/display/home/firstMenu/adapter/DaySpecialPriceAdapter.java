@@ -11,6 +11,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.List;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
 
 /**
@@ -40,14 +41,22 @@ public class DaySpecialPriceAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            DaySpecialPrice daySpecialPrice = (DaySpecialPrice) holder;
-        RecommendModel.DataBean.SpecialsBean.ProductListBean productListBean =  mProductListBeen.get(position);
+            final DaySpecialPrice daySpecialPrice = (DaySpecialPrice) holder;
+        final RecommendModel.DataBean.SpecialsBean.ProductListBean productListBean =  mProductListBeen.get(position);
         daySpecialPrice.personRecommendItemImgV.setImageURI(productListBean.getProductImage());
         daySpecialPrice.personRecommendProductNameV.setText(productListBean.getProductName());
         daySpecialPrice.personRecommendProductPriceV.setText("¥"+productListBean.getProductPrice());
         daySpecialPrice.personRecommendItemMarkTwoV.setText(productListBean.getTag().replace(",","/"));
         daySpecialPrice.personRecommendItemMarkOneV.setVisibility(View.GONE);
         daySpecialPrice.personRecommendProductDesV.setVisibility(View.GONE);
+
+        daySpecialPrice.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JumpHelper.startCommodityDetailActivity(daySpecialPrice.personRecommendItemImgV.getContext(), productListBean
+                        .getProductId());
+            }
+        });
     }
 
     @Override

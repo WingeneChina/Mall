@@ -11,6 +11,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.List;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
 
 /**
@@ -29,22 +30,26 @@ public class YouLikeProduceAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recommend_youlike_item_layout, parent,
                 false);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+
         return new YouLikeHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        YouLikeHolder youLikeHolder = (YouLikeHolder) holder;
-        RecommendModel.DataBean.LikeBean.ProductListBean  productListBean = mProductListBeen.get(position);
+        final YouLikeHolder youLikeHolder = (YouLikeHolder) holder;
+        final RecommendModel.DataBean.LikeBean.ProductListBean productListBean = mProductListBeen.get(position);
         youLikeHolder.youLikeItemImgV.setImageURI(productListBean.getProductImage());
         youLikeHolder.youLikeProductNameV.setText(productListBean.getProductName());
         youLikeHolder.youLikeProductDesV.setVisibility(View.GONE);
-        youLikeHolder.youLikeProductPriceV.setText("¥"+productListBean.getProductPrice());
+        youLikeHolder.youLikeProductPriceV.setText("¥" + productListBean.getProductPrice());
+
+        youLikeHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JumpHelper.startCommodityDetailActivity(youLikeHolder.itemView.getContext()
+                        , productListBean.getProductId());
+            }
+        });
     }
 
     @Override

@@ -51,10 +51,10 @@ public class ImagePagerAdapter extends PagerAdapter {
         mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (position == urlList.size() - 2) {
-                    Intent intent = new Intent(container.getContext(), LuckyActivity.class);
-                    container.getContext().startActivity(intent);
-                }
+//                if (position == urlList.size() - 2) {
+//                    Intent intent = new Intent(container.getContext(), LuckyActivity.class);
+//                    container.getContext().startActivity(intent);
+//                }
             }
         });
 

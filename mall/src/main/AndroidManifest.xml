@@ -55,6 +55,8 @@
         <activity android:name="cn.wingene.mallxm.purchase.AddressManagerActivity"/>
         <activity android:name="cn.wingene.mallxm.account.ForgetPasswordActivity"/>
         <activity android:name="cn.wingene.mallxm.purchase.OrderListActivity"/>
+        <activity android:name="cn.wingene.mallxm.display.home.firstMenu.activity.ProductSecondActivity">
+        </activity>
     </application>
 
 </manifest>

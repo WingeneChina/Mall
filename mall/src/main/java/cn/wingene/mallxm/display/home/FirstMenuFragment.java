@@ -29,6 +29,7 @@ import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.ui.MyBaseFragment;
+import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.firstMenu.BeautyFragment;
 import cn.wingene.mallxm.display.home.firstMenu.CarUseFragment;
 import cn.wingene.mallxm.display.home.firstMenu.ClothesFragment;
@@ -47,12 +48,12 @@ import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
  * 首页
  */
 
-public class FirstMenuFragment extends MyBaseFragment implements HttpListener<String> {
+public class FirstMenuFragment extends MyBaseFragment implements HttpListener<String>, View.OnClickListener {
     public static final String RESULT_ARG = "resultJson";
     public static final String PRODUCT_PARAMS = "CategoryCode";
     private ImageView logoV;
     private TextView searchMarkV;
-    private ImageView ShoppingCart;
+    private ImageView shoppingCart;
     private TabLayout mTabLayout;
     private ViewPager contentPagerV;
     private MailFragmentPagerAdapter mMailFragmentPagerAdapter;
@@ -80,7 +81,7 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
     private void initViews(View root) {
         logoV = (ImageView) root.findViewById(R.id.logoV);
         searchMarkV = (TextView) root.findViewById(R.id.searchMarkV);
-        ShoppingCart = (ImageView) root.findViewById(R.id.ShoppingCart);
+        shoppingCart = (ImageView) root.findViewById(R.id.shoppingCart);
         mTabLayout = (TabLayout) root.findViewById(R.id.tabLayout);
         contentPagerV = (ViewPager) root.findViewById(R.id.contentPagerV);
 
@@ -93,6 +94,16 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
         NoHttpRequest<BaseResponse> responseNoHttpRequest = new NoHttpRequest<>(BaseResponse.class);
         responseNoHttpRequest.request(getActivity(), HttpConstant.HOME_RECOMMEND, null, 1, this, false, "recommend",
                 true, true);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.shoppingCart:
+                JumpHelper.startShoppingCartActivity(getActivity());
+                break;
+        }
     }
 
     private void initViewPager(RecommendModel recommendModel, String resultJson) {
@@ -140,4 +151,5 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
     public void onFailed(int what, Object tag, Exception exception, int responseCode, long networkMillis) {
 
     }
+
 }
