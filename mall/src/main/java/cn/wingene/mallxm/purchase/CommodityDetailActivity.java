@@ -23,16 +23,19 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sennie.skulib.Sku;
 import com.sennie.skulib.model.BaseSkuModel;
 
+import junze.java.able.ICallBack;
 import junze.java.util.CheckUtil;
 
 import junze.widget.Tile;
 import junze.widget.ViewPager;
 
+import junze.android.ui.ViewHolder;
 import junze.androidxf.core.Agent;
 import junze.androidxf.tool.HtmlLoader;
 
@@ -256,19 +259,63 @@ public class CommodityDetailActivity extends MyBaseActivity {
     }
 
 
-    private void showBottomSheetDialog(ProductModel productModel) {
-        if (mUiData.getBottomSheetDialog() == null) {
-            mUiData.getSelectedEntities().clear();
-            mUiData.getAdapters().clear();
-            View view = getLayoutInflater().inflate(R.layout.bottom_sheet, null);
-            LinearLayout llList = (LinearLayout) view.findViewById(R.id.ll_list);//列表
-            Button btnCart = (Button) view.findViewById(R.id.cart);//列表
-            Button btnBuy = (Button) view.findViewById(R.id.buy);//列表
-            btnBuy.setOnClickListener(onOperaClick(true));
-            btnCart.setOnClickListener(onOperaClick(false));
+    public static class BottomSheetHolder extends ViewHolder {
+        private RelativeLayout rlBottom;
+        private LinearLayout llList;
+        private TextView tvTitle;
+        private LinearLayout llytNumber;
+        private TextView tvReduce;
+        private TextView tvNumber;
+        private TextView tvIncrease;
+        private LinearLayout llOperation;
+        private Button cart;
+        private Button buy;
+
+        @Override
+        protected void initComponent() {
+            rlBottom = (RelativeLayout) super.findViewById(R.id.rl_bottom);
+            llList = (LinearLayout) super.findViewById(R.id.ll_list);
+            tvTitle = (TextView) super.findViewById(R.id.tv_title);
+            llytNumber = (LinearLayout) super.findViewById(R.id.llyt_number);
+            tvReduce = (TextView) super.findViewById(R.id.tv_reduce);
+            tvNumber = (TextView) super.findViewById(R.id.tv_number);
+            tvIncrease = (TextView) super.findViewById(R.id.tv_increase);
+            llOperation = (LinearLayout) super.findViewById(R.id.ll_operation);
+            cart = (Button) super.findViewById(R.id.cart);
+            buy = (Button) super.findViewById(R.id.buy);
+        }
+
+
+        public BottomSheetHolder(Context context) {
+            super(context, R.layout.bottom_sheet);
+        }
+
+        public void dispaly(OnClickListener onCartClick, OnClickListener onBuyClick, ProductModel mModel, UiData
+                mUiData, int number, final ICallBack<Integer> numberCallback) {
+            cart.setOnClickListener(onCartClick);
+            buy.setOnClickListener(onBuyClick);
+            tvNumber.setText("" + number);
+            tvReduce.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Integer num = Integer.parseInt(tvNumber.getText().toString());
+                    int result = --num >= 1 ? num : 1;
+                    tvNumber.setText("" + num);
+                    numberCallback.callBack(num);
+                }
+            });
+            tvIncrease.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Integer num = Integer.parseInt(tvNumber.getText().toString());
+                    int result = ++num;
+                    tvNumber.setText("" + num);
+                    numberCallback.callBack(num);
+                }
+            });
             //添加list组
             for (int i = 0; i < mModel.getAttributes().size(); i++) {
-                View viewList = getLayoutInflater().inflate(R.layout.bottom_sheet_group, null);
+                View viewList = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet_group, null);
                 TextView tvTitle = (TextView) viewList.findViewById(R.id.tv_title);
                 RecyclerView recyclerViewBottom = (RecyclerView) viewList.findViewById(R.id.recycler_bottom);
                 AttributesEntity attributesEntity = mModel.getAttributes().get(i);
@@ -276,11 +323,52 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 tvTitle.setText(attributesEntity.getName());
                 mUiData.getAdapters().add(skuAdapter);
                 int item = 4;//设置列数
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(this, item);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), item);
                 recyclerViewBottom.setLayoutManager(gridLayoutManager);
                 recyclerViewBottom.setAdapter(skuAdapter);
                 llList.addView(viewList);
             }
+        }
+
+
+    }
+
+
+    private void showBottomSheetDialog(ProductModel productModel) {
+        if (mUiData.getBottomSheetDialog() == null) {
+            mUiData.getSelectedEntities().clear();
+            mUiData.getAdapters().clear();
+            BottomSheetHolder bottomSheetHolder = new BottomSheetHolder(this);
+            bottomSheetHolder.dispaly(onOperaClick(true), onOperaClick(false), mModel, mUiData, mBuyNumber, new
+                    ICallBack<Integer>() {
+                @Override
+                public void callBack(Integer num) {
+                    mBuyNumber = num;
+                }
+            });
+            View view = bottomSheetHolder.getView();
+            //            View view = getLayoutInflater().inflate(R.layout.bottom_sheet, null);
+            //            LinearLayout llList = (LinearLayout) view.findViewById(R.id.ll_list);//列表
+            //            Button btnCart = (Button) view.findViewById(R.id.cart);//列表
+            //            Button btnBuy = (Button) view.findViewById(R.id.buy);//列表
+            //            btnBuy.setOnClickListener(onOperaClick(true));
+            //            btnCart.setOnClickListener(onOperaClick(false));
+            //            //添加list组
+            //            for (int i = 0; i < mModel.getAttributes().size(); i++) {
+            //                View viewList = getLayoutInflater().inflate(R.layout.bottom_sheet_group, null);
+            //                TextView tvTitle = (TextView) viewList.findViewById(R.id.tv_title);
+            //                RecyclerView recyclerViewBottom = (RecyclerView) viewList.findViewById(R.id
+            // .recycler_bottom);
+            //                AttributesEntity attributesEntity = mModel.getAttributes().get(i);
+            //                SkuAdapter skuAdapter = new SkuAdapter(attributesEntity.getAttributeMembers());
+            //                tvTitle.setText(attributesEntity.getName());
+            //                mUiData.getAdapters().add(skuAdapter);
+            //                int item = 4;//设置列数
+            //                GridLayoutManager gridLayoutManager = new GridLayoutManager(this, item);
+            //                recyclerViewBottom.setLayoutManager(gridLayoutManager);
+            //                recyclerViewBottom.setAdapter(skuAdapter);
+            //                llList.addView(viewList);
+            //            }
             // SKU 计算
             mUiData.setResult(Sku.skuCollection(mModel.getProductStocks()));
             for (String key : mUiData.getResult().keySet()) {

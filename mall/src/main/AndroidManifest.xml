@@ -41,8 +41,8 @@
         <activity android:name="cn.wingene.mallxm.purchase.OrderAddActivity"/>
         <activity android:name="cn.wingene.mallxm.purchase.AddressAddActivity"/>
         <activity android:name="cn.wingene.mallxm.purchase.AddressManagerActivity"/>
-        <activity android:name="cn.wingene.mallxm.account.ForgetPasswordActivity">
-        </activity>
+        <activity android:name="cn.wingene.mallxm.account.ForgetPasswordActivity"/>
+        <activity android:name="cn.wingene.mallxm.purchase.OrderListActivity"/>
     </application>
 
 </manifest>

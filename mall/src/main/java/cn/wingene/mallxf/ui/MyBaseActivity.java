@@ -1,15 +1,15 @@
 package cn.wingene.mallxf.ui;
 
 import junze.androidxf.core.Agent;
-import junze.androidxf.ui.activity.BaseFragmentActivity;
 
+import cn.wingene.mallx.frame.activity.BaseAppCompatActivity;
 import cn.wingene.mallxf.MyAgent;
 
 /**
  * Created by Wingene on 2017/8/5.
  */
 
-public class MyBaseActivity extends BaseFragmentActivity{
+public class MyBaseActivity extends BaseAppCompatActivity{
 
     MyAgent mMyAgent = new MyAgent(this);
 

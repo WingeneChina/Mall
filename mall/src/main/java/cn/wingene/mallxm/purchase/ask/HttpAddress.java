@@ -56,5 +56,9 @@ public class HttpAddress extends HttpConstant{
      * 2.1.3.6、提交订单支付
      */
     public final static String ORDER_SUBMIT_PAY_NOW = SERVER_ADDRESS + "Order/SubmitPayNow";
+    /**
+     * 2.5.2.1、我的订单列表（分页）
+     */
+    public final static String ORDER_LIST = SERVER_ADDRESS + "User/Order/List";
 
 }

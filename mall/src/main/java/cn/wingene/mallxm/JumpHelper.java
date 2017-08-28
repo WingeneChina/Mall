@@ -9,6 +9,7 @@ import cn.wingene.mallxm.account.RegisterFirstStepActivity;
 import cn.wingene.mallxm.purchase.AddressAddActivity;
 import cn.wingene.mallxm.purchase.AddressManagerActivity;
 import cn.wingene.mallxm.purchase.CommodityDetailActivity;
+import cn.wingene.mallxm.purchase.OrderListActivity;
 import cn.wingene.mallxm.purchase.OrderAddActivity;
 import cn.wingene.mallxm.purchase.ShoppingCartActivity;
 
@@ -30,13 +31,17 @@ public class JumpHelper {
         CommodityDetailActivity.major.startActivity(src, productId, promotionId);
     }
 
+    public static void startOrderListActivity(Context src,int state) {
+        create(src, OrderListActivity.class).startActivity();
+    }
+
 
     public static void startShoppingCartActivity(Context context) {
         create(context, ShoppingCartActivity.class).startActivity();
     }
-    public static void startOrderAddActivity(Context context) {
-        create(context, OrderAddActivity.class).startActivity();
-    }
+//    public static void startOrderAddActivity(Context context,int state) {
+//        create(context, OrderAddActivity.class).startActivity();
+//    }
     public static void startAddressManagerActivity(Context context) {
         create(context, AddressManagerActivity.class).startActivity();
     }

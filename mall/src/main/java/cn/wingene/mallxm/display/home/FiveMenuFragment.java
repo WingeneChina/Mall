@@ -73,6 +73,7 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
                 break;
             case R.id.settingV:
                 Log.e(this.getClass().getName(), "设置");
+                JumpHelper.startOrderListActivity(this.getActivity(),-1);
                 break;
             default:
 
