@@ -35,6 +35,7 @@
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_search_black_24dp"/>
     </RelativeLayout>
+    <View style="@style/Line.Horizontal" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tl_content"

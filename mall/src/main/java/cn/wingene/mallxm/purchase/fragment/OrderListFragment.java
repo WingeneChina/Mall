@@ -45,8 +45,15 @@ public class OrderListFragment extends BasePullListFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        commitBundle(getArguments());
         super.onViewCreated(view, savedInstanceState);
+        BaseSchemeOption option = new BaseSchemeOption();
+        option.bundle = getArguments();
+        getScheme().onInit(option);
+        getListViewHolder().setAdapter(getScheme().getAdapter());
+        getListViewHolder().loadFirstPage();
+        getListViewHolder().setOnItemClickListener(this);
+        getListViewHolder().setOnItemLongClickListener(this);
+
     }
 
 
@@ -57,26 +64,10 @@ public class OrderListFragment extends BasePullListFragment {
 
     @Override
     protected void askItem(int pageIndex) {
-        if(pageIndex ==1){
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-                }
-            });
-        }
         askInBack(new AskOrderList.Request(getScheme().getType(), pageIndex).setCallBack(getScheme().getCallback
                 (pageIndex)));
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        if(hadCreted && getView() != null && isVisibleToUser){
-            getListViewHolder().setAdapter(getScheme().getItemViewHolder().getAdapter());
-            getScheme().getItemViewHolder().notifyDataSetChanged();
-        }
-        super.setUserVisibleHint(isVisibleToUser);
-    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
