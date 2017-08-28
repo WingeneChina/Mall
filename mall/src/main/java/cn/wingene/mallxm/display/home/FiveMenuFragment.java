@@ -116,14 +116,14 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
 //                JumpHelper.startOrderListActivity(this.getActivity(), -1);
                 break;
             case R.id.findOrderV:
-                JumpHelper.startOrderListActivity(getActivity(),0);
+                JumpHelper.startOrderListActivity(getActivity(),-1);
                 break;
             case R.id.orderReadyPayV:
-                JumpHelper.startOrderListActivity(getActivity(),1);
+                JumpHelper.startOrderListActivity(getActivity(),0);
 
                 break;
             case R.id.orderReadySendV:
-                JumpHelper.startOrderListActivity(getActivity(),2);
+                JumpHelper.startOrderListActivity(getActivity(),1);
 
 
                 break;
