@@ -112,29 +112,27 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
 
                 break;
             case R.id.settingV:
-                Log.e(this.getClass().getName(), "设置");
-//                JumpHelper.startOrderListActivity(this.getActivity(), -1);
+                JumpHelper.startSettingActivity(this.getActivity());
                 break;
             case R.id.findOrderV:
-                JumpHelper.startOrderListActivity(getActivity(),-1);
+                JumpHelper.startOrderListActivity(getActivity(), -1);
                 break;
             case R.id.orderReadyPayV:
-                JumpHelper.startOrderListActivity(getActivity(),0);
+                JumpHelper.startOrderListActivity(getActivity(), 0);
 
                 break;
             case R.id.orderReadySendV:
-                JumpHelper.startOrderListActivity(getActivity(),1);
+                JumpHelper.startOrderListActivity(getActivity(), 1);
 
 
                 break;
             case R.id.orderAlreadySendV:
-                JumpHelper.startOrderListActivity(getActivity(),3);
+                JumpHelper.startOrderListActivity(getActivity(), 3);
 
 
                 break;
             case R.id.orderCompletedV:
-                JumpHelper.startOrderListActivity(getActivity(),4);
-
+                JumpHelper.startOrderListActivity(getActivity(), 4);
 
 
                 break;
