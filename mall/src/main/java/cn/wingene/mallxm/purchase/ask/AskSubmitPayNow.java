@@ -92,7 +92,7 @@ public class AskSubmitPayNow {
     }
 
 
-    private static class Data {
+    public static class Data {
         /**
          * 订单单号	不可
          */

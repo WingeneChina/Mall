@@ -1,17 +1,23 @@
 package cn.wingene.mallxm.purchase;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.alipay.sdk.app.PayTask;
 
 import junze.java.able.ICallBack;
 
@@ -190,14 +196,39 @@ public class OrderAddActivity extends MyBaseActivity {
     public void askPay(Order order, final boolean isAlipay) {
         ask("提交中...",false,new AskSubmitPayNow.Request(order.getNo(), isAlipay, 0, mAmount, mIntegral) {
             @Override
-            public void updateUI(AskSubmitPayNow.Response rsp) {
-                showMsgDialog("提示", "支付功能开发中...", "我知道了", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                        JumpHelper.startOrderListActivity(getActivity(),0);
-                    }
-                });
+            public void updateUI(final AskSubmitPayNow.Response rsp) {
+                if (rsp.data.getPayState() == 1) {
+                    showToast("支付成功");
+                    finish();
+                    JumpHelper.startOrderListActivity(getActivity(), 1);
+                    return;
+                }
+                if (isAlipay) {
+                    Runnable payRunnable = new Runnable() {
+
+                        @Override
+                        public void run() {
+                            //调用支付宝
+                            PayTask payTask = new PayTask(getActivity());
+                            String result = payTask.pay(rsp.data.getPayDataForAlipay().getSignText(), true);
+                            Message msg = new Message();
+                            msg.what = SDK_PAY_FLAG;
+                            msg.obj = result;
+                            mHandler.sendMessage(msg);
+                        }
+                    };
+                    // 必须异步调用
+                    Thread payThread = new Thread(payRunnable);
+                    payThread.start();
+                } else {
+                    showMsgDialog("提示", "微信支付功能开发中...", "我知道了", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            JumpHelper.startOrderListActivity(getActivity(), 0);
+                        }
+                    });
+                }
             }
 
             @Override
@@ -212,6 +243,41 @@ public class OrderAddActivity extends MyBaseActivity {
             }
         });
     }
+
+    public static final int SDK_PAY_FLAG = 2000;
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @SuppressWarnings("unused")
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+            case SDK_PAY_FLAG: {
+                //                PayResult payResult = new PayResult((String) msg.obj);
+                //                String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+                String resultStatus = (String) msg.obj;
+                if (TextUtils.equals(resultStatus, "9000")) {
+                    showToast("支付成功");
+                } else {
+                    // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服<span style="white-space:pre">
+                    // </span>务端异步通知为准（小概率状态）
+                    if (TextUtils.equals(resultStatus, "8000")) {
+                        showToast("支付结果确认中");
+                    } else if (TextUtils.equals(resultStatus, "6001")) {
+                        showToast("支付取消");
+                    } else if (TextUtils.equals(resultStatus, "6002")) {
+                        showToast("网络异常");
+                    } else if (TextUtils.equals(resultStatus, "5000")) {
+                        showToast("重复请求");
+                    } else {
+                        // 其他值就可以判断为支付失败
+                        showToast("支付失败");
+                    }
+                }
+                break;
+            }
+            }
+        }
+    };
 
 
     public void refreshUI() {
