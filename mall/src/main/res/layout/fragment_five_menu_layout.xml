@@ -323,6 +323,7 @@
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/versonConentV"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"

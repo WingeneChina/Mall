@@ -29,6 +29,7 @@
             android:paddingTop="5dp">
 
             <RelativeLayout
+                android:id="@+id/perWeekMarkGroupV"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:gravity="center_horizontal">

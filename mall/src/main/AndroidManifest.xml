@@ -19,16 +19,21 @@
         tools:replace="android:icon,android:theme">
         <activity
             android:name="cn.wingene.mallxm.MainActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity">
+        <activity
+            android:name="cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name="cn.wingene.mallxm.game.LuckyActivity">
+        <activity
+            android:name="cn.wingene.mallxm.game.LuckyActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="cn.wingene.mallxm.purchase.CommodityDetailActivity"
@@ -51,13 +56,27 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-        <activity android:name="cn.wingene.mallxm.purchase.AddressAddActivity"/>
-        <activity android:name="cn.wingene.mallxm.purchase.AddressManagerActivity"/>
-        <activity android:name="cn.wingene.mallxm.account.ForgetPasswordActivity"/>
-        <activity android:name="cn.wingene.mallxm.purchase.OrderListActivity"/>
-        <activity android:name="cn.wingene.mallxm.display.home.firstMenu.activity.ProductSecondActivity">
+        <activity
+            android:name="cn.wingene.mallxm.purchase.AddressAddActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.wingene.mallxm.purchase.AddressManagerActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.wingene.mallxm.account.ForgetPasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.wingene.mallxm.purchase.OrderListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.wingene.mallxm.display.home.firstMenu.activity.ProductSecondActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name="cn.wingene.mallxm.display.home.setting.SettingActivity">
+        <activity
+            android:name="cn.wingene.mallxm.display.home.setting.SettingActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="cn.wingene.mallxm.display.home.firstMenu.activity.ProductRecommendActivity">
         </activity>
     </application>
 

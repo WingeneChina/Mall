@@ -23,7 +23,7 @@ public class HttpConstant {
     public static final String ALL_PRODUCT_CATEGOURY = HOST + "Mall/ProductCategory/List";
 
     /**
-     * 商品分页
+     * 商品分组详情
      */
     public static final String PRODUCT_LIST = HOST + "Mall/Product/List";
 
@@ -66,4 +66,15 @@ public class HttpConstant {
      * 周边内容列表
      */
     public static final String NEARBY_LIST = HOST + "Article/AmbitusList";
+
+    /**
+     * 个人中心
+     */
+    public static final String USER_INFO = HOST + "User";
+
+    /**
+     * 商品分组
+     */
+    public static final String PRODUCT_GROUP = HOST + "Mall/ProductCategory/ParentCodeList";
+
 }

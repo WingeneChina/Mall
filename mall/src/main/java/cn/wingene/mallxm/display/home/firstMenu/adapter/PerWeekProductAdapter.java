@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -44,7 +45,16 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
         perWeekHolder.perWeekProductNameV.setText(productListBean.getProductName());
         perWeekHolder.perWeekProductDesV.setVisibility(View.GONE);
         if (!TextUtils.isEmpty(productListBean.getTag())) {
-            perWeekHolder.perWeekItemMarkTwoV.setText(productListBean.getTag().replace(",", "/"));
+            perWeekHolder.perWeekItemMarkOneV.setVisibility(View.GONE);
+            perWeekHolder.perWeekItemMarkTwoV.setVisibility(View.GONE);
+//            perWeekHolder.perWeekItemMarkTwoV.setText(productListBean.getTag().replace(",", "/"));
+            for (String string : productListBean.getTag().split(",")) {
+                TextView textView = (TextView) LayoutInflater.from(perWeekHolder.perWeekMarkGroupV.getContext())
+                        .inflate(R
+                                .layout.productmark_layout, perWeekHolder.perWeekMarkGroupV, false);
+                textView.setText(string);
+                perWeekHolder.perWeekMarkGroupV.addView(textView);
+            }
         }
         perWeekHolder.perWeekProductPriceV.setText("¥" + String.valueOf(productListBean.getProductPrice()));
 
@@ -71,6 +81,7 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
         private TextView perWeekProductNameV;
         private TextView perWeekProductDesV;
         private TextView perWeekProductPriceV;
+        private RelativeLayout perWeekMarkGroupV;
 
         public PerWeekHolder(View itemView) {
             super(itemView);
@@ -84,6 +95,7 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
             perWeekProductNameV = (TextView) root.findViewById(R.id.perWeekProductNameV);
             perWeekProductDesV = (TextView) root.findViewById(R.id.perWeekProductDesV);
             perWeekProductPriceV = (TextView) root.findViewById(R.id.perWeekProductPriceV);
+            perWeekMarkGroupV = (RelativeLayout) root.findViewById(R.id.perWeekMarkGroupV);
         }
     }
 }

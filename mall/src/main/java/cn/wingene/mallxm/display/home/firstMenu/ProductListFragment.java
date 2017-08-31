@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dalong.refreshlayout.OnRefreshListener;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.ui.customview.InnerViewpager;
+import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.ProductListCommentAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.YouLikeProduceAdapter;
@@ -40,8 +42,8 @@ import static cn.wingene.mallxm.display.home.FirstMenuFragment.PRODUCT_PARAMS;
  */
 
 public class ProductListFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener,
-        HttpListener<String> {
-
+        HttpListener<String>, View.OnClickListener {
+    private JDRefreshLayout mJDRefreshLayout;
     private RecyclerView productListRecyclerV;
     private InnerViewpager rollPagerV;
     private ImagePagerAdapter mImagePagerAdapter;
@@ -49,6 +51,8 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
 
     private int orderBy = 0;//0 综合、2 金额降序 、1 金额升序
     private int mPagerIndex = 1;
+    private List<ProductListModel.DataBean.ListBean> mListBeanList = new ArrayList<>();
+    private ProductListCommentAdapter productListCommentAdapter;
 
     int currentIndex = 0;
     Handler mHandler = new Handler() {
@@ -74,22 +78,46 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
             savedInstanceState) {
         View rootView = inflater.inflate(R.layout.product_list_layout, container, false);
         initViews(rootView);
-//        initProductListData();
         initRollPagerV();
+        initProductListData();
+        initEvent();
+
         requestData();
         return rootView;
     }
 
     private void initViews(View root) {
+        mJDRefreshLayout = (JDRefreshLayout) root.findViewById(R.id.refreshLayoutV);
         productListRecyclerV = (RecyclerView) root.findViewById(R.id.productListV);
         rollPagerV = (InnerViewpager) root.findViewById(R.id.rollPagerV);
+
+        mJDRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPagerIndex = 0;
+                requestData();
+            }
+
+            @Override
+            public void onLoadMore() {
+                mPagerIndex++;
+                requestData();
+            }
+        });
     }
 
     private void initEvent() {
 
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
+
     private void initRollPagerV() {
+        productListRecyclerV.setNestedScrollingEnabled(false);
+
         mImagePagerAdapter = new ImagePagerAdapter(urlList);
         rollPagerV.setAdapter(mImagePagerAdapter);
         rollPagerV.addOnPageChangeListener(this);
@@ -101,8 +129,8 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
         HashMap<String, Object> hasmapParams = new HashMap<>();
         hasmapParams.put("OrderBy", orderBy);
         hasmapParams.put("PageIndex", mPagerIndex);
-        hasmapParams.put("Type", getArguments().getString("typeCode"));
-        hasmapParams.put("CategoryCode", getArguments().getString(PRODUCT_PARAMS));
+        hasmapParams.put("Type", getArguments().getString("type"));
+        hasmapParams.put("CategoryCode", getArguments().getString("key", ""));
         responseNoHttpRequest.request(getActivity(), HttpConstant.PRODUCT_LIST, hasmapParams, 1, this, false,
                 "productList",
                 false, false);
@@ -112,18 +140,21 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
     /**
      * 初始化商品数据
      */
-    private void initProductListData(ProductListModel productListModel) {
+    private void initProductListData() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         productListRecyclerV.setLayoutManager(gridLayoutManager);
 
 //        YouLikeProduceAdapter youLikeProduceAdapter = new YouLikeProduceAdapter();
 //        productListRecyclerV.setAdapter(youLikeProduceAdapter);
-        ProductListCommentAdapter productListCommentAdapter = new ProductListCommentAdapter(productListModel
-                .getData().getList
-                        ());
+        productListCommentAdapter = new ProductListCommentAdapter(mListBeanList);
         productListRecyclerV.setAdapter(productListCommentAdapter);
         SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
         productListRecyclerV.addItemDecoration(spaceItemDecoration);
+    }
+
+    private void showResultData(ProductListModel productListModel) {
+        mListBeanList.addAll(productListModel.getData().getList());
+        productListCommentAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -152,9 +183,11 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
     @Override
     public void onSucceed(int what, Response<String> response) {
         try {
+            mJDRefreshLayout.stopLoadMore(true);
+            mJDRefreshLayout.stopRefresh(true);
             GsonUtil<ProductListModel> gsonUtil = new GsonUtil(ProductListModel.class);
             ProductListModel productListModel = gsonUtil.fromJson(response.get());
-            initProductListData(productListModel);
+            showResultData(productListModel);
             if (productListModel.getData().getList().size() == 0) {
                 ToastUtil.show("暂无商品", getContext());
             }
@@ -167,4 +200,5 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
     public void onFailed(int what, Object tag, Exception exception, int responseCode, long networkMillis) {
 
     }
+
 }

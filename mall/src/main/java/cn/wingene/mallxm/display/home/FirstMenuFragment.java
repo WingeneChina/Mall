@@ -1,11 +1,13 @@
 package cn.wingene.mallxm.display.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +43,8 @@ import cn.wingene.mallxm.display.home.firstMenu.PersonalCareFragment;
 import cn.wingene.mallxm.display.home.firstMenu.RecommendFragment;
 import cn.wingene.mallxm.display.home.firstMenu.SnacksFragment;
 import cn.wingene.mallxm.display.home.firstMenu.SpecialOfferFragment;
+import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
+import cn.wingene.mallxm.display.home.firstMenu.activity.ProductRecommendActivity;
 import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
 
 /**
@@ -111,20 +115,22 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
         }
     }
 
-    private void initViewPager(RecommendModel recommendModel, String resultJson) {
+    private void initViewPager(final RecommendModel recommendModel, String resultJson) {
         Bundle bundle = new Bundle();
         bundle.putString(RESULT_ARG, resultJson);
 
         List<IndexModel> fragmentList = new ArrayList<>();
         fragmentList.add(new IndexModel("推荐", RecommendFragment.newInstance(bundle)));
-        fragmentList.add(new IndexModel("天天特价", SpecialOfferFragment.newInstance(bundle)));
-        fragmentList.add(new IndexModel("新品", NewProductFragment.newInstance(bundle)));
+//        fragmentList.add(new IndexModel("天天特价", SpecialOfferFragment.newInstance(bundle)));
+//        fragmentList.add(new IndexModel("新品", NewProductFragment.newInstance(bundle)));
         for (RecommendModel.DataBean.HeadMenuListBean headMenuListBean : recommendModel.getData().getHeadMenuList()) {
-            if (!TextUtils.isEmpty(headMenuListBean.getParam())) {
-                bundle.putString(PRODUCT_PARAMS, headMenuListBean.getParam());
-                fragmentList.add(new IndexModel(headMenuListBean.getTitle(), IndoorFragment.newInstance(bundle)));
-
-            }
+//            if (!TextUtils.isEmpty(headMenuListBean.getParam())) {
+//                bundle.putString(PRODUCT_PARAMS, headMenuListBean.getParam());
+//                fragmentList.add(new IndexModel(headMenuListBean.getTitle(), IndoorFragment.newInstance(bundle)));
+            TabLayout.Tab tab = mTabLayout.newTab();
+            tab.setText(headMenuListBean.getTitle());
+            mTabLayout.addTab(tab);
+//            }
         }
 //        fragmentList.add(new IndexModel("居家", IndoorFragment.newInstance(bundle)));
 //        fragmentList.add(new IndexModel("零食", SnacksFragment.newInstance(bundle)));
@@ -135,10 +141,47 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
 //        fragmentList.add(new IndexModel("电竞", GamingFragment.newInstance(bundle)));
 //        fragmentList.add(new IndexModel("汽车用品", CarUseFragment.newInstance(bundle)));
 
-
         mMailFragmentPagerAdapter = new MailFragmentPagerAdapter(getChildFragmentManager(), fragmentList);
         contentPagerV.setAdapter(mMailFragmentPagerAdapter);
-        mTabLayout.setupWithViewPager(contentPagerV, true);//同步
+//        mTabLayout.setupWithViewPager(contentPagerV, true);//同步
+
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Log.e(this.getClass().getName(), "tab.getText() = " + tab.getText());
+                for (RecommendModel.DataBean.HeadMenuListBean headMenuListBean : recommendModel.getData()
+                        .getHeadMenuList()) {
+                    if (headMenuListBean.getTitle().contains(String.valueOf(tab.getText()))) {
+                        if (!TextUtils.isEmpty(headMenuListBean.getParam())) {
+                            Intent intent = new Intent(getActivity(), ProductActivity.class);
+                            intent.putExtra("key", headMenuListBean.getParam());
+                            intent.putExtra("type", headMenuListBean.getType());
+                            intent.putExtra("title", headMenuListBean.getTitle());
+                            startActivity(intent);
+
+                        } else {
+                            Intent intent = new Intent(getActivity(), ProductRecommendActivity.class);
+                            intent.putExtra("key", String.valueOf(headMenuListBean.getParam()));
+                            intent.putExtra("type", String.valueOf(headMenuListBean.getType()));
+                            intent.putExtra("title", headMenuListBean.getTitle());
+
+                            startActivity(intent);
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override
