@@ -57,6 +57,8 @@
         <activity android:name="cn.wingene.mallxm.purchase.OrderListActivity"/>
         <activity android:name="cn.wingene.mallxm.display.home.firstMenu.activity.ProductSecondActivity">
         </activity>
+        <activity android:name="cn.wingene.mallxm.display.home.setting.SettingActivity">
+        </activity>
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"

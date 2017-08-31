@@ -101,11 +101,12 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
         HashMap<String, Object> hasmapParams = new HashMap<>();
         hasmapParams.put("OrderBy", orderBy);
         hasmapParams.put("PageIndex", mPagerIndex);
-        hasmapParams.put("Type", 20);
+        hasmapParams.put("Type", getArguments().getString("typeCode"));
         hasmapParams.put("CategoryCode", getArguments().getString(PRODUCT_PARAMS));
         responseNoHttpRequest.request(getActivity(), HttpConstant.PRODUCT_LIST, hasmapParams, 1, this, false,
-                "specialOffer",
-                false, true);
+                "productList",
+                false, false);
+
     }
 
     /**

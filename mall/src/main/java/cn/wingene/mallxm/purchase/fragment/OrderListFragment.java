@@ -5,7 +5,9 @@ import java.util.Date;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import junze.java.net.IHttpCacheElement.ICaheReqCallBack;
@@ -18,6 +20,7 @@ import cn.wingene.mallx.frame.fragment.BasePullListFragment;
 import cn.wingene.mallxm.purchase.ask.AskOrderList;
 import cn.wingene.mallxm.purchase.ask.AskOrderList.OrderItem;
 import cn.wingene.mallxm.purchase.ask.AskOrderList.Response;
+import cn.wingene.mallxm.purchase.holder.EmptyOrderViewHolder;
 
 /**
  * Created by wangcq on 2017/8/13.
@@ -49,6 +52,11 @@ public class OrderListFragment extends BasePullListFragment {
         BaseSchemeOption option = new BaseSchemeOption();
         option.bundle = getArguments();
         getScheme().onInit(option);
+        EmptyOrderViewHolder eh = new EmptyOrderViewHolder(getActivity());
+        eh.getView().setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        eh.getView().setVisibility(View.GONE);
+        ((ViewGroup)getListView().getParent()).addView(eh.getView());
+        getListView().setEmptyView(eh.getView());
         getListViewHolder().setAdapter(getScheme().getAdapter());
         getListViewHolder().loadFirstPage();
         getListViewHolder().setOnItemClickListener(this);

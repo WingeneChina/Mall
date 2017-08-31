@@ -442,8 +442,8 @@ public class RecommendModel {
                 private int ProductId;
                 private String ProductImage;
                 private String ProductName;
-                private float ProductPrice;
-                private float ProductOldPrice;
+                private double ProductPrice;
+                private double ProductOldPrice;
                 private String Tag;
                 private Object SellingPoint;
 
@@ -471,19 +471,19 @@ public class RecommendModel {
                     this.ProductName = ProductName;
                 }
 
-                public float getProductPrice() {
+                public double getProductPrice() {
                     return ProductPrice;
                 }
 
-                public void setProductPrice(float ProductPrice) {
+                public void setProductPrice(double ProductPrice) {
                     this.ProductPrice = ProductPrice;
                 }
 
-                public float getProductOldPrice() {
+                public double getProductOldPrice() {
                     return ProductOldPrice;
                 }
 
-                public void setProductOldPrice(int ProductOldPrice) {
+                public void setProductOldPrice(double ProductOldPrice) {
                     this.ProductOldPrice = ProductOldPrice;
                 }
 
@@ -575,8 +575,8 @@ public class RecommendModel {
                 private int ProductId;
                 private String ProductImage;
                 private String ProductName;
-                private float ProductPrice;
-                private float ProductOldPrice;
+                private double ProductPrice;
+                private double ProductOldPrice;
                 private String Tag;
                 private Object SellingPoint;
 
@@ -604,19 +604,19 @@ public class RecommendModel {
                     this.ProductName = ProductName;
                 }
 
-                public float getProductPrice() {
+                public double getProductPrice() {
                     return ProductPrice;
                 }
 
-                public void setProductPrice(int ProductPrice) {
+                public void setProductPrice(double ProductPrice) {
                     this.ProductPrice = ProductPrice;
                 }
 
-                public float getProductOldPrice() {
+                public double getProductOldPrice() {
                     return ProductOldPrice;
                 }
 
-                public void setProductOldPrice(int ProductOldPrice) {
+                public void setProductOldPrice(double ProductOldPrice) {
                     this.ProductOldPrice = ProductOldPrice;
                 }
 
@@ -708,8 +708,8 @@ public class RecommendModel {
                 private int ProductId;
                 private String ProductImage;
                 private String ProductName;
-                private int ProductPrice;
-                private int ProductOldPrice;
+                private double ProductPrice;
+                private double ProductOldPrice;
                 private Object Tag;
                 private Object SellingPoint;
 
@@ -737,19 +737,19 @@ public class RecommendModel {
                     this.ProductName = ProductName;
                 }
 
-                public int getProductPrice() {
+                public double getProductPrice() {
                     return ProductPrice;
                 }
 
-                public void setProductPrice(int ProductPrice) {
+                public void setProductPrice(double ProductPrice) {
                     this.ProductPrice = ProductPrice;
                 }
 
-                public int getProductOldPrice() {
+                public double getProductOldPrice() {
                     return ProductOldPrice;
                 }
 
-                public void setProductOldPrice(int ProductOldPrice) {
+                public void setProductOldPrice(double ProductOldPrice) {
                     this.ProductOldPrice = ProductOldPrice;
                 }
 
@@ -841,8 +841,8 @@ public class RecommendModel {
                 private int ProductId;
                 private String ProductImage;
                 private String ProductName;
-                private int ProductPrice;
-                private int ProductOldPrice;
+                private double ProductPrice;
+                private double ProductOldPrice;
                 private String Tag;
                 private String SellingPoint;
 
@@ -870,19 +870,19 @@ public class RecommendModel {
                     this.ProductName = ProductName;
                 }
 
-                public int getProductPrice() {
+                public double getProductPrice() {
                     return ProductPrice;
                 }
 
-                public void setProductPrice(int ProductPrice) {
+                public void setProductPrice(double ProductPrice) {
                     this.ProductPrice = ProductPrice;
                 }
 
-                public int getProductOldPrice() {
+                public double getProductOldPrice() {
                     return ProductOldPrice;
                 }
 
-                public void setProductOldPrice(int ProductOldPrice) {
+                public void setProductOldPrice(double ProductOldPrice) {
                     this.ProductOldPrice = ProductOldPrice;
                 }
 
@@ -974,8 +974,8 @@ public class RecommendModel {
                 private int ProductId;
                 private String ProductImage;
                 private String ProductName;
-                private int ProductPrice;
-                private int ProductOldPrice;
+                private double ProductPrice;
+                private double ProductOldPrice;
                 private String Tag;
                 private String SellingPoint;
 
@@ -1003,15 +1003,15 @@ public class RecommendModel {
                     this.ProductName = ProductName;
                 }
 
-                public int getProductPrice() {
+                public double getProductPrice() {
                     return ProductPrice;
                 }
 
-                public void setProductPrice(int ProductPrice) {
+                public void setProductPrice(double ProductPrice) {
                     this.ProductPrice = ProductPrice;
                 }
 
-                public int getProductOldPrice() {
+                public double getProductOldPrice() {
                     return ProductOldPrice;
                 }
 

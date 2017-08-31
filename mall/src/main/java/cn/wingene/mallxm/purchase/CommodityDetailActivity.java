@@ -29,8 +29,10 @@ import android.widget.TextView;
 import com.sennie.skulib.Sku;
 import com.sennie.skulib.model.BaseSkuModel;
 
+import junze.java.able.IBuilder;
 import junze.java.able.ICallBack;
 import junze.java.util.CheckUtil;
+import junze.java.util.StringUtil;
 
 import junze.widget.Tile;
 import junze.widget.ViewPager;
@@ -57,6 +59,7 @@ import cn.wingene.mallxm.purchase.bean.ProductModel.AttributesEntity;
 import cn.wingene.mallxm.purchase.bean.ProductModel.AttributesEntity.AttributeMembersEntity;
 import cn.wingene.mallxm.purchase.bean.UiData;
 import cn.wingene.mallxm.purchase.listener.ItemClickListener;
+import cn.wingene.mallxm.purchase.tool.NumberTool;
 
 /**
  * Created by Wingene on 2017/8/6.
@@ -77,9 +80,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
 
     private Tile tlBack;
     private ViewPager vpImage;
-    private Tile tl1;
-    private Tile tl2;
-    private Tile tl3;
+    private ImageView ivSellImage;
     private TextView tvTitle;
     private TextView tvSubTitle;
     private TextView tvPrice;
@@ -91,9 +92,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
     protected void initComponent(){
         tlBack = (Tile) super.findViewById(R.id.tl_back);
         vpImage = (ViewPager) super.findViewById(R.id.vp_image);
-        tl1 = (Tile) super.findViewById(R.id.tl_1);
-        tl2 = (Tile) super.findViewById(R.id.tl_2);
-        tl3 = (Tile) super.findViewById(R.id.tl_3);
+        ivSellImage = (ImageView) super.findViewById(R.id.iv_sell_image);
         tvTitle = (TextView) super.findViewById(R.id.tv_title);
         tvSubTitle = (TextView) super.findViewById(R.id.tv_sub_title);
         tvPrice = (TextView) super.findViewById(R.id.tv_price);
@@ -151,11 +150,11 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 mSpecList = rsp.getProductSpecList();
                 List<ProductImageList> imageList = rsp.getProductImageList();
                 initRollPager(imageList);
-                Tile[] tiles = new Tile[]{tl1, tl2, tl3};
-                for (int i = 0; i < imageList.size(); i++) {
-                    if (i < 3) {
-                        ImageHelper.displayImage(imageList.get(i).getThumbSrc(), tiles[i].getIvImage());
-                    }
+                if (StringUtil.isValid(mProduct.getSellingImage())) {
+                    ImageHelper.displayImage(mProduct.getSellingImage(), ivSellImage);
+                    ivSellImage.setVisibility(View.VISIBLE);
+                } else {
+                    ivSellImage.setVisibility(View.GONE);
                 }
                 tvTitle.setText(mProduct.getName());
                 tvSubTitle.setText(mProduct.getSellingPoint());
@@ -190,34 +189,71 @@ public class CommodityDetailActivity extends MyBaseActivity {
                             key.getAttributeGroupId(), key.getAttributeMemberId(), key.getStatus()));
                     ids[key.getAttributeGroupId() - 1] = key.getAttributeMemberId();
                 }
-                if (ids[0] == null || ids[1] == null) {
-                    showToast("请继续选择");
+                if (StringUtil.isValid(mProduct.getSpecDesp1()) && ids[0] == null) {
+                    showToast("请选择%s", mProduct.getSpecDesp1());
+                    return;
+                }
+                if (StringUtil.isValid(mProduct.getSpecDesp2()) && ids[1] == null) {
+                    showToast("请选择%s", mProduct.getSpecDesp2());
+                    return;
+                }
+                if (mSpecList.size() == 0) {
+                    askBuy(buyNow, 0);
                     return;
                 }
                 for (ProductSpecList item : mSpecList) {
                     if (CheckUtil.isEquals(ids[0], item.getSpec1ValueId()) && CheckUtil.isEquals(ids[1], item
                             .getSpec2ValueId())) {
-                        if (buyNow) {
-                            ask(new AskBuyNow.Request(mProductId, item.getId(), mPromotionId, mBuyNumber) {
-                                @Override
-                                public void updateUI(AskBuyNow.Response rsp) {
-                                    OrderAddActivity.major.startActivity(getActivity(),rsp.data);
-                                    mUiData.getBottomSheetDialog().hide();
-                                }
-                            });
-                        } else {
-                            ask(new AskCartAdd.Request(mProductId, mBuyNumber, item.getId()) {
-                                @Override
-                                public void updateUI(AskCartAdd.Response rsp) {
-                                    showToast(rsp.msg);
-                                    mUiData.getBottomSheetDialog().hide();
-                                }
-                            });
-                        }
+                        final Integer specId = item.getId();
+                        askBuy(buyNow, specId);
                     }
                 }
             }
         };
+    }
+
+    private void askBuy(boolean buyNow, final Integer specId) {
+        if (buyNow) {
+            ask(new AskBuyNow.Request(mProductId, specId, mPromotionId, mBuyNumber) {
+                @Override
+                public void updateUI(AskBuyNow.Response rsp) {
+                    OrderAddActivity.major.startActivity(getActivity(), rsp.data);
+                    mUiData.getBottomSheetDialog().hide();
+                }
+            });
+        } else {
+            ask(new AskCartAdd.Request(mProductId, mBuyNumber, specId) {
+                @Override
+                public void updateUI(AskCartAdd.Response rsp) {
+                    showToast(rsp.msg);
+                    mUiData.getBottomSheetDialog().hide();
+                }
+            });
+        }
+    }
+
+    private Integer getValidStock() {
+        int max = 0;
+        StringBuilder sb = new StringBuilder();
+        Integer[] ids = new Integer[2];
+        for (AttributeMembersEntity key : mUiData.getSelectedEntities()) {
+            sb.append(String.format("name : %s%ngroupid : %s%nmemberId : %s%nstatus:%s%n ", key.getName(), key
+                    .getAttributeGroupId(), key.getAttributeMemberId(), key.getStatus()));
+            ids[key.getAttributeGroupId() - 1] = key.getAttributeMemberId();
+        }
+        if (StringUtil.isValid(mProduct.getSpecDesp1()) && ids[0] == null) {
+            return max;
+        }
+        if (StringUtil.isValid(mProduct.getSpecDesp2()) && ids[1] == null) {
+            return max;
+        }
+        for (ProductSpecList item : mSpecList) {
+            if (CheckUtil.isEquals(ids[0], item.getSpec1ValueId()) && CheckUtil.isEquals(ids[1], item
+                    .getSpec2ValueId())) {
+                return item.getStock();
+            }
+        }
+        return mProduct.getStock();
     }
 
 
@@ -258,6 +294,91 @@ public class CommodityDetailActivity extends MyBaseActivity {
     }
 
 
+
+
+
+    private void showBottomSheetDialog(ProductModel productModel) {
+        if (mUiData.getBottomSheetDialog() == null) {
+            mUiData.getSelectedEntities().clear();
+            mUiData.getAdapters().clear();
+            final BottomSheetHolder bottomSheetHolder = new BottomSheetHolder(this);
+            bottomSheetHolder.dispaly(getAgent(), onOperaClick(true), onOperaClick(false), mModel, mUiData, new
+                    IBuilder<Integer>() {
+                @Override
+                public Integer build() {
+                    return mBuyNumber;
+                }
+            }, new IBuilder<Integer>() {
+                @Override
+                public Integer build() {
+                    return Math.min(mProduct.getStock(), getValidStock());
+                }
+            }, new ICallBack<Integer>() {
+                @Override
+                public void callBack(Integer num) {
+                    mBuyNumber = num;
+                    bottomSheetHolder.updateNumber(mBuyNumber);
+                }
+            });
+            View view = bottomSheetHolder.getView();
+            // SKU 计算
+            mUiData.setResult(Sku.skuCollection(mModel.getProductStocks()));
+            for (String key : mUiData.getResult().keySet()) {
+                Log.d("SKU Result", "key = " + key + " value = " + mUiData.getResult().get(key));
+            }
+            //设置点击监听器
+            for (SkuAdapter adapter : mUiData.getAdapters()) {
+                ItemClickListener listener = new ItemClickListener(mUiData, adapter);
+                listener.setOnClickListener(new SkuAdapter.OnClickListener() {
+                    @Override
+                    public void onItemClickListener(int position) {
+                        mBuyNumber = 1;
+                        bottomSheetHolder.updateNumber(mBuyNumber);
+                    }
+                });
+                adapter.setOnClickListener(listener);
+            }
+            // 初始化按钮
+            for (int i = 0; i < mUiData.getAdapters().size(); i++) {
+                for (ProductModel.AttributesEntity.AttributeMembersEntity entity : mUiData.getAdapters().get(i)
+                        .getAttributeMembersEntities()) {
+                    if (mUiData.getResult().get(entity.getAttributeMemberId() + "") == null || mUiData.getResult()
+                            .get(entity.getAttributeMemberId() + "").getStock() <= 0) {
+                        entity.setStatus(2);
+                    }
+                }
+            }
+            //设置价格
+            mUiData.setBottomSheetDialog(new BottomSheetDialog(this));
+            mUiData.getBottomSheetDialog().setContentView(view);
+            View parent = (View) view.getParent();//获取ParentView
+            BottomSheetBehavior behavior = BottomSheetBehavior.from(parent);
+            view.measure(0, 0);
+            behavior.setPeekHeight(view.getMeasuredHeight());
+            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) parent.getLayoutParams();
+            params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+            parent.setLayoutParams(params);
+            mUiData.getBottomSheetDialog().show();
+        } else {
+            mUiData.getBottomSheetDialog().show();
+        }
+    }
+
+    private static void addSpecGroup(ProductModel model, Integer groupId, String desp, Map<Integer, String> specMap) {
+        // 设置对应的品种和规格
+        ProductModel.AttributesEntity group = new ProductModel.AttributesEntity();
+        group.setName(desp);
+        for (Entry<Integer, String> entry : specMap.entrySet()) {
+            group.getAttributeMembers().add(new ProductModel.AttributesEntity.AttributeMembersEntity(groupId,
+                    entry.getKey(), entry.getValue()));
+        }
+        model.getAttributes().add(group);//第一组
+    }
+
+    private static String buildKey(Integer spec1ValueId, Integer spec2ValueId) {
+        return String.format("%s;%s", spec1ValueId, spec2ValueId);
+    }
+
     public static class BottomSheetHolder extends ViewHolder {
         private RelativeLayout rlBottom;
         private LinearLayout llList;
@@ -289,29 +410,13 @@ public class CommodityDetailActivity extends MyBaseActivity {
             super(context, R.layout.bottom_sheet);
         }
 
-        public void dispaly(OnClickListener onBuyClick,OnClickListener onCartClick , ProductModel mModel, UiData
-                mUiData, int number, final ICallBack<Integer> numberCallback) {
+        public void dispaly(Agent agent, OnClickListener onBuyClick, OnClickListener onCartClick, ProductModel
+                mModel, UiData mUiData, final IBuilder<Integer> bCurrent, final IBuilder<Integer> bMax, final
+        ICallBack<Integer> numberCallback) {
             buy.setOnClickListener(onBuyClick);
             cart.setOnClickListener(onCartClick);
-            tvNumber.setText("" + number);
-            tvReduce.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Integer num = Integer.parseInt(tvNumber.getText().toString());
-                    int result = --num >= 1 ? num : 1;
-                    tvNumber.setText("" + num);
-                    numberCallback.callBack(num);
-                }
-            });
-            tvIncrease.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Integer num = Integer.parseInt(tvNumber.getText().toString());
-                    int result = ++num;
-                    tvNumber.setText("" + num);
-                    numberCallback.callBack(num);
-                }
-            });
+            updateNumber(bCurrent.build());
+            NumberTool.bindInteger(agent, "请输入数量", 0, bCurrent, bMax, tvReduce, tvNumber, tvIncrease, numberCallback);
             //添加list组
             for (int i = 0; i < mModel.getAttributes().size(); i++) {
                 View viewList = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet_group, null);
@@ -329,94 +434,11 @@ public class CommodityDetailActivity extends MyBaseActivity {
             }
         }
 
-
-    }
-
-
-    private void showBottomSheetDialog(ProductModel productModel) {
-        if (mUiData.getBottomSheetDialog() == null) {
-            mUiData.getSelectedEntities().clear();
-            mUiData.getAdapters().clear();
-            BottomSheetHolder bottomSheetHolder = new BottomSheetHolder(this);
-            bottomSheetHolder.dispaly(onOperaClick(true), onOperaClick(false), mModel, mUiData, mBuyNumber, new
-                    ICallBack<Integer>() {
-                @Override
-                public void callBack(Integer num) {
-                    mBuyNumber = num;
-                }
-            });
-            View view = bottomSheetHolder.getView();
-            //            View view = getLayoutInflater().inflate(R.layout.bottom_sheet, null);
-            //            LinearLayout llList = (LinearLayout) view.findViewById(R.id.ll_list);//列表
-            //            Button btnCart = (Button) view.findViewById(R.id.cart);//列表
-            //            Button btnBuy = (Button) view.findViewById(R.id.buy);//列表
-            //            btnBuy.setOnClickListener(onOperaClick(true));
-            //            btnCart.setOnClickListener(onOperaClick(false));
-            //            //添加list组
-            //            for (int i = 0; i < mModel.getAttributes().size(); i++) {
-            //                View viewList = getLayoutInflater().inflate(R.layout.bottom_sheet_group, null);
-            //                TextView tvTitle = (TextView) viewList.findViewById(R.id.tv_title);
-            //                RecyclerView recyclerViewBottom = (RecyclerView) viewList.findViewById(R.id
-            // .recycler_bottom);
-            //                AttributesEntity attributesEntity = mModel.getAttributes().get(i);
-            //                SkuAdapter skuAdapter = new SkuAdapter(attributesEntity.getAttributeMembers());
-            //                tvTitle.setText(attributesEntity.getName());
-            //                mUiData.getAdapters().add(skuAdapter);
-            //                int item = 4;//设置列数
-            //                GridLayoutManager gridLayoutManager = new GridLayoutManager(this, item);
-            //                recyclerViewBottom.setLayoutManager(gridLayoutManager);
-            //                recyclerViewBottom.setAdapter(skuAdapter);
-            //                llList.addView(viewList);
-            //            }
-            // SKU 计算
-            mUiData.setResult(Sku.skuCollection(mModel.getProductStocks()));
-            for (String key : mUiData.getResult().keySet()) {
-                Log.d("SKU Result", "key = " + key + " value = " + mUiData.getResult().get(key));
-            }
-            //设置点击监听器
-            for (SkuAdapter adapter : mUiData.getAdapters()) {
-                ItemClickListener listener = new ItemClickListener(mUiData, adapter);
-                adapter.setOnClickListener(listener);
-            }
-            // 初始化按钮
-            for (int i = 0; i < mUiData.getAdapters().size(); i++) {
-                for (ProductModel.AttributesEntity.AttributeMembersEntity entity : mUiData.getAdapters().get(i)
-                        .getAttributeMembersEntities()) {
-                    if (mUiData.getResult().get(entity.getAttributeMemberId() + "") == null || mUiData.getResult()
-                            .get(entity.getAttributeMemberId() + "").getStock() <= 0) {
-                        entity.setStatus(2);
-                    }
-                }
-            }
-            //设置价格
-            mUiData.setBottomSheetDialog(new BottomSheetDialog(this));
-            mUiData.getBottomSheetDialog().setContentView(view);
-            View parent = (View) view.getParent();//获取ParentView
-            BottomSheetBehavior behavior = BottomSheetBehavior.from(parent);
-            view.measure(0, 0);
-            behavior.setPeekHeight(view.getMeasuredHeight());
-            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) parent.getLayoutParams();
-            params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
-            parent.setLayoutParams(params);
-            mUiData.getBottomSheetDialog().show();
-        } else {
-            mUiData.getBottomSheetDialog().show();
+        public void updateNumber(Integer integer) {
+            tvNumber.setText(String.format("%s", integer));
         }
-    }
 
-    private static void addSpecGroup(ProductModel model, Integer groupId, String desp, Map<Integer, String> specMap) {
-        // 设置对应的品种和规格
-        ProductModel.AttributesEntity group01 = new ProductModel.AttributesEntity();
-        group01.setName(desp);
-        for (Entry<Integer, String> entry : specMap.entrySet()) {
-            group01.getAttributeMembers().add(new ProductModel.AttributesEntity.AttributeMembersEntity(groupId, 
-                    entry.getKey(), entry.getValue()));
-        }
-        model.getAttributes().add(group01);//第一组
-    }
 
-    private static String buildKey(Integer spec1ValueId, Integer spec2ValueId) {
-        return String.format("%s;%s", spec1ValueId, spec2ValueId);
     }
 
     public static class Major extends Agent.Major {

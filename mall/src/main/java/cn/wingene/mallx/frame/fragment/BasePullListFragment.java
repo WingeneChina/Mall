@@ -23,6 +23,8 @@ import junze.java.manager.ObserverManager.Observer;
 import junze.java.net.IHttpCacheElement.ICacheRequest;
 import junze.java.net.IHttpElement.IResponse;
 
+import junze.widget.PullToRefreshListView;
+
 import junze.android.ui.ItemViewHolder;
 import junze.androidxf.http.BaseParamsRequest;
 import junze.androidxf.ui.holder.PullListViewHolder;
@@ -42,6 +44,7 @@ public abstract class BasePullListFragment extends MyBaseFragment implements Pag
     public final static String ACTION_NEED_UPDATE = "BasePullListFragment.ACTION_NEED_UPDATE";
     private boolean mNeedLoadFirstPage = false;
     private PullListViewHolder mListViewHolder;
+    private PullToRefreshListView mListView;
     private boolean schemeInited;
     public static final int PAGE_SIZE = 20;
 
@@ -50,6 +53,7 @@ public abstract class BasePullListFragment extends MyBaseFragment implements Pag
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_pull_list, null);
         mListViewHolder = new PullListViewHolder(v, R.id.lvContent, this);
+        mListView = (PullToRefreshListView) v.findViewById(R.id.lvContent);
         ObserverManager.getInstance().registerObserver(this);
         return v;
     }
@@ -165,6 +169,10 @@ public abstract class BasePullListFragment extends MyBaseFragment implements Pag
     protected abstract Scheme<?, ?> getScheme();
 
     protected abstract void askItem(final int pageIndex);
+
+    public PullToRefreshListView getListView() {
+        return mListView;
+    }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {

@@ -112,8 +112,8 @@ public class ProductListModel {
             private int Id;
             private String Name;
             private String DefaultImage;
-            private int Price;
-            private int OldPrice;
+            private double Price;
+            private double OldPrice;
             private int Stock;
             private int SaleCount;
             private int IsRecommend;
@@ -146,19 +146,19 @@ public class ProductListModel {
                 this.DefaultImage = DefaultImage;
             }
 
-            public int getPrice() {
+            public double getPrice() {
                 return Price;
             }
 
-            public void setPrice(int Price) {
+            public void setPrice(double Price) {
                 this.Price = Price;
             }
 
-            public int getOldPrice() {
+            public double getOldPrice() {
                 return OldPrice;
             }
 
-            public void setOldPrice(int OldPrice) {
+            public void setOldPrice(double OldPrice) {
                 this.OldPrice = OldPrice;
             }
 

@@ -11,6 +11,8 @@ import cn.wingene.mall.R;
 import cn.wingene.mallxf.util.ActivityUtils;
 import cn.wingene.mallxm.display.home.firstMenu.ProductListFragment;
 
+import static cn.wingene.mallxm.display.home.FirstMenuFragment.PRODUCT_PARAMS;
+
 public class ProductSecondActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView backIcon;
@@ -35,7 +37,7 @@ public class ProductSecondActivity extends AppCompatActivity implements View.OnC
 
         Bundle bundle = new Bundle();
         bundle.putString("typeCode",getIntent().getStringExtra("typeCode"));
-        bundle.putString("key",getIntent().getStringExtra("key"));
+        bundle.putString(PRODUCT_PARAMS,getIntent().getStringExtra("key"));
         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), ProductListFragment.newInstance(bundle), R.id
                 .contentV);
 

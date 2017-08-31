@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
+import android.view.View;
 
 import static android.content.ContentValues.TAG;
 import cn.wingene.mallxm.purchase.adapter.SkuAdapter;
+import cn.wingene.mallxm.purchase.adapter.SkuAdapter.OnClickListener;
 import cn.wingene.mallxm.purchase.bean.ProductModel;
 import cn.wingene.mallxm.purchase.bean.UiData;
 
@@ -23,6 +25,7 @@ public class ItemClickListener implements SkuAdapter.OnClickListener {
 
     UiData mUiData;
     SkuAdapter currentAdapter;
+    OnClickListener mOnClickListener;
 
     public ItemClickListener(UiData uiData, SkuAdapter currentAdapter) {
         mUiData = uiData;
@@ -98,5 +101,12 @@ public class ItemClickListener implements SkuAdapter.OnClickListener {
             }
             mUiData.getAdapters().get(i).notifyDataSetChanged();
         }
+        if(mOnClickListener != null){
+            mOnClickListener.onItemClickListener(position);
+        }
+    }
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        mOnClickListener = onClickListener;
     }
 }

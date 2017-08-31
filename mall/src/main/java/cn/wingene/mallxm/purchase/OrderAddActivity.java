@@ -1,5 +1,7 @@
 package cn.wingene.mallxm.purchase;
 
+import java.util.Map;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
 
+import junze.java.able.IBuilder;
 import junze.java.able.ICallBack;
 
 import cn.wingene.mall.R;
@@ -38,6 +41,7 @@ import cn.wingene.mallxm.purchase.bean.Account;
 import cn.wingene.mallxm.purchase.bean.able.IAddress;
 import cn.wingene.mallxm.purchase.bean.able.IProduct;
 import cn.wingene.mallxm.purchase.dialog.BottomPayChoiseDialog;
+import cn.wingene.mallxm.purchase.tool.NumberTool;
 
 import junze.widget.HightMatchListView;
 import junze.widget.Tile;
@@ -57,8 +61,8 @@ public class OrderAddActivity extends MyBaseActivity {
     public static final int RC_ADDRESS_CHOISE = 2000;
     Params mParams;
     private IAddress mAddress;
-    private double mTotal;
-    private double mRealTotal;
+    private double mSumPrice;
+    private double mPayPrice;
     private Account mAccount;
     private double mAmount;
     private int mIntegral;
@@ -123,8 +127,8 @@ public class OrderAddActivity extends MyBaseActivity {
         mItemHolder.addAll(bean.getProductList());
         mAccount = bean.getAccount();
         mAddress = bean.getAddress();
-        mTotal = bean.getSumPrice();
-        mRealTotal = bean.getPayPrice();
+        mSumPrice = bean.getSumPrice();
+        mPayPrice = bean.getPayPrice();
         refreshUI();
 
         tlBack.setOnClickListener(new OnClickListener() {
@@ -145,7 +149,7 @@ public class OrderAddActivity extends MyBaseActivity {
                 if (mPayChoiseDialog == null) {
                     mPayChoiseDialog = new BottomPayChoiseDialog(getActivity());
                 }
-                mPayChoiseDialog.show(getAgent(), mRealTotal, new OnClickListener() {
+                mPayChoiseDialog.show(getAgent(), mPayPrice, new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mPayChoiseDialog.hide();
@@ -176,18 +180,45 @@ public class OrderAddActivity extends MyBaseActivity {
         if (mAddress == null) {
             AddressAddActivity.major.startForResult(getActivity(), RC_ADDRESS_ADD);
         }
-        bindDoubleNumber(getAgent(), "请输入使用游币的值", 0, mAmount, mAccount.getAmount(), tvAmountReduce, tvAmountNumber,
-                tvAmountIncrease, "%.1f", new ICallBack<Double>() {
+        bindNumber();
+    }
+
+    private void bindNumber() {
+        tvAmountNumber.setText(String.format("%.1f", mAmount));
+        NumberTool.bindDouble(getAgent(), "请输入使用游币的值", 0, new IBuilder<Double>() {
+            @Override
+            public Double build() {
+                return mAmount;
+            }
+        }, new IBuilder<Double>() {
+            @Override
+            public Double build() {
+                return Math.min(mAccount.getAmount(), mPayPrice - mAmount - mIntegral / 100);
+            }
+        }, tvAmountReduce, tvAmountNumber, tvAmountIncrease, new ICallBack<Double>() {
             @Override
             public void callBack(Double aDouble) {
                 mAmount = aDouble;
+                tvAmountNumber.setText(String.format("%.1f", mAmount));
             }
         });
-        bindIntNumber(getAgent(), "请输入使用应币的值", 0, mIntegral, mAccount.getIntegral(), tvIntegralReduce,
-                tvIntegralNumber, tvIntegralIncrease, "%s", new ICallBack<Integer>() {
+
+        tvIntegral.setText(String.format("%s", mIntegral));
+        NumberTool.bindInteger(getAgent(), "请输入使用应币的值", 0, new IBuilder<Integer>() {
+            @Override
+            public Integer build() {
+                return mIntegral;
+            }
+        }, new IBuilder<Integer>() {
+            @Override
+            public Integer build() {
+                return Math.min(mAccount.getIntegral(), (int) (mPayPrice - mAmount - mIntegral / 100));
+            }
+        }, tvIntegralReduce, tvIntegralNumber, tvIntegralIncrease, new ICallBack<Integer>() {
             @Override
             public void callBack(Integer integer) {
                 mIntegral = integer;
+                tvIntegral.setText(String.format("%s", mIntegral));
             }
         });
     }
@@ -198,9 +229,7 @@ public class OrderAddActivity extends MyBaseActivity {
             @Override
             public void updateUI(final AskSubmitPayNow.Response rsp) {
                 if (rsp.data.getPayState() == 1) {
-                    showToast("支付成功");
-                    finish();
-                    JumpHelper.startOrderListActivity(getActivity(), 1);
+                    jumpToPayResultActivityAndFinish();
                     return;
                 }
                 if (isAlipay) {
@@ -210,7 +239,8 @@ public class OrderAddActivity extends MyBaseActivity {
                         public void run() {
                             //调用支付宝
                             PayTask payTask = new PayTask(getActivity());
-                            String result = payTask.pay(rsp.data.getPayDataForAlipay().getSignText(), true);
+                            Map<String, String> result = payTask.payV2(rsp.data.getPayDataForAlipay().getSignText()
+                                    , true);
                             Message msg = new Message();
                             msg.what = SDK_PAY_FLAG;
                             msg.obj = result;
@@ -224,8 +254,7 @@ public class OrderAddActivity extends MyBaseActivity {
                     showMsgDialog("提示", "微信支付功能开发中...", "我知道了", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                            JumpHelper.startOrderListActivity(getActivity(), 0);
+                            jumpToWaitPayActivityAndFinish();
                         }
                     });
                 }
@@ -234,11 +263,11 @@ public class OrderAddActivity extends MyBaseActivity {
             @Override
             protected void updateUIWhenException(Exception e) {
                 if(e instanceof NeedLoginException){
+                    jumpToWaitPayActivityAndFinish();
                     JumpHelper.startLoginActivity(getActivity());
                 }else {
-                    JumpHelper.startOrderListActivity(getActivity(),0);
                     showToast(e);
-                    finish();
+                    jumpToWaitPayActivityAndFinish();
                 }
             }
         });
@@ -252,25 +281,29 @@ public class OrderAddActivity extends MyBaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
             case SDK_PAY_FLAG: {
-                //                PayResult payResult = new PayResult((String) msg.obj);
-                //                String resultInfo = payResult.getResult();// 同步返回需要验证的信息
-                String resultStatus = (String) msg.obj;
+                PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+                String resultStatus = payResult.getResultStatus();// 同步返回需要验证的信息
                 if (TextUtils.equals(resultStatus, "9000")) {
                     showToast("支付成功");
+                    jumpToPayResultActivityAndFinish();
                 } else {
                     // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服<span style="white-space:pre">
                     // </span>务端异步通知为准（小概率状态）
                     if (TextUtils.equals(resultStatus, "8000")) {
                         showToast("支付结果确认中");
+                        jumpToPayResultActivityAndFinish();
                     } else if (TextUtils.equals(resultStatus, "6001")) {
                         showToast("支付取消");
+                        jumpToWaitPayActivityAndFinish();
                     } else if (TextUtils.equals(resultStatus, "6002")) {
                         showToast("网络异常");
+                        jumpToWaitPayActivityAndFinish();
                     } else if (TextUtils.equals(resultStatus, "5000")) {
                         showToast("重复请求");
+                        jumpToPayResultActivityAndFinish();
                     } else {
-                        // 其他值就可以判断为支付失败
                         showToast("支付失败");
+                        jumpToWaitPayActivityAndFinish();
                     }
                 }
                 break;
@@ -279,20 +312,30 @@ public class OrderAddActivity extends MyBaseActivity {
         }
     };
 
+    public void jumpToWaitPayActivityAndFinish() {
+        finish();
+        JumpHelper.startOrderListActivity(getActivity(), 0);
+    }
+
+    public void jumpToPayResultActivityAndFinish() {
+        finish();
+        JumpHelper.startOrderListActivity(getActivity(), 1);
+    }
+
 
     public void refreshUI() {
         setAddress(mAddress);
         mItemHolder.notifyDataSetChanged();
-        tvTotal.setText(String.format("￥%.2f", mTotal));
+        tvTotal.setText(String.format("￥%.2f", mSumPrice));
         setAccount(mAccount);
-        tvRealTotal.setText(String.format("￥%.2f", mRealTotal));
+        tvRealTotal.setText(String.format("￥%.2f", mPayPrice));
     }
 
 
     public void setAddress(IAddress address) {
         tvName.setText(address != null ? address.getConsignee() : "");
-        tvPhone.setText(address != null ? address.getMobile() : null);
-        tvAddress.setText(address != null ? address.getAddress() : null);
+        tvPhone.setText(address != null ? address.getMobile() : "");
+        tvAddress.setText(address != null ? address.getRegion() + address.getAddress() : "");
     }
 
     public void setAccount(Account account) {

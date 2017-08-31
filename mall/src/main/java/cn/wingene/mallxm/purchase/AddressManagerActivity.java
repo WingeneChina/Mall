@@ -141,7 +141,7 @@ public class AddressManagerActivity extends MyBaseActivity {
             tvName.setText(item.getConsignee());
             tvIsDefault.setText(item.getIsDefault() ? "默认" : "");
             tvPhone.setText(item.getMobile());
-            tvAddress.setText(item.getAddress());
+            tvAddress.setText(item.getRegion() + item.getAddress());
         }
     }
 

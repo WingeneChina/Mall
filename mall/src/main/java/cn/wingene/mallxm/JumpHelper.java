@@ -6,6 +6,7 @@ import android.content.Context;
 import cn.wingene.mallxm.account.LoginActivity;
 import cn.wingene.mallxm.account.RegisterActivity;
 import cn.wingene.mallxm.account.RegisterFirstStepActivity;
+import cn.wingene.mallxm.display.home.setting.SettingActivity;
 import cn.wingene.mallxm.purchase.AddressAddActivity;
 import cn.wingene.mallxm.purchase.AddressManagerActivity;
 import cn.wingene.mallxm.purchase.CommodityDetailActivity;
@@ -49,7 +50,7 @@ public class JumpHelper {
      * @param state 订单状态 -1、全部 0、待付款 1、待发货 3、待确认 4、交易完成 5、交易完成已评价
      */
     public static void startOrderListActivity(Context src, int state) {
-        OrderListActivity.major.startForOrderState(src,state);
+        OrderListActivity.major.startForOrderState(src, state);
     }
 
     /**
@@ -88,6 +89,12 @@ public class JumpHelper {
 
     public static void startMainActivity(Context context) {
         create(context, MainActivity.class).startActivity();
+    }
+
+
+    public static void startSettingActivity(Context context) {
+        create(context, SettingActivity.class).startActivity();
+
     }
 
     private static IntentBuilder create(Context context, Class<? extends Activity> cls) {

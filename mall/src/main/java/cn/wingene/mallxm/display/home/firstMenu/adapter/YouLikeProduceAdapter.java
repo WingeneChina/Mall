@@ -40,7 +40,7 @@ public class YouLikeProduceAdapter extends RecyclerView.Adapter {
         final RecommendModel.DataBean.LikeBean.ProductListBean productListBean = mProductListBeen.get(position);
         youLikeHolder.youLikeItemImgV.setImageURI(productListBean.getProductImage());
         youLikeHolder.youLikeProductNameV.setText(productListBean.getProductName());
-        youLikeHolder.youLikeProductDesV.setVisibility(View.GONE);
+        youLikeHolder.youLikeProductDesV.setText(productListBean.getSellingPoint());
         youLikeHolder.youLikeProductPriceV.setText("¥" + productListBean.getProductPrice());
 
         youLikeHolder.itemView.setOnClickListener(new View.OnClickListener() {
