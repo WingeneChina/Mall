@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -46,10 +47,18 @@ public class PersonRecommendAdapter extends RecyclerView.Adapter {
         final RecommendModel.DataBean.RecommendBean.ProductListBean productListBean = mProductListBeen.get(position);
         personRecommendHolder.personRecommendItemImgV.setImageURI(productListBean.getProductImage());
         personRecommendHolder.personRecommendProductNameV.setText(productListBean.getProductName());
-        personRecommendHolder.personRecommendItemMarkOneV.setVisibility(View.GONE);
+//        personRecommendHolder.personRecommendItemMarkOneV.setVisibility(View.GONE);
         personRecommendHolder.personRecommendProductDesV.setVisibility(View.GONE);
-        personRecommendHolder.personRecommendItemMarkTwoV.setText(productListBean.getTag().toString().replace(",",
-                "/"));
+        for (String string : productListBean.getTag().toString().split(",")) {
+            TextView textView = (TextView) LayoutInflater.from(personRecommendHolder.personRecommendMarkGroupV.getContext())
+                    .inflate(R
+                            .layout.productmark_layout, personRecommendHolder.personRecommendMarkGroupV, false);
+            textView.setText(string);
+            personRecommendHolder.personRecommendMarkGroupV.addView(textView);
+        }
+//        daySpecialPrice.personRecommendItemMarkTwoV.setText(productListBean.getTag().replace(",", "/"));
+        personRecommendHolder.personRecommendItemMarkTwoV.setVisibility(View.GONE);
+        personRecommendHolder.personRecommendItemMarkOneV.setVisibility(View.GONE);
         personRecommendHolder.personRecommendProductPriceV.setText("¥" + productListBean.getProductPrice());
 
         personRecommendHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +84,7 @@ public class PersonRecommendAdapter extends RecyclerView.Adapter {
         private TextView personRecommendProductNameV;
         private TextView personRecommendProductDesV;
         private TextView personRecommendProductPriceV;
+        private RelativeLayout personRecommendMarkGroupV;
 
         public PersonRecommendHolder(View itemView) {
             super(itemView);
@@ -89,6 +99,8 @@ public class PersonRecommendAdapter extends RecyclerView.Adapter {
             personRecommendProductNameV = (TextView) root.findViewById(R.id.personRecommendProductNameV);
             personRecommendProductDesV = (TextView) root.findViewById(R.id.personRecommendProductDesV);
             personRecommendProductPriceV = (TextView) root.findViewById(R.id.personRecommendProductPriceV);
+            personRecommendMarkGroupV = (RelativeLayout) root.findViewById(R.id.personRecommendMarkGroupV);
+
         }
     }
 }

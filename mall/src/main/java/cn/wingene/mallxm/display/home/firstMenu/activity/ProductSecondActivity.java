@@ -13,6 +13,9 @@ import cn.wingene.mallxm.display.home.firstMenu.ProductListFragment;
 
 import static cn.wingene.mallxm.display.home.FirstMenuFragment.PRODUCT_PARAMS;
 
+/**
+ * 点击子条目的界面，比如"品牌制造商直供"
+ */
 public class ProductSecondActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView backIcon;
@@ -36,8 +39,8 @@ public class ProductSecondActivity extends AppCompatActivity implements View.OnC
         titleV = (TextView) findViewById(R.id.titleV);
 
         Bundle bundle = new Bundle();
-        bundle.putString("typeCode",getIntent().getStringExtra("typeCode"));
-        bundle.putString(PRODUCT_PARAMS,getIntent().getStringExtra("key"));
+        bundle.putString("typeCode", getIntent().getStringExtra("typeCode"));
+        bundle.putString(PRODUCT_PARAMS, getIntent().getStringExtra("key"));
         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), ProductListFragment.newInstance(bundle), R.id
                 .contentV);
 

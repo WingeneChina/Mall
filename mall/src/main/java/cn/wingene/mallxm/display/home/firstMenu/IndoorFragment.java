@@ -2,6 +2,7 @@ package cn.wingene.mallxm.display.home.firstMenu;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dalong.refreshlayout.OnRefreshListener;
 import com.yanzhenjie.nohttp.rest.Response;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.HttpConstant;
@@ -21,6 +25,7 @@ import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.ui.MyBaseFragment;
+import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.ProductListCommentAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.SpecialOfferRecyclerVAdapter;
@@ -35,8 +40,11 @@ import static cn.wingene.mallxm.display.home.FirstMenuFragment.PRODUCT_PARAMS;
 
 public class IndoorFragment extends MyBaseFragment implements HttpListener<String> {
     private RecyclerView indoorRecyclerV;
+    private JDRefreshLayout mJDRefreshLayout;
     private int orderBy = 0;//0 综合、2 金额降序 、1 金额升序
     private int mPagerIndex = 1;
+    private List<ProductListModel.DataBean.ListBean> mListBeanList = new ArrayList<>();
+    private ProductListCommentAdapter mProductListCommentAdapter;
 
     public static IndoorFragment newInstance(Bundle bundle) {
         IndoorFragment indoorFragment = new IndoorFragment();
@@ -51,12 +59,28 @@ public class IndoorFragment extends MyBaseFragment implements HttpListener<Strin
             savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_indoor_layout, container, false);
         initViews(rootView);
+        initSpecialRecyclerV();
         requestData();
         return rootView;
     }
 
     private void initViews(View root) {
         indoorRecyclerV = (RecyclerView) root.findViewById(R.id.indoorRecyclerV);
+        mJDRefreshLayout = (JDRefreshLayout) root.findViewById(R.id.refreshLayoutV);
+
+        mJDRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPagerIndex = 0;
+                requestData();
+            }
+
+            @Override
+            public void onLoadMore() {
+                mPagerIndex++;
+                requestData();
+            }
+        });
     }
 
     private void requestData() {
@@ -66,7 +90,7 @@ public class IndoorFragment extends MyBaseFragment implements HttpListener<Strin
             hasmapParams.put("OrderBy", orderBy);
             hasmapParams.put("PageIndex", mPagerIndex);
             hasmapParams.put("Type", 20);
-            hasmapParams.put("CategoryCode", getArguments().getString(PRODUCT_PARAMS));
+            hasmapParams.put("CategoryCode", getArguments().getString("typeCode", ""));
             responseNoHttpRequest.request(getActivity(), HttpConstant.PRODUCT_LIST, hasmapParams, 1, this, false,
                     "specialOffer",
                     false, true);
@@ -75,30 +99,36 @@ public class IndoorFragment extends MyBaseFragment implements HttpListener<Strin
 
     /**
      * 写入展示数据
-     *
-     * @param productListModel
      */
-    private void initSpecialRecyclerV(ProductListModel productListModel) {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
-                false);
-        indoorRecyclerV.setLayoutManager(linearLayoutManager);
+    private void initSpecialRecyclerV() {
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        indoorRecyclerV.setLayoutManager(gridLayoutManager);
 
-        ProductListCommentAdapter productListCommentAdapter = new ProductListCommentAdapter(productListModel
-                .getData().getList
-                        ());
-        indoorRecyclerV.setAdapter(productListCommentAdapter);
+        mProductListCommentAdapter = new ProductListCommentAdapter(mListBeanList);
+        indoorRecyclerV.setAdapter(mProductListCommentAdapter);
 
         SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
         indoorRecyclerV.addItemDecoration(spaceItemDecoration);
 
     }
 
+    private void showResultData(ProductListModel productListModel) {
+        mListBeanList.addAll(productListModel
+                .getData().getList
+                        ());
+        mProductListCommentAdapter.notifyDataSetChanged();
+
+    }
+
     @Override
     public void onSucceed(int what, Response<String> response) {
         try {
+            mJDRefreshLayout.stopLoadMore(true);
+            mJDRefreshLayout.stopRefresh(true);
+
             GsonUtil<ProductListModel> gsonUtil = new GsonUtil(ProductListModel.class);
             ProductListModel productListModel = gsonUtil.fromJson(response.get());
-            initSpecialRecyclerV(productListModel);
+            showResultData(productListModel);
             if (productListModel.getData().getList().size() == 0) {
                 ToastUtil.show("暂无商品", getContext());
             }

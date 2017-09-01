@@ -1,5 +1,7 @@
 package cn.wingene.mallxm.display.home;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -11,20 +13,28 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.yanzhenjie.nohttp.rest.Response;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.cacheData.UserData;
+import cn.wingene.mallxf.model.BaseResponse;
 import cn.wingene.mallxf.nohttp.GsonUtil;
+import cn.wingene.mallxf.nohttp.HttpListener;
+import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.ui.MyBaseFragment;
+import cn.wingene.mallxf.util.VersionUtil;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.account.data.LoginModel;
+import cn.wingene.mallxm.display.home.fiveMenu.UserInfoModel;
+
+import static cn.wingene.mallxf.http.HttpConstant.USER_INFO;
 
 /**
  * Created by wangcq on 2017/8/7.
  * 个人菜单页面
  */
 
-public class FiveMenuFragment extends MyBaseFragment implements View.OnClickListener {
+public class FiveMenuFragment extends MyBaseFragment implements View.OnClickListener, HttpListener<String> {
 
     private ImageView settingV;
     private SimpleDraweeView personHeadV;
@@ -43,6 +53,7 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
     private TextView oneLuckyDesV;
     private TextView versonInfoV;
     private TextView aboutAsV;
+    private TextView versonConentV;
 
     public static FiveMenuFragment newInstance(Bundle args) {
         FiveMenuFragment fiveMenuFragment = new FiveMenuFragment();
@@ -59,17 +70,13 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
 //        initViews(view);
         initClickViews(view);
         initEvent();
-
+        requestData();
         return view;
     }
 
-    private void initViews(View root) {
-        settingV = (ImageView) root.findViewById(R.id.settingV);
-        personHeadV = (SimpleDraweeView) root.findViewById(R.id.personHeadV);
-        personNameV = (TextView) root.findViewById(R.id.personNameV);
-        yingMoneyV = (TextView) root.findViewById(R.id.yingMoneyV);
-        youMoneyV = (TextView) root.findViewById(R.id.youMoneyV);
-
+    private void requestData() {
+        NoHttpRequest<UserInfoModel> noHttpRequest = new NoHttpRequest<>(UserInfoModel.class);
+        noHttpRequest.request(this.getActivity(), USER_INFO, null, 1, this, false, null, false, false);
     }
 
     private void initClickViews(View root) {
@@ -90,7 +97,11 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
         oneLuckyDesV = (TextView) root.findViewById(R.id.oneLuckyDesV);
         versonInfoV = (TextView) root.findViewById(R.id.versonInfoV);
         aboutAsV = (TextView) root.findViewById(R.id.aboutAsV);
+        versonConentV = (TextView) root.findViewById(R.id.versonConentV);
+        versonConentV.setText(VersionUtil.getPackageInfo(getContext()));
+
     }
+
 
     private void initEvent() {
         personHeadV.setOnClickListener(this);
@@ -101,6 +112,8 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
         orderAlreadySendV.setOnClickListener(this);
         orderCompletedV.setOnClickListener(this);
         updateAddressV.setOnClickListener(this);
+
+
     }
 
     @Override
@@ -164,4 +177,24 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
     }
 
 
+    @Override
+    public void onSucceed(int what, Response<String> response) {
+        try {
+            GsonUtil<UserInfoModel> gsonUtil = new GsonUtil<>(UserInfoModel.class);
+            UserInfoModel userInfoModel = gsonUtil.fromJson(response.get());
+            if (userInfoModel != null && userInfoModel.getData() != null) {
+                personHeadV.setImageURI(userInfoModel.getData().getAvatar());
+                personNameV.setText(userInfoModel.getData().getNickname());
+                yingMoneyV.setText(String.valueOf(userInfoModel.getData().getIntegral()));
+                youMoneyV.setText(String.valueOf(userInfoModel.getData().getAmount()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onFailed(int what, Object tag, Exception exception, int responseCode, long networkMillis) {
+
+    }
 }

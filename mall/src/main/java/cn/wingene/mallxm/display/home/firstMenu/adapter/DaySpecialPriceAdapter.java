@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -41,20 +42,30 @@ public class DaySpecialPriceAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            final DaySpecialPrice daySpecialPrice = (DaySpecialPrice) holder;
-        final RecommendModel.DataBean.SpecialsBean.ProductListBean productListBean =  mProductListBeen.get(position);
+        final DaySpecialPrice daySpecialPrice = (DaySpecialPrice) holder;
+        final RecommendModel.DataBean.SpecialsBean.ProductListBean productListBean = mProductListBeen.get(position);
         daySpecialPrice.personRecommendItemImgV.setImageURI(productListBean.getProductImage());
         daySpecialPrice.personRecommendProductNameV.setText(productListBean.getProductName());
-        daySpecialPrice.personRecommendProductPriceV.setText("¥"+productListBean.getProductPrice());
-        daySpecialPrice.personRecommendItemMarkTwoV.setText(productListBean.getTag().replace(",","/"));
+        daySpecialPrice.personRecommendProductPriceV.setText("¥" + productListBean.getProductPrice());
+
+        for (String string : productListBean.getTag().split(",")) {
+            TextView textView = (TextView) LayoutInflater.from(daySpecialPrice.personRecommendMarkGroupV.getContext())
+                    .inflate(R
+                            .layout.productmark_layout, daySpecialPrice.personRecommendMarkGroupV, false);
+            textView.setText(string);
+            daySpecialPrice.personRecommendMarkGroupV.addView(textView);
+        }
+//        daySpecialPrice.personRecommendItemMarkTwoV.setText(productListBean.getTag().replace(",", "/"));
+        daySpecialPrice.personRecommendItemMarkTwoV.setVisibility(View.GONE);
         daySpecialPrice.personRecommendItemMarkOneV.setVisibility(View.GONE);
         daySpecialPrice.personRecommendProductDesV.setVisibility(View.GONE);
 
         daySpecialPrice.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpHelper.startCommodityDetailActivity(daySpecialPrice.personRecommendItemImgV.getContext(), productListBean
-                        .getProductId());
+                JumpHelper.startCommodityDetailActivity(daySpecialPrice.personRecommendItemImgV.getContext(),
+                        productListBean
+                                .getProductId());
             }
         });
     }
@@ -73,6 +84,7 @@ public class DaySpecialPriceAdapter extends RecyclerView.Adapter {
         private TextView personRecommendProductNameV;
         private TextView personRecommendProductDesV;
         private TextView personRecommendProductPriceV;
+        private RelativeLayout personRecommendMarkGroupV;
 
         public DaySpecialPrice(View itemView) {
             super(itemView);
@@ -86,6 +98,7 @@ public class DaySpecialPriceAdapter extends RecyclerView.Adapter {
             personRecommendProductNameV = (TextView) root.findViewById(R.id.personRecommendProductNameV);
             personRecommendProductDesV = (TextView) root.findViewById(R.id.personRecommendProductDesV);
             personRecommendProductPriceV = (TextView) root.findViewById(R.id.personRecommendProductPriceV);
+            personRecommendMarkGroupV = (RelativeLayout) root.findViewById(R.id.personRecommendMarkGroupV);
         }
     }
 }

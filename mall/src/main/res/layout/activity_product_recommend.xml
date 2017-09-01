@@ -9,14 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="45dp">
 
-        <ImageView
-            android:id="@+id/backIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:onClick="onClick"
-            android:padding="10dp"
-            android:src="@drawable/ic_navigate_before_black_24dp"/>
 
         <TextView
             android:id="@+id/titleV"
@@ -26,6 +18,15 @@
             android:text="标题"
             android:textColor="@color/three_text_color"
             android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/backIconV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:onClick="onClick"
+            android:padding="10dp"
+            android:src="@drawable/ic_navigate_before_black_24dp"/>
 
         <ImageView
             android:id="@+id/searchV"
@@ -38,13 +39,11 @@
             android:src="@drawable/ic_search_black_24dp"/>
     </RelativeLayout>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/productTitleGroupV"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/productPagers"
+    <FrameLayout
+        android:id="@+id/contentV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+
 </LinearLayout>

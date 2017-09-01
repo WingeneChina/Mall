@@ -56,7 +56,7 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
     }
 
     private void initViews() {
-        contentV = (RelativeLayout) findViewById(R.id.contentV);
+        contentV = (RelativeLayout) findViewById(R.id.contentMenuV);
         firstMenuV = (RadioButton) findViewById(R.id.firstMenuV);
         secondMenuV = (RadioButton) findViewById(R.id.secondMenuV);
         thirdMenuV = (RadioButton) findViewById(R.id.thirdMenuV);
@@ -74,7 +74,7 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
         if (savedInstanceState == null) {
             mFragments[0] = FirstMenuFragment.newInstance(null);
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[0], R
-                    .id.contentV);
+                    .id.contentMenuV);
 
         }
     }
@@ -85,27 +85,27 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
                 case 0:
                     mFragments[0] = FirstMenuFragment.newInstance(null);
                     ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[0], R
-                            .id.contentV);
+                            .id.contentMenuV);
                     break;
                 case 1:
                     mFragments[1] = SecondMenuFragment.newInstance(null);
                     ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[1], R
-                            .id.contentV);
+                            .id.contentMenuV);
                     break;
                 case 2:
                     mFragments[2] = ThirdMenuFragment.newInstance(null);
                     ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[2], R
-                            .id.contentV);
+                            .id.contentMenuV);
                     break;
                 case 3:
                     mFragments[3] = FourthMenuFragment.newInstance(null);
                     ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[3], R
-                            .id.contentV);
+                            .id.contentMenuV);
                     break;
                 case 4:
                     mFragments[4] = FiveMenuFragment.newInstance(null);
                     ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[4], R
-                            .id.contentV);
+                            .id.contentMenuV);
                     break;
             }
             return;

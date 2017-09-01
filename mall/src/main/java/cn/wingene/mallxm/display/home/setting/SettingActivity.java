@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxf.util.VersionUtil;
 
 /**
  * 设置界面
@@ -52,6 +53,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         aboutAsV = (TextView) findViewById(R.id.aboutAsV);
         aboutClauseV = (TextView) findViewById(R.id.aboutClauseV);
         loginOutV = (Button) findViewById(R.id.loginOutV);
+
+        versionInfoV.append(VersionUtil.getPackageInfo(this));
     }
 
     private void initEvent() {
