@@ -92,6 +92,8 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
+        <activity android:name="cn.wingene.mallxm.display.home.firstMenu.activity.SearchActivity">
+        </activity>
     </application>
 
 </manifest>

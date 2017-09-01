@@ -168,28 +168,50 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this.getActivity(), ProductSecondActivity.class);
+        Intent intent = new Intent(this.getActivity(), ProductActivity.class);
 
         switch (v.getId()) {
             case R.id.brandTitleGroupV:
                 if (recommendModel != null) {
-                    intent.putExtra("typeCode", recommendModel.getData().getBrand().getType());
+                    intent.putExtra("type", recommendModel.getData().getBrand().getType());
                     intent.putExtra("key", recommendModel.getData().getBrand().getParam());
+                    intent.putExtra("title", recommendModel.getData().getBrand().getTitle());
                 }
 
                 break;
             case R.id.perWeekTitleGroupV:
-//                Intent intent = new Intent(this.getActivity(), ProductActivity.class);
-//                startActivity(intent);
+                if (recommendModel != null) {
+                    intent.putExtra("type", recommendModel.getData().getNew().getType());
+                    intent.putExtra("key", recommendModel.getData().getNew().getParam());
+                    intent.putExtra("title", recommendModel.getData().getNew().getTitle());
+                }
 
                 break;
 
             case R.id.personRecommendTitleGroupV:
+                if (recommendModel != null) {
+                    intent.putExtra("type", recommendModel.getData().getRecommend().getType());
+                    intent.putExtra("key", recommendModel.getData().getRecommend().getParam());
+                    intent.putExtra("title", recommendModel.getData().getRecommend().getTitle());
+                }
 
+                break;
             case R.id.daySpecialTitleGroupV:
+                if (recommendModel != null) {
+                    intent.putExtra("type", recommendModel.getData().getSpecials().getType());
+                    intent.putExtra("key", recommendModel.getData().getSpecials().getParam());
+                    intent.putExtra("title", recommendModel.getData().getSpecials().getTitle());
+                }
 
+                break;
             case R.id.youLikeTitleGroupV:
+                if (recommendModel != null) {
+                    intent.putExtra("type", recommendModel.getData().getLike().getType());
+                    intent.putExtra("key", recommendModel.getData().getLike().getParam());
+                    intent.putExtra("title", recommendModel.getData().getLike().getTitle());
+                }
 
+                break;
             default:
 //                Intent intent = new Intent(this.getActivity(), ProductActivity.class);
 //                startActivity(intent);

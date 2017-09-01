@@ -508,7 +508,7 @@ public class RecommendModel {
         public static class NewBean {
             private String Image;
             private String Title;
-            private int Type;
+            private String Type;
             private String Param;
             private int OrderIndex;
             /**
@@ -539,11 +539,11 @@ public class RecommendModel {
                 this.Title = Title;
             }
 
-            public int getType() {
+            public String getType() {
                 return Type;
             }
 
-            public void setType(int Type) {
+            public void setType(String Type) {
                 this.Type = Type;
             }
 
@@ -641,7 +641,7 @@ public class RecommendModel {
         public static class RecommendBean {
             private String Image;
             private String Title;
-            private int Type;
+            private String Type;
             private String Param;
             private int OrderIndex;
             /**
@@ -672,11 +672,11 @@ public class RecommendModel {
                 this.Title = Title;
             }
 
-            public int getType() {
+            public String getType() {
                 return Type;
             }
 
-            public void setType(int Type) {
+            public void setType(String Type) {
                 this.Type = Type;
             }
 
@@ -774,7 +774,7 @@ public class RecommendModel {
         public static class SpecialsBean {
             private String Image;
             private String Title;
-            private int Type;
+            private String Type;
             private String Param;
             private int OrderIndex;
             /**
@@ -805,11 +805,11 @@ public class RecommendModel {
                 this.Title = Title;
             }
 
-            public int getType() {
+            public String getType() {
                 return Type;
             }
 
-            public void setType(int Type) {
+            public void setType(String Type) {
                 this.Type = Type;
             }
 
@@ -907,7 +907,7 @@ public class RecommendModel {
         public static class LikeBean {
             private String Image;
             private String Title;
-            private int Type;
+            private String Type;
             private String Param;
             private int OrderIndex;
             /**
@@ -938,11 +938,11 @@ public class RecommendModel {
                 this.Title = Title;
             }
 
-            public int getType() {
+            public String getType() {
                 return Type;
             }
 
-            public void setType(int Type) {
+            public void setType(String Type) {
                 this.Type = Type;
             }
 

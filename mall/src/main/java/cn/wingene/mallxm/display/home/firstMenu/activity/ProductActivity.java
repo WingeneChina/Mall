@@ -58,7 +58,7 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
             HashMap<String, Object> hasmapParams = new HashMap<>();
             hasmapParams.put("OrderBy", orderBy);
             hasmapParams.put("PageIndex", mPagerIndex);
-            hasmapParams.put("Type", 20);
+            hasmapParams.put("Type", String.valueOf(getIntent().getStringExtra("type")));
             hasmapParams.put("ParentCode", getIntent().getStringExtra("key"));
             responseNoHttpRequest.request(this, HttpConstant.PRODUCT_GROUP, hasmapParams, 1, this, false,
                     null,
