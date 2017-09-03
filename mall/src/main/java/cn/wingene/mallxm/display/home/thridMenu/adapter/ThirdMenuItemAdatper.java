@@ -65,7 +65,8 @@ public class ThirdMenuItemAdatper extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     Intent intent = new Intent(selectHolder.itemView.getContext(), SpecialDetailActivity.class);
                     intent.putExtra("detailId", listBean.getId());
-                    intent.putExtra("title",listBean.getTitle());
+                    intent.putExtra("title", listBean.getTitle());
+                    intent.putExtra("type", "nearBy");
                     holder.itemView.getContext().startActivity(intent);
                 }
             });

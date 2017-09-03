@@ -98,5 +98,5 @@ public class HttpConstant {
     public static final String SPECIAL_DETAIL = HOST + "Article/SpecialDetail";
 
 
-
+    public static final String NEARBY_DETAIL = HOST + "Article/AmbitusDetail";
 }

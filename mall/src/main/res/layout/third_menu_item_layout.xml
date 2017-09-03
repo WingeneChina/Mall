@@ -28,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="90dp"
             android:layout_weight="1"
-            app:placeholderImage="@drawable/placeholder"/>
+            app:placeholderImage="@mipmap/default_image"/>
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/desTwoImgV"
@@ -37,14 +37,14 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            app:placeholderImage="@drawable/placeholder"/>
+            app:placeholderImage="@mipmap/default_image"/>
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/desThreeImgV"
             android:layout_width="0dp"
             android:layout_height="90dp"
             android:layout_weight="1"
-            app:placeholderImage="@drawable/placeholder"/>
+            app:placeholderImage="@mipmap/default_image"/>
     </LinearLayout>
 
     <LinearLayout

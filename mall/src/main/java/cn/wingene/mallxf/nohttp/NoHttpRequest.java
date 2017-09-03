@@ -98,7 +98,6 @@ public class NoHttpRequest<T> {
                         int what, HttpListener<String> callback, boolean canCancel, String cancelSign, boolean
                                 isShowDialog, boolean
                                 isCache) {
-        Logger.e("url = " + url);
         request = NoHttp.createStringRequest(url,RequestMethod.POST);
 
         request.setCancelSign(cancelSign);
@@ -131,7 +130,6 @@ public class NoHttpRequest<T> {
     public void upLoadFile(Activity activity, int what, String url, HashMap<String, Object>
             hashMap, HttpListener<String> listener) {
 
-        Logger.e("url = " + url);
         request = NoHttp.createStringRequest(url,RequestMethod.POST);
 
         mergeParams(hashMap);
@@ -192,9 +190,7 @@ public class NoHttpRequest<T> {
 
         }
         signBuffer.append(SignParams.signKey);
-        Log.e("", "签名参数 = " + signBuffer.toString());
         String sign = MD5Util.getMD5String(signBuffer.toString()).toUpperCase();
-        Log.e("", "输出签名 = " + sign);
         return sign;
     }
 
