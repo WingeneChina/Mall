@@ -3,10 +3,14 @@ package cn.wingene.mallxm.display.home.secondMenu;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yanzhenjie.nohttp.rest.Response;
 
@@ -21,6 +25,7 @@ import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxm.display.home.secondMenu.data.SpecailDetailModel;
 import junze.androidxf.tool.HtmlLoader;
 
+import static cn.wingene.mallxf.http.HttpConstant.NEARBY_DETAIL;
 import static cn.wingene.mallxf.http.HttpConstant.SPECIAL_DETAIL;
 
 public class SpecialDetailActivity extends AppCompatActivity implements View.OnClickListener, HttpListener<String> {
@@ -28,6 +33,8 @@ public class SpecialDetailActivity extends AppCompatActivity implements View.OnC
     private ImageView backIcon;
     private TextView titleV;
     private WebView mWebView;
+    private TextView addressTextV;
+    private Button clickGoV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,8 @@ public class SpecialDetailActivity extends AppCompatActivity implements View.OnC
         backIcon = (ImageView) findViewById(R.id.backIcon);
         titleV = (TextView) findViewById(R.id.titleV);
         mWebView = (WebView) findViewById(R.id.detailDetailWebV);
+        addressTextV = (TextView) findViewById(R.id.addressTextV);
+        clickGoV = (Button) findViewById(R.id.clickGoV);
 
         titleV.setText(getIntent().getStringExtra("title"));
 
@@ -49,6 +58,7 @@ public class SpecialDetailActivity extends AppCompatActivity implements View.OnC
 
     private void initEvent() {
         backIcon.setOnClickListener(this);
+        clickGoV.setOnClickListener(this);
     }
 
     @Override
@@ -57,6 +67,11 @@ public class SpecialDetailActivity extends AppCompatActivity implements View.OnC
             case R.id.backIcon:
                 onBackPressed();
                 break;
+            case R.id.clickGoV:
+                Toast toast = Toast.makeText(this, "暂不支持", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+                break;
         }
     }
 
@@ -64,7 +79,13 @@ public class SpecialDetailActivity extends AppCompatActivity implements View.OnC
         NoHttpRequest<BaseResponse> noHttpRequest = new NoHttpRequest<>(BaseResponse.class);
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("Id", getIntent().getIntExtra("detailId", 0));
-        noHttpRequest.request(this, SPECIAL_DETAIL, hashMap, 1, this, false, null, false, true);
+        if (getIntent().getStringExtra("type").equals("special")) {
+            noHttpRequest.request(this, SPECIAL_DETAIL, hashMap, 1, this, false, null, false, true);
+
+        } else if (getIntent().getStringExtra("type").equals("nearBy")) {
+            noHttpRequest.request(this, NEARBY_DETAIL, hashMap, 2, this, false, null, false, true);
+
+        }
 
     }
 
@@ -75,12 +96,15 @@ public class SpecialDetailActivity extends AppCompatActivity implements View.OnC
         String webContent = specailDetailModel.getData().getContent();
         if (!TextUtils.isEmpty(webContent)) {
             HtmlLoader.loadWebViewByHtmlCode(this, mWebView, webContent, true);
+            addressTextV.setText(specailDetailModel.getData().getRegion());
+
         }
 
     }
 
     @Override
     public void onSucceed(int what, Response<String> response) {
+        Log.e(this.getClass().getName(), response.get());
         try {
             GsonUtil<SpecailDetailModel> gsonUtil = new GsonUtil<>(SpecailDetailModel.class);
             SpecailDetailModel specailDetailModel = gsonUtil.fromJson(response.get());
@@ -99,4 +123,5 @@ public class SpecialDetailActivity extends AppCompatActivity implements View.OnC
     public void onFailed(int what, Object tag, Exception exception, int responseCode, long networkMillis) {
 
     }
+
 }

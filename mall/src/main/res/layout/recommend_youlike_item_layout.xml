@@ -16,7 +16,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/light_green">
+            android:background="@color/white">
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/youLikeItemImgV"
@@ -31,7 +31,7 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:layout_below="@+id/youLikeItemImgV"
-                android:background="@color/deep_green"
+                android:background="@color/translucent"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
