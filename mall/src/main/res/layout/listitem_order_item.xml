@@ -4,35 +4,35 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/p100">-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right|center_vertical"
+        android:padding="@dimen/p16">
 
-       <!---->
+        <TextView
+            android:id="@+id/tv_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/p14"
+            android:layout_weight="1"
+            android:text="订单编号"
+            android:textSize="@dimen/f28"/>
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginRight="@dimen/p32"-->
-            <!--android:orientation="vertical">-->
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/p32"
+            android:layout_weight="0"
+            android:text="订单状态"
+            android:textColor="@color/fontYellow"/>
 
-            <!--<TextView-->
-                <!--android:id="@+id/tv_amount"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="应币"/>-->
+    </LinearLayout>
 
-            <!--<TextView-->
-                <!--android:id="@+id/tv_integral"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="游币"/>-->
 
-        <!--</LinearLayout>-->
-
-    <!--</RelativeLayout>-->
 
     <junze.widget.HightMatchListView
         android:id="@+id/hmlv_product"
@@ -46,11 +46,10 @@
         <TextView
             android:textColor="@color/fontYellow"
             android:layout_weight="1"
-            android:id="@+id/tv_state"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/p32"
-            android:text="订单状态"/>
+            android:text=""/>
         <TextView
             android:id="@+id/tv_number"
             android:layout_width="wrap_content"
@@ -85,14 +84,13 @@
 
         <TextView
             android:layout_weight="1"
-            android:id="@+id/tv_no"
             android:textSize="@dimen/f24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/p14"
-            android:text="订单编号"/>
+            android:text=""/>
 
         <TextView
             android:id="@+id/tv_left"
