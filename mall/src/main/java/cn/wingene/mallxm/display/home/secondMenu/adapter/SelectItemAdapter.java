@@ -83,7 +83,7 @@ public class SelectItemAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mListBean.size() > 0 ? mListBean.size() : 8;
+        return mListBean.size();
     }
 
     class SelectHolder extends RecyclerView.ViewHolder {
