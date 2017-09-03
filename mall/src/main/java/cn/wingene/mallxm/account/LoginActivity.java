@@ -149,7 +149,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     UserData.savePersonHeadUrl(loginModel.getData().getAvatar());
                     if (resultCode == 0) {
                         Log.e(this.getClass().getName(), "登陆成功");
-                        JumpHelper.startMainActivity(this);
                         finish();
                     }
                     break;
