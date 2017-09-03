@@ -2,8 +2,8 @@ package cn.wingene.mallxf;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.lang.ref.WeakReference;
 
 import android.app.AlarmManager;
 import android.app.Application;
@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.multidex.MultiDex;
 
-import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
@@ -20,10 +19,6 @@ import com.yanzhenjie.nohttp.InitializationConfig;
 import com.yanzhenjie.nohttp.Logger;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.OkHttpNetworkExecutor;
-
-import cn.wingene.mallxf.util.GlideImageLoader;
-import cn.wingene.mallxm.MainActivity;
-import cn.wingene.mall.R;
 
 import junze.java.util.FileUtil;
 
@@ -42,6 +37,10 @@ import junze.androidxf.http.BaseRequest;
 import junze.androidxf.http.BaseRequest.AskLogModel;
 import junze.androidxf.manager.AppManager;
 import junze.androidxf.manager.FileManager;
+
+import cn.wingene.mall.R;
+import cn.wingene.mallxf.util.GlideImageLoader;
+import cn.wingene.mallxm.MainActivity;
 
 /**
  * Created by Wingene on 2017/6/12.
@@ -72,7 +71,7 @@ public class MyApp extends Application implements CrashHandleAble {
         Thread.setDefaultUncaughtExceptionHandler(CrashHander.getInstance()
                 .init(this.getResources().getString(R.string.app_name), this).setUncaughtHandler(this));
 
-//        LocationHelper.getInstance().init(this);
+        LocationHelper.getInstance().init(this);
 
         if (AppManager.isFirstStart()) {
             AppManager.saveVisionCode();
