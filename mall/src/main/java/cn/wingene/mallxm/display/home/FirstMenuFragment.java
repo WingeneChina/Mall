@@ -45,6 +45,7 @@ import cn.wingene.mallxm.display.home.firstMenu.SnacksFragment;
 import cn.wingene.mallxm.display.home.firstMenu.SpecialOfferFragment;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductRecommendActivity;
+import cn.wingene.mallxm.display.home.firstMenu.activity.SearchActivity;
 import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
 
 /**
@@ -61,6 +62,8 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
     private TabLayout mTabLayout;
     private ViewPager contentPagerV;
     private MailFragmentPagerAdapter mMailFragmentPagerAdapter;
+    private TabLayout.Tab tab;
+
 
     public static FirstMenuFragment newInstance(Bundle args) {
 
@@ -94,6 +97,7 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
 
     private void initEvent() {
         shoppingCart.setOnClickListener(this);
+        searchMarkV.setOnClickListener(this);
     }
 
     /**
@@ -112,6 +116,12 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
             case R.id.shoppingCart:
                 JumpHelper.startShoppingCartActivity(getActivity());
                 break;
+            case R.id.searchMarkV:
+                Intent intent = new Intent(this.getActivity(), SearchActivity.class);
+                intent.putExtra("type", "0");//综合搜索
+                intent.putExtra("typeCode", "");//表示 CategoryCode 字段
+                startActivity(intent);
+                break;
         }
     }
 
@@ -121,29 +131,14 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
 
         List<IndexModel> fragmentList = new ArrayList<>();
         fragmentList.add(new IndexModel("推荐", RecommendFragment.newInstance(bundle)));
-//        fragmentList.add(new IndexModel("天天特价", SpecialOfferFragment.newInstance(bundle)));
-//        fragmentList.add(new IndexModel("新品", NewProductFragment.newInstance(bundle)));
         for (RecommendModel.DataBean.HeadMenuListBean headMenuListBean : recommendModel.getData().getHeadMenuList()) {
-//            if (!TextUtils.isEmpty(headMenuListBean.getParam())) {
-//                bundle.putString(PRODUCT_PARAMS, headMenuListBean.getParam());
-//                fragmentList.add(new IndexModel(headMenuListBean.getTitle(), IndoorFragment.newInstance(bundle)));
             TabLayout.Tab tab = mTabLayout.newTab();
             tab.setText(headMenuListBean.getTitle());
-            mTabLayout.addTab(tab);
-//            }
+            mTabLayout.addTab(tab, true);
         }
-//        fragmentList.add(new IndexModel("居家", IndoorFragment.newInstance(bundle)));
-//        fragmentList.add(new IndexModel("零食", SnacksFragment.newInstance(bundle)));
-//        fragmentList.add(new IndexModel("美妆", BeautyFragment.newInstance(bundle)));
-//        fragmentList.add(new IndexModel("服饰", ClothesFragment.newInstance(bundle)));
-//        fragmentList.add(new IndexModel("洗护", PersonalCareFragment.newInstance(bundle)));
-//        fragmentList.add(new IndexModel("户外", OutdoorsFragment.newInstance(bundle)));
-//        fragmentList.add(new IndexModel("电竞", GamingFragment.newInstance(bundle)));
-//        fragmentList.add(new IndexModel("汽车用品", CarUseFragment.newInstance(bundle)));
 
         mMailFragmentPagerAdapter = new MailFragmentPagerAdapter(getChildFragmentManager(), fragmentList);
         contentPagerV.setAdapter(mMailFragmentPagerAdapter);
-//        mTabLayout.setupWithViewPager(contentPagerV, true);//同步
 
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

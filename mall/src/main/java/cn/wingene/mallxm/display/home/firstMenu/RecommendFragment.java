@@ -168,8 +168,7 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this.getActivity(), ProductActivity.class);
-
+        Intent intent = new Intent(this.getActivity(), ProductSecondActivity.class);
         switch (v.getId()) {
             case R.id.brandTitleGroupV:
                 if (recommendModel != null) {
@@ -311,7 +310,7 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
 
     }
 
-    private void initRollPager(List<RecommendModel.DataBean.BannerListBean> bannerListBeens) {
+    private void initRollPager(final List<RecommendModel.DataBean.BannerListBean> bannerListBeens) {
         Collections.sort(bannerListBeens);
         urlList.clear();
         urlList.add(bannerListBeens.get(bannerListBeens.size() - 1).getImage());
@@ -326,6 +325,17 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
         mRollViewPager.setAdapter(mImagePagerAdapter);
         mRollViewPager.addOnPageChangeListener(this);
         mHandler.sendEmptyMessageDelayed(1, 1000);
+
+        mImagePagerAdapter.setBinnerClickListener(new ImagePagerAdapter.BinnerClickListener() {
+            @Override
+            public void binnerItemClick(int position) {
+                Intent intent = new Intent(getActivity(), ProductActivity.class);
+                intent.putExtra("key", bannerListBeens.get(position).getParam());
+                intent.putExtra("type", "商品分类");//bannerListBeens.get(position).getType()
+                intent.putExtra("title", bannerListBeens.get(position).getTitle());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

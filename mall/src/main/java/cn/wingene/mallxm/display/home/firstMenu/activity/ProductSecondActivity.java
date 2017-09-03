@@ -39,8 +39,9 @@ public class ProductSecondActivity extends AppCompatActivity implements View.OnC
         titleV = (TextView) findViewById(R.id.titleV);
 
         Bundle bundle = new Bundle();
-        bundle.putString("typeCode", getIntent().getStringExtra("typeCode"));
-        bundle.putString(PRODUCT_PARAMS, getIntent().getStringExtra("key"));
+        bundle.putString("type", String.valueOf(getIntent().getStringExtra("type")));
+        bundle.putString("key", String.valueOf(getIntent().getStringExtra("key")));
+        bundle.putString("title", getIntent().getStringExtra("title"));
         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), ProductListFragment.newInstance(bundle), R.id
                 .contentV);
 

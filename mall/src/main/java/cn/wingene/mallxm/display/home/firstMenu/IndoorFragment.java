@@ -60,7 +60,10 @@ public class IndoorFragment extends MyBaseFragment implements HttpListener<Strin
         View rootView = inflater.inflate(R.layout.fragment_indoor_layout, container, false);
         initViews(rootView);
         initSpecialRecyclerV();
-        requestData();
+        if (mListBeanList.size() == 0) {
+            requestData();
+
+        }
         return rootView;
     }
 

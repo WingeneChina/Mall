@@ -1,6 +1,7 @@
 package cn.wingene.mallxm.display.home.firstMenu.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import cn.wingene.mallxm.display.home.firstMenu.data.ProductListModel;
 
 public class ProductListCommentAdapter extends RecyclerView.Adapter {
     private List<ProductListModel.DataBean.ListBean> mDataBeanList;
+    private static final int NOT_DATA = 2;
 
     public ProductListCommentAdapter(List<ProductListModel.DataBean.ListBean> dataBeanList) {
         mDataBeanList = dataBeanList;
@@ -29,6 +31,13 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.e(this.getClass().getName(), "搜索结果 view 类型= " + viewType);
+        if (NOT_DATA == viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.not_data_layout, parent,
+                    false);
+
+            return new NotDataHolder(view);
+        }
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recommend_youlike_item_layout, parent,
                 false);
 //        view.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +68,14 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if (mDataBeanList.size() == 0) {
+            return NOT_DATA;
+        }
+        return super.getItemViewType(position);
+    }
+
+    @Override
     public int getItemCount() {
         return mDataBeanList.size();
     }
@@ -79,6 +96,13 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
             youLikeProductDesV = (TextView) root.findViewById(R.id.youLikeProductDesV);
             youLikeProductNameV = (TextView) root.findViewById(R.id.youLikeProductNameV);
             youLikeProductPriceV = (TextView) root.findViewById(R.id.youLikeProductPriceV);
+        }
+    }
+
+    class NotDataHolder extends RecyclerView.ViewHolder {
+
+        public NotDataHolder(View itemView) {
+            super(itemView);
         }
     }
 }

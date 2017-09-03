@@ -25,7 +25,7 @@
             android:layout_weight="1"
             android:background="@color/translucent"
             android:gravity="center"
-            android:text="搜索商品,共xxx款"
+            android:text="搜索商品"
             android:textSize="12sp"/>
 
         <ImageView
@@ -51,6 +51,7 @@
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/menu_selected_color"
         app:tabTextColor="@color/menu_unSelected_color"
+        app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
         />
 
     <android.support.v4.view.ViewPager

@@ -57,9 +57,18 @@ public class ActivityUtils {
     }
 
     public static void showHideFragment(@NonNull FragmentManager fragmentManager,
-                                        @NonNull Fragment showFragment, @NonNull Fragment hideFragment) {
+                                        @NonNull Fragment showFragment, @NonNull Fragment hideFragment, Fragment[]
+                                                fragments) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.hide(hideFragment).show(showFragment).commit();
-
+        for (int i = 0; i < fragments.length; i++) {
+            Fragment fragment = fragments[i];
+            if (fragment != null) {
+                if (fragment != showFragment) {
+                    transaction.hide(fragment);
+                }
+            }
+        }
+//        transaction.hide(hideFragment).show(showFragment).commitAllowingStateLoss();
+        transaction.show(showFragment).commitAllowingStateLoss();
     }
 }

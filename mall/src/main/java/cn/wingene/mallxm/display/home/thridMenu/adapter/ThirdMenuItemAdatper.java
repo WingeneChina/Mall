@@ -1,5 +1,6 @@
 package cn.wingene.mallxm.display.home.thridMenu.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,10 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.List;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxm.display.home.secondMenu.SpecialDetailActivity;
 import cn.wingene.mallxm.display.home.secondMenu.adapter.SelectItemAdapter;
 import cn.wingene.mallxm.display.home.secondMenu.data.MenuItemContentModel;
+import cn.wingene.mallxm.display.home.thridMenu.data.ThridItemModel;
 
 /**
  * Created by wangcq on 2017/8/27.
@@ -20,9 +23,9 @@ import cn.wingene.mallxm.display.home.secondMenu.data.MenuItemContentModel;
  */
 
 public class ThirdMenuItemAdatper extends RecyclerView.Adapter {
-    private List<MenuItemContentModel.DataBean.ListBean> mListBean;
+    private List<ThridItemModel.DataBean.ListBean> mListBean;
 
-    public ThirdMenuItemAdatper(List<MenuItemContentModel.DataBean.ListBean> listBean) {
+    public ThirdMenuItemAdatper(List<ThridItemModel.DataBean.ListBean> listBean) {
         mListBean = listBean;
     }
 
@@ -34,13 +37,13 @@ public class ThirdMenuItemAdatper extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (mListBean.size() > 0) {
-            ThirdMenuItemHolder selectHolder = (ThirdMenuItemHolder) holder;
-            MenuItemContentModel.DataBean.ListBean listBean = mListBean.get(position);
+            final ThirdMenuItemHolder selectHolder = (ThirdMenuItemHolder) holder;
+            final ThridItemModel.DataBean.ListBean listBean = mListBean.get(position);
             selectHolder.titleV.setText(listBean.getTitle());
             selectHolder.markOneV.setText(listBean.getFrom());
-            selectHolder.markTwoV.setText(String.valueOf(listBean.getClick()));
+            selectHolder.markTwoV.setText(String.valueOf(listBean.getDistance()));
 
             for (int i = 0; i < listBean.getImageList().size(); i++) {
                 switch (i) {
@@ -57,13 +60,22 @@ public class ThirdMenuItemAdatper extends RecyclerView.Adapter {
                         break;
                 }
             }
+            selectHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(selectHolder.itemView.getContext(), SpecialDetailActivity.class);
+                    intent.putExtra("detailId", listBean.getId());
+                    intent.putExtra("title",listBean.getTitle());
+                    holder.itemView.getContext().startActivity(intent);
+                }
+            });
         }
     }
 
     @Override
     public int getItemCount() {
 
-        return mListBean.size() > 0 ? mListBean.size() : 8;
+        return mListBean.size();
     }
 
     class ThirdMenuItemHolder extends RecyclerView.ViewHolder {

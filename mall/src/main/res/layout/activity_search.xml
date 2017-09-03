@@ -9,6 +9,7 @@
     android:orientation="vertical"
     tools:context="cn.wingene.mallxm.display.home.firstMenu.activity.SearchActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -22,6 +23,16 @@
             android:layout_height="wrap_content"
             android:src="@drawable/search_logo"/>
 
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:background="@color/white"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <requestFocus/>
+        </LinearLayout>
+
         <EditText
             android:id="@+id/searchEditV"
             android:layout_width="0dp"
@@ -33,11 +44,17 @@
             android:drawableLeft="@drawable/search"
             android:drawablePadding="10dp"
             android:hint="在线搜索,海量正品等你比价"
+            android:imeActionId="@+id/searchMailV"
+            android:imeActionLabel="搜索"
+            android:imeOptions="actionSearch"
+            android:maxLines="1"
             android:paddingLeft="10dp"
+            android:singleLine="true"
             android:textSize="14sp"
             />
 
         <TextView
+            android:id="@+id/cancelV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="取消"
@@ -45,44 +62,62 @@
             android:textSize="16sp"/>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:background="@color/linear_bg"/>
-
-    <TextView
-        android:id="@+id/searchDelV"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:drawableRight="@drawable/search_del"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="最近搜索"
-        android:textColor="@color/six_text_color"
-        android:textSize="14sp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/relativeSearchV"
+    <LinearLayout
+        android:id="@+id/searchPreGroupV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="热门搜索"
-        android:textColor="@color/six_text_color"
-        android:textSize="14sp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@color/linear_bg"/>
+
+        <TextView
+            android:id="@+id/searchDelV"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:drawableRight="@drawable/search_del"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="最近搜索"
+            android:textColor="@color/six_text_color"
+            android:textSize="14sp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/relativeSearchV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="热门搜索"
+            android:textColor="@color/six_text_color"
+            android:textSize="14sp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/hotSearchV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/hotSearchV"
+        android:id="@+id/searchResultRecyclerV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"/>
+        android:visibility="gone"/>
+
+    <include
+        layout="@layout/not_data_layout"
+        />
 </LinearLayout>

@@ -141,13 +141,16 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
      * 初始化商品数据
      */
     private void initProductListData() {
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
         productListRecyclerV.setLayoutManager(gridLayoutManager);
-
-//        YouLikeProduceAdapter youLikeProduceAdapter = new YouLikeProduceAdapter();
+//
+//
+//        YouLikeProduceAdapter youLikeProduceAdapter = new YouLikeProduceAdapter(mListBeanList);
 //        productListRecyclerV.setAdapter(youLikeProduceAdapter);
+
         productListCommentAdapter = new ProductListCommentAdapter(mListBeanList);
         productListRecyclerV.setAdapter(productListCommentAdapter);
+
         SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
         productListRecyclerV.addItemDecoration(spaceItemDecoration);
     }

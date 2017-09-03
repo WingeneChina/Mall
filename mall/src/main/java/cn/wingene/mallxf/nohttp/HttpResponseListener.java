@@ -49,6 +49,7 @@ public class HttpResponseListener<T> implements OnResponseListener<T> {
         if (context != null && isLoading) {
             mWaitDialog = new WaitDialog(context);
             mWaitDialog.setCancelable(canCancel);
+            mWaitDialog.setCanceledOnTouchOutside(false);
             mWaitDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {

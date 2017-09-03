@@ -25,10 +25,10 @@ import static cn.wingene.mallxm.display.home.SecondMenuFragment.MENU_CODE_ARG;
 
 /**
  * Created by wangcq on 2017/8/14.
- * 精选
+ * 专题子页面
  */
 
-public class SelectedFragment extends MyBaseFragment implements HttpListener<String> {
+public class SecondMenuItemFragment extends MyBaseFragment implements HttpListener<String> {
 
     private RecyclerView selectRecyclerV;
     private SelectItemAdapter mSelectItemAdapter;
@@ -36,11 +36,11 @@ public class SelectedFragment extends MyBaseFragment implements HttpListener<Str
     private int mOrderBy = 0;
     private int mPagerIndex = 1;//分页索引
 
-    public static SelectedFragment newInstance(Bundle bundle) {
-        SelectedFragment selectedFragment = new SelectedFragment();
-        selectedFragment.setArguments(bundle);
+    public static SecondMenuItemFragment newInstance(Bundle bundle) {
+        SecondMenuItemFragment secondMenuItemFragment = new SecondMenuItemFragment();
+        secondMenuItemFragment.setArguments(bundle);
 
-        return selectedFragment;
+        return secondMenuItemFragment;
     }
 
     @Nullable
@@ -74,6 +74,7 @@ public class SelectedFragment extends MyBaseFragment implements HttpListener<Str
             hashMapParams.put("PageIndex", mPagerIndex);
             noHttpRequest.request(getActivity(), HttpConstant.SPECIAL_LIST, hashMapParams, 1, this, false,
                     "menuList", false, true);
+
         }
     }
 

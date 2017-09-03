@@ -12,12 +12,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.multidex.MultiDex;
 
+import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.view.CropImageView;
 import com.yanzhenjie.nohttp.InitializationConfig;
 import com.yanzhenjie.nohttp.Logger;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.OkHttpNetworkExecutor;
 
+import cn.wingene.mallxf.util.GlideImageLoader;
 import cn.wingene.mallxm.MainActivity;
 import cn.wingene.mall.R;
 
@@ -85,12 +89,27 @@ public class MyApp extends Application implements CrashHandleAble {
         NoHttp.initialize(InitializationConfig.newBuilder(this).networkExecutor(new OkHttpNetworkExecutor())
                 .build());
         Logger.setDebug(true);
+        initImagePicker();
+
     }
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+
+    private void initImagePicker() {
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setImageLoader(new GlideImageLoader());
+        imagePicker.setMultiMode(false);
+        imagePicker.setCrop(true);
+        imagePicker.setStyle(CropImageView.Style.RECTANGLE);
+        imagePicker.setFocusWidth(800);   //裁剪框的宽度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setFocusHeight(800);  //裁剪框的高度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setOutPutX(1000);//保存文件的宽度。单位像素
+        imagePicker.setOutPutY(1000);
+        imagePicker.setShowCamera(true);
     }
 
     @Override

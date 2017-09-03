@@ -1,5 +1,6 @@
 package cn.wingene.mallxm.display.home.firstMenu.activity;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +34,7 @@ import static cn.wingene.mallxm.display.home.FirstMenuFragment.PRODUCT_PARAMS;
 /**
  * 居家、零食、美妆、服饰、洗护、户外、电竞、车用等弹出的页面：
  */
-public class ProductActivity extends AppCompatActivity implements HttpListener<String> {
+public class ProductActivity extends AppCompatActivity implements HttpListener<String>, View.OnClickListener {
     private ImageView backIcon;
     private ImageView searchV;
     private TextView titleV;
@@ -48,6 +49,7 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_layout);
         initViews();
+        iniEvent();
         requestData();
     }
 
@@ -77,12 +79,21 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
 
     }
 
+    private void iniEvent() {
+        backIcon.setOnClickListener(this);
+        searchV.setOnClickListener(this);
+
+    }
+
     private void initViewPager(ProductGroupModel productGroupModel) {
         List<IndexModel> fragmentList = new ArrayList<>();
         for (ProductGroupModel.DataBean dataBean : productGroupModel.getData()) {
             Bundle bundle = new Bundle();
             bundle.putString("typeCode", dataBean.getCode());
             fragmentList.add(new IndexModel(dataBean.getName(), IndoorFragment.newInstance(bundle)));
+        }
+        if (fragmentList.size() <= 4) {
+            productTitleGroupV.setTabMode(TabLayout.MODE_FIXED);
         }
         mMailFragmentPagerAdapter = new MailFragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
         productPagers.setAdapter(mMailFragmentPagerAdapter);
@@ -95,6 +106,10 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
                 onBackPressed();
                 break;
             case R.id.searchV:
+                Intent intent = new Intent(this, SearchActivity.class);
+                intent.putExtra("type", String.valueOf(getIntent().getStringExtra("type")));//综合搜索
+                intent.putExtra("typeCode", getIntent().getStringExtra("key"));
+                startActivity(intent);
 
                 break;
         }
