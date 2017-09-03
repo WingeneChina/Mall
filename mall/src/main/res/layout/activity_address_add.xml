@@ -25,22 +25,73 @@
             android:textSize="@dimen/def_action_bar_title_font"/>
 
         <junze.widget.Tile
-            android:id="@+id/tl_save"
             style="@style/LinearLayout.ActionBarBox"
             android:layout_weight="0"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:tileText="保存"
             app:tileTextColor="@color/black"
             ></junze.widget.Tile>
 
     </LinearLayout>
-    <View style="@style/Line.Horizontal"/>
+
+    <View
+        style="@style/Line.Horizontal"
+        />
+
+    <View
+        style="@style/Line.Horizontal"
+        android:layout_height="@dimen/p27"
+        android:background="#f7f7f7"
+        />
+
+    <View
+        style="@style/Line.Horizontal"
+        />
+
+    <EditText
+        android:id="@+id/et_name"
+        android:background="@color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p100"
+        android:gravity="center_vertical"
+        android:hint="收货姓名"
+        android:textSize="@dimen/f28"
+        android:layout_marginLeft="@dimen/p30"/>
+
+    <View
+        style="@style/Line.Horizontal"
+        android:layout_marginLeft="@dimen/p30"/>
+
+    <EditText
+        android:id="@+id/et_phone"
+        android:background="@color/transparent"
+        android:layout_width="match_parent"
+        android:hint="收货人手机号"
+        android:layout_height="@dimen/p100"
+        android:gravity="center_vertical"
+        android:inputType="phone"
+        android:textSize="@dimen/f28"
+        android:layout_marginLeft="@dimen/p30"/>
+
+    <View
+        style="@style/Line.Horizontal"
+        />
+
+    <View
+        style="@style/Line.Horizontal"
+        android:layout_height="@dimen/p27"
+        android:background="#f7f7f7"
+        />
+
+    <View
+        style="@style/Line.Horizontal"
+        />
     <TextView
         android:id="@+id/tv_area"
         android:layout_width="match_parent"
         android:layout_height="@dimen/p100"
         android:gravity="center_vertical"
-        android:hint="省份、城市、区县"
+        android:hint="选择省市"
         android:layout_marginLeft="@dimen/p30"/>
 
     <View
@@ -52,57 +103,88 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/p100"
         android:gravity="center_vertical"
-        android:textSize="@dimen/f28"
         android:background="@color/transparent"
-        android:hint="详情地址，如街道、楼牌号等"
+        android:hint="详情街道地址"
+        android:textSize="@dimen/f28"
         android:layout_marginLeft="@dimen/p30"/>
 
     <View
         style="@style/Line.Horizontal"
         android:layout_marginLeft="@dimen/p30"/>
 
-    <EditText
-        android:id="@+id/et_name"
-        android:background="@color/transparent"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/p100"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/f28"
-        android:hint="姓名"
-        android:layout_marginLeft="@dimen/p30"/>
-
-    <View
-        style="@style/Line.Horizontal"
-        android:layout_marginLeft="@dimen/p30"/>
-
-    <EditText
-        android:id="@+id/et_phone"
-        android:background="@color/transparent"
-        android:layout_width="match_parent"
-        android:textSize="@dimen/f28"
-        android:layout_height="@dimen/p100"
-        android:gravity="center_vertical"
-        android:inputType="phone"
-        android:hint="手机号"
-        android:layout_marginLeft="@dimen/p30"/>
-
-    <View
-        style="@style/Line.Horizontal"
-        android:layout_marginLeft="@dimen/p30"/>
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:layout_height="wrap_content">
-        <CheckBox
-            android:id="@+id/cb_is_default"
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p100"
+        android:layout_marginLeft="@dimen/p30"
+        android:background="@color/transparent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/p150"
-            android:layout_marginLeft="@dimen/p30"
-            android:text="设为默认地址"
-            android:textColor="@color/black"/>
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设置为默认收货地址"
+                android:textSize="@dimen/f28"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/p8"
+                android:text="使用该地址作为默认收货地址"
+                android:textSize="@dimen/f20"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/p30"
+            android:src="@drawable/slic_image_cb_enabled"/>
+
 
     </LinearLayout>
+    <View
+        style="@style/Line.Horizontal"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f7f7f7">
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/p88"
+            android:layout_marginLeft="@dimen/p20"
+            android:layout_marginRight="@dimen/p20"
+            android:layout_marginTop="@dimen/p30"
+            android:background="@drawable/shape_spec_solid_color_primary"
+            android:gravity="center"
+            android:text="保存"
+            android:textSize="@dimen/p36"/>
+
+    </LinearLayout>
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:layout_height="wrap_content">-->
+    <!--<CheckBox-->
+    <!--android:id="@+id/cb_is_default"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="@dimen/p150"-->
+    <!--android:layout_marginLeft="@dimen/p30"-->
+    <!--android:text="设为默认地址"-->
+    <!--android:textColor="@color/black"/>-->
+
+    <!--</LinearLayout>-->
 
 </LinearLayout>

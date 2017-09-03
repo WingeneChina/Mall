@@ -2,26 +2,29 @@ package cn.wingene.mallxm.purchase;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import cn.wingene.mall.R;
-import cn.wingene.mallxf.ui.MyBaseActivity;
-import cn.wingene.mallxm.purchase.ask.AskAddressList;
-import cn.wingene.mallxm.purchase.ask.AskAddressList.AddressItem;
-import cn.wingene.mallxm.purchase.ask.AskAddressList.Response;
 
 import junze.widget.Tile;
 
 import junze.android.ui.ItemViewHolder;
+import junze.android.ui.ItemViewHolder.OnItemViewClickListener;
 import junze.androidxf.core.Agent;
+
+import cn.wingene.mall.R;
+import cn.wingene.mallxf.ui.MyBaseActivity;
+import cn.wingene.mallxm.purchase.ask.AskAddressDefault;
+import cn.wingene.mallxm.purchase.ask.AskAddressList;
+import cn.wingene.mallxm.purchase.ask.AskAddressList.AddressItem;
+import cn.wingene.mallxm.purchase.ask.AskAddressList.Response;
+import cn.wingene.mallxm.purchase.ask.AskAddressRemove;
 
 /**
  * Created by Wingene on 2017/8/19.
@@ -73,11 +76,53 @@ public class AddressManagerActivity extends MyBaseActivity {
                     setResult(Activity.RESULT_OK, major.buildResult(mItemHolder.getItem(position)));
                     finish();
                 } else {
-                    AddressAddActivity.major.startForResult(getActivity(),mItemHolder.getItem(position),RC_ADDRESS_ADD);
+                    //                    AddressAddActivity.major.startForResult(getActivity(),mItemHolder.getItem
+                    // (position),RC_ADDRESS_ADD);
                 }
             }
         });
         mItemHolder.notifyDataSetChanged();
+        OnItemViewClickListener listener = new OnItemViewClickListener() {
+            @Override
+            public void onItemViewClick(View view, String s, ItemViewHolder<?> itemViewHolder, int i) {
+                final AddressItem item = mItemHolder.getItem(i);
+                if ("edit".equals(s)) {
+                    AddressAddActivity.major.startForResult(getActivity(), item, RC_ADDRESS_ADD);
+                } else if ("remove".equals(s)) {
+                    showConfirmDialog("提示", String.format("确认删除%s", item.getConsignee()), new DialogInterface
+                            .OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            getAgent().ask(new AskAddressRemove.Request(item.getId()) {
+                                @Override
+                                public void updateUI(AskAddressRemove.Response rsp) {
+                                    mItemHolder.getList().remove(item);
+                                    mItemHolder.notifyDataSetChanged();
+                                }
+                            });
+                        }
+                    });
+                } else if ("default".equals(s)) {
+                    if (!item.getIsDefault()) {
+                        getAgent().ask(new AskAddressDefault.Request(item.getId()) {
+                            @Override
+                            public void updateUI(AskAddressDefault.Response rsp) {
+                                for (AddressItem ai : mItemHolder.getList()) {
+                                    ai.setDefault(false);
+                                }
+                                item.setDefault(true);
+                                mItemHolder.notifyDataSetChanged();
+                            }
+                        });
+                    } else {
+                        showToast("已经是默认地址了");
+                    }
+                }
+            }
+        };
+        mItemHolder.setOnItemViewClick("edit", listener);
+        mItemHolder.setOnItemViewClick("remove", listener);
+        mItemHolder.setOnItemViewClick("default", listener);
     }
 
     public void askAddressList(){
@@ -112,18 +157,20 @@ public class AddressManagerActivity extends MyBaseActivity {
 
     private static class ItemHolder extends ItemViewHolder<AddressItem> {
         private TextView tvName;
-        private TextView tvIsDefault;
-        private TextView tvPhone;
         private TextView tvAddress;
-        private ImageView ivEdit;
+        private TextView tvPhone;
+        private TextView tvIsDefault;
+        private TextView tvEdit;
+        private TextView tvRemove;
 
         @Override
         protected void initComponent() {
             tvName = (TextView) super.findViewById(R.id.tv_name);
-            tvIsDefault = (TextView) super.findViewById(R.id.tv_is_default);
-            tvPhone = (TextView) super.findViewById(R.id.tv_phone);
             tvAddress = (TextView) super.findViewById(R.id.tv_address);
-            ivEdit = (ImageView) super.findViewById(R.id.iv_edit);
+            tvPhone = (TextView) super.findViewById(R.id.tv_phone);
+            tvIsDefault = (TextView) super.findViewById(R.id.tv_is_default);
+            tvEdit = (TextView) super.findViewById(R.id.tv_edit);
+            tvRemove = (TextView) super.findViewById(R.id.tv_remove);
         }
 
 
@@ -142,6 +189,9 @@ public class AddressManagerActivity extends MyBaseActivity {
             tvIsDefault.setText(item.getIsDefault() ? "默认" : "");
             tvPhone.setText(item.getMobile());
             tvAddress.setText(item.getRegion() + item.getAddress());
+            tvEdit.setOnClickListener(buildClickForItem("edit", i));
+            tvRemove.setOnClickListener(buildClickForItem("remove", i));
+            tvIsDefault.setOnClickListener(buildClickForItem("default", i));
         }
     }
 

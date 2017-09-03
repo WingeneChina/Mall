@@ -14,6 +14,7 @@ public class MyBaseActivity extends BaseAppCompatActivity{
     MyAgent mMyAgent = new MyAgent(this);
 
 
+
     @Override
     public Agent getAgent() {
         return mMyAgent;

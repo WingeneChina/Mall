@@ -5,31 +5,31 @@
               android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="#fffced"
         android:layout_height="@dimen/p140">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="210"
+            android:paddingTop="@dimen/p35"
             android:orientation="vertical">
 
             <TextView
+                android:textSize="@dimen/f28"
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/p30"
-                android:paddingTop="@dimen/p35"
-                android:text="地址"/>
 
+                android:text="地址"/>
             <TextView
-                android:id="@+id/tv_is_default"
+                android:id="@+id/tv_address"
+                android:paddingLeft="@dimen/p30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/p30"
-                android:layout_marginTop="@dimen/p10"
-                android:background="@drawable/shape_stroke_darkgray"
-                android:text="默认"/>
+                android:paddingTop="@dimen/p10"
+                android:text="详情地址"
+                android:textSize="@dimen/f28"/>
 
 
         </LinearLayout>
@@ -37,10 +37,13 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:gravity="right"
             android:layout_weight="450"
             android:orientation="vertical">
 
             <TextView
+                android:layout_marginRight="@dimen/p30"
+                android:textSize="@dimen/f28"
                 android:id="@+id/tv_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,7 +52,7 @@
                 android:text="电话"/>
 
             <TextView
-                android:id="@+id/tv_address"
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/p10"
@@ -59,19 +62,49 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/p10"
-            android:layout_marginRight="@dimen/p30"
-            android:layout_weight="0"
-            android:src="@drawable/slic_all_receipt_edit"/>
-
 
     </LinearLayout>
-    <View
-        android:layout_marginLeft="@dimen/p30"
-        style="@style/Line.Horizontal" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:paddingRight="@dimen/p30"
+        android:paddingLeft="@dimen/p30"
+        android:layout_height="@dimen/p85">
+
+        <TextView
+            android:id="@+id/tv_is_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_stroke_darkgray"
+            android:paddingLeft="@dimen/p32"
+            android:paddingTop="@dimen/p8"
+            android:paddingBottom="@dimen/p8"
+            android:paddingRight="@dimen/p32"
+            android:text="默认"/>
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
+        <TextView
+            android:id="@+id/tv_edit"
+            android:drawablePadding="@dimen/p8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_edit"
+            android:text="编辑"/>
+
+        <TextView
+            android:id="@+id/tv_remove"
+            android:drawablePadding="@dimen/p8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/p16"
+            android:drawableLeft="@drawable/ic_cart_delete"
+            android:text="删除"/>
+    </LinearLayout>
+
 </LinearLayout>

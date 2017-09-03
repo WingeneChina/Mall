@@ -60,5 +60,42 @@ public class HttpAddress extends HttpConstant{
      * 2.5.2.1、我的订单列表（分页）
      */
     public final static String ORDER_LIST = SERVER_ADDRESS + "User/Order/List";
+    /**
+     * 2.6.1、编辑购物车（商品数量）
+     */
+    public final static String CART_EDIT = SERVER_ADDRESS + "User/Cart/Edit";
+    /**
+     * 2.6.2、删除购物车
+     */
+    public final static String CART_REMOVE = SERVER_ADDRESS + "User/Cart/Remove";
+    /**
+     * 2.3.4.5、删除收货地址
+     */
+    public final static String ADDRESS_REMOVE = SERVER_ADDRESS + "User/Address/Remove";
+    /**
+     * 2.3.4.6、设置默认收货地址
+     */
+    public final static String ADDRESS_DEFAULT = SERVER_ADDRESS + "User/Address/Default";
+    /**
+     * 2.3.2.3、物流详情
+     */
+    public final static String LOGISTICS_DETAIL = SERVER_ADDRESS + "Logistics/Detail";
+    /**
+     * 2.5.2.4、取消订单
+     */
+    public final static String ORDER_CANCEL = SERVER_ADDRESS + "User/Order/Cancel";
+    /**
+     * 2.5.2.5、确认订单
+     */
+    public final static String ORDER_CONFIRM = SERVER_ADDRESS + "User/Order/Confirm";
+    /**
+     * 2.1.3.5、进入订单支付（可跳过）
+     */
+    public final static String ORDER_PAY_NOW = SERVER_ADDRESS + "Order/PayNow";
+    /**
+     * 2.5.2.2、订单详情
+     */
+    public final static String ORDER_DETAIL = SERVER_ADDRESS + "User/Order/Detail";
+
 
 }

@@ -13,14 +13,26 @@ import android.widget.TextView;
 import junze.java.net.IHttpCacheElement.ICaheReqCallBack;
 import junze.java.net.IHttpElement.IReqCallBack;
 
+import junze.widget.HightMatchListView;
+
 import junze.android.ui.ItemViewHolder;
+import junze.android.ui.ItemViewHolder.OnItemViewClickListener;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallx.frame.fragment.BasePullListFragment;
+import cn.wingene.mallxf.http.Ask.MyBaseResponse;
+import cn.wingene.mallxm.purchase.LogisticsActivity;
+import cn.wingene.mallxm.purchase.OrderAddActivity.ProductItemHolder;
+import cn.wingene.mallxm.purchase.ask.AskLogisticsDetail;
+import cn.wingene.mallxm.purchase.ask.AskOrderCancel;
+import cn.wingene.mallxm.purchase.ask.AskOrderConfirm;
 import cn.wingene.mallxm.purchase.ask.AskOrderList;
 import cn.wingene.mallxm.purchase.ask.AskOrderList.OrderItem;
 import cn.wingene.mallxm.purchase.ask.AskOrderList.Response;
+import cn.wingene.mallxm.purchase.ask.AskOrderPayNow;
 import cn.wingene.mallxm.purchase.holder.EmptyOrderViewHolder;
+import cn.wingene.mallxm.purchase.tool.PayHelper;
+import cn.wingene.mallxm.purchase.tool.PayHelper.OnOrderBuild;
 
 /**
  * Created by wangcq on 2017/8/13.
@@ -31,6 +43,7 @@ public class OrderListFragment extends BasePullListFragment {
 
     private OrderScheme mOrderScheme = new OrderScheme(this);
     boolean hadCreted;
+    PayHelper mPayHelper;
 
     public static OrderListFragment newInstance(int state) {
         OrderListFragment productListFragment = new OrderListFragment();
@@ -44,6 +57,7 @@ public class OrderListFragment extends BasePullListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hadCreted = true;
+        mPayHelper = new PayHelper();
     }
 
     @Override
@@ -61,7 +75,58 @@ public class OrderListFragment extends BasePullListFragment {
         getListViewHolder().loadFirstPage();
         getListViewHolder().setOnItemClickListener(this);
         getListViewHolder().setOnItemLongClickListener(this);
+        ItemViewHolder.OnItemViewClickListener listener = new OnItemViewClickListener() {
+            @Override
+            public void onItemViewClick(View view, String s, ItemViewHolder<?> itemViewHolder, int i) {
+                final OrderItem item = getScheme().getItem(i);
+                if (OrderItemHolder.CANCEL.equals(s)) {
+                    agent().ask((new AskOrderCancel.Request(item.getNo()) {
+                        @Override
+                        public void updateUI(MyBaseResponse rsp) {
+                            item.setState(6);
+                            getScheme().getItemViewHolder().notifyDataSetChanged();
+                        }
+                    }));
+                } else if (OrderItemHolder.PAY_NOW.equals(s)) {
+                    pay(item);
+                } else if (OrderItemHolder.SEARCH.equals(s)) {
+                    agent().ask(new AskLogisticsDetail.Request(item.getNo()){
+                        @Override
+                        public void updateUI(AskLogisticsDetail.Response rsp) {
+                            LogisticsActivity.major.startForBean(getActivity(),rsp.data);
+                        }
+                    });
+                } else if (OrderItemHolder.OK.equals(s)) {
+                    agent().ask((new AskOrderConfirm.Request(item.getNo()) {
+                        @Override
+                        public void updateUI(MyBaseResponse rsp) {
+                            item.setState(4);
+                            getScheme().getItemViewHolder().notifyDataSetChanged();
+                        }
+                    }));
+                }
+            }
+        };
+        getScheme().getItemViewHolder().setOnItemViewClick(OrderItemHolder.CANCEL, listener);
+        getScheme().getItemViewHolder().setOnItemViewClick(OrderItemHolder.PAY_NOW, listener);
+        getScheme().getItemViewHolder().setOnItemViewClick(OrderItemHolder.SEARCH, listener);
+        getScheme().getItemViewHolder().setOnItemViewClick(OrderItemHolder.OK, listener);
+    }
 
+
+    public void pay(final OrderItem item) {
+        mPayHelper.setOnOrderBuild(new OnOrderBuild() {
+            @Override
+            public void onOrderBuild(final PayHelper helper, final boolean isAlipay, final double amount, final int integral) {
+                agent().ask(new AskOrderPayNow.Request(item.getNo()) {
+                    @Override
+                    public void updateUI(AskOrderPayNow.Response rsp) {
+                       helper.askPay(rsp.data,isAlipay,amount,integral);
+                    }
+                });
+            }
+        });
+        mPayHelper.showBottomDialog(item.getPayPrice(), 0, 0);
     }
 
 
@@ -133,21 +198,26 @@ public class OrderListFragment extends BasePullListFragment {
     }
 
     private static class OrderItemHolder extends ItemViewHolder<OrderItem> {
-        private TextView tvNo;
-        private TextView tvAmount;
-        private TextView tvIntegral;
+        ProductItemHolder mItemHolder;
+
+        private HightMatchListView hmlvProduct;
+        private TextView tvState;
         private TextView tvNumber;
         private TextView tvTotal;
+        private TextView tvNo;
+        private TextView tvLeft;
+        private TextView tvRight;
 
         @Override
         protected void initComponent() {
-            tvNo = (TextView) super.findViewById(R.id.tv_no);
-            tvAmount = (TextView) super.findViewById(R.id.tv_amount);
-            tvIntegral = (TextView) super.findViewById(R.id.tv_integral);
+            hmlvProduct = (HightMatchListView) super.findViewById(R.id.hmlv_product);
+            tvState = (TextView) super.findViewById(R.id.tv_state);
             tvNumber = (TextView) super.findViewById(R.id.tv_number);
             tvTotal = (TextView) super.findViewById(R.id.tv_total);
+            tvNo = (TextView) super.findViewById(R.id.tv_no);
+            tvLeft = (TextView) super.findViewById(R.id.tv_left);
+            tvRight = (TextView) super.findViewById(R.id.tv_right);
         }
-
 
         public OrderItemHolder(Context mContext) {
             super(mContext, R.layout.listitem_order_item);
@@ -158,10 +228,72 @@ public class OrderListFragment extends BasePullListFragment {
             return new OrderItemHolder(context);
         }
 
+        public static final String PAY_NOW = "PAY_NOW";
+        public static final String CANCEL = "CANCEL";
+        public static final String SEARCH = "SEARCH";
+        public static final String OK = "OK";
+
         @Override
         public void display(int i, OrderItem orderItem) {
+            String str1 = "";
+            String str2 = "";
+            String key1 = "";
+            String key2 = "";
+
+            switch (orderItem.getState()) {
+            case 0:
+                tvState.setText("待付款");
+                str1 = "取消订单";
+                str2 = "立即付款";
+                key1 = CANCEL;
+                key2 = PAY_NOW;
+                break;
+            case 1:
+                tvState.setText("待发货");
+                break;
+            case 2:
+                tvState.setText("已发货");
+                str1 = "查询包裹";
+                str2 = "确认收货";
+                key1 = SEARCH;
+                key2 = OK;
+                break;
+            case 3:
+                tvState.setText("待确认");
+                str1 = "查询包裹";
+                str2 = "确认收货";
+                key1 = SEARCH;
+                key2 = OK;
+                break;
+            case 4:
+                tvState.setText("交易完成");
+                break;
+            case 5:
+                tvState.setText("交易完成已评价");
+                break;
+            case 6:
+                tvState.setText("买家关闭交易");
+                break;
+            case 7:
+                tvState.setText("平台关闭交易");
+                break;
+            case 8:
+                tvState.setText("退款成功关闭");
+                break;
+            default:
+                break;
+            }
+            tvLeft.setVisibility(str1 != null ? View.VISIBLE : View.INVISIBLE);
+            tvLeft.setOnClickListener(buildClickForItem(key1, i));
+            tvRight.setVisibility(str2 != null ? View.VISIBLE : View.INVISIBLE);
+            tvRight.setOnClickListener(buildClickForItem(key2, i));
             tvNo.setText(String.format("订单编号:%s", orderItem.getNo()));
-//            tvIntegral.setText(String.format("应币:%s",orderItem.get));
+            if (mItemHolder == null) {
+                mItemHolder = ProductItemHolder.createForOrderList(getContext(), hmlvProduct);
+            }
+            mItemHolder.clear();
+            mItemHolder.addAll(orderItem.getOrderProductList());
+            mItemHolder.notifyDataSetChanged();
             tvNumber.setText(String.format("共%s件",orderItem.getSumNumber()));
             tvTotal.setText(String.format("￥%.2f",orderItem.getSumPrice()));
         }

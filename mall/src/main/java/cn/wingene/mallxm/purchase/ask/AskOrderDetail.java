@@ -8,94 +8,41 @@ import com.google.gson.annotations.SerializedName;
 import junze.androidxf.http.requestargs.RequestArgs;
 import junze.androidxf.kit.AKit;
 
-import cn.wingene.mallxf.http.Ask.BaseCacheSignRequest;
+import cn.wingene.mallxf.http.Ask.BaseSignRequest;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
+import cn.wingene.mallxm.purchase.bean.Address4;
 import cn.wingene.mallxm.purchase.bean.able.IProduct;
 
 /**
- * Created by Wingene on 2017/8/27.
+ * Created by Wingene on 2017/9/3.
  */
 
-public class AskOrderList {
-
+public class AskOrderDetail {
     public static class Response extends MyBaseResponse {
-        public Data data;
+        public OrderDetail data;
 
         @Override
         protected void initData(JsonElement json) {
-            data = AKit.getGson().fromJson(json, Data.class);
+            data = AKit.getGson().fromJson(json, OrderDetail.class);
         }
     }
 
-    public static class Request extends BaseCacheSignRequest<Response> {
-        public Request(Integer state, int pageIndex) {
-            super(HttpAddress.ORDER_LIST, new Response());
-            this.state = state;
-            this.pageIndex = pageIndex;
-        }
 
+    public static class Request extends BaseSignRequest<Response> {
         /**
-         * 订单状态	不可
+         * 订单单号	不可
          */
-        @SerializedName("State")
+        @SerializedName("No")
         @RequestArgs
-        private Integer state;
+        private String no;
 
-        /**
-         * 当分页	不可 分页1开始
-         */
-        @SerializedName("PageIndex")
-        @RequestArgs
-        private Integer pageIndex;
-
-
+        public Request(String no) {
+            super(HttpAddress.ORDER_DETAIL, new Response());
+            this.no = no;
+        }
     }
 
-    public static class Data {
-        /**
-         * 总页数	不可
-         */
-        @SerializedName("PageCount")
-        private Integer pageCount;
-
-        /**
-         * 总记录数	不可
-         */
-        @SerializedName("RecordCount")
-        private Integer recordCount;
-
-        /**
-         * 订单详情列表	可空
-         */
-        @SerializedName("List")
-        private List<OrderItem> list;
-
-
-        /**
-         * 总页数	不可
-         */
-        public Integer getPageCount() {
-            return pageCount;
-        }
-
-        /**
-         * 总记录数	不可
-         */
-        public Integer getRecordCount() {
-            return recordCount;
-        }
-
-        /**
-         * 订单详情列表	可空
-         */
-        public List<OrderItem> getList() {
-            return list;
-        }
-
-
-    }
-
-    public static class OrderItem {
+    public static class OrderDetail {
         /**
          * 订单单号	不可
          */
@@ -115,7 +62,7 @@ public class AskOrderList {
         private String stateDesp;
 
         /**
-         * 退款状态	不可 详见1.9订单退款状态
+         * 退款状态	不可 详见1.9订单状态
          */
         @SerializedName("RefundState")
         private Integer refundState;
@@ -205,10 +152,28 @@ public class AskOrderList {
         private String moduleDesp;
 
         /**
+         * 支付方式	不可 详见1.7支付方式
+         */
+        @SerializedName("Payment")
+        private Integer payment;
+
+        /**
+         * 支付方式说明	不可
+         */
+        @SerializedName("PaymentDesp")
+        private String paymentDesp;
+
+        /**
          * 订单商品列表	不可
          */
         @SerializedName("OrderProductList")
         private List<OrderProductList> orderProductList;
+
+        /**
+         * 收货地址	可空
+         */
+        @SerializedName("Address")
+        private Address4 address;
 
 
         /**
@@ -233,7 +198,7 @@ public class AskOrderList {
         }
 
         /**
-         * 退款状态	不可 详见1.9订单退款状态
+         * 退款状态	不可 详见1.9订单状态
          */
         public Integer getRefundState() {
             return refundState;
@@ -338,6 +303,20 @@ public class AskOrderList {
         }
 
         /**
+         * 支付方式	不可 详见1.7支付方式
+         */
+        public Integer getPayment() {
+            return payment;
+        }
+
+        /**
+         * 支付方式说明	不可
+         */
+        public String getPaymentDesp() {
+            return paymentDesp;
+        }
+
+        /**
          * 订单商品列表	不可
          */
         public List<OrderProductList> getOrderProductList() {
@@ -345,17 +324,12 @@ public class AskOrderList {
         }
 
         /**
-         * 0	待付款
-         * 1	待发货
-         * 2	待取货
-         * 3	待确认
-         * 4	交易完成
-         * 5	交易完成已评价
-         * 6	买家关闭交易
-         * 7	平台关闭交易
-         * 8	退款成功关闭
-         * @param state
+         * 收货地址	可空
          */
+        public Address4 getAddress() {
+            return address;
+        }
+
         public void setState(Integer state) {
             this.state = state;
         }
@@ -418,7 +392,6 @@ public class AskOrderList {
             return id;
         }
 
-
         /**
          * 商品ID	不可
          */
@@ -468,7 +441,6 @@ public class AskOrderList {
             return specDesp;
         }
 
-
         @Override
         public String getName() {
             return productName;
@@ -513,8 +485,6 @@ public class AskOrderList {
         public Integer getPromotionId() {
             return null;
         }
-
-
     }
 
 

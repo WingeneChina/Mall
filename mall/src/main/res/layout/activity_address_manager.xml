@@ -53,7 +53,8 @@
         android:gravity="center"
         android:layout_weight="0"
         android:layout_width="match_parent"
-        android:text="+ 新建地址"
-        android:background="@drawable/shape_stroke_darkgray"
+        android:text="+ 添加新地址"
+        android:textColor="@color/white"
+        android:background="@drawable/shape_cart_solid_color_primary"
         android:layout_height="wrap_content"/>
 </LinearLayout>

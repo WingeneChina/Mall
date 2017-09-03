@@ -13,82 +13,95 @@
         android:background="@android:color/white"
         android:orientation="vertical"/>
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_list"
-        android:paddingBottom="16dp"
-        android:paddingLeft="16dp"
-        android:paddingTop="16dp"
-        android:text="数量"/>
 
     <LinearLayout
+        android:layout_below="@id/ll_list"
         android:id="@+id/llyt_number"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/p60"
-        android:layout_below="@+id/tv_title"
-        android:layout_marginLeft="16dp"
-        android:background="@drawable/shape_stroke_darkgray">
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p100"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_reduce"
-            android:layout_width="@dimen/p80"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="-"
-            android:textSize="@dimen/f40"
-            android:textStyle="bold"/>
+            android:id="@+id/tv_title"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:text="数量"/>
 
-        <View
-            style="@style/Line.Vertical"/>
-
-        <TextView
-            android:id="@+id/tv_number"
+        <LinearLayout
+            android:layout_weight="0"
+            android:layout_marginRight="16dp"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:minWidth="@dimen/p80"
-            android:text="1"
-            android:textSize="@dimen/f36"/>
+            android:layout_height="@dimen/p60"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/shape_stroke_darkgray">
 
-        <View
-            style="@style/Line.Vertical"/>
+            <TextView
+                android:id="@+id/tv_reduce"
+                android:layout_width="@dimen/p80"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="-"
+                android:textSize="@dimen/f40"
+                android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/tv_increase"
-            android:layout_width="@dimen/p80"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="+"
-            android:textSize="@dimen/f40"
-            android:textStyle="bold"/>
+            <View
+                android:layout_width="1dp"
+                style="@style/Line.Vertical"/>
+
+            <TextView
+                android:id="@+id/tv_number"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:minWidth="@dimen/p80"
+                android:text="1"
+                android:textSize="@dimen/f36"/>
+
+            <View
+                android:layout_width="1dp"
+                style="@style/Line.Vertical"/>
+
+            <TextView
+                android:id="@+id/tv_increase"
+                android:layout_width="@dimen/p80"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="+"
+                android:textSize="@dimen/f40"
+                android:textStyle="bold"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_operation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/p96"
         android:layout_below="@+id/llyt_number"
-        android:layout_marginTop="16dp"
         android:background="@android:color/white"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/buy"
+        <TextView
+            android:textSize="@dimen/p32"
+            android:id="@+id/tv_buy"
+            android:layout_height="match_parent"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="购买"/>
-
-        <Button
-            android:id="@+id/cart"
+            android:background="#F8DB54"
+            android:gravity="center"
+            android:text="立即购买"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/tv_add_cart"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="加入购物车"/>
-
-
-
+            android:background="#F72b28"
+            android:gravity="center"
+            android:text="加入购物车"
+            android:textSize="@dimen/p32"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 </RelativeLayout>

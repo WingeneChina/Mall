@@ -81,16 +81,22 @@ public class SkuAdapter extends RecyclerView.Adapter<SkuAdapter.ViewHolder> {
             mTextView.setText(entity.getName());
             switch (entity.getStatus()) {
                 case 0:
+//                    mTextView.setAlpha(1f);
+//                    mTextView.setBackgroundResource(android.R.color.darker_gray);
                     mTextView.setAlpha(1f);
-                    mTextView.setBackgroundResource(android.R.color.darker_gray);
+                    mTextView.setBackgroundResource(R.drawable.shape_spec_stroke_darkgray);
                     break;
                 case 1:
+//                    mTextView.setAlpha(1f);
+//                    mTextView.setBackgroundResource(android.R.color.holo_red_light);
                     mTextView.setAlpha(1f);
-                    mTextView.setBackgroundResource(android.R.color.holo_red_light);
+                    mTextView.setBackgroundResource(R.drawable.shape_spec_solid_color_primary);
                     break;
                 case 2:
                     mTextView.setAlpha(0.4f);
-                    mTextView.setBackgroundResource(android.R.color.darker_gray);
+                    mTextView.setBackgroundResource(R.drawable.shape_spec_stroke_darkgray);
+//                    mTextView.setAlpha(0.4f);
+//                    mTextView.setBackgroundResource(android.R.color.darker_gray);
                     break;
             }
         }

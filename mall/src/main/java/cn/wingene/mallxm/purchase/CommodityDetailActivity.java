@@ -20,7 +20,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -38,6 +37,7 @@ import junze.widget.Tile;
 import junze.widget.ViewPager;
 
 import junze.android.ui.ViewHolder;
+import junze.android.util.TextViewUtil;
 import junze.androidxf.core.Agent;
 import junze.androidxf.tool.HtmlLoader;
 
@@ -84,8 +84,12 @@ public class CommodityDetailActivity extends MyBaseActivity {
     private TextView tvTitle;
     private TextView tvSubTitle;
     private TextView tvPrice;
+    private LinearLayout llytSpec;
+    private TextView tvSpec;
     private WebView wvDetail;
-    private ImageView ivCart;
+    private Tile tlService;
+    private Tile tlCart;
+    private Tile tlCollect;
     private TextView tvBuy;
     private TextView tvAddCart;
 
@@ -96,8 +100,12 @@ public class CommodityDetailActivity extends MyBaseActivity {
         tvTitle = (TextView) super.findViewById(R.id.tv_title);
         tvSubTitle = (TextView) super.findViewById(R.id.tv_sub_title);
         tvPrice = (TextView) super.findViewById(R.id.tv_price);
+        llytSpec = (LinearLayout) super.findViewById(R.id.llyt_spec);
+        tvSpec = (TextView) super.findViewById(R.id.tv_spec);
         wvDetail = (WebView) super.findViewById(R.id.wv_detail);
-        ivCart = (ImageView) super.findViewById(R.id.iv_cart);
+        tlService = (Tile) super.findViewById(R.id.tl_service);
+        tlCart = (Tile) super.findViewById(R.id.tl_cart);
+        tlCollect = (Tile) super.findViewById(R.id.tl_collect);
         tvBuy = (TextView) super.findViewById(R.id.tv_buy);
         tvAddCart = (TextView) super.findViewById(R.id.tv_add_cart);
     }
@@ -125,7 +133,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 onBackPressed();
             }
         });
-        ivCart.setOnClickListener(onCartClick());
+        tlCart.setOnClickListener(onCartClick());
         tvAddCart.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,7 +165,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
                     ivSellImage.setVisibility(View.GONE);
                 }
                 tvTitle.setText(mProduct.getName());
-                tvSubTitle.setText(mProduct.getSellingPoint());
+                TextViewUtil.showOrGone(tvSubTitle, mProduct.getSellingPoint());
                 tvPrice.setText(String.format("￥%.2f", mProduct.getPrice()));
                 loadWebData(rsp.getProduct().getDetail());
 
@@ -293,6 +301,31 @@ public class CommodityDetailActivity extends MyBaseActivity {
         return mModel;
     }
 
+    public void refreshUI() {
+        if (mSpecList == null) {
+            llytSpec.setVisibility(View.GONE);
+        } else {
+            llytSpec.setVisibility(View.VISIBLE);
+            if (mModel == null) {
+                tvSpec.setText("请选择商品规格");
+            } else {
+                StringBuilder sb = new StringBuilder();
+                String[] names = new String[2];
+                for (AttributeMembersEntity key : mUiData.getSelectedEntities()) {
+                    names[key.getAttributeGroupId() - 1] = key.getName();
+                }
+                List<String> list = new ArrayList<>();
+                if (StringUtil.isValid(mProduct.getSpecDesp1()) && StringUtil.isValid(names[0])) {
+                    list.add(String.format("%s:%s",mProduct.getSpecDesp1(),names[0]));
+                }
+                if (StringUtil.isValid(mProduct.getSpecDesp2()) && StringUtil.isValid(names[1])) {
+                    list.add(String.format("%s:%s",mProduct.getSpecDesp2(),names[1]));
+                }
+                tvSpec.setText(StringUtil.spellBy(list));
+            }
+        }
+    }
+
 
 
 
@@ -382,28 +415,29 @@ public class CommodityDetailActivity extends MyBaseActivity {
     public static class BottomSheetHolder extends ViewHolder {
         private RelativeLayout rlBottom;
         private LinearLayout llList;
-        private TextView tvTitle;
         private LinearLayout llytNumber;
+        private TextView tvTitle;
         private TextView tvReduce;
         private TextView tvNumber;
         private TextView tvIncrease;
         private LinearLayout llOperation;
-        private Button cart;
-        private Button buy;
+        private TextView tvBuy;
+        private TextView tvAddCart;
 
         @Override
         protected void initComponent() {
             rlBottom = (RelativeLayout) super.findViewById(R.id.rl_bottom);
             llList = (LinearLayout) super.findViewById(R.id.ll_list);
-            tvTitle = (TextView) super.findViewById(R.id.tv_title);
             llytNumber = (LinearLayout) super.findViewById(R.id.llyt_number);
+            tvTitle = (TextView) super.findViewById(R.id.tv_title);
             tvReduce = (TextView) super.findViewById(R.id.tv_reduce);
             tvNumber = (TextView) super.findViewById(R.id.tv_number);
             tvIncrease = (TextView) super.findViewById(R.id.tv_increase);
             llOperation = (LinearLayout) super.findViewById(R.id.ll_operation);
-            cart = (Button) super.findViewById(R.id.cart);
-            buy = (Button) super.findViewById(R.id.buy);
+            tvBuy = (TextView) super.findViewById(R.id.tv_buy);
+            tvAddCart = (TextView) super.findViewById(R.id.tv_add_cart);
         }
+
 
 
         public BottomSheetHolder(Context context) {
@@ -413,8 +447,8 @@ public class CommodityDetailActivity extends MyBaseActivity {
         public void dispaly(Agent agent, OnClickListener onBuyClick, OnClickListener onCartClick, ProductModel
                 mModel, UiData mUiData, final IBuilder<Integer> bCurrent, final IBuilder<Integer> bMax, final
         ICallBack<Integer> numberCallback) {
-            buy.setOnClickListener(onBuyClick);
-            cart.setOnClickListener(onCartClick);
+            tvBuy.setOnClickListener(onBuyClick);
+            tvAddCart.setOnClickListener(onCartClick);
             updateNumber(bCurrent.build());
             NumberTool.bindInteger(agent, "请输入数量", 0, bCurrent, bMax, tvReduce, tvNumber, tvIncrease, numberCallback);
             //添加list组

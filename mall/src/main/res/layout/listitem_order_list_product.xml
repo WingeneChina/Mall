@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/ListItem"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="horizontal"
+              android:padding="@dimen/p16"
+              >
+
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/iv_product"
+        android:layout_width="@dimen/p140"
+        android:layout_height="@dimen/p140"
+        android:background="@color/lightgray"
+        android:src="@drawable/temp_ic_empty_100"/>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/p16"
+            android:layout_marginTop="@dimen/p16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:minLines="2"
+                android:id="@+id/tv_title"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/p28"
+                android:text="商品名称"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:id="@+id/tv_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="x 1"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/p16"
+            android:layout_marginBottom="@dimen/p16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/p4"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_sub_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:lineSpacingMultiplier="1"
+                android:text="数量与规格"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/f24"/>
+            <TextView
+                android:layout_weight="0"
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="价格"
+                android:textSize="@dimen/f28"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

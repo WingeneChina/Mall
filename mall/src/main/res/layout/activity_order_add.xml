@@ -25,11 +25,10 @@
             android:textSize="@dimen/def_action_bar_title_font"/>
 
         <junze.widget.Tile
-            android:visibility="invisible"
+            android:id="@+id/tl_service"
             style="@style/LinearLayout.ActionBarBox"
             android:layout_weight="0"
-            app:tileText="编辑"
-            app:tileTextColor="@color/black"
+            app:tileImgSrc="@drawable/ic_commdity_detail_service"
             ></junze.widget.Tile>
 
     </LinearLayout>
@@ -47,37 +46,36 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="match_parent">
-
-
-
             <LinearLayout
                 android:id="@+id/llyt_address"
                 android:layout_width="match_parent"
-                android:background="#fffced"
-                android:layout_height="@dimen/p140">
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/p110">
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="210"
                     android:orientation="vertical">
 
                     <TextView
+                        android:paddingTop="@dimen/p16"
                         android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/p30"
-                        android:paddingTop="@dimen/p35"
-                        android:text="默认地址"/>
-
+                        android:text="收货人"
+                        android:textSize="@dimen/f28"/>
                     <TextView
-                        android:visibility="invisible"
+                        android:id="@+id/tv_address"
+                        android:text="详情地址"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/p30"
-                        android:layout_marginTop="@dimen/p10"
-                        android:background="@drawable/shape_stroke_darkgray"
-                        android:text="默认"/>
+                        android:layout_marginTop="@dimen/p5"
+                        android:layout_marginBottom="@dimen/p16"
+                        android:textSize="@dimen/f28"/>
 
 
                 </LinearLayout>
@@ -85,24 +83,27 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:paddingRight="@dimen/p32"
                     android:layout_weight="450"
                     android:orientation="vertical">
 
                     <TextView
+                        android:paddingTop="@dimen/p16"
                         android:id="@+id/tv_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/p10"
-                        android:paddingTop="@dimen/p35"
+                        android:textSize="@dimen/f28"
                         android:text="电话"/>
-
                     <TextView
-                        android:id="@+id/tv_address"
+                        android:background="@drawable/shape_stroke_darkgray"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/p10"
                         android:paddingTop="@dimen/p10"
-                        android:text="详情地址"/>
+                        android:text="默认"
+                        android:visibility="invisible"/>
 
 
                 </LinearLayout>
@@ -123,22 +124,31 @@
                 android:layout_width="match_parent"
                 android:background="@drawable/bg_address_envelope"
                 android:layout_height="@dimen/p10"></LinearLayout>
+
+            <View
+                style="@style/Line.Horizontal"
+                android:layout_height="@dimen/p10"
+                android:background="#ececec"/>
             <junze.widget.HightMatchListView
                 android:id="@+id/lv_order"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></junze.widget.HightMatchListView>
+
+            <View
+                style="@style/Line.Horizontal"
+                />
             <LinearLayout
-                android:layout_marginTop="@dimen/p20"
                 android:background="@color/white"
                 android:layout_width="match_parent"
                 android:paddingLeft="@dimen/p30"
                 android:orientation="horizontal"
-                android:layout_height="@dimen/p104">
+                android:layout_height="@dimen/p64">
 
                 <TextView
                     android:layout_weight="1"
                     android:gravity="right"
                     android:layout_width="match_parent"
+                    android:textColor="@color/black"
                     android:layout_gravity="right|center_vertical"
                     android:text="商品合计 : "
                     android:layout_height="wrap_content"/>
@@ -154,62 +164,69 @@
 
             </LinearLayout>
 
+            <View
+                style="@style/Line.Horizontal"
+                android:layout_height="@dimen/p10"
+                android:background="#ececec"/>
             <LinearLayout
-                android:layout_marginTop="@dimen/p20"
                 android:background="@color/white"
                 android:layout_width="match_parent"
                 android:paddingLeft="@dimen/p30"
-                android:layout_height="@dimen/p104">
+                android:layout_height="@dimen/p100">
                 <TextView
                     android:layout_weight="1"
                     android:id="@+id/tv_integral"
                     android:layout_width="match_parent"
                     android:layout_gravity="left|center_vertical"
-                    android:text="应币可抵用15元"
+                    android:text="当前应币Y15"
                     android:layout_height="wrap_content"/>
                 <LinearLayout
-                    android:layout_marginRight="@dimen/p16"
+                    android:layout_width="@dimen/p158"
+                    android:layout_height="@dimen/p48"
+                    android:layout_below="@+id/tv_title"
                     android:layout_weight="0"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/llyt_integral_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/p60"
-                    android:layout_below="@+id/tv_title"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginRight="@dimen/p30"
                     android:background="@drawable/shape_stroke_darkgray">
 
                     <TextView
                         android:id="@+id/tv_integral_reduce"
-                        android:layout_width="@dimen/p80"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="-"
-                        android:textSize="@dimen/f40"
-                        android:textStyle="bold"/>
+                        android:textSize="@dimen/p40"
+                        />
 
                     <View
                         style="@style/Line.Vertical"/>
 
                     <TextView
                         android:id="@+id/tv_integral_number"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="match_parent"
                         android:gravity="center"
+                        android:textSize="@dimen/p20"
                         android:minWidth="@dimen/p80"
                         android:text="1"
-                        android:textSize="@dimen/f36"/>
+                        />
 
                     <View
                         style="@style/Line.Vertical"/>
 
                     <TextView
                         android:id="@+id/tv_integral_increase"
-                        android:layout_width="@dimen/p80"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="+"
-                        android:textSize="@dimen/f40"
-                        android:textStyle="bold"/>
+                        android:textSize="@dimen/p30"
+                        />
                 </LinearLayout>
 
             </LinearLayout>
@@ -222,67 +239,65 @@
                 android:background="@color/white"
                 android:paddingLeft="@dimen/p30"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/p104">
+                android:layout_height="@dimen/p100">
                 <TextView
                     android:id="@+id/tv_amount"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_gravity="left|center_vertical"
-                    android:text="游币可抵用8元"
+                    android:text="当前游币Y102"
                     android:layout_height="wrap_content"/>
                 <LinearLayout
-                    android:layout_marginRight="@dimen/p16"
+                    android:layout_width="@dimen/p158"
+                    android:layout_height="@dimen/p48"
+                    android:layout_below="@+id/tv_title"
                     android:layout_weight="0"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/llyt_amount_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/p60"
-                    android:layout_below="@+id/tv_title"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginRight="@dimen/p30"
                     android:background="@drawable/shape_stroke_darkgray">
 
                     <TextView
                         android:id="@+id/tv_amount_reduce"
-                        android:layout_width="@dimen/p80"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="-"
                         android:textSize="@dimen/f40"
-                        android:textStyle="bold"/>
+                        />
 
                     <View
                         style="@style/Line.Vertical"/>
 
                     <TextView
                         android:id="@+id/tv_amount_number"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:minWidth="@dimen/p80"
                         android:text="1"
-                        android:textSize="@dimen/f36"/>
+                        android:textSize="@dimen/p20"/>
 
                     <View
                         style="@style/Line.Vertical"/>
 
                     <TextView
                         android:id="@+id/tv_amount_increase"
-                        android:layout_width="@dimen/p80"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="+"
-                        android:textSize="@dimen/f40"
-                        android:textStyle="bold"/>
+                        android:textSize="@dimen/p30"
+                        />
                 </LinearLayout>
 
 
             </LinearLayout>
 
-
-
-            <View
-                style="@style/Line.Horizontal"
-                android:layout_marginLeft="@dimen/p30"/>
 
             <View
                 style="@style/Line.Horizontal"
@@ -307,7 +322,9 @@
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
-
+            <View
+                style="@style/Line.Horizontal"
+                android:layout_marginLeft="@dimen/p30"/>
 
             <!--<android.support.v7.widget.RecyclerView-->
             <!--android:id="@+id/rv_order_item"-->
@@ -335,24 +352,35 @@
         android:layout_height="@dimen/p100">
 
         <TextView
-            android:id="@+id/tv_real_total"
             android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="@dimen/p30"
-            android:textColor="@color/darkred"
-            android:text="应付:￥86.00"
+            android:layout_width="wrap_content"
+            android:gravity="right|center_vertical"
+
+            android:text="实际付款: "
+            android:textColor="@color/dimgray"
             android:layout_height="match_parent"/>
 
         <TextView
+            android:id="@+id/tv_real_total"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:gravity="center_vertical"
+            android:paddingRight="@dimen/p8"
+            android:text="￥0.00"
+            android:textColor="@color/red"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/p16"
             android:id="@+id/tv_pay"
             android:layout_weight="0"
             android:layout_width="@dimen/p260"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:background="@color/darkred"
-            android:text="去付款"
-            android:layout_height="match_parent"/>
+            android:layout_marginRight="@dimen/p16"
+            android:background="@drawable/shape_cart_solid_color_primary"
+            android:text="立即付款"
+            android:textColor="@color/black"/>
 
 
     </LinearLayout>

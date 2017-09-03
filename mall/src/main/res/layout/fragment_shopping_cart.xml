@@ -21,58 +21,75 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="购物车"
+            android:text="我的购物车"
             android:textSize="@dimen/def_action_bar_title_font"/>
 
         <junze.widget.Tile
+            android:id="@+id/tl_service"
             style="@style/LinearLayout.ActionBarBox"
             android:layout_weight="0"
-            app:tileText="编辑"
-            app:tileTextColor="@color/black"
+            app:tileImgSrc="@drawable/ic_commdity_detail_service"
             ></junze.widget.Tile>
 
     </LinearLayout>
 
     <View style="@style/Line.Horizontal"/>
 
-    <!--<android.support.v4.widget.NestedScrollView-->
-        <!--android:layout_weight="1"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:orientation="vertical"-->
-            <!--android:layout_height="match_parent">-->
-            <ListView
-                android:layout_weight="1"
-                android:id="@+id/lv_cart_item"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"></ListView>
-            <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/rv_cart_item"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p56"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/p16"
+        android:paddingRight="@dimen/p16">
 
-            <!--<junze.widget.Tile-->
-                <!--android:layout_marginLeft="@dimen/p16"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="@dimen/p100"-->
-                <!--android:layout_gravity="left|center_vertical"-->
-                <!--app:tileImgSrc="@drawable/temp_ic_empty_100"-->
-                <!--app:tileOrientation="horizontal"-->
-                <!--app:tileText="看了该商品的人还买了"-->
-                <!--app:tileTextColor="@color/black"-->
-                <!--&gt;</junze.widget.Tile>-->
+        <junze.widget.Tile
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:tileDrawablePadding="@dimen/p10"
+            app:tileImgSrc="@drawable/ic_image_cb_checked_enabled"
+            app:tileImgHeight="@dimen/p28"
+            app:tileImgWidth="@dimen/p28"
+            app:tileOrientation="horizontal"
+            app:tileText="一线品牌直供"
+            app:tileTextColor="@color/fontYellow"
+            app:tileTextSize="@dimen/f24"></junze.widget.Tile>
 
-            <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/rv_other_buy"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>-->
+        <junze.widget.Tile
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:tileDrawablePadding="@dimen/p10"
+            app:tileImgSrc="@drawable/ic_image_cb_checked_enabled"
+            app:tileImgHeight="@dimen/p28"
+            app:tileImgWidth="@dimen/p28"
+            app:tileOrientation="horizontal"
+            app:tileText="海量商品任选"
+            app:tileTextColor="@color/fontYellow"
+            app:tileTextSize="@dimen/f24"></junze.widget.Tile>
 
-        <!--</LinearLayout>-->
-    <!--</android.support.v4.widget.NestedScrollView>-->
+        <junze.widget.Tile
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:tileDrawablePadding="@dimen/p10"
+            app:tileImgSrc="@drawable/ic_image_cb_checked_enabled"
+            app:tileImgHeight="@dimen/p28"
+            app:tileImgWidth="@dimen/p28"
+            app:tileOrientation="horizontal"
+            app:tileText="7*24小时服务"
+            app:tileTextColor="@color/fontYellow"
+            app:tileTextSize="@dimen/f24"></junze.widget.Tile>
+    </LinearLayout>
 
-    <View style="@style/Line.Horizontal" />
+    <View style="@style/Line.Horizontal"/>
+
+    <ListView
+        android:layout_weight="1"
+        android:id="@+id/lv_cart_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
 
     <LinearLayout
         android:layout_weight="0"
@@ -86,26 +103,38 @@
             app:tileImgSrc="@drawable/slic_image_cb_enabled"
             app:tileOrientation="horizontal"
             app:tileDrawablePadding="@dimen/p16"
-            app:tileTextColor="@color/darkgray"
+            app:tileTextColor="@color/dimgray"
             android:layout_height="match_parent"/>
         <TextView
-            android:id="@+id/tv_total"
             android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:gravity="right|center_vertical"
-            android:paddingRight="@dimen/p16"
-            android:textColor="@color/darkred"
+
+            android:textColor="@color/dimgray"
+            android:text="总计: "
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:layout_weight="0"
+            android:id="@+id/tv_total"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:paddingRight="@dimen/p8"
+            android:textColor="@color/red"
             android:text="￥86.00"
             android:layout_height="match_parent"/>
+
         <TextView
+            android:layout_marginRight="@dimen/p16"
+            android:layout_marginLeft="@dimen/p16"
             android:id="@+id/tv_order"
             android:layout_weight="0"
             android:layout_width="@dimen/p260"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:background="@color/darkred"
-            android:text="下单"
-            android:layout_height="match_parent"/>
+            android:textColor="@color/black"
+            android:background="@drawable/shape_cart_solid_color_primary"
+            android:text="立即下单"
+            android:layout_height="wrap_content"/>
 
 
     </LinearLayout>

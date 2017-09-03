@@ -5,6 +5,7 @@
     <dimen name="f32">@dimen/pxd32_360xh</dimen>
     <dimen name="f28">@dimen/pxd28_360xh</dimen>
     <dimen name="f24">@dimen/pxd24_360xh</dimen>
+    <dimen name="f20">@dimen/pxd20_360xh</dimen>
 
     <dimen name="def_action_bar_title_font">@dimen/f40</dimen>
 </resources>

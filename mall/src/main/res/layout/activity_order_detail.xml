@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_action_bar"
+        android:orientation="horizontal">
+
+        <junze.widget.Tile
+            android:id="@+id/tl_back"
+            style="@style/LinearLayout.ActionBarBox"
+            app:tileImgSrc="@drawable/slic_all_back"
+            ></junze.widget.Tile>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="订单详情"
+            android:textSize="@dimen/def_action_bar_title_font"/>
+
+        <junze.widget.Tile
+            android:id="@+id/tl_service"
+            style="@style/LinearLayout.ActionBarBox"
+            android:layout_weight="0"
+            app:tileImgSrc="@drawable/ic_commdity_detail_service"
+            ></junze.widget.Tile>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlyt_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_wait_pay">
+
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/p60"
+            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f40"
+            android:text="待付款"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p166">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/p30"
+            android:src="@drawable/ic_location"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/p30"
+                android:layout_marginTop="@dimen/p30"
+                android:text="收货人"/>
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/tv_name"
+                android:layout_below="@id/tv_name"
+                android:layout_marginTop="@dimen/p10"
+                android:lines="2"
+                android:text="收货地址"/>
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/tv_name"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/p30"
+                android:gravity="bottom|left"
+                android:lines="2"
+                android:text="电话"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        style="@style/Line.Horizontal"
+        android:layout_height="@dimen/p10"
+        android:background="#f4f4f4"/>
+
+    <junze.widget.HightMatchListView
+        android:id="@+id/hmlv_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></junze.widget.HightMatchListView>
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <View
+        style="@style/Line.Horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p62"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/p30"
+        android:paddingRight="@dimen/p30">
+
+        <TextView
+            android:id="@+id/tv_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="订单编号：12324234"/>
+
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="共0件商品"/>
+
+        <TextView
+            android:id="@+id/tv_sum_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/p30"
+            android:layout_weight="0"
+            android:text="合计：Y0"/>
+    </LinearLayout>
+
+    <View
+        style="@style/Line.Horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p62"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/p30"
+        android:paddingRight="@dimen/p30">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="运费"/>
+
+
+        <TextView
+            android:id="@+id/tv_delivery_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/p30"
+            android:layout_weight="0"
+            android:text="Y0"/>
+    </LinearLayout>
+
+    <View
+        style="@style/Line.Horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p62"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/p30"
+        android:paddingRight="@dimen/p30">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="游币抵用"/>
+
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/p30"
+            android:layout_weight="0"
+            android:text="Y0"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p62"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/p30"
+        android:paddingRight="@dimen/p30">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="应币抵用"/>
+
+
+        <TextView
+            android:id="@+id/tv_integral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/p30"
+            android:layout_weight="0"
+            android:text="Y0"/>
+    </LinearLayout>
+
+    <View
+        style="@style/Line.Horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p81"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/p30"
+        android:paddingRight="@dimen/p30">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="实付款"
+            android:textSize="@dimen/f32"/>
+
+
+        <TextView
+            android:id="@+id/tv_real_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/p30"
+            android:layout_weight="0"
+            android:text="Y0"
+            android:textColor="@color/red"
+            android:textSize="@dimen/f32"/>
+    </LinearLayout>
+
+    <View
+        style="@style/Line.Horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|right"
+        android:minHeight="@dimen/p81"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/p20"
+        android:paddingLeft="@dimen/p30"
+        android:paddingRight="@dimen/p30"
+        android:paddingTop="@dimen/p20">
+
+        <TextView
+            android:id="@+id/tv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@drawable/shape_stroke_darkgray"
+            android:padding="@dimen/p16"
+            android:text="删除订单"/>
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/p16"
+            android:layout_weight="0"
+            android:background="@drawable/shape_stroke_darkgray"
+            android:padding="@dimen/p16"
+            android:text="立即支付"/>
+    </LinearLayout>
+    <!--</RelativeLayout>-->
+</LinearLayout>

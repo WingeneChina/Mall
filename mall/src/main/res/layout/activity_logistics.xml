@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_action_bar"
+        android:orientation="horizontal">
+
+        <junze.widget.Tile
+            android:id="@+id/tl_back"
+            style="@style/LinearLayout.ActionBarBox"
+            app:tileImgSrc="@drawable/slic_all_back"
+            ></junze.widget.Tile>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="查询包裹"
+            android:textSize="@dimen/def_action_bar_title_font"/>
+
+        <junze.widget.Tile
+            android:id="@+id/tl_service"
+            style="@style/LinearLayout.ActionBarBox"
+            android:layout_weight="0"
+            app:tileImgSrc="@drawable/ic_commdity_detail_service"
+            ></junze.widget.Tile>
+
+    </LinearLayout>
+
+    <View style="@style/Line.Horizontal"/>
+
+    <View
+        style="@style/Line.Horizontal"
+        android:layout_height="@dimen/p20"
+        android:background="#F5F5F5"/>
+
+    <View style="@style/Line.Horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/p20">
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="@dimen/p104"
+            android:layout_height="@dimen/p104"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/p15"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/p20"
+            >
+
+            <TextView
+                android:id="@+id/_lab_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="物流状态: "/>
+
+            <TextView
+                android:id="@+id/_lab_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/_lab_1"
+                android:text="承运来源: "/>
+
+            <TextView
+                android:id="@+id/_lab_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/_lab_2"
+                android:text="快递编号: "/>
+
+            <TextView
+                android:id="@+id/_lab_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/_lab_3"
+                android:text="官方电话: "/>
+
+            <TextView
+                android:id="@+id/tv_value_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="@dimen/p4"
+                android:layout_toRightOf="@id/_lab_1"
+                android:text=""/>
+
+            <TextView
+                android:id="@+id/tv_value_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/p4"
+                android:layout_toRightOf="@id/_lab_2"
+                android:text=""/>
+
+            <TextView
+                android:id="@+id/tv_value_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/p4"
+                android:layout_toRightOf="@id/_lab_3"
+                android:text=""/>
+
+            <TextView
+                android:id="@+id/tv_value_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/p4"
+                android:layout_toRightOf="@id/_lab_4"
+                android:text=""/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <View style="@style/Line.Horizontal"/>
+
+    <View
+        style="@style/Line.Horizontal"
+        android:layout_height="@dimen/p20"
+        android:background="#F5F5F5"/>
+
+    <View style="@style/Line.Horizontal"/>
+
+    <View
+        style="@style/Line.Horizontal"
+        android:layout_height="@dimen/p78"
+        android:background="@color/white"/>
+
+    <View style="@style/Line.Horizontal"/>
+
+    <junze.widget.HightMatchListView
+        android:id="@+id/lv_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></junze.widget.HightMatchListView>
+
+
+</LinearLayout>

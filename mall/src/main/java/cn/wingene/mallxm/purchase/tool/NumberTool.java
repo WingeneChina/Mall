@@ -19,7 +19,7 @@ import junze.androidxf.core.Agent;
  */
 
 public class NumberTool {
-    public static void bindInteger(final Agent agent, final String title, final double min, final
+    public static void bindInteger(final Agent agent, final String title, final int min, final
     IBuilder<Integer> bCurrent, final IBuilder<Integer> bMax, final TextView tvReduce, final TextView tvNumber,
             final TextView tvIncrease, final ICallBack<Integer> callback) {
         bindBigDecimal(agent, title, new BigDecimal(min), new IBuilder<BigDecimal>() {

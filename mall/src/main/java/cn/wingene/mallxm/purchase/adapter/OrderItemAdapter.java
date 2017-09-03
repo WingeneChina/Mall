@@ -15,7 +15,7 @@ import cn.wingene.mall.R;
 public class OrderItemAdapter extends RecyclerView.Adapter {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_order, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_order_add_product, parent, false);
         return new Holder(v);
     }
 

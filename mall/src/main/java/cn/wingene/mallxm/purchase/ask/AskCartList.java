@@ -181,7 +181,9 @@ public class AskCartList {
             return stateDesp;
         }
 
-
+        public void setProductNumber(Integer productNumber) {
+            this.productNumber = productNumber;
+        }
     }
 
 

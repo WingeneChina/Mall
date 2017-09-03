@@ -173,7 +173,9 @@ public class AskAddressList {
             return address;
         }
 
-
+        public void setDefault(Boolean aDefault) {
+            isDefault = aDefault;
+        }
     }
 
 

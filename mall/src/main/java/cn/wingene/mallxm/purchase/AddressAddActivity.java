@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import junze.java.able.ICallBack;
@@ -34,22 +35,25 @@ public class AddressAddActivity extends MyBaseActivity {
     private String mRegionCode;
 
     private Tile tlBack;
-    private Tile tlSave;
-    private TextView tvArea;
-    private EditText etAddress;
     private EditText etName;
     private EditText etPhone;
-    private CheckBox cbIsDefault;
+    private TextView tvArea;
+    private EditText etAddress;
+    private ImageView ivCheck;
+    private TextView tvSave;
 
     protected void initComponent(){
         tlBack = (Tile) super.findViewById(R.id.tl_back);
-        tlSave = (Tile) super.findViewById(R.id.tl_save);
-        tvArea = (TextView) super.findViewById(R.id.tv_area);
-        etAddress = (EditText) super.findViewById(R.id.et_address);
         etName = (EditText) super.findViewById(R.id.et_name);
         etPhone = (EditText) super.findViewById(R.id.et_phone);
-        cbIsDefault = (CheckBox) super.findViewById(R.id.cb_is_default);
+        tvArea = (TextView) super.findViewById(R.id.tv_area);
+        etAddress = (EditText) super.findViewById(R.id.et_address);
+        ivCheck = (ImageView) super.findViewById(R.id.iv_check);
+        tvSave = (TextView) super.findViewById(R.id.tv_save);
     }
+
+
+
 
 
     @Override
@@ -66,6 +70,7 @@ public class AddressAddActivity extends MyBaseActivity {
             etAddress.setText(bean.getAddress());
             etName.setText(bean.getConsignee());
             etPhone.setText(bean.getMobile());
+            ivCheck.setSelected(bean.getIsDefault());
         }
 
         tlBack.setOnClickListener(new OnClickListener() {
@@ -74,10 +79,10 @@ public class AddressAddActivity extends MyBaseActivity {
                 onBackPressed();
             }
         });
-        tlSave.setOnClickListener(new OnClickListener() {
+        tvSave.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                final AddressItem item = new AddressItem(mId, cbIsDefault.isChecked(), etPhone.getText().toString(),
+                final AddressItem item = new AddressItem(mId,ivCheck.isSelected(), etPhone.getText().toString(),
                         etName.getText().toString(), mRegion, mRegionCode, etAddress.getText().toString());
                 ask(new AskAddressSave.Request(item) {
                     @Override
@@ -100,6 +105,12 @@ public class AddressAddActivity extends MyBaseActivity {
                         tvArea.setText(mRegion);
                     }
                 });
+            }
+        });
+        ivCheck.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivCheck.setSelected(!ivCheck.isSelected());
             }
         });
     }
