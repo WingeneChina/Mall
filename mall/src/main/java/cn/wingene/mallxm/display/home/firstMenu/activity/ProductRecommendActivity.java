@@ -1,5 +1,6 @@
 package cn.wingene.mallxm.display.home.firstMenu.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -56,7 +57,10 @@ public class ProductRecommendActivity extends AppCompatActivity implements View.
                 onBackPressed();
                 break;
             case R.id.searchV:
-
+                Intent intent = new Intent(this, SearchActivity.class);
+                intent.putExtra("type", String.valueOf(getIntent().getStringExtra("type")));//综合搜索
+                intent.putExtra("typeCode", String.valueOf(getIntent().getStringExtra("key")));
+                startActivity(intent);
                 break;
         }
     }
