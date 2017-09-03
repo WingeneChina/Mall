@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -134,6 +136,12 @@ public class CommodityDetailActivity extends MyBaseActivity {
             }
         });
         tlCart.setOnClickListener(onCartClick());
+        tvSpec.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBottomSheetDialog(buildProductModel());
+            }
+        });
         tvAddCart.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,6 +155,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
             }
         });
         askProductDetail();
+
 
     }
 
@@ -168,7 +177,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 TextViewUtil.showOrGone(tvSubTitle, mProduct.getSellingPoint());
                 tvPrice.setText(String.format("￥%.2f", mProduct.getPrice()));
                 loadWebData(rsp.getProduct().getDetail());
-
+                refreshUI();
 
             }
 
@@ -326,10 +335,6 @@ public class CommodityDetailActivity extends MyBaseActivity {
         }
     }
 
-
-
-
-
     private void showBottomSheetDialog(ProductModel productModel) {
         if (mUiData.getBottomSheetDialog() == null) {
             mUiData.getSelectedEntities().clear();
@@ -392,6 +397,12 @@ public class CommodityDetailActivity extends MyBaseActivity {
             params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
             parent.setLayoutParams(params);
             mUiData.getBottomSheetDialog().show();
+            mUiData.getBottomSheetDialog().setOnDismissListener(new OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    refreshUI();
+                }
+            });
         } else {
             mUiData.getBottomSheetDialog().show();
         }
