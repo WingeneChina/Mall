@@ -52,7 +52,6 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Log.e(this.getClass().getName(), "VerifiCode = " + UserData.getverifiCode());
     }
 
     private void initViews() {
@@ -110,7 +109,8 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
             }
             return;
         }
-        ActivityUtils.showHideFragment(getSupportFragmentManager(), mFragments[showPosition], mFragments[hidePosition]);
+        ActivityUtils.showHideFragment(getSupportFragmentManager(), mFragments[showPosition],
+                mFragments[hidePosition], mFragments);
     }
 
     @Override

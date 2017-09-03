@@ -1,6 +1,8 @@
 package cn.wingene.mallxm.display.home.secondMenu.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.List;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxm.display.home.secondMenu.SpecialDetailActivity;
 import cn.wingene.mallxm.display.home.secondMenu.data.MenuItemContentModel;
 
 /**
@@ -34,10 +37,10 @@ public class SelectItemAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (mListBean.size() > 0) {
             SelectHolder selectHolder = (SelectHolder) holder;
-            MenuItemContentModel.DataBean.ListBean listBean = mListBean.get(position);
+            final MenuItemContentModel.DataBean.ListBean listBean = mListBean.get(position);
             selectHolder.titleV.setText(listBean.getTitle());
             selectHolder.markOneV.setText(listBean.getFrom());
             selectHolder.markTwoV.setText(String.valueOf(listBean.getClick()));
@@ -47,15 +50,33 @@ public class SelectItemAdapter extends RecyclerView.Adapter {
                         selectHolder.desOneImgV.setImageURI(listBean.getImageList().get(0).getThumbSrc());
                         break;
                     case 1:
-                        selectHolder.desTwoImgV.setImageURI(listBean.getImageList().get(1).getThumbSrc());
+                        if (!TextUtils.isEmpty(listBean.getImageList().get(1).getThumbSrc())) {
+                            selectHolder.desTwoImgV.setImageURI(listBean.getImageList().get(1).getThumbSrc());
+                        } else {
+                            selectHolder.desOneImgV.setVisibility(View.INVISIBLE);
+                        }
 
                         break;
                     case 2:
-                        selectHolder.desThreeImgV.setImageURI(listBean.getImageList().get(2).getThumbSrc());
+                        if (!TextUtils.isEmpty(listBean.getImageList().get(2).getThumbSrc())) {
+                            selectHolder.desThreeImgV.setImageURI(listBean.getImageList().get(2).getThumbSrc());
+                        } else {
+                            selectHolder.desThreeImgV.setVisibility(View.INVISIBLE);
+
+                        }
 
                         break;
                 }
             }
+            selectHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(holder.itemView.getContext(), SpecialDetailActivity.class);
+                    intent.putExtra("detailId", listBean.getId());
+                    intent.putExtra("title",listBean.getTitle());
+                    holder.itemView.getContext().startActivity(intent);
+                }
+            });
         }
     }
 

@@ -18,7 +18,7 @@
             android:id="@+id/backIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dp"
+            android:padding="5dp"
             android:src="@drawable/ic_navigate_before_black_24dp"/>
 
         <TextView
@@ -63,7 +63,10 @@
             android:id="@+id/headV"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            fresco:placeholderImage="@drawable/nologin"/>
+            fresco:placeholderImage="@drawable/nologin"
+            fresco:roundAsCircle="true"
+            fresco:roundingBorderColor="@color/yellow_mall"
+            fresco:roundingBorderWidth="2dp"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -84,7 +87,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="修改用户名"
+        android:text="修改昵称"
         android:textColor="@color/three_text_color"
         android:textSize="14sp"/>
 
@@ -99,26 +102,40 @@
         android:gravity="center_vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="绑定手机号"
+        android:text="修改密码"
         android:textColor="@color/three_text_color"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:visibility="visible"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="19dp"
         android:background="@color/linear_bg"/>
 
-    <TextView
-        android:id="@+id/versionInfoV"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:drawableRight="@drawable/grzx_jt"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="版本信息"
-        android:textColor="@color/three_text_color"
-        android:textSize="14sp"/>
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="版本信息"
+            android:textColor="@color/three_text_color"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/versionInfoV"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/nine_text_color"
+            android:textSize="14sp"/>
+    </LinearLayout>
 
     <View
         style="@style/Line.Horizontal"/>
@@ -148,7 +165,8 @@
         android:paddingRight="15dp"
         android:text="去评分"
         android:textColor="@color/three_text_color"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:visibility="gone"/>
 
     <View
         style="@style/Line.Horizontal"/>
@@ -193,7 +211,8 @@
         android:paddingRight="15dp"
         android:text="服务条款及隐私政策"
         android:textColor="@color/three_text_color"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:visibility="gone"/>
 
     <View
         android:layout_width="match_parent"

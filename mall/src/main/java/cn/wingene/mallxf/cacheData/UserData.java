@@ -12,6 +12,13 @@ import cn.wingene.mallxf.MyApp;
 public class UserData {
 
     /**
+     * 清除所有数据
+     */
+    public static void clearAllUserInfo() {
+        MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).edit().clear().apply();
+    }
+
+    /**
      * 保存用户登陆ID
      *
      * @param userId
@@ -110,6 +117,26 @@ public class UserData {
      */
     public static String getUserInfo() {
         return MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getString("userInfo", null);
+
+    }
+
+    /**
+     * 保存本地搜索记录
+     *
+     * @param localJson
+     */
+    public static void saveLocalData(String localJson) {
+        MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).edit().putString("localSearch",
+                localJson).apply();
+    }
+
+    /**
+     * 获取保存测本地搜索记录
+     *
+     * @return
+     */
+    public static String getLocalData() {
+        return MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getString("localSearch", null);
 
     }
 }

@@ -60,7 +60,7 @@ public class NoHttpRequest<T> {
                                           isShowDialog, boolean
                                           isCache) {
         Logger.e("url = " + url);
-        request = NoHttp.createStringRequest(url);
+        request = NoHttp.createStringRequest(url,RequestMethod.POST);
 
         request.setCancelSign(cancelSign);
         if (isCache) {
@@ -99,7 +99,7 @@ public class NoHttpRequest<T> {
                                 isShowDialog, boolean
                                 isCache) {
         Logger.e("url = " + url);
-        request = NoHttp.createStringRequest(url);
+        request = NoHttp.createStringRequest(url,RequestMethod.POST);
 
         request.setCancelSign(cancelSign);
         if (isCache) {
@@ -126,16 +126,32 @@ public class NoHttpRequest<T> {
      * @param activity
      * @param what
      * @param url
-     * @param uploadFile
      * @param listener
      */
-    public void upLoadFile(Activity activity, int what, String url, FileBinary uploadFile, String platCode,
-                           HttpListener<T>
-                                   listener) {
-        JsonBeanRequest<T> request = new JsonBeanRequest<>(url, RequestMethod.POST, mTClass);
-        request.add("file", uploadFile);
-        request.add("platCode", platCode);
-        CallServer.getRequestInstance().add(activity, what, request, listener, false, false);
+    public void upLoadFile(Activity activity, int what, String url, HashMap<String, Object>
+            hashMap, HttpListener<String> listener) {
+
+        Logger.e("url = " + url);
+        request = NoHttp.createStringRequest(url,RequestMethod.POST);
+
+        mergeParams(hashMap);
+//        request.add(hashMap);
+        // 设置无证书https请求
+        SSLContext sslContext = SSLContextUtil.getDefaultSLLContext();
+        if (sslContext != null) {
+            SSLSocketFactory socketFactory = sslContext.getSocketFactory();
+            request.setSSLSocketFactory(socketFactory);
+            request.setHostnameVerifier(SSLContextUtil.HOSTNAME_VERIFIER);
+        }
+        if (request != null) {
+            CallServer.getRequestInstance().add(activity, what,
+                    request, listener, false, true);
+        }
+
+//        request = NoHttp.createStringRequest(url, RequestMethod.POST);
+//        request.add(hashMap);
+//        request.add("ByteAvatar", uploadFile);
+//        CallServer.getRequestInstance().add(activity, what, request, listener, false, false);
     }
 
     /**

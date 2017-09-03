@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.LOCATION_HARDWARE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
     <application
         android:name="cn.wingene.mallxf.MyApp"
@@ -74,6 +78,7 @@
         </activity>
         <activity
             android:name="cn.wingene.mallxm.display.home.setting.SettingActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="cn.wingene.mallxm.display.home.firstMenu.activity.ProductRecommendActivity">
@@ -83,16 +88,38 @@
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
-        <activity android:name="cn.wingene.mallxm.display.home.firstMenu.activity.SearchActivity">
+        <activity
+            android:name="cn.wingene.mallxm.display.home.firstMenu.activity.SearchActivity"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden">
+        </activity>
+        <activity
+            android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
+            android:theme="@style/ImagePickerThemeFullScreen"/>
+        <activity android:name="cn.wingene.mallxm.display.home.setting.ChangeUserNameActivity">
+        </activity>
+        <activity android:name="cn.wingene.mallxm.display.home.setting.AboutAsActivity">
+        </activity>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="DOm8RQ9UREkHtYuyzRGD0GlCoNM735fB"/>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+        </service>
+
+        <activity android:name="cn.wingene.mallxm.display.home.secondMenu.SpecialDetailActivity">
         </activity>
     </application>
 

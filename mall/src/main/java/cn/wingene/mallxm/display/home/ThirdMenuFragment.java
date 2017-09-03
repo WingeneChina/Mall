@@ -18,15 +18,14 @@ import java.util.List;
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.adapter.MailFragmentPagerAdapter;
 import cn.wingene.mallxf.http.HttpConstant;
-import cn.wingene.mallxf.model.BaseResponse;
 import cn.wingene.mallxf.model.IndexModel;
 import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.ui.MyBaseFragment;
-import cn.wingene.mallxm.display.home.secondMenu.SelectedFragment;
 import cn.wingene.mallxm.display.home.secondMenu.data.MenuItemModel;
+import cn.wingene.mallxm.display.home.thridMenu.ThridMenuItemFragment;
 
 /**
  * Created by wangcq on 2017/8/7.
@@ -79,8 +78,9 @@ public class ThirdMenuFragment extends MyBaseFragment implements HttpListener<St
             for (MenuItemModel.DataBean dataBean : menuItemList) {
                 Bundle bundle = new Bundle();
                 bundle.putString(MENU_CODE_ARG, dataBean.getCode());
-                bundle.putString(REQUEST_TYPE, "");
-                indexModelList.add(new IndexModel(dataBean.getName(), SelectedFragment.newInstance(bundle)));
+                bundle.putString(REQUEST_TYPE, "nearBy");
+                bundle.putString("key", dataBean.getName());
+                indexModelList.add(new IndexModel(dataBean.getName(), ThridMenuItemFragment.newInstance(bundle)));
             }
 
             Log.e(this.getClass().getName(), "indexList.size() = " + indexModelList.size());
@@ -96,6 +96,7 @@ public class ThirdMenuFragment extends MyBaseFragment implements HttpListener<St
     @Override
     public void onSucceed(int what, Response<String> response) {
         try {
+            Log.e(this.getClass().getName(), "周边信息结果 = " + response.get());
             GsonUtil<MenuItemModel> gsonUtil = new GsonUtil<>(MenuItemModel.class);
             MenuItemModel menuItemModel = gsonUtil.fromJson(response.get());
             if (menuItemModel.getErr() == 0) {

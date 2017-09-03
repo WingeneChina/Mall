@@ -14,6 +14,7 @@ import java.util.List;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxm.MainActivity;
+import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
 import cn.wingene.mallxm.game.LuckyActivity;
 
 /**
@@ -23,9 +24,14 @@ import cn.wingene.mallxm.game.LuckyActivity;
 
 public class ImagePagerAdapter extends PagerAdapter {
     private List<String> urlList;
+    private BinnerClickListener mBinnerClickListener;
 
     public ImagePagerAdapter(List<String> urlList) {
         this.urlList = urlList;
+    }
+
+    public void setBinnerClickListener(BinnerClickListener listener) {
+        this.mBinnerClickListener = listener;
     }
 
     @Override
@@ -51,10 +57,9 @@ public class ImagePagerAdapter extends PagerAdapter {
         mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (position == urlList.size() - 2) {
-//                    Intent intent = new Intent(container.getContext(), LuckyActivity.class);
-//                    container.getContext().startActivity(intent);
-//                }
+                if (mBinnerClickListener != null) {
+                    mBinnerClickListener.binnerItemClick(position);
+                }
             }
         });
 
@@ -64,5 +69,9 @@ public class ImagePagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
 //        super.destroyItem(container, position, object);
+    }
+
+    public interface BinnerClickListener {
+        void binnerItemClick(int position);
     }
 }

@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import cn.wingene.mall.R;
@@ -25,7 +24,7 @@ import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.ui.MyBaseFragment;
-import cn.wingene.mallxm.display.home.secondMenu.SelectedFragment;
+import cn.wingene.mallxm.display.home.secondMenu.SecondMenuItemFragment;
 import cn.wingene.mallxm.display.home.secondMenu.data.MenuItemModel;
 
 /**
@@ -72,7 +71,7 @@ public class SecondMenuFragment extends MyBaseFragment implements HttpListener<S
             for (MenuItemModel.DataBean dataBean : menuItemLsit) {
                 Bundle bundle = new Bundle();
                 bundle.putString(MENU_CODE_ARG, dataBean.getCode());
-                indexModelList.add(new IndexModel(dataBean.getName(), SelectedFragment.newInstance(bundle)));
+                indexModelList.add(new IndexModel(dataBean.getName(), SecondMenuItemFragment.newInstance(bundle)));
             }
 
             Log.e(this.getClass().getName(), "indexList.size() = " + indexModelList.size());
@@ -89,7 +88,6 @@ public class SecondMenuFragment extends MyBaseFragment implements HttpListener<S
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.e(this.getClass().getName(), "hidden = " + hidden);
     }
 
     /**

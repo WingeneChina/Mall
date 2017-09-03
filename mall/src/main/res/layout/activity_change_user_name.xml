@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:id="@+id/backIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            android:src="@drawable/mall_back_img"/>
+
+        <TextView
+            android:id="@+id/titleV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="修改用户名"
+            android:textColor="@color/three_text_color"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+
+    <View
+        style="@style/Line.Horizontal"/>
+
+    <!--<android.support.design.widget.TextInputLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="30dp"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--app:counterEnabled="true"-->
+    <!--app:counterMaxLength="16"-->
+    <!--&gt;-->
+
+    <EditText
+        android:id="@+id/userNameEditV"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/yellow_linear"
+        android:hint="请输入用户名"
+        android:maxLength="16"
+        android:maxLines="1"
+        android:minEms="4"
+        android:paddingLeft="15dp"
+        android:textColor="@color/six_text_color"
+        android:textSize="14sp"/>
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="43dp"
+        android:layout_marginTop="7dp"
+        android:text="字母数字或汉字,4-16个字符"
+        android:textColor="@color/six_text_color"
+        android:textSize="12sp"
+        />
+
+    <Button
+        android:id="@+id/commitMsgV"
+        android:layout_width="220dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/login"
+        android:text="保存"
+        android:textColor="@color/six_text_color"
+        android:textSize="14sp"/>
+</LinearLayout>

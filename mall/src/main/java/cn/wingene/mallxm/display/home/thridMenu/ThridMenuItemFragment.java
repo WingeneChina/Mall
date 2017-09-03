@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,9 @@ import cn.wingene.mallxm.display.home.ThirdMenuFragment;
 import cn.wingene.mallxm.display.home.secondMenu.adapter.SelectItemAdapter;
 import cn.wingene.mallxm.display.home.secondMenu.data.MenuItemContentModel;
 import cn.wingene.mallxm.display.home.thridMenu.adapter.ThirdMenuItemAdatper;
+import cn.wingene.mallxm.display.home.thridMenu.data.ThridItemModel;
 import junze.androidx.baidu.LocationHelper;
+import junze.androidx.baidu.OnReceiveLoactionListener;
 
 import static cn.wingene.mallxm.display.home.SecondMenuFragment.MENU_CODE_ARG;
 
@@ -31,7 +34,7 @@ import static cn.wingene.mallxm.display.home.SecondMenuFragment.MENU_CODE_ARG;
  * Created by wangcq on 2017/8/27.
  */
 
-public class ThridMenuItemFragment extends MyBaseFragment implements HttpListener<String> {
+public class ThridMenuItemFragment extends MyBaseFragment implements HttpListener<String>, OnReceiveLoactionListener {
     private RecyclerView selectRecyclerV;
     private ThirdMenuItemAdatper mSelectItemAdapter;
 
@@ -51,7 +54,7 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
             savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_select_layout, container, false);
         initViews(view);
-        requestData();
+        requestData("", "");
         return view;
     }
 
@@ -59,7 +62,7 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
         selectRecyclerV = (RecyclerView) root.findViewById(R.id.selectRecyclerV);
     }
 
-    private void initRecyclerV(MenuItemContentModel menuItemContentModel) {
+    private void initRecyclerV(ThridItemModel menuItemContentModel) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
                 false);
         selectRecyclerV.setLayoutManager(linearLayoutManager);
@@ -67,18 +70,20 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
         selectRecyclerV.setAdapter(mSelectItemAdapter);
     }
 
-    private void requestData() {
+    private void requestData(String lat, String lng) {
         if (getArguments() != null) {
-            BDLocation location = LocationHelper.getInstance().getLocation();
-
-            NoHttpRequest<MenuItemContentModel> noHttpRequest = new NoHttpRequest<>(MenuItemContentModel.class);
+            LocationHelper.getInstance().start(this);
+            NoHttpRequest<MenuItemContentModel> noHttpRequest = new NoHttpRequest<>(MenuItemContentModel
+                    .class);
             HashMap<String, Object> hashMapParams = new HashMap<>();
             hashMapParams.put("CategoryCode", getArguments().getString(MENU_CODE_ARG));
-            hashMapParams.put("OrderBy", mOrderBy);
+            hashMapParams.put("Key", "");//直接置空
             hashMapParams.put("PageIndex", mPagerIndex);
-            hashMapParams.put("Lat", location.getLatitude());
-            hashMapParams.put("Lng", location.getLongitude());
-            noHttpRequest.request(getActivity(), HttpConstant.NEARBY_LIST, hashMapParams, 1, this, false,
+            hashMapParams.put("Lat", lat);
+            hashMapParams.put("Lng", lng);
+
+            noHttpRequest.request(getActivity(), HttpConstant.NEARBY_LIST, hashMapParams, 1,
+                    ThridMenuItemFragment.this, false,
                     "thirdMenuList", false, true);
         }
     }
@@ -86,8 +91,8 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
     @Override
     public void onSucceed(int what, Response<String> response) {
         try {
-            GsonUtil<MenuItemContentModel> gsonUtil = new GsonUtil<>(MenuItemContentModel.class);
-            MenuItemContentModel menuItemContentModel = gsonUtil.fromJson(response.get());
+            GsonUtil<ThridItemModel> gsonUtil = new GsonUtil<>(ThridItemModel.class);
+            ThridItemModel menuItemContentModel = gsonUtil.fromJson(response.get());
             initRecyclerV(menuItemContentModel);
 
         } catch (Exception e) {
@@ -98,5 +103,29 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
     @Override
     public void onFailed(int what, Object tag, Exception exception, int responseCode, long networkMillis) {
 
+    }
+
+    @Override
+    public void onReceiveLocationListener(BDLocation bdLocation) {
+        Log.e(this.getClass().getName(), "bdLocation type = " + bdLocation.getLocType());
+
+        Log.e(this.getClass().getName(), "bdLocationMsg = " + bdLocation.toString());
+        if (LocationHelper.isLocationSuccess(bdLocation)) {
+            NoHttpRequest<MenuItemContentModel> noHttpRequest = new NoHttpRequest<>(MenuItemContentModel
+                    .class);
+            HashMap<String, Object> hashMapParams = new HashMap<>();
+            hashMapParams.put("CategoryCode", getArguments().getString(MENU_CODE_ARG));
+            hashMapParams.put("Key", "");//直接置空
+            hashMapParams.put("PageIndex", mPagerIndex);
+            hashMapParams.put("Lat", bdLocation.getLatitude());
+            hashMapParams.put("Lng", bdLocation.getLongitude());
+
+            noHttpRequest.request(getActivity(), HttpConstant.NEARBY_LIST, hashMapParams, 1,
+                    ThridMenuItemFragment.this, false,
+                    "thirdMenuList", false, true);
+        } else {
+            LocationHelper.getInstance().start(this);
+
+        }
     }
 }

@@ -17,7 +17,7 @@
             android:id="@+id/backIcon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="15dp"
+            android:paddingLeft="15dp"
             android:src="@drawable/sjdl_y"/>
 
         <TextView
@@ -28,6 +28,9 @@
             android:textColor="@color/three_text_color"
             android:textSize="16sp"/>
     </RelativeLayout>
+    <View
+        style="@style/Line.Horizontal"
+        />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -36,45 +39,47 @@
         android:layout_marginTop="11dp"
         android:src="@drawable/sjdl_logo"/>
 
-    <android.support.design.widget.TextInputLayout
+
+    <AutoCompleteTextView
+        android:id="@+id/phoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="30dp"
+        android:background="@null"
+        android:drawableLeft="@drawable/sjdl_sjh"
+        android:drawablePadding="10dp"
+        android:hint="请输入你的手机号"
+        android:imeActionId="@+id/next"
+        android:imeActionLabel="下一个"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:maxLength="11"
+        android:maxLines="1"
+        android:singleLine="true"/>
+
+    <View
+        style="@style/Line.Horizontal"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
-        android:layout_marginTop="10dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="11"
-        >
-
-        <AutoCompleteTextView
-            android:id="@+id/phoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:drawableLeft="@drawable/sjdl_sjh"
-            android:drawablePadding="10dp"
-            android:hint="请输入你的手机号"
-            android:imeActionId="@+id/next"
-            android:imeActionLabel="下一个"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:maxLines="1"
-            android:singleLine="true"/>
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        app:passwordToggleEnabled="true"
-        >
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@null"
             android:drawableLeft="@drawable/sjdl_mm"
+            android:drawablePadding="10dp"
             android:hint="请输入您的密码"
             android:imeActionId="@+id/login"
             android:imeActionLabel="登录"
@@ -84,7 +89,19 @@
             android:minEms="6"
             android:singleLine="true"/>
 
-    </android.support.design.widget.TextInputLayout>
+        <CheckBox
+            android:id="@+id/lookPwdV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pwd_look_selector"
+            android:button="@null"
+            />
+    </LinearLayout>
+
+    <View
+        style="@style/Line.Horizontal"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"/>
 
     <TextView
         android:id="@+id/forgetPwdV"
@@ -96,6 +113,7 @@
         android:text="@string/forget_pwd"
         android:textColor="@color/six_text_color"
         android:textSize="12sp"/>
+
     <Button
         android:id="@+id/loginBtnV"
         android:layout_width="match_parent"

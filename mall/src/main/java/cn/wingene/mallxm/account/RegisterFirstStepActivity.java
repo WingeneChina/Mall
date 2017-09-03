@@ -102,7 +102,8 @@ public class RegisterFirstStepActivity extends AppCompatActivity implements View
                 intent.putExtra("userPhone", userPhone);
                 intent.putExtra("verifiCode", verifiCode);
                 intent.putExtra("title", titleV.getText());
-                startActivity(intent);
+                intent.putExtra("type", getIntent().getIntExtra("type", 0));
+                startActivityForResult(intent, 1);
                 break;
             case R.id.requestVerificodeV:
                 String userPhoneNumber = phoneNumber.getText().toString();
@@ -110,8 +111,9 @@ public class RegisterFirstStepActivity extends AppCompatActivity implements View
                     NoHttpRequest<VerificoceModel> noHttpRequest = new NoHttpRequest(VerificoceModel.class);
                     HashMap<String, Object> params = new HashMap<>();
                     params.put("Phone", userPhoneNumber);
-                    params.put("Type", 0);//0注册 1登录 2、修改密码
-                    noHttpRequest.accountInfoCommit(this, HttpConstant.REQUEST_CODE, params, 1, this, false, "verificode",
+                    params.put("Type", getIntent().getIntExtra("type", 0));//0注册 1登录 2、修改密码
+                    noHttpRequest.accountInfoCommit(this, HttpConstant.REQUEST_CODE, params, 1, this, false,
+                            "verificode",
                             false, false);
 
                 } else {
@@ -138,5 +140,11 @@ public class RegisterFirstStepActivity extends AppCompatActivity implements View
     @Override
     public void onFailed(int what, Object tag, Exception exception, int responseCode, long networkMillis) {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        finish();
     }
 }

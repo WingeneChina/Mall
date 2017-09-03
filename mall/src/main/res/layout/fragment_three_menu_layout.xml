@@ -16,6 +16,10 @@
         android:textSize="16sp"
         android:visibility="visible"/>
 
+    <View
+        style="@style/Line.Horizontal"
+        />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/selectTabLayout"
         android:layout_width="match_parent"

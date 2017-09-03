@@ -77,4 +77,26 @@ public class HttpConstant {
      */
     public static final String PRODUCT_GROUP = HOST + "Mall/ProductCategory/ParentCodeList";
 
+    /**
+     * 获取个人信息
+     */
+    public static final String PSERON_INFO = HOST + "User/MyHome";
+
+    /**
+     * 编辑个人信息
+     */
+    public static final String EDITOR_PERSON_INFO = HOST + "User/Home/EditNickname";//"User/EditInfo";
+
+    /**
+     * 上传头像
+     */
+    public static final String UPLOAD_HEAD_IMG = HOST + "User/home/EditAvatar";
+
+    /**
+     * 专题详情
+     */
+    public static final String SPECIAL_DETAIL = HOST + "Article/SpecialDetail";
+
+
+
 }
