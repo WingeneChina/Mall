@@ -40,8 +40,8 @@
         </junze.widget.Tile>
 
     </LinearLayout>
-    <!--<View-->
-        <!--style="@style/Line.Horizontal"/>-->
+    <View
+        style="@style/Line.Horizontal"/>
 
     <ScrollView
         android:layout_weight="1"
@@ -78,7 +78,7 @@
                     android:id="@+id/tv_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/f40"
+                    android:textSize="@dimen/f32"
                     android:textColor="@color/black"
                     android:text="这是商品这是商品"
                     />
@@ -87,7 +87,7 @@
                     android:layout_marginTop="@dimen/p20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/f36"
+                    android:textSize="@dimen/f24"
                     android:text="买吧买吧买吧"
                     />
                 <TextView
@@ -95,7 +95,7 @@
                     android:layout_marginTop="@dimen/p30"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/f36"
+                    android:textSize="@dimen/f32"
                     android:textColor="@color/red"
                     android:text="￥0"
                     />
@@ -116,6 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="@dimen/f28"
                     android:paddingLeft="@dimen/p32"
                     android:paddingRight="@dimen/p32"
                     android:text="请选择商品规格"/>
@@ -142,6 +143,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
+                    android:textSize="@dimen/f28"
                     android:layout_height="wrap_content"
                     android:text="产品详情"/>
 
@@ -179,6 +181,7 @@
             app:tileImgHeight="@dimen/p38"
             app:tileImgWidth="@dimen/p38"
             app:tileText="客服"
+            app:tileTextSize="@dimen/f24"
             app:tileDrawablePadding="@dimen/p8"
             app:tileTextColor="@color/darkgray"
             android:layout_width="0dp"
@@ -189,6 +192,7 @@
             android:id="@+id/tl_cart"
             android:layout_weight="0.4"
             app:tileImgSrc="@drawable/ic_commdity_detail_cart"
+            app:tileTextSize="@dimen/f24"
             app:tileText="购物车"
             app:tileTextColor="@color/darkgray"
             android:layout_width="0dp"
@@ -200,6 +204,7 @@
             android:id="@+id/tl_collect"
             android:layout_weight="0.4"
             app:tileImgSrc="@drawable/ic_commdity_detail_collect"
+            app:tileTextSize="@dimen/f24"
             app:tileText="收藏"
             app:tileTextColor="@color/darkgray"
             android:layout_width="0dp"

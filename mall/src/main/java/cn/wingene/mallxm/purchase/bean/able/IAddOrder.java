@@ -54,4 +54,6 @@ public interface IAddOrder {
          * 实付金额	不可
          */
         Double getPayPrice();
+
+        int getAcceptIntegral();
 }

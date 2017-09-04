@@ -120,6 +120,12 @@ public class AskBuyNow {
         @SerializedName("PayPrice")
         private Double payPrice;
 
+        /**
+         * 可使用应币支付
+         */
+        @SerializedName("AcceptIntegral")
+        private int acceptIntegral;
+
 
         /**
          * 商品信息	不可
@@ -199,7 +205,9 @@ public class AskBuyNow {
             return payPrice;
         }
 
-
+        public int getAcceptIntegral() {
+            return acceptIntegral;
+        }
     }
 
 }

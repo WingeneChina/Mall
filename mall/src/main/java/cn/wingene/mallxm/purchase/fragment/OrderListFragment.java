@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ import cn.wingene.mallx.frame.fragment.BasePullListFragment;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
 import cn.wingene.mallxm.purchase.LogisticsActivity;
 import cn.wingene.mallxm.purchase.OrderAddActivity.ProductItemHolder;
+import cn.wingene.mallxm.purchase.OrderDetailActivity;
 import cn.wingene.mallxm.purchase.ask.AskLogisticsDetail;
 import cn.wingene.mallxm.purchase.ask.AskOrderCancel;
 import cn.wingene.mallxm.purchase.ask.AskOrderConfirm;
@@ -57,7 +59,7 @@ public class OrderListFragment extends BasePullListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hadCreted = true;
-        mPayHelper = new PayHelper();
+        mPayHelper = new PayHelper(agent());
     }
 
     @Override
@@ -114,6 +116,7 @@ public class OrderListFragment extends BasePullListFragment {
     }
 
 
+
     public void pay(final OrderItem item) {
         mPayHelper.setOnOrderBuild(new OnOrderBuild() {
             @Override
@@ -144,7 +147,7 @@ public class OrderListFragment extends BasePullListFragment {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        OrderDetailActivity.major.startForOrderNo(getActivity(),getScheme().getItem(position).getNo());
     }
 
     private IReqCallBack<Response> getCallback(int pageIndex) {
@@ -234,11 +237,11 @@ public class OrderListFragment extends BasePullListFragment {
         public static final String OK = "OK";
 
         @Override
-        public void display(int i, OrderItem orderItem) {
-            String str1 = "";
-            String str2 = "";
-            String key1 = "";
-            String key2 = "";
+        public void display(final int position, OrderItem orderItem) {
+            String str1 = null;
+            String str2 = null;
+            String key1 = null;
+            String key2 = null;
 
             switch (orderItem.getState()) {
             case 0:
@@ -284,13 +287,21 @@ public class OrderListFragment extends BasePullListFragment {
                 break;
             }
             tvLeft.setVisibility(str1 != null ? View.VISIBLE : View.INVISIBLE);
-            tvLeft.setOnClickListener(buildClickForItem(key1, i));
+            tvLeft.setText(str1);
+            tvLeft.setOnClickListener(buildClickForItem(key1, position));
             tvRight.setVisibility(str2 != null ? View.VISIBLE : View.INVISIBLE);
-            tvRight.setOnClickListener(buildClickForItem(key2, i));
+            tvRight.setText(str2);
+            tvRight.setOnClickListener(buildClickForItem(key2, position));
             tvNo.setText(String.format("订单编号:%s", orderItem.getNo()));
             if (mItemHolder == null) {
                 mItemHolder = ProductItemHolder.createForOrderList(getContext(), hmlvProduct);
             }
+            hmlvProduct.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int p, long id) {
+                    OrderDetailActivity.major.startForOrderNo(getActivity(),getItem(position).getNo());
+                }
+            });
             mItemHolder.clear();
             mItemHolder.addAll(orderItem.getOrderProductList());
             mItemHolder.notifyDataSetChanged();

@@ -97,6 +97,12 @@ public class AskBuyCart {
         @SerializedName("PayPrice")
         private Double payPrice;
 
+        /**
+         * 可使用应币支付
+         */
+        @SerializedName("AcceptIntegral")
+        private int acceptIntegral;
+
 
         /**
          * 商品信息列表	不可
@@ -170,7 +176,9 @@ public class AskBuyCart {
             return payPrice;
         }
 
-
+        public int getAcceptIntegral() {
+            return acceptIntegral;
+        }
     }
 
 

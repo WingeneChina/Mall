@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_action_bar"
+        android:orientation="horizontal">
+
+        <junze.widget.Tile
+            android:id="@+id/tl_back"
+            style="@style/LinearLayout.ActionBarBox"
+            app:tileImgSrc="@drawable/slic_all_back"
+            ></junze.widget.Tile>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="游币充值"
+            android:textSize="@dimen/def_action_bar_title_font"/>
+
+        <junze.widget.Tile
+            android:id="@+id/tl_service"
+            style="@style/LinearLayout.ActionBarBox"
+            android:layout_weight="0"
+            app:tileText="账单明细"
+            app:tileTextColor="@color/dimgray"
+            app:tileTextSize="@dimen/f28"
+            ></junze.widget.Tile>
+
+    </LinearLayout>
+
+    <View style="@style/Line.Horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_recharge"
+            android:layout_width="@dimen/p448"
+            android:layout_height="@dimen/p88"
+            android:layout_above="@+id/_v_center"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/shape_solid_color_yellow"
+            android:gravity="center"
+            android:text="充值"
+            android:textSize="@dimen/f32"/>
+
+
+    </LinearLayout>
+</LinearLayout>

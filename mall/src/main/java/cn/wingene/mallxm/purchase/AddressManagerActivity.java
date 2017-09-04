@@ -186,7 +186,9 @@ public class AddressManagerActivity extends MyBaseActivity {
         @Override
         public void display(int i, AddressItem item) {
             tvName.setText(item.getConsignee());
-            tvIsDefault.setText(item.getIsDefault() ? "默认" : "");
+            tvIsDefault.setText(item.getIsDefault() ? "默认" : "设为默认");
+            tvIsDefault.setBackgroundResource(item.getIsDefault() ? R.drawable.shape_cart_solid_color_primary : R
+                    .drawable.shape_stroke_darkgray);
             tvPhone.setText(item.getMobile());
             tvAddress.setText(item.getRegion() + item.getAddress());
             tvEdit.setOnClickListener(buildClickForItem("edit", i));

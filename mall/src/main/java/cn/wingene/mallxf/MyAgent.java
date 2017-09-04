@@ -8,6 +8,7 @@ import junze.java.net.IHttpElement.IResponse;
 
 import junze.androidxf.core.Agent;
 
+import cn.wingene.mallx.frame.ui.EditViewDialogDeclare.EditViewDialog;
 import cn.wingene.mallxf.http.Ask.NeedLoginException;
 import cn.wingene.mallxm.JumpHelper;
 
@@ -16,6 +17,8 @@ import cn.wingene.mallxm.JumpHelper;
  */
 
 public class MyAgent extends Agent {
+    private EditViewDialog mEditViewDialog;
+
     public MyAgent(Activity activity) {
         super(activity);
     }
@@ -58,4 +61,15 @@ public class MyAgent extends Agent {
     }
 
 
+
+//    public void showEditViewDialog2(CharSequence title, Option option, OnEditCompleteListener onEditComplete) {
+//        if(this.mEditViewDialog == null) {
+//            EditText et = new EditText(getActivity());
+//            et.setBackgroundResource(R.drawable.shape_stroke_darkgray_buttom);
+//            mEditViewDialog = new EditViewDialog(getActivity(), et);
+//        }
+//
+//        this.mEditViewDialog.setParams(title, onEditComplete, option);
+//        this.showDialog(this.mEditViewDialog.getDialog());
+//    }
 }

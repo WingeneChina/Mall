@@ -175,6 +175,13 @@ public class AskOrderDetail {
         @SerializedName("Address")
         private Address4 address;
 
+        /**
+         * 订单支付金额	可空
+         */
+        @SerializedName("OrderPay")
+        private OrderPay orderPay;
+
+
 
         /**
          * 订单单号	不可
@@ -333,6 +340,10 @@ public class AskOrderDetail {
         public void setState(Integer state) {
             this.state = state;
         }
+
+        public OrderPay getOrderPay() {
+            return orderPay;
+        }
     }
 
     public static class OrderProductList implements IProduct {
@@ -485,6 +496,50 @@ public class AskOrderDetail {
         public Integer getPromotionId() {
             return null;
         }
+    }
+
+    public static class OrderPay {
+        /**
+         * 游币	不可
+         */
+        @SerializedName("Amount")
+        private Double amount;
+
+        /**
+         * 应币	不可
+         */
+        @SerializedName("Integral")
+        private Integer integral;
+
+        /**
+         * 第三方支付金额	不可 如支付宝 或微信
+         */
+        @SerializedName("OrderPay")
+        private Double orderPay;
+
+
+        /**
+         * 游币	不可
+         */
+        public Double getAmount() {
+            return amount;
+        }
+
+        /**
+         * 应币	不可
+         */
+        public Integer getIntegral() {
+            return integral;
+        }
+
+        /**
+         * 第三方支付金额	不可 如支付宝 或微信
+         */
+        public Double getOrderPay() {
+            return orderPay;
+        }
+
+
     }
 
 

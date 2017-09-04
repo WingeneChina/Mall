@@ -97,5 +97,65 @@ public class HttpAddress extends HttpConstant{
      */
     public final static String ORDER_DETAIL = SERVER_ADDRESS + "User/Order/Detail";
 
+    /**
+     * 2.5.3.1、应币
+     */
+    public final static String INTEGRAL_INDEX = SERVER_ADDRESS + "User/Integral/Index";
+
+    /**
+     * 2.5.3.1.1、应币账单明细列表（分页）
+     */
+    public final static String INTEGRAL_LOG_LIST = SERVER_ADDRESS + "User/Integral/LogList";
+    /**
+     * 2.5.3.1.2、应币充值
+     */
+    public final static String INTEGRAL_RECHARGE = SERVER_ADDRESS + "User/Integral/Recharge";
+    /**
+     * 2.5.3.2、游币
+     */
+    public final static String AMOUNT_INDEX = SERVER_ADDRESS + "User/Amount/Index";
+    /**
+     * 2.5.3.2.1、游币账单明细列表（分页）
+     */
+    public final static String AMOUNT_LOG_LIST = SERVER_ADDRESS + "User/Amount/LogList";
+    /**
+     * 2.5.3.2.2、游币充值
+     */
+    public final static String AMOUNT_RECHARGE = SERVER_ADDRESS + "User/Amount/Recharge";
+    /**
+     * 2.5.3.2.3.7、设置默认银行卡
+     */
+    public final static String BANK_CARD_DEFAULT = SERVER_ADDRESS + "User/BankCard/Default";
+    /**
+     * 2.5.3.2.3.6、删除银行卡
+     */
+    public final static String BANK_CARD_REMOVE = SERVER_ADDRESS + "User/BankCard/Remove";
+    /**
+     * 2.5.3.2.3.5、提交银行卡（添加、编辑）
+     */
+    public final static String BANK_CARD_EDIT = SERVER_ADDRESS + "User/BankCard/Edit";
+    /**
+     * 2.5.3.2.3.6、获取银行卡详情
+     */
+    public final static String BANK_CARD_DETAIL = SERVER_ADDRESS + "User/BankCard/Detail";
+    /**
+     * 2.5.3.2.3.4、进入银行卡（添加、编辑）
+     */
+    public final static String BANK_CARD_GET_EDIT = SERVER_ADDRESS + "User/BankCard/GetEdit";
+    /**
+     * 2.5.3.2.3.3、获取银行卡址列表
+     */
+    public final static String BANK_CARD_LIST = SERVER_ADDRESS + "User/BankCard/List";
+    /**
+     * 2.5.3.2.3.2、提交提现
+     */
+    public final static String DEPOSIT_CREATE_AMOUNT = SERVER_ADDRESS + "User/Deposit/CreateAmount";
+    /**
+     * 2.5.3.2.3.1、进入提现
+     */
+    public final static String DEPOSIT_GET_AMOUNT = SERVER_ADDRESS + "User/Deposit/GetAmount";
+
+
+
 
 }

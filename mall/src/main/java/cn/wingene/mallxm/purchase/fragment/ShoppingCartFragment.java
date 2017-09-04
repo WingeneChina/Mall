@@ -29,6 +29,7 @@ import junze.android.ui.ItemViewHolder.OnItemViewClickListener;
 import cn.wingene.mall.R;
 import cn.wingene.mallx.universalimageloader.ImageHelper;
 import cn.wingene.mallxf.ui.MyBaseFragment;
+import cn.wingene.mallxm.D;
 import cn.wingene.mallxm.purchase.OrderAddActivity;
 import cn.wingene.mallxm.purchase.ask.AskBuyCart;
 import cn.wingene.mallxm.purchase.ask.AskCartEdit;
@@ -47,6 +48,7 @@ public class ShoppingCartFragment extends MyBaseFragment {
     Map<Integer, CartItemLocal> mCheckItemStates;
 
     private Tile tlBack;
+    private Tile tlService;
     private ListView lvCartItem;
     private Tile tlSelectAll;
     private TextView tvTotal;
@@ -54,11 +56,13 @@ public class ShoppingCartFragment extends MyBaseFragment {
 
     protected void initComponent(View v){
         tlBack = (Tile) v.findViewById(R.id.tl_back);
+        tlService = (Tile) v.findViewById(R.id.tl_service);
         lvCartItem = (ListView) v.findViewById(R.id.lv_cart_item);
         tlSelectAll = (Tile) v.findViewById(R.id.tl_select_all);
         tvTotal = (TextView) v.findViewById(R.id.tv_total);
         tvOrder = (TextView) v.findViewById(R.id.tv_order);
     }
+
 
 
     @Nullable
@@ -68,11 +72,16 @@ public class ShoppingCartFragment extends MyBaseFragment {
         View v = inflater.inflate(R.layout.fragment_shopping_cart, container,false);
         initComponent(v);
 
-
         tlBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
+            }
+        });
+        tlService.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                agent().tryCallPhone("客服", D.CUSTOMER_PHONE);
             }
         });
         mCheckItemStates = new HashMap<>();

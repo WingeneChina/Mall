@@ -46,6 +46,7 @@ import junze.androidxf.tool.HtmlLoader;
 import cn.wingene.mall.R;
 import cn.wingene.mallx.universalimageloader.ImageHelper;
 import cn.wingene.mallxf.ui.MyBaseActivity;
+import cn.wingene.mallxm.D;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.purchase.adapter.CommodityImagePagerAdapter;
 import cn.wingene.mallxm.purchase.adapter.SkuAdapter;
@@ -129,10 +130,17 @@ public class CommodityDetailActivity extends MyBaseActivity {
         mBuyNumber = 1;
 
         mUiData = new UiData();
+
         tlBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+        tlService.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getAgent().tryCallPhone("客服", D.CUSTOMER_PHONE);
             }
         });
         tlCart.setOnClickListener(onCartClick());

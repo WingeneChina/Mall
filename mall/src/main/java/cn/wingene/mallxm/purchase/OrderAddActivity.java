@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -18,8 +17,6 @@ import junze.java.able.ICallBack;
 import junze.widget.HightMatchListView;
 import junze.widget.Tile;
 
-import junze.android.ui.EditViewDialogDeclare.OnEditCompleteListener;
-import junze.android.ui.EditViewDialogDeclare.Option;
 import junze.android.ui.ItemViewHolder;
 import junze.androidxf.core.Agent;
 
@@ -53,19 +50,22 @@ public class OrderAddActivity extends MyBaseActivity {
     private Account mAccount;
     private double mAmount;
     private int mIntegral;
+    private int mAcceptIntegral;
 
     private PayHelper mPayHelper;
     private ProductItemHolder mItemHolder;
 
 
     private Tile tlBack;
+    private Tile tlService;
     private LinearLayout llytAddress;
     private TextView tvName;
-    private TextView tvPhone;
     private TextView tvAddress;
+    private TextView tvPhone;
     private HightMatchListView lvOrder;
     private TextView tvTotal;
     private TextView tvIntegral;
+    private TextView tvAcceptIntegral;
     private LinearLayout llytIntegralNumber;
     private TextView tvIntegralReduce;
     private TextView tvIntegralNumber;
@@ -80,13 +80,15 @@ public class OrderAddActivity extends MyBaseActivity {
 
     protected void initComponent(){
         tlBack = (Tile) super.findViewById(R.id.tl_back);
+        tlService = (Tile) super.findViewById(R.id.tl_service);
         llytAddress = (LinearLayout) super.findViewById(R.id.llyt_address);
         tvName = (TextView) super.findViewById(R.id.tv_name);
-        tvPhone = (TextView) super.findViewById(R.id.tv_phone);
         tvAddress = (TextView) super.findViewById(R.id.tv_address);
+        tvPhone = (TextView) super.findViewById(R.id.tv_phone);
         lvOrder = (HightMatchListView) super.findViewById(R.id.lv_order);
         tvTotal = (TextView) super.findViewById(R.id.tv_total);
         tvIntegral = (TextView) super.findViewById(R.id.tv_integral);
+        tvAcceptIntegral = (TextView) super.findViewById(R.id.tv_accept_integral);
         llytIntegralNumber = (LinearLayout) super.findViewById(R.id.llyt_integral_number);
         tvIntegralReduce = (TextView) super.findViewById(R.id.tv_integral_reduce);
         tvIntegralNumber = (TextView) super.findViewById(R.id.tv_integral_number);
@@ -99,8 +101,6 @@ public class OrderAddActivity extends MyBaseActivity {
         tvRealTotal = (TextView) super.findViewById(R.id.tv_real_total);
         tvPay = (TextView) super.findViewById(R.id.tv_pay);
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +116,7 @@ public class OrderAddActivity extends MyBaseActivity {
         mAddress = bean.getAddress();
         mSumPrice = bean.getSumPrice();
         mPayPrice = bean.getPayPrice();
+        mAcceptIntegral = bean.getAcceptIntegral();
         refreshUI();
 
         tlBack.setOnClickListener(new OnClickListener() {
@@ -134,7 +135,7 @@ public class OrderAddActivity extends MyBaseActivity {
             @Override
             public void onClick(View v) {
                 if (mPayHelper == null) {
-                    mPayHelper = new PayHelper();
+                    mPayHelper = new PayHelper(getAgent());
                     mPayHelper.setOnOrderBuild(new OnOrderBuild() {
                         @Override
                         public void onOrderBuild(final PayHelper helper, final boolean isAlipay, final double
@@ -164,6 +165,7 @@ public class OrderAddActivity extends MyBaseActivity {
         if (mAddress == null) {
             AddressAddActivity.major.startForResult(getActivity(), RC_ADDRESS_ADD);
         }
+
         bindNumber();
     }
 
@@ -196,7 +198,7 @@ public class OrderAddActivity extends MyBaseActivity {
         }, new IBuilder<Integer>() {
             @Override
             public Integer build() {
-                return Math.min(mAccount.getIntegral(), (int) (mPayPrice - mAmount - mIntegral / 100));
+                return Math.min(mAcceptIntegral, (int) (mPayPrice - mAmount - mIntegral / 100));
             }
         }, tvIntegralReduce, tvIntegralNumber, tvIntegralIncrease, new ICallBack<Integer>() {
             @Override
@@ -213,6 +215,7 @@ public class OrderAddActivity extends MyBaseActivity {
         tvTotal.setText(String.format("￥%.2f", mSumPrice));
         setAccount(mAccount);
         tvRealTotal.setText(String.format("￥%.2f", mPayPrice));
+        tvAcceptIntegral.setText(String.format("可用￥%s",mAcceptIntegral));
     }
 
 
@@ -240,96 +243,6 @@ public class OrderAddActivity extends MyBaseActivity {
             mAddress = AddressManagerActivity.major.parseResult(data);
             refreshUI();
         }
-    }
-
-    private static void bindDoubleNumber(final Agent agent, final String title, final double min, final double
-            current, final double max, final TextView tvReduce, final TextView tvNumber, final TextView
-            tvIncrease, final String format, final ICallBack<Double> callback) {
-        tvReduce.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                double num = Double.parseDouble(tvNumber.getText().toString());
-                num = --num >= min ? num : min;
-                tvNumber.setText(String.format(format, num));
-                callback.callBack(num);
-            }
-        });
-        tvIncrease.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                double num = Double.parseDouble(tvNumber.getText().toString());
-                num = ++num <= max ? num : max;
-                tvNumber.setText(String.format(format, num));
-                callback.callBack(num);
-            }
-        });
-        tvNumber.setText(String.format(format, current));
-        tvNumber.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Option option = Option.createOption();
-                option.inputType = InputType.TYPE_CLASS_NUMBER;
-                agent.showEditViewDialog(title, option, new OnEditCompleteListener() {
-                    @Override
-                    public void onEditComplete(String s) {
-                        try {
-                            Double d = Double.parseDouble(s);
-                            if (min <= d && d <= max) {
-                                tvNumber.setText(String.format(format, d));
-                                callback.callBack(d);
-                            }
-                        } catch (Exception e) {
-
-                        }
-                    }
-                });
-            }
-        });
-    }
-
-    private static void bindIntNumber(final Agent agent, final String title, final int min, final int current,
-            final int max, final TextView tvReduce, final TextView tvNumber, final TextView tvIncrease, final
-    String format, final ICallBack<Integer> callback) {
-        tvReduce.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int num = Integer.parseInt(tvNumber.getText().toString());
-                num = --num >= min ? num : min;
-                tvNumber.setText(String.format(format, num));
-                callback.callBack(num);
-            }
-        });
-        tvIncrease.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int num = Integer.parseInt(tvNumber.getText().toString());
-                num = ++num <= max ? num : max;
-                tvNumber.setText(String.format(format, num));
-                callback.callBack(num);
-            }
-        });
-        tvNumber.setText(String.format(format, current));
-        tvNumber.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Option option = Option.createOption();
-                option.inputType = InputType.TYPE_CLASS_NUMBER;
-                agent.showEditViewDialog(title, option, new OnEditCompleteListener() {
-                    @Override
-                    public void onEditComplete(String s) {
-                        try {
-                            int d = Integer.parseInt(s);
-                            if (min <= d && d <= max) {
-                                tvNumber.setText(String.format(format, d));
-                                callback.callBack(d);
-                            }
-                        } catch (Exception e) {
-
-                        }
-                    }
-                });
-            }
-        });
     }
 
     public static class ProductItemHolder extends ItemViewHolder<IProduct> {

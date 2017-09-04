@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_action_bar"
+        android:orientation="horizontal">
+
+        <junze.widget.Tile
+            android:id="@+id/tl_back"
+            style="@style/LinearLayout.ActionBarBox"
+            app:tileImgSrc="@drawable/slic_all_back"
+            ></junze.widget.Tile>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="游币余币"
+            android:textSize="@dimen/def_action_bar_title_font"/>
+
+        <junze.widget.Tile
+            android:id="@+id/tl_service"
+            style="@style/LinearLayout.ActionBarBox"
+            android:layout_weight="0"
+            app:tileText="账单明细"
+            app:tileTextColor="@color/dimgray"
+            app:tileTextSize="@dimen/f28"
+            ></junze.widget.Tile>
+
+    </LinearLayout>
+
+    <View style="@style/Line.Horizontal"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/_v_center"
+            android:layout_centerInParent="true"
+            android:layout_width="@dimen/p50"
+            android:layout_height="@dimen/p50" />
+
+        <TextView
+            android:background="@drawable/shape_solid_color_yellow"
+            android:id="@+id/tv_recharge"
+            android:layout_width="@dimen/p448"
+            android:layout_height="@dimen/p88"
+            android:layout_above="@+id/_v_center"
+            android:gravity="center"
+            android:text="充值"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/f32"/>
+
+        <LinearLayout
+            android:layout_above="@+id/tv_recharge"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="游币余额"
+                android:textSize="@dimen/f32"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/p35"
+                android:id="@+id/tv_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="@dimen/p60"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:background="@drawable/shape_solid_color_gray"
+            android:layout_below="@+id/tv_recharge"
+            android:layout_marginTop="@dimen/p50"
+            android:layout_width="@dimen/p448"
+            android:layout_height="@dimen/p88"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="提现"
+            android:textSize="@dimen/f32"/>
+
+        <TextView
+            android:id="@+id/tv_integral"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/p50"
+            android:layout_marginBottom="@dimen/p50"
+            android:layout_width="@dimen/p252"
+            android:layout_height="@dimen/p70"
+            android:text="应币余额"
+            android:background="@drawable/shape_solid_color_gray"
+
+            android:textSize="@dimen/f32"/>
+
+        <TextView
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/p50"
+            android:layout_marginBottom="@dimen/p50"
+            android:id="@+id/tv_amount"
+            android:layout_width="@dimen/p252"
+            android:layout_height="@dimen/p70"
+            android:text="游币余额"
+            android:background="@drawable/shape_solid_color_yellow"
+            android:textSize="@dimen/f32"/>
+
+
+    </RelativeLayout>
+</LinearLayout>

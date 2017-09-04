@@ -19,12 +19,14 @@ import junze.androidxf.core.Agent;
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
 import cn.wingene.mallxf.ui.MyBaseActivity;
+import cn.wingene.mallxm.D;
 import cn.wingene.mallxm.purchase.OrderAddActivity.ProductItemHolder;
 import cn.wingene.mallxm.purchase.ask.AskLogisticsDetail;
 import cn.wingene.mallxm.purchase.ask.AskOrderCancel;
 import cn.wingene.mallxm.purchase.ask.AskOrderConfirm;
 import cn.wingene.mallxm.purchase.ask.AskOrderDetail;
 import cn.wingene.mallxm.purchase.ask.AskOrderDetail.OrderDetail;
+import cn.wingene.mallxm.purchase.ask.AskOrderDetail.OrderPay;
 import cn.wingene.mallxm.purchase.ask.AskOrderDetail.Response;
 import cn.wingene.mallxm.purchase.ask.AskOrderPayNow;
 import cn.wingene.mallxm.purchase.bean.Address4;
@@ -87,12 +89,19 @@ public class OrderDetailActivity extends MyBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
-        mPayHelper = new PayHelper();
+        initComponent();
+        mPayHelper = new PayHelper(getAgent());
         mItemHolder = ProductItemHolder.createForOrderList(getContext(), hmlvProduct);
         tlBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+        tlService.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getAgent().tryCallPhone("客服", D.CUSTOMER_PHONE);
             }
         });
         String orderNo = major.parseParams(this);
@@ -127,10 +136,10 @@ public class OrderDetailActivity extends MyBaseActivity {
 
     private void updateUIForActivity(OrderDetail bean) {
         int ridBanner = R.drawable.bg_wait_deliver;
-        String str1 = "";
-        String str2 = "";
-        String key1 = "";
-        String key2 = "";
+        String str1 = null;
+        String str2 = null;
+        String key1 = null;
+        String key2 = null;
 
         switch (bean.getState()) {
         case 0:
@@ -197,20 +206,28 @@ public class OrderDetailActivity extends MyBaseActivity {
         tvNumber.setText(String.format("共%s件", bean.getSumNumber()));
         tvSumPrice.setText(String.format("合计:￥%.2f", bean.getSumPrice()));
         tvDeliveryFee.setText(String.format("￥%.2f", bean.getDeliveryFee()));
-        tvAmount.setText("");  // TODO: 2017/9/3 字段未定义
-        tvIntegral.setText(""); // TODO: 2017/9/3 字段未定义
+
+        setOrderPay(bean.getOrderPay());
         tvRealTotal.setText(String.format("￥%.2f", bean.getPayPrice()));
 
+
         tvLeft.setVisibility(str1 != null ? View.VISIBLE : View.INVISIBLE);
+        tvLeft.setText(str1);
         tvLeft.setOnClickListener(makeClickListener(key1, bean));
         tvRight.setVisibility(str2 != null ? View.VISIBLE : View.INVISIBLE);
         tvRight.setOnClickListener(makeClickListener(key2, bean));
+        tvRight.setText(str2);
     }
 
     public void setAddress(Address4 a) {
         tvName.setText(a != null ? a.getRegion() : null);
         tvAddress.setText(a != null ? a.getAddress() : null);
         tvPhone.setText(a != null ? a.getMobile() : null);
+    }
+
+    public void setOrderPay(OrderPay orderPay) {
+        tvAmount.setText(String.format("￥%.2f", orderPay != null ? orderPay.getAmount() : 0.0f));
+        tvIntegral.setText(String.format("￥%s", orderPay != null ? orderPay.getIntegral() : 0));
     }
 
     public OnClickListener makeClickListener(final String s, final OrderDetail item) {
@@ -269,7 +286,7 @@ public class OrderDetailActivity extends MyBaseActivity {
             super(clazz);
         }
 
-        public void startForBean(Context src, String orderNo) {
+        public void startForOrderNo(Context src, String orderNo) {
             buildParams(src, orderNo).startActivity();
         }
 

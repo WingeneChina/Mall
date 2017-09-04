@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import junze.java.util.StringUtil;
+
 import junze.widget.HightMatchListView;
 import junze.widget.Tile;
 
@@ -52,6 +54,7 @@ public class LogisticsActivity extends MyBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logistics);
+        initComponent();
         tlBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +70,9 @@ public class LogisticsActivity extends MyBaseActivity {
         tvValue4.setText(""); // TODO: 2017/9/3 无电话
         ItemHolder itemHolder = new ItemHolder(this,lvContent);
         itemHolder.addAll(bean.getTraces());
+        if(StringUtil.isValid(bean.getReason())){
+            showToast(bean.getReason());
+        }
 
     }
 

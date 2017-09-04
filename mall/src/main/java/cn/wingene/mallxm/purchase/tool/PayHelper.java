@@ -38,6 +38,9 @@ public class PayHelper {
     private Agent mAgent;
     private OnOrderBuild mOnOrderBuild;
 
+    public PayHelper(Agent agent) {
+        mAgent = agent;
+    }
 
     public void showBottomDialog(double mPayPrice, final double amount, final int integral) {
         if (mPayChoiseDialog == null) {
@@ -179,7 +182,7 @@ public class PayHelper {
 
     public void jumpToWaitPayActivityAndFinish(String orderNo, boolean notLogin) {
         finish();
-        OrderDetailActivity.major.startForBean(getActivity(),orderNo);
+        OrderDetailActivity.major.startForOrderNo(getActivity(),orderNo);
 //        JumpHelper.startOrderListActivity(getActivity(), 0);
         if (notLogin) {
             JumpHelper.startLoginActivity(getActivity());
@@ -188,7 +191,7 @@ public class PayHelper {
 
     public void jumpToPayResultActivityAndFinish(String orderNo) {
         finish();
-        OrderDetailActivity.major.startForBean(getActivity(),orderNo);
+        OrderDetailActivity.major.startForOrderNo(getActivity(),orderNo);
         //        JumpHelper.startOrderListActivity(getActivity(), 1);
     }
 

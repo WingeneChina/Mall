@@ -97,6 +97,7 @@
                 android:textColor="@color/colorPrimary"
                 android:layout_marginTop="@dimen/p4"
                 android:layout_toRightOf="@id/_lab_1"
+                android:layout_alignBottom="@id/_lab_1"
                 android:text=""/>
 
             <TextView
@@ -105,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/p4"
                 android:layout_toRightOf="@id/_lab_2"
+                android:layout_alignBottom="@id/_lab_2"
                 android:text=""/>
 
             <TextView
@@ -113,6 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/p4"
                 android:layout_toRightOf="@id/_lab_3"
+                android:layout_alignBottom="@id/_lab_3"
                 android:text=""/>
 
             <TextView
@@ -121,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/p4"
                 android:layout_toRightOf="@id/_lab_4"
+                android:layout_alignBottom="@id/_lab_4"
                 android:text=""/>
 
         </RelativeLayout>
