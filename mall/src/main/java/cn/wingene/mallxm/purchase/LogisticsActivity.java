@@ -76,23 +76,17 @@ public class LogisticsActivity extends MyBaseActivity {
 
     }
 
-    public String makeLabel(String strState) {
-        try {
-            int state = Integer.parseInt(strState);
-            switch (state) {
-            case 2:
-                return "在途中";
-            case 3:
-                return "签收";
-            case 4:
-                return "问题件";
-            default:
-                return "";
-            }
-        } catch (Exception e) {
-            return strState;
+    public String makeLabel(Integer state) {
+        switch (state) {
+        case 2:
+            return "在途中";
+        case 3:
+            return "签收";
+        case 4:
+            return "问题件";
+        default:
+            return "";
         }
-
     }
 
     private static class ItemHolder extends ItemViewHolder<Traces> {

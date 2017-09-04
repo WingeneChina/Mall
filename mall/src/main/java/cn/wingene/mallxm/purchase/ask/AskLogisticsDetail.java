@@ -85,7 +85,7 @@ public class AskLogisticsDetail {
          * 物流状态	不可 2-在途中,3-签收,4-问题件
          */
         @SerializedName("State")
-        private String state;
+        private Integer state;
 
         /**
          * 失败原因	可空
@@ -152,7 +152,7 @@ public class AskLogisticsDetail {
         /**
          * 物流状态	不可 2-在途中,3-签收,4-问题件
          */
-        public String getState() {
+        public Integer getState() {
             return state;
         }
 

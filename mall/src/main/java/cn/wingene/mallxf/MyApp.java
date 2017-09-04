@@ -37,6 +37,7 @@ import junze.androidxf.http.BaseRequest;
 import junze.androidxf.http.BaseRequest.AskLogModel;
 import junze.androidxf.manager.AppManager;
 import junze.androidxf.manager.FileManager;
+import junze.androidxf.manager.PhoneManager;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.util.GlideImageLoader;
@@ -72,7 +73,7 @@ public class MyApp extends Application implements CrashHandleAble {
                 .init(this.getResources().getString(R.string.app_name), this).setUncaughtHandler(this));
 
         LocationHelper.getInstance().init(this);
-
+        PhoneManager.getInstance().init(this);
         if (AppManager.isFirstStart()) {
             AppManager.saveVisionCode();
             new Thread(new Runnable() {
