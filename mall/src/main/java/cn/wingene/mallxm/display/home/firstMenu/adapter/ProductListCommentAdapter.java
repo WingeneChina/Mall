@@ -5,7 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -38,7 +40,8 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
 
             return new NotDataHolder(view);
         }
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recommend_youlike_item_layout, parent,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recommend_person_recommend_item_layout,
+                parent,
                 false);
 //        view.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -52,19 +55,34 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final ProductListHolder productListHolder = (ProductListHolder) holder;
         final ProductListModel.DataBean.ListBean listBean = mDataBeanList.get(position);
+        try {
+            productListHolder.personRecommendItemImgV.setImageURI(listBean.getDefaultImage());
+            productListHolder.personRecommendProductNameV.setText(listBean.getName());
+            productListHolder.personRecommendProductDesV.setVisibility(View.GONE);
+            for (String string : listBean.getTag().toString().split(",")) {
+                TextView textView = (TextView) LayoutInflater.from(productListHolder.personRecommendMarkGroupV
+                        .getContext())
 
-        productListHolder.youLikeItemImgV.setImageURI(listBean.getDefaultImage());
-        productListHolder.youLikeProductNameV.setText(listBean.getName());
-        productListHolder.youLikeProductDesV.setVisibility(View.GONE);
-        productListHolder.youLikeProductPriceV.setText("¥" + listBean.getPrice());
-
-        productListHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JumpHelper.startCommodityDetailActivity(productListHolder.itemView.getContext()
-                        , listBean.getId());
+                        .inflate(R
+                                .layout.productmark_layout, productListHolder.personRecommendMarkGroupV, false);
+                textView.setText(string);
+                productListHolder.personRecommendMarkGroupV.addView(textView);
             }
-        });
+            productListHolder.personRecommendItemMarkTwoV.setVisibility(View.GONE);
+            productListHolder.personRecommendItemMarkOneV.setVisibility(View.GONE);
+            productListHolder.personRecommendProductPriceV.setText("¥" + listBean.getPrice());
+
+            productListHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    JumpHelper.startCommodityDetailActivity(productListHolder.itemView.getContext()
+                            , listBean.getId());
+                }
+            });
+        } catch (Exception e) {
+//            e.printStackTrace();
+            Log.e(this.getClass().getName(), "填充数据异常");
+        }
     }
 
     @Override
@@ -81,10 +99,14 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
     }
 
     class ProductListHolder extends RecyclerView.ViewHolder {
-        private SimpleDraweeView youLikeItemImgV;
-        private TextView youLikeProductDesV;
-        private TextView youLikeProductNameV;
-        private TextView youLikeProductPriceV;
+
+        private SimpleDraweeView personRecommendItemImgV;
+        private TextView personRecommendItemMarkOneV;
+        private TextView personRecommendItemMarkTwoV;
+        private TextView personRecommendProductNameV;
+        private TextView personRecommendProductDesV;
+        private TextView personRecommendProductPriceV;
+        private RelativeLayout personRecommendMarkGroupV;
 
         public ProductListHolder(View itemView) {
             super(itemView);
@@ -92,10 +114,14 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
         }
 
         private void initViews(View root) {
-            youLikeItemImgV = (SimpleDraweeView) root.findViewById(R.id.youLikeItemImgV);
-            youLikeProductDesV = (TextView) root.findViewById(R.id.youLikeProductDesV);
-            youLikeProductNameV = (TextView) root.findViewById(R.id.youLikeProductNameV);
-            youLikeProductPriceV = (TextView) root.findViewById(R.id.youLikeProductPriceV);
+
+            personRecommendItemImgV = (SimpleDraweeView) root.findViewById(R.id.personRecommendItemImgV);
+            personRecommendItemMarkOneV = (TextView) root.findViewById(R.id.personRecommendItemMarkOneV);
+            personRecommendItemMarkTwoV = (TextView) root.findViewById(R.id.personRecommendItemMarkTwoV);
+            personRecommendProductNameV = (TextView) root.findViewById(R.id.personRecommendProductNameV);
+            personRecommendProductDesV = (TextView) root.findViewById(R.id.personRecommendProductDesV);
+            personRecommendProductPriceV = (TextView) root.findViewById(R.id.personRecommendProductPriceV);
+            personRecommendMarkGroupV = (RelativeLayout) root.findViewById(R.id.personRecommendMarkGroupV);
         }
     }
 

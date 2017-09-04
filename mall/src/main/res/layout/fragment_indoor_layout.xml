@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/refreshLayoutV"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/indoorRecyclerV"
+    <cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout
+        android:id="@+id/refreshProductLayoutV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout>
+        android:layout_height="match_parent"
+        >
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/indoorRecyclerV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout>
+</LinearLayout>

@@ -48,13 +48,16 @@ public class ThirdMenuItemAdatper extends RecyclerView.Adapter {
             for (int i = 0; i < listBean.getImageList().size(); i++) {
                 switch (i) {
                     case 0:
+                        selectHolder.desOneImgV.setVisibility(View.VISIBLE);
                         selectHolder.desOneImgV.setImageURI(listBean.getImageList().get(0).getThumbSrc());
                         break;
                     case 1:
+                        selectHolder.desTwoImgV.setVisibility(View.VISIBLE);
                         selectHolder.desTwoImgV.setImageURI(listBean.getImageList().get(1).getThumbSrc());
 
                         break;
                     case 2:
+                        selectHolder.desThreeImgV.setVisibility(View.VISIBLE);
                         selectHolder.desThreeImgV.setImageURI(listBean.getImageList().get(2).getThumbSrc());
 
                         break;

@@ -7,10 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.dalong.refreshlayout.OnRefreshListener;
 import com.yanzhenjie.nohttp.rest.Response;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.HttpConstant;
@@ -18,6 +22,7 @@ import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.ui.MyBaseFragment;
+import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
 import cn.wingene.mallxm.display.home.secondMenu.adapter.SelectItemAdapter;
 import cn.wingene.mallxm.display.home.secondMenu.data.MenuItemContentModel;
 
@@ -32,6 +37,11 @@ public class SecondMenuItemFragment extends MyBaseFragment implements HttpListen
 
     private RecyclerView selectRecyclerV;
     private SelectItemAdapter mSelectItemAdapter;
+    private List<MenuItemContentModel.DataBean.ListBean> mListBean = new ArrayList<>();
+
+    private LinearLayout noDataGroup;
+    private JDRefreshLayout mJDRefreshLayout;
+
 
     private int mOrderBy = 0;
     private int mPagerIndex = 1;//分页索引
@@ -49,20 +59,56 @@ public class SecondMenuItemFragment extends MyBaseFragment implements HttpListen
             savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_select_layout, container, false);
         initViews(view);
+        initRecyclerV();
         requestData();
         return view;
     }
 
     private void initViews(View root) {
+        mJDRefreshLayout = (JDRefreshLayout) root.findViewById(R.id.secondMenuRefreshV);
         selectRecyclerV = (RecyclerView) root.findViewById(R.id.selectRecyclerV);
+        noDataGroup = (LinearLayout) root.findViewById(R.id.noDataGroup);
+
+        mJDRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPagerIndex = 0;
+                requestData();
+            }
+
+            @Override
+            public void onLoadMore() {
+                mPagerIndex++;
+                requestData();
+            }
+        });
+
     }
 
-    private void initRecyclerV(MenuItemContentModel menuItemContentModel) {
+    private void initRecyclerV() {
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
                 false);
         selectRecyclerV.setLayoutManager(linearLayoutManager);
-        mSelectItemAdapter = new SelectItemAdapter(menuItemContentModel.getData().getList());
+        mSelectItemAdapter = new SelectItemAdapter(mListBean);
         selectRecyclerV.setAdapter(mSelectItemAdapter);
+    }
+
+    private void showResult(MenuItemContentModel menuItemContentModel) {
+        if (mListBean.size() == 0) {
+            if (menuItemContentModel.getData().getList().size() == 0) {
+                noDataGroup.setVisibility(View.VISIBLE);
+                selectRecyclerV.setVisibility(View.GONE);
+            } else {
+                noDataGroup.setVisibility(View.GONE);
+                selectRecyclerV.setVisibility(View.VISIBLE);
+            }
+        }
+            if (mPagerIndex == 0 && mListBean.size() != 0) {
+                mListBean.clear();
+            }
+        mListBean.addAll(menuItemContentModel.getData().getList());
+        mSelectItemAdapter.notifyDataSetChanged();
     }
 
     private void requestData() {
@@ -81,10 +127,12 @@ public class SecondMenuItemFragment extends MyBaseFragment implements HttpListen
     @Override
     public void onSucceed(int what, Response<String> response) {
         try {
+            mJDRefreshLayout.stopLoadMore(true);
+            mJDRefreshLayout.stopRefresh(true);
+
             GsonUtil<MenuItemContentModel> gsonUtil = new GsonUtil<>(MenuItemContentModel.class);
             MenuItemContentModel menuItemContentModel = gsonUtil.fromJson(response.get());
-            initRecyclerV(menuItemContentModel);
-
+            showResult(menuItemContentModel);
         } catch (Exception e) {
             e.printStackTrace();
         }

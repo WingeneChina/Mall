@@ -1,5 +1,6 @@
 package cn.wingene.mallxm.display.home.firstMenu;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import com.dalong.refreshlayout.OnRefreshListener;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,9 +32,11 @@ import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.ui.customview.InnerViewpager;
 import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
+import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.ProductListCommentAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.YouLikeProduceAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.data.ProductListModel;
+import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
 
 import static cn.wingene.mallxm.display.home.FirstMenuFragment.PRODUCT_PARAMS;
 
@@ -59,10 +63,11 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            rollPagerV.setCurrentItem(currentIndex + 1, false);
+            if (rollPagerV.getChildCount() > 1) {
+                rollPagerV.setCurrentItem(currentIndex + 1, false);
 
-            mHandler.sendEmptyMessageDelayed(1, 5000);
-
+                mHandler.sendEmptyMessageDelayed(1, 5000);
+            }
         }
     };
 
@@ -78,7 +83,7 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
             savedInstanceState) {
         View rootView = inflater.inflate(R.layout.product_list_layout, container, false);
         initViews(rootView);
-        initRollPagerV();
+//        initRollPagerV();
         initProductListData();
         initEvent();
 
@@ -91,6 +96,8 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
         productListRecyclerV = (RecyclerView) root.findViewById(R.id.productListV);
         rollPagerV = (InnerViewpager) root.findViewById(R.id.rollPagerV);
 
+        mJDRefreshLayout.setCanLoad(true);
+        mJDRefreshLayout.setCanRefresh(true);
         mJDRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -115,10 +122,43 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
 
     }
 
-    private void initRollPagerV() {
+    private void initRollPagerV(final ProductListModel productListModel) {
         productListRecyclerV.setNestedScrollingEnabled(false);
-
         mImagePagerAdapter = new ImagePagerAdapter(urlList);
+
+        if (productListModel != null && productListModel.getData().getBannerList().size() > 0) {
+            Collections.sort(productListModel.getData().getBannerList());
+
+            urlList.add(productListModel.getData().getBannerList().get(productListModel.getData().getBannerList().size()
+                    - 1).getImage());
+
+            for (RecommendModel.DataBean.BannerListBean bannerListBean : productListModel.getData().getBannerList()) {
+                urlList.add(bannerListBean.getImage());
+            }
+            urlList.add(productListModel.getData().getBannerList().get(0).getImage());
+
+            mImagePagerAdapter.setBinnerClickListener(new ImagePagerAdapter.BinnerClickListener() {
+                @Override
+                public void binnerItemClick(int position) {
+                    try {
+                        if (position == 0) {
+                            position = productListModel.getData().getBannerList().size() - 1;
+                        } else if (position == productListModel.getData().getBannerList().size() + 1) {
+                            position = 0;
+                        }
+
+
+                        JumpHelper.startCommodityDetailActivity(getActivity(), Integer.parseInt(productListModel.getData
+                                ().getBannerList().get
+                                (position).getParam()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } else {
+            urlList.add(Uri.parse("res://rrr/" + R.mipmap.banner).toString());
+        }
         rollPagerV.setAdapter(mImagePagerAdapter);
         rollPagerV.addOnPageChangeListener(this);
         mHandler.sendEmptyMessageDelayed(1, 1000);
@@ -156,6 +196,10 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
     }
 
     private void showResultData(ProductListModel productListModel) {
+        initRollPagerV(productListModel);
+        if (mPagerIndex == 0) {
+            mListBeanList.clear();
+        }
         mListBeanList.addAll(productListModel.getData().getList());
         productListCommentAdapter.notifyDataSetChanged();
     }
@@ -188,11 +232,13 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
         try {
             mJDRefreshLayout.stopLoadMore(true);
             mJDRefreshLayout.stopRefresh(true);
+
             GsonUtil<ProductListModel> gsonUtil = new GsonUtil(ProductListModel.class);
             ProductListModel productListModel = gsonUtil.fromJson(response.get());
             showResultData(productListModel);
+
             if (productListModel.getData().getList().size() == 0) {
-                ToastUtil.show("暂无商品", getContext());
+//                ToastUtil.show("暂无商品", getContext());
             }
         } catch (Exception e) {
             e.printStackTrace();

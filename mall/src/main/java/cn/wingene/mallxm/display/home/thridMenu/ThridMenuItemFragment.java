@@ -8,11 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.baidu.location.BDLocation;
+import com.dalong.refreshlayout.OnRefreshListener;
 import com.yanzhenjie.nohttp.rest.Response;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.HttpConstant;
@@ -20,6 +24,7 @@ import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.ui.MyBaseFragment;
+import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
 import cn.wingene.mallxm.display.home.ThirdMenuFragment;
 import cn.wingene.mallxm.display.home.secondMenu.adapter.SelectItemAdapter;
 import cn.wingene.mallxm.display.home.secondMenu.data.MenuItemContentModel;
@@ -36,10 +41,17 @@ import static cn.wingene.mallxm.display.home.SecondMenuFragment.MENU_CODE_ARG;
 
 public class ThridMenuItemFragment extends MyBaseFragment implements HttpListener<String>, OnReceiveLoactionListener {
     private RecyclerView selectRecyclerV;
+    private LinearLayout noDataGroup;
+    private JDRefreshLayout mJDRefreshLayout;
+
     private ThirdMenuItemAdatper mSelectItemAdapter;
 
     private int mOrderBy = 0;
     private int mPagerIndex = 1;//分页索引
+    private List<ThridItemModel.DataBean.ListBean> mListBean = new ArrayList<>();
+    private String mLat;
+    private String mLong;
+
 
     public static ThridMenuItemFragment newInstance(Bundle bundle) {
         ThridMenuItemFragment thirdMenuItemFragment = new ThridMenuItemFragment();
@@ -54,25 +66,66 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
             savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_select_layout, container, false);
         initViews(view);
+        initRecyclerV();
+
         requestData("", "");
         return view;
     }
 
     private void initViews(View root) {
+        mJDRefreshLayout = (JDRefreshLayout) root.findViewById(R.id.secondMenuRefreshV);
+
         selectRecyclerV = (RecyclerView) root.findViewById(R.id.selectRecyclerV);
+        noDataGroup = (LinearLayout) root.findViewById(R.id.noDataGroup);
+
+        mJDRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPagerIndex = 0;
+//                LocationHelper.getInstance().start(ThridMenuItemFragment.this);
+                requestData(mLat, mLong);
+
+            }
+
+            @Override
+            public void onLoadMore() {
+                mPagerIndex++;
+//                LocationHelper.getInstance().start(ThridMenuItemFragment.this);
+                requestData(mLat, mLong);
+
+            }
+        });
     }
 
-    private void initRecyclerV(ThridItemModel menuItemContentModel) {
+    private void initRecyclerV() {
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
                 false);
         selectRecyclerV.setLayoutManager(linearLayoutManager);
-        mSelectItemAdapter = new ThirdMenuItemAdatper(menuItemContentModel.getData().getList());
+        mSelectItemAdapter = new ThirdMenuItemAdatper(mListBean);//menuItemContentModel.getData().getList()
         selectRecyclerV.setAdapter(mSelectItemAdapter);
+
+    }
+
+    private void showResult(ThridItemModel menuItemContentModel) {
+        if (mListBean.size() == 0) {
+            if (menuItemContentModel.getData().getList().size() == 0) {
+                noDataGroup.setVisibility(View.VISIBLE);
+                selectRecyclerV.setVisibility(View.GONE);
+            } else {
+                noDataGroup.setVisibility(View.GONE);
+                selectRecyclerV.setVisibility(View.VISIBLE);
+            }
+        }
+        if (mPagerIndex == 0) {
+            mListBean.clear();
+        }
+        mListBean.addAll(menuItemContentModel.getData().getList());
+        mSelectItemAdapter.notifyDataSetChanged();
     }
 
     private void requestData(String lat, String lng) {
         if (getArguments() != null) {
-            LocationHelper.getInstance().start(this);
             NoHttpRequest<MenuItemContentModel> noHttpRequest = new NoHttpRequest<>(MenuItemContentModel
                     .class);
             HashMap<String, Object> hashMapParams = new HashMap<>();
@@ -91,10 +144,12 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
     @Override
     public void onSucceed(int what, Response<String> response) {
         try {
+            mJDRefreshLayout.stopLoadMore(true);
+            mJDRefreshLayout.stopRefresh(true);
+
             GsonUtil<ThridItemModel> gsonUtil = new GsonUtil<>(ThridItemModel.class);
             ThridItemModel menuItemContentModel = gsonUtil.fromJson(response.get());
-            initRecyclerV(menuItemContentModel);
-
+            showResult(menuItemContentModel);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,19 +166,31 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
 
         Log.e(this.getClass().getName(), "bdLocationMsg = " + bdLocation.toString());
         if (LocationHelper.isLocationSuccess(bdLocation)) {
-            NoHttpRequest<MenuItemContentModel> noHttpRequest = new NoHttpRequest<>(MenuItemContentModel
-                    .class);
-            HashMap<String, Object> hashMapParams = new HashMap<>();
-            hashMapParams.put("CategoryCode", getArguments().getString(MENU_CODE_ARG));
-            hashMapParams.put("Key", "");//直接置空
-            hashMapParams.put("PageIndex", mPagerIndex);
-            hashMapParams.put("Lat", bdLocation.getLatitude());
-            hashMapParams.put("Lng", bdLocation.getLongitude());
-
-            noHttpRequest.request(getActivity(), HttpConstant.NEARBY_LIST, hashMapParams, 1,
-                    ThridMenuItemFragment.this, false,
-                    "thirdMenuList", false, true);
+//            NoHttpRequest<MenuItemContentModel> noHttpRequest = new NoHttpRequest<>(MenuItemContentModel
+//                    .class);
+//            HashMap<String, Object> hashMapParams = new HashMap<>();
+//            hashMapParams.put("CategoryCode", getArguments().getString(MENU_CODE_ARG));
+//            hashMapParams.put("Key", "");//直接置空
+//            hashMapParams.put("PageIndex", mPagerIndex);
+//            hashMapParams.put("Lat", bdLocation.getLatitude());
+//            hashMapParams.put("Lng", bdLocation.getLongitude());
+//
+//            noHttpRequest.request(getActivity(), HttpConstant.NEARBY_LIST, hashMapParams, 1,
+//                    ThridMenuItemFragment.this, false,
+//                    "thirdMenuList", false, true);
+            mLat = bdLocation.getLatitude() + "";
+            mLong = "" + bdLocation.getLongitude();
+            requestData(mLat, mLong);
         } else {
+            LocationHelper.getInstance().start(this);
+
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
             LocationHelper.getInstance().start(this);
 
         }
