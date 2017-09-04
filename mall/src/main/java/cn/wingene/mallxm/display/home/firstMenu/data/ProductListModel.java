@@ -73,6 +73,7 @@ public class ProductListModel {
          * Tag : 爆品,满赠
          * SellingPoint : 好吃
          */
+        private List<RecommendModel.DataBean.BannerListBean> BannerList;
 
         private java.util.List<ListBean> List;
 
@@ -106,6 +107,14 @@ public class ProductListModel {
 
         public void setList(List<ListBean> List) {
             this.List = List;
+        }
+
+        public List<RecommendModel.DataBean.BannerListBean> getBannerList() {
+            return BannerList;
+        }
+
+        public void setBannerList(List<RecommendModel.DataBean.BannerListBean> BannerList) {
+            this.BannerList = BannerList;
         }
 
         public static class ListBean {

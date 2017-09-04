@@ -44,12 +44,15 @@ public class SelectItemAdapter extends RecyclerView.Adapter {
             selectHolder.titleV.setText(listBean.getTitle());
             selectHolder.markOneV.setText(listBean.getFrom());
             selectHolder.markTwoV.setText(String.valueOf(listBean.getClick()));
+
             for (int i = 0; i < listBean.getImageList().size(); i++) {
                 switch (i) {
                     case 0:
+                        selectHolder.desOneImgV.setVisibility(View.VISIBLE);
                         selectHolder.desOneImgV.setImageURI(listBean.getImageList().get(0).getThumbSrc());
                         break;
                     case 1:
+                        selectHolder.desTwoImgV.setVisibility(View.VISIBLE);
                         if (!TextUtils.isEmpty(listBean.getImageList().get(1).getThumbSrc())) {
                             selectHolder.desTwoImgV.setImageURI(listBean.getImageList().get(1).getThumbSrc());
                         } else {
@@ -58,6 +61,7 @@ public class SelectItemAdapter extends RecyclerView.Adapter {
 
                         break;
                     case 2:
+                        selectHolder.desThreeImgV.setVisibility(View.VISIBLE);
                         if (!TextUtils.isEmpty(listBean.getImageList().get(2).getThumbSrc())) {
                             selectHolder.desThreeImgV.setImageURI(listBean.getImageList().get(2).getThumbSrc());
                         } else {

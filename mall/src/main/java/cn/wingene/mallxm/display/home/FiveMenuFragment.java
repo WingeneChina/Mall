@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -113,7 +114,9 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
 
 
     private void initEvent() {
-        personHeadV.setOnClickListener(this);
+        if (TextUtils.isEmpty(UserData.getverifiCode())) {
+            personHeadV.setOnClickListener(this);
+        }
         settingV.setOnClickListener(this);
         findOrderV.setOnClickListener(this);
         orderReadyPayV.setOnClickListener(this);

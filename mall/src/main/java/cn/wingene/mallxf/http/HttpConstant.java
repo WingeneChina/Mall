@@ -97,6 +97,13 @@ public class HttpConstant {
      */
     public static final String SPECIAL_DETAIL = HOST + "Article/SpecialDetail";
 
-
+    /**
+     * 周边详情
+     */
     public static final String NEARBY_DETAIL = HOST + "Article/AmbitusDetail";
+
+    /**
+     * 热门搜索
+     */
+    public static final String HOT_SEARCH = HOST + "DictionaryItem/HotSearchList";
 }

@@ -33,14 +33,19 @@ import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
+import cn.wingene.mallxm.display.home.firstMenu.adapter.ProductGroupAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.ProductListCommentAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.SearchItemAdapter;
+import cn.wingene.mallxm.display.home.firstMenu.data.HotSearchModel;
 import cn.wingene.mallxm.display.home.firstMenu.data.ProductListModel;
 
 /**
  * 搜索界面
  */
 public class SearchActivity extends AppCompatActivity implements HttpListener<String>, View.OnClickListener {
+
+    private final int SEARCH_RESULT = 1;
+    private final int HOT_SEARCH = 2;
 
     private EditText searchEditV;
     private TextView searchDelV;
@@ -55,7 +60,10 @@ public class SearchActivity extends AppCompatActivity implements HttpListener<St
     private int mPagerIndex = 1;
 
     private List<ProductListModel.DataBean.ListBean> mListBeanList = new ArrayList<>();
-    private ProductListCommentAdapter mProductListCommentAdapter;
+//    private ProductListCommentAdapter mProductListCommentAdapter;
+
+    private ProductGroupAdapter youLikeProduceAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,7 @@ public class SearchActivity extends AppCompatActivity implements HttpListener<St
         initViews();
         initEvent();
         loadHistorySearch();
+        loadHotSearch();
     }
 
     private void initViews() {
@@ -111,7 +120,8 @@ public class SearchActivity extends AppCompatActivity implements HttpListener<St
      * 载入热门搜索
      */
     private void loadHotSearch() {
-
+        NoHttpRequest<HotSearchModel> noHttpRequest = new NoHttpRequest<>(HotSearchModel.class);
+        noHttpRequest.request(this, HttpConstant.HOT_SEARCH, null, HOT_SEARCH, this, false, null, false, true);
     }
 
     /**
@@ -156,7 +166,7 @@ public class SearchActivity extends AppCompatActivity implements HttpListener<St
 //                    requestSearch();
                 } else {
                     mListBeanList.clear();
-                    mProductListCommentAdapter.notifyDataSetChanged();
+                    youLikeProduceAdapter.notifyDataSetChanged();
                     searchResultRecyclerV.setVisibility(View.GONE);
                     notDataGroupV.setVisibility(View.GONE);
                     searchPreGroupV.setVisibility(View.VISIBLE);
@@ -203,7 +213,7 @@ public class SearchActivity extends AppCompatActivity implements HttpListener<St
         hasmapParams.put("Key", searchEditV.getText().toString());
         hasmapParams.put("Type", getIntent().getStringExtra("type"));
         hasmapParams.put("CategoryCode", getIntent().getStringExtra("typeCode"));
-        responseNoHttpRequest.request(this, HttpConstant.PRODUCT_LIST, hasmapParams, 1, this, false,
+        responseNoHttpRequest.request(this, HttpConstant.PRODUCT_LIST, hasmapParams, SEARCH_RESULT, this, false,
                 null,
                 true, true);
     }
@@ -215,8 +225,8 @@ public class SearchActivity extends AppCompatActivity implements HttpListener<St
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         searchResultRecyclerV.setLayoutManager(gridLayoutManager);
 
-        mProductListCommentAdapter = new ProductListCommentAdapter(mListBeanList);
-        searchResultRecyclerV.setAdapter(mProductListCommentAdapter);
+        youLikeProduceAdapter = new ProductGroupAdapter(mListBeanList);
+        searchResultRecyclerV.setAdapter(youLikeProduceAdapter);
 
         SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
         searchResultRecyclerV.addItemDecoration(spaceItemDecoration);
@@ -225,11 +235,11 @@ public class SearchActivity extends AppCompatActivity implements HttpListener<St
 
     private void showResultData(ProductListModel productListModel) {
         mListBeanList.clear();
-        mProductListCommentAdapter.notifyDataSetChanged();
+        youLikeProduceAdapter.notifyDataSetChanged();
         mListBeanList.addAll(productListModel
                 .getData().getList
                         ());
-        mProductListCommentAdapter.notifyDataSetChanged();
+        youLikeProduceAdapter.notifyDataSetChanged();
         if (mListBeanList.size() > 0) {
             searchResultRecyclerV.setVisibility(View.VISIBLE);
             searchPreGroupV.setVisibility(View.GONE);
@@ -243,11 +253,38 @@ public class SearchActivity extends AppCompatActivity implements HttpListener<St
     @Override
     public void onSucceed(int what, Response<String> response) {
         try {
-            GsonUtil<ProductListModel> gsonUtil = new GsonUtil(ProductListModel.class);
-            ProductListModel productListModel = gsonUtil.fromJson(response.get());
-            showResultData(productListModel);
-            if (productListModel.getData().getList().size() == 0) {
-                ToastUtil.show("暂无商品", this);
+            switch (what) {
+                case SEARCH_RESULT:
+                    GsonUtil<ProductListModel> gsonUtil = new GsonUtil(ProductListModel.class);
+                    ProductListModel productListModel = gsonUtil.fromJson(response.get());
+                    showResultData(productListModel);
+                    if (productListModel.getData().getList().size() == 0) {
+//                        ToastUtil.show("暂无商品", this);
+                    }
+
+                    break;
+                case HOT_SEARCH:
+                    GsonUtil<HotSearchModel> gsonUtil1 = new GsonUtil<>(HotSearchModel.class);
+                    final HotSearchModel hotSearchModel = gsonUtil1.fromJson(response.get());
+                    List<String> listHot = new ArrayList<>();
+                    for (HotSearchModel.DataBean.ListBean listBean : hotSearchModel.getData().getList()) {
+                        listHot.add(listBean.getName());
+                    }
+                    SearchItemAdapter adapter = new SearchItemAdapter(listHot, SearchItemAdapter
+                            .HOT_SEARCH_TYPE);
+
+                    StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(4,
+                            StaggeredGridLayoutManager.VERTICAL);
+                    hotSearchV.setLayoutManager(staggeredGridLayoutManager);
+                    hotSearchV.setAdapter(adapter);
+
+                    adapter.setHistorySearchItemChoiceListener(new SearchItemAdapter.HistorySearchItemChoiceListener() {
+                        @Override
+                        public void historySearchItemChoice(int position) {
+                            searchEditV.setText(hotSearchModel.getData().getList().get(position).getName());
+                        }
+                    });
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();

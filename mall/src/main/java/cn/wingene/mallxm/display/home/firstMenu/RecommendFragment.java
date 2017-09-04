@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Exchanger;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.adapter.ImagePagerAdapter;
@@ -35,8 +36,10 @@ import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
 import cn.wingene.mallxf.util.ActivityUtils;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
+import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.FirstMenuFragment;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
+import cn.wingene.mallxm.display.home.firstMenu.activity.ProductRecommendActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductSecondActivity;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.BrandProductAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.DaySpecialPriceAdapter;
@@ -60,7 +63,6 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     private RecyclerView personRecommendRecyclerV;
     private RecyclerView daySpecialPRecyclerV;
     private RecyclerView youLikeRecyclerV;
-    private JDRefreshLayout mJDRefreshLayout;
 
     private ImagePagerAdapter mImagePagerAdapter;
     private List<String> urlList = new ArrayList<>();
@@ -120,7 +122,6 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     }
 
     private void initView(View root) {
-        mJDRefreshLayout = (JDRefreshLayout) root.findViewById(R.id.refreshLayout);
 
         mRollViewPager = (ViewPager) root.findViewById(R.id.rollPagerV);
         brandProductRecyclerV = (RecyclerView) root.findViewById(R.id.brandProductRecyclerV);
@@ -142,17 +143,7 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
         daySpecialBgV = (SimpleDraweeView) root.findViewById(R.id.daySpecialBgV);
         youLikeBgV = (SimpleDraweeView) root.findViewById(R.id.youLikeBgV);
 
-        mJDRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mJDRefreshLayout.stopRefresh(true);
-            }
 
-            @Override
-            public void onLoadMore() {
-                mJDRefreshLayout.stopLoadMore(true);
-            }
-        });
     }
 
     /**
@@ -168,47 +159,47 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this.getActivity(), ProductSecondActivity.class);
+        Intent intent = new Intent(this.getActivity(), ProductRecommendActivity.class);
         switch (v.getId()) {
-            case R.id.brandTitleGroupV:
-                if (recommendModel != null) {
-                    intent.putExtra("type", recommendModel.getData().getBrand().getType());
-                    intent.putExtra("key", recommendModel.getData().getBrand().getParam());
-                    intent.putExtra("title", recommendModel.getData().getBrand().getTitle());
-                }
-
+            case R.id.brandTitleGroupV://品牌大厂
+//                intent = new Intent(this.getActivity(), ProductActivity.class);
+//                if (recommendModel != null) {
+//                    intent.putExtra("type", recommendModel.getData().getBrand().getType());
+//                    intent.putExtra("key", recommendModel.getData().getBrand().getParam());
+//                    intent.putExtra("title", recommendModel.getData().getBrand().getTitle());
+//                }
                 break;
-            case R.id.perWeekTitleGroupV:
+            case R.id.perWeekTitleGroupV://每周更新
                 if (recommendModel != null) {
                     intent.putExtra("type", recommendModel.getData().getNew().getType());
-                    intent.putExtra("key", recommendModel.getData().getNew().getParam());
+                    intent.putExtra("key", "");//recommendModel.getData().getNew().getParam());
                     intent.putExtra("title", recommendModel.getData().getNew().getTitle());
                 }
 
                 break;
 
-            case R.id.personRecommendTitleGroupV:
+            case R.id.personRecommendTitleGroupV://人气推荐
                 if (recommendModel != null) {
                     intent.putExtra("type", recommendModel.getData().getRecommend().getType());
-                    intent.putExtra("key", recommendModel.getData().getRecommend().getParam());
+                    intent.putExtra("key", "");//recommendModel.getData().getRecommend().getParam());
                     intent.putExtra("title", recommendModel.getData().getRecommend().getTitle());
                 }
 
                 break;
-            case R.id.daySpecialTitleGroupV:
+            case R.id.daySpecialTitleGroupV://天天特价
                 if (recommendModel != null) {
                     intent.putExtra("type", recommendModel.getData().getSpecials().getType());
-                    intent.putExtra("key", recommendModel.getData().getSpecials().getParam());
+                    intent.putExtra("key", "");//recommendModel.getData().getSpecials().getParam());
                     intent.putExtra("title", recommendModel.getData().getSpecials().getTitle());
                 }
 
                 break;
             case R.id.youLikeTitleGroupV:
-                if (recommendModel != null) {
-                    intent.putExtra("type", recommendModel.getData().getLike().getType());
-                    intent.putExtra("key", recommendModel.getData().getLike().getParam());
-                    intent.putExtra("title", recommendModel.getData().getLike().getTitle());
-                }
+//                if (recommendModel != null) {
+//                    intent.putExtra("type", recommendModel.getData().getLike().getType());
+//                    intent.putExtra("key", recommendModel.getData().getLike().getParam());
+//                    intent.putExtra("title", recommendModel.getData().getLike().getTitle());
+//                }
 
                 break;
             default:
@@ -329,11 +320,12 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
         mImagePagerAdapter.setBinnerClickListener(new ImagePagerAdapter.BinnerClickListener() {
             @Override
             public void binnerItemClick(int position) {
-                Intent intent = new Intent(getActivity(), ProductActivity.class);
-                intent.putExtra("key", bannerListBeens.get(position).getParam());
-                intent.putExtra("type", "商品分类");//bannerListBeens.get(position).getType()
-                intent.putExtra("title", bannerListBeens.get(position).getTitle());
-                startActivity(intent);
+                try {
+                    JumpHelper.startCommodityDetailActivity(getActivity(), Integer.parseInt(bannerListBeens.get
+                            (position).getParam()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

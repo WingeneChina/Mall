@@ -47,7 +47,6 @@ public class PersonRecommendAdapter extends RecyclerView.Adapter {
         final RecommendModel.DataBean.RecommendBean.ProductListBean productListBean = mProductListBeen.get(position);
         personRecommendHolder.personRecommendItemImgV.setImageURI(productListBean.getProductImage());
         personRecommendHolder.personRecommendProductNameV.setText(productListBean.getProductName());
-//        personRecommendHolder.personRecommendItemMarkOneV.setVisibility(View.GONE);
         personRecommendHolder.personRecommendProductDesV.setVisibility(View.GONE);
         for (String string : productListBean.getTag().toString().split(",")) {
             TextView textView = (TextView) LayoutInflater.from(personRecommendHolder.personRecommendMarkGroupV.getContext())
@@ -56,7 +55,6 @@ public class PersonRecommendAdapter extends RecyclerView.Adapter {
             textView.setText(string);
             personRecommendHolder.personRecommendMarkGroupV.addView(textView);
         }
-//        daySpecialPrice.personRecommendItemMarkTwoV.setText(productListBean.getTag().replace(",", "/"));
         personRecommendHolder.personRecommendItemMarkTwoV.setVisibility(View.GONE);
         personRecommendHolder.personRecommendItemMarkOneV.setVisibility(View.GONE);
         personRecommendHolder.personRecommendProductPriceV.setText("¥" + productListBean.getProductPrice());

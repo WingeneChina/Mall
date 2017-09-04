@@ -4,6 +4,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:background="@drawable/line_gray_shape"
               android:orientation="vertical"
               android:paddingBottom="10dp"
               android:paddingLeft="10dp"
@@ -28,6 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="90dp"
             android:layout_weight="1"
+            android:visibility="visible"
             app:placeholderImage="@mipmap/default_image"/>
 
         <com.facebook.drawee.view.SimpleDraweeView
@@ -37,6 +39,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:visibility="invisible"
             app:placeholderImage="@mipmap/default_image"/>
 
         <com.facebook.drawee.view.SimpleDraweeView
@@ -44,6 +47,7 @@
             android:layout_width="0dp"
             android:layout_height="90dp"
             android:layout_weight="1"
+            android:visibility="invisible"
             app:placeholderImage="@mipmap/default_image"/>
     </LinearLayout>
 

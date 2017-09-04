@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -134,6 +135,10 @@ public class RegisterFirstStepActivity extends AppCompatActivity implements View
             Toast.makeText(this, "验证码已经发送", Toast.LENGTH_SHORT).show();
             mHandler.sendEmptyMessageDelayed(1, 1000);
             requestVerificodeV.setEnabled(false);
+        } else {
+            Toast toast = Toast.makeText(this, verificoceModel.getMsg(), Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
         }
     }
 

@@ -2,7 +2,7 @@
 <cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/refreshLayout"
+    android:id="@+id/refreshRecommendLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 

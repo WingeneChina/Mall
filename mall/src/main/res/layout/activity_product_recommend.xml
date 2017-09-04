@@ -26,7 +26,7 @@
             android:layout_centerVertical="true"
             android:onClick="onClick"
             android:padding="10dp"
-            android:src="@drawable/ic_navigate_before_black_24dp"/>
+            android:src="@drawable/slic_all_back"/>
 
         <ImageView
             android:id="@+id/searchV"
@@ -36,7 +36,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:onClick="onClick"
-            android:src="@drawable/ic_search_black_24dp"/>
+            android:src="@drawable/search_sea"/>
     </RelativeLayout>
 
 
