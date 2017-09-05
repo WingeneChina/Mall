@@ -19,6 +19,10 @@ public class AskAmountIndex {
         protected void initData(JsonElement json) {
             data = AKit.getGson().fromJson(json,Data.class);
         }
+
+        public Double getAmount() {
+            return data.getAmount();
+        }
     }
 
     public static class Request extends BaseSignRequest<Response> {

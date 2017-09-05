@@ -20,6 +20,10 @@ public class AskIntegralIndex {
         protected void initData(JsonElement json) {
             data = AKit.getGson().fromJson(json, Data.class);
         }
+
+        public Integer getIntegral() {
+            return data.getIntegral();
+        }
     }
 
     public static class Request extends BaseSignRequest<Response> {

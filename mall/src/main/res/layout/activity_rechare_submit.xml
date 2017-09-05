@@ -17,6 +17,7 @@
             ></junze.widget.Tile>
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -38,12 +39,12 @@
 
     <View style="@style/Line.Horizontal"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
 
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,14 +52,53 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_recharge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/p100"
+            android:text="卡号"
+            android:textSize="@dimen/f36"/>
+
+        <EditText
+            android:id="@+id/et_number"
+            android:layout_width="@dimen/p600"
+            android:layout_height="@dimen/p100"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/p28"
+            android:background="@drawable/shape_solid_color_gray"
+            android:gravity="center"
+            android:hint="请输入8位数卡号"
+            android:textSize="@dimen/f36"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/p40"
+            android:text="密码"
+            android:textSize="@dimen/f36"/>
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="@dimen/p600"
+            android:layout_height="@dimen/p100"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/p28"
+            android:background="@drawable/shape_solid_color_gray"
+            android:gravity="center"
+            android:hint="请输入密码"
+            android:textSize="@dimen/f36"/>
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/p110"
             android:layout_width="@dimen/p448"
             android:layout_height="@dimen/p88"
             android:layout_above="@+id/_v_center"
             android:layout_centerHorizontal="true"
             android:background="@drawable/shape_solid_color_yellow"
             android:gravity="center"
-            android:text="充值"
+            android:text="立即充值"
             android:textSize="@dimen/f32"/>
 
 

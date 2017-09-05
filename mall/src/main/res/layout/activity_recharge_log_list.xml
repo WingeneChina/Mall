@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_action_bar"
+        android:orientation="horizontal">
+
+        <junze.widget.Tile
+            android:id="@+id/tl_back"
+            style="@style/LinearLayout.ActionBarBox"
+            app:tileImgSrc="@drawable/slic_all_back"
+            ></junze.widget.Tile>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="游币充值"
+            android:textColor="@color/def_action_bar_title_font"
+            android:textSize="@dimen/def_action_bar_title_font"/>
+
+        <junze.widget.Tile
+            style="@style/LinearLayout.ActionBarBox"
+            android:layout_weight="0"
+            android:visibility="invisible"
+            app:tileText="账单明细"
+            app:tileTextColor="@color/dimgray"
+            app:tileTextSize="@dimen/f28"
+            ></junze.widget.Tile>
+
+    </LinearLayout>
+
+    <View style="@style/Line.Horizontal"/>
+
+    <FrameLayout
+        android:id="@+id/lvContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+
+</LinearLayout>

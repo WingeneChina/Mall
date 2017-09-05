@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import junze.androidxf.http.requestargs.RequestArgs;
 import junze.androidxf.kit.AKit;
 
-import cn.wingene.mallxf.http.Ask.BaseSignRequest;
+import cn.wingene.mallxf.http.Ask.BaseCacheSignRequest;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
 
 /**
@@ -24,9 +24,13 @@ public class AskIntegralLogList {
         protected void initData(JsonElement json) {
             data = AKit.getGson().fromJson(json, Data.class);
         }
+
+        public List<IntegralLog> getList() {
+            return data.getList();
+        }
     }
 
-    public static class Request extends BaseSignRequest<Response> {
+    public static class Request extends BaseCacheSignRequest<Response> {
         /**
          * 当分页	不可 分页1开始
          */

@@ -1,6 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_action_bar"
+        android:orientation="horizontal">
+
+        <junze.widget.Tile
+            android:id="@+id/tl_back"
+            style="@style/LinearLayout.ActionBarBox"
+            app:tileImgSrc="@drawable/slic_all_back"
+            ></junze.widget.Tile>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="充值详情"
+            android:textColor="@color/def_action_bar_title_font"
+            android:textSize="@dimen/def_action_bar_title_font"/>
+
+        <junze.widget.Tile
+            style="@style/LinearLayout.ActionBarBox"
+            android:layout_weight="0"
+            android:visibility="invisible"
+            app:tileText="账单明细"
+            app:tileTextColor="@color/dimgray"
+            app:tileTextSize="@dimen/f28"
+            ></junze.widget.Tile>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/p100"
+        android:src="@drawable/cash_success"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/p40"
+        android:layout_marginBottom="@dimen/p40"
+        android:text="充值成功"/>
+
+    <View
+        style="@style/Line.Horizontal"/>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p74"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/p30"
+            android:textSize="@dimen/f28"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="充值币种"/>
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_weight="0"
+            android:layout_marginRight="@dimen/p30"
+            android:textSize="@dimen/f28"
+            android:textColor="@color/dimgray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="应币"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/Line.Horizontal"/>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p74"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/p30"
+            android:textSize="@dimen/f28"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="充值金额"/>
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_weight="0"
+            android:layout_marginRight="@dimen/p30"
+            android:textSize="@dimen/f28"
+            android:textColor="@color/dimgray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Y1800"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/Line.Horizontal"/>
+
+    <TextView
+        android:id="@+id/tv_submit"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/p110"
+        android:layout_width="@dimen/p448"
+        android:layout_height="@dimen/p88"
+        android:layout_above="@+id/_v_center"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/shape_solid_color_yellow"
+        android:gravity="center"
+        android:text="完成"
+        android:textSize="@dimen/f32"/>
 
 </LinearLayout>

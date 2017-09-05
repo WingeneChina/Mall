@@ -17,6 +17,7 @@
             ></junze.widget.Tile>
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -26,7 +27,7 @@
             android:textSize="@dimen/def_action_bar_title_font"/>
 
         <junze.widget.Tile
-            android:id="@+id/tl_service"
+            android:id="@+id/tl_list"
             style="@style/LinearLayout.ActionBarBox"
             android:layout_weight="0"
             app:tileText="账单明细"
@@ -85,6 +86,7 @@
 
 
         <TextView
+            android:id="@+id/tv_cash"
             android:background="@drawable/shape_solid_color_gray"
             android:layout_below="@+id/tv_recharge"
             android:layout_marginTop="@dimen/p50"
@@ -105,7 +107,7 @@
             android:layout_width="@dimen/p252"
             android:layout_height="@dimen/p70"
             android:text="应币余额"
-            android:background="@drawable/shape_solid_color_gray"
+            android:background="@drawable/slbg_recharge_button"
 
             android:textSize="@dimen/f32"/>
 
@@ -119,7 +121,7 @@
             android:layout_width="@dimen/p252"
             android:layout_height="@dimen/p70"
             android:text="游币余额"
-            android:background="@drawable/shape_solid_color_yellow"
+            android:background="@drawable/slbg_recharge_button"
             android:textSize="@dimen/f32"/>
 
 

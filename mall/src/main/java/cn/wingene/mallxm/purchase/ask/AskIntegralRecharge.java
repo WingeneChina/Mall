@@ -21,6 +21,14 @@ public class AskIntegralRecharge {
         protected void initData(JsonElement json) {
             data = AKit.getGson().fromJson(json, Data.class);
         }
+
+        public String getCardNo() {
+            return data.getCardNo();
+        }
+
+        public String getCardPrice() {
+            return data.getCardPrice();
+        }
     }
 
     public static class Request extends BaseSignRequest<Response> {
