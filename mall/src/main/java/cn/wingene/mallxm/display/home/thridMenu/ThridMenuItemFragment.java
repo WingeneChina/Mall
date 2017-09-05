@@ -68,7 +68,12 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
         initRecyclerV();
         mPagerIndex = 1;
         LocationHelper.getInstance().start(this);
-//        requestData("","");
+        BDLocation bdLocation = LocationHelper.getInstance().getLocation();
+        if(LocationHelper.isLocationSuccess(bdLocation)){
+            mLat = bdLocation.getLatitude() + "";
+            mLong = "" + bdLocation.getLongitude();
+        }
+        requestData(mLat,mLong);
         return view;
     }
 

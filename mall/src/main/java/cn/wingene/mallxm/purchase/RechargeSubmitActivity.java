@@ -51,7 +51,7 @@ public class RechargeSubmitActivity extends MyBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rechare_submit);
+        setContentView(R.layout.activity_recharge_submit);
         initComponent();
         tlBack.setOnClickListener(new OnClickListener() {
             @Override

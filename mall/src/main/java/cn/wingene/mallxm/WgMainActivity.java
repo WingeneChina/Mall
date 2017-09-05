@@ -11,27 +11,29 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
+import com.baidu.location.BDLocation;
 import com.yanzhenjie.nohttp.rest.Response;
 
-import cn.wingene.mallxf.http.HttpConstant;
-import cn.wingene.mallxf.nohttp.GsonUtil;
-import cn.wingene.mallxf.nohttp.HttpListener;
-import cn.wingene.mallxf.nohttp.NoHttpRequest;
-import cn.wingene.mallxf.nohttp.ToastUtil;
-import cn.wingene.mallxf.util.VersionUtil;
-import cn.wingene.mallxm.display.home.dialog.VersionUpdateDialog;
-import cn.wingene.mallxm.display.home.setting.data.VersionModel;
 import junze.android.annotation.AutoRestore;
+import junze.androidx.baidu.LocationHelper;
+import junze.androidx.baidu.OnReceiveLoactionListener;
 import junze.androidxf.core.Agent;
 import junze.androidxf.kit.AKit;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxf.http.HttpConstant;
+import cn.wingene.mallxf.nohttp.GsonUtil;
+import cn.wingene.mallxf.nohttp.HttpListener;
+import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.ui.MyBaseActivity;
+import cn.wingene.mallxf.util.VersionUtil;
 import cn.wingene.mallxm.display.home.FirstMenuFragment;
 import cn.wingene.mallxm.display.home.FiveMenuFragment;
 import cn.wingene.mallxm.display.home.FourthMenuFragment;
 import cn.wingene.mallxm.display.home.SecondMenuFragment;
 import cn.wingene.mallxm.display.home.ThirdMenuFragment;
+import cn.wingene.mallxm.display.home.dialog.VersionUpdateDialog;
+import cn.wingene.mallxm.display.home.setting.data.VersionModel;
 
 /**
  * Created by Wingene on 2017/9/5.
@@ -73,6 +75,12 @@ public class WgMainActivity extends MyBaseActivity implements RadioGroup.OnCheck
         check(mPostion);
 
         requestVersionInfo();
+        LocationHelper.getInstance().start(new OnReceiveLoactionListener() {
+            @Override
+            public void onReceiveLocationListener(BDLocation bdLocation) {
+
+            }
+        });
     }
 
     @Override
