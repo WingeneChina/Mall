@@ -1,5 +1,9 @@
 package cn.wingene.mallxm.display.home.thridMenu;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,13 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import static cn.wingene.mallxm.display.home.SecondMenuFragment.MENU_CODE_ARG;
 import com.baidu.location.BDLocation;
 import com.dalong.refreshlayout.OnRefreshListener;
 import com.yanzhenjie.nohttp.rest.Response;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import junze.androidx.baidu.LocationHelper;
+import junze.androidx.baidu.OnReceiveLoactionListener;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.HttpConstant;
@@ -25,15 +29,9 @@ import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
-import cn.wingene.mallxm.display.home.ThirdMenuFragment;
-import cn.wingene.mallxm.display.home.secondMenu.adapter.SelectItemAdapter;
 import cn.wingene.mallxm.display.home.secondMenu.data.MenuItemContentModel;
 import cn.wingene.mallxm.display.home.thridMenu.adapter.ThirdMenuItemAdatper;
 import cn.wingene.mallxm.display.home.thridMenu.data.ThridItemModel;
-import junze.androidx.baidu.LocationHelper;
-import junze.androidx.baidu.OnReceiveLoactionListener;
-
-import static cn.wingene.mallxm.display.home.SecondMenuFragment.MENU_CODE_ARG;
 
 /**
  * Created by wangcq on 2017/8/27.
@@ -50,8 +48,8 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
     private int mOrderBy = 0;
     private int mPagerIndex = 0;//分页索引
     private List<ThridItemModel.DataBean.ListBean> mListBean = new ArrayList<>();
-    private String mLat;
-    private String mLong;
+    private String mLat = "";
+    private String mLong = "";
 
 
     public static ThridMenuItemFragment newInstance(Bundle bundle) {
@@ -85,14 +83,22 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
             public void onRefresh() {
                 mPagerIndex = 1;
 //                LocationHelper.getInstance().start(ThridMenuItemFragment.this);
+                BDLocation bdLocation = LocationHelper.getInstance().getLocation();
+                if(LocationHelper.isLocationSuccess(bdLocation)){
+                    mLat = bdLocation.getLatitude() + "";
+                    mLong = "" + bdLocation.getLongitude();
+                }
                 requestData(mLat, mLong);
-
             }
 
             @Override
             public void onLoadMore() {
                 mPagerIndex++;
-//                LocationHelper.getInstance().start(ThridMenuItemFragment.this);
+                BDLocation bdLocation = LocationHelper.getInstance().getLocation();
+                if(LocationHelper.isLocationSuccess(bdLocation)){
+                    mLat = bdLocation.getLatitude() + "";
+                    mLong = "" + bdLocation.getLongitude();
+                }
                 requestData(mLat, mLong);
 
             }
@@ -146,6 +152,7 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
     @Override
     public void onSucceed(int what, Response<String> response) {
         try {
+            Log.e("WG0906", response.get());
             mJDRefreshLayout.stopLoadMore(true);
             mJDRefreshLayout.stopRefresh(true);
 
