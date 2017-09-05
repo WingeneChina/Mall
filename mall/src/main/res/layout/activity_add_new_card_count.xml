@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.wingene.mallxm.purchase1.AddNewCardCountActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:id="@+id/backIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:onClick="onClick"
+            android:padding="5dp"
+            android:src="@drawable/slic_all_back"/>
+
+        <TextView
+            android:id="@+id/titleV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="添加新账户"
+            android:textColor="@color/three_text_color"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/Line.Horizontal"
+        />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
+            android:paddingRight="44dp"
+            android:paddingTop="20dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开户银行"
+                android:textColor="@color/six_text_color"
+                android:textSize="15sp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/line_gray_shape">
+
+                <Spinner
+                    android:id="@+id/bankSpinnerV"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="开户支行"
+                android:textColor="@color/six_text_color"
+                android:textSize="15sp"/>
+
+            <EditText
+                android:id="@+id/bankBranchV"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/line_gray_shape"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="银行卡号"
+                android:textColor="@color/six_text_color"
+                android:textSize="15sp"/>
+
+            <EditText
+                android:id="@+id/bankCardNumberV"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/line_gray_shape"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="持卡人姓名"
+                android:textColor="@color/six_text_color"
+                android:textSize="15sp"/>
+
+            <EditText
+                android:id="@+id/bankCardUserNameV"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/line_gray_shape"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/saveCardInfo"
+                android:layout_width="225dp"
+                android:layout_height="42dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="38dp"
+                android:background="@drawable/login"
+                android:gravity="center"
+                android:text="保存"
+                android:textColor="@color/three_text_color"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

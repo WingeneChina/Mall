@@ -111,4 +111,14 @@ public class HttpConstant {
      * 版本更新
      */
     public static final String APP_VERSION = HOST + "SysVersion/Android";
+
+    /**
+     * 进入提现
+     */
+    public static final String ENTER_CASH = HOST + "User/Deposit/GetAmount";
+
+    /**
+     * 提交提现信息
+     */
+    public static final String COMMIT_CASH = HOST + "User/Deposit/CreateAmount";
 }

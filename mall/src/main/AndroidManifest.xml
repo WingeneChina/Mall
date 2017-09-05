@@ -32,16 +32,17 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!--<activity-->
-            <!--android:name="cn.wingene.mallxm.MainActivity"-->
-            <!--android:launchMode="singleTask"-->
-            <!--android:screenOrientation="portrait">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
+        <!-- <activity -->
+        <!-- android:name="cn.wingene.mallxm.MainActivity" -->
+        <!-- android:launchMode="singleTask" -->
+        <!-- android:screenOrientation="portrait"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN"/> -->
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+
+        <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name="cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity"
             android:screenOrientation="portrait">
@@ -110,17 +111,19 @@
         </activity>
         <activity
             android:name="cn.wingene.mallxm.display.home.firstMenu.activity.SearchActivity"
-            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden">
         </activity>
         <activity
             android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
             android:theme="@style/ImagePickerThemeFullScreen"/>
-        <activity android:name="cn.wingene.mallxm.display.home.setting.ChangeUserNameActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name="cn.wingene.mallxm.display.home.setting.ChangeUserNameActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name="cn.wingene.mallxm.display.home.setting.AboutAsActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name="cn.wingene.mallxm.display.home.setting.AboutAsActivity"
+            android:screenOrientation="portrait">
         </activity>
 
         <meta-data
@@ -133,8 +136,9 @@
             android:process=":remote">
         </service>
 
-        <activity android:name="cn.wingene.mallxm.display.home.secondMenu.SpecialDetailActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name="cn.wingene.mallxm.display.home.secondMenu.SpecialDetailActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="cn.wingene.mallxm.purchase.LogisticsActivity"
@@ -142,8 +146,15 @@
         <activity
             android:name="cn.wingene.mallxm.purchase.OrderDetailActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="cn.wingene.mallxm.display.WebActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name="cn.wingene.mallxm.display.WebActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="cn.wingene.mallxm.purchase1.AddNewCardCountActivity">
+        </activity>
+        <activity android:name="cn.wingene.mallxm.purchase1.CashActivity">
+        </activity>
+        <activity android:name="cn.wingene.mallxm.purchase1.CashSuccessActivity">
         </activity>
     </application>
 
