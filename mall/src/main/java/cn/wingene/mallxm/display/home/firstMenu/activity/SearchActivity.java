@@ -75,6 +75,16 @@ public class SearchActivity extends AppCompatActivity implements HttpListener<St
         loadHotSearch();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("key"))) {
+            searchEditV.setText(getIntent().getStringExtra("key"));
+            requestSearch();
+        }
+
+    }
+
     private void initViews() {
         searchEditV = (EditText) findViewById(R.id.searchEditV);
         cancelV = (TextView) findViewById(R.id.cancelV);

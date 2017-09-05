@@ -17,8 +17,8 @@
             android:id="@+id/backIcon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="15dp"
-            android:src="@drawable/sjdl_y"/>
+            android:padding="5dp"
+            android:src="@drawable/slic_all_back"/>
 
         <TextView
             android:id="@+id/titleV"

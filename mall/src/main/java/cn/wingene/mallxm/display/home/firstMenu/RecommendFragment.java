@@ -41,6 +41,7 @@ import cn.wingene.mallxm.display.home.FirstMenuFragment;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductRecommendActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductSecondActivity;
+import cn.wingene.mallxm.display.home.firstMenu.activity.SearchActivity;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.BrandProductAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.DaySpecialPriceAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.PerWeekProductAdapter;
@@ -162,12 +163,13 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
         Intent intent = new Intent(this.getActivity(), ProductRecommendActivity.class);
         switch (v.getId()) {
             case R.id.brandTitleGroupV://品牌大厂
-//                intent = new Intent(this.getActivity(), ProductActivity.class);
-//                if (recommendModel != null) {
-//                    intent.putExtra("type", recommendModel.getData().getBrand().getType());
-//                    intent.putExtra("key", recommendModel.getData().getBrand().getParam());
-//                    intent.putExtra("title", recommendModel.getData().getBrand().getTitle());
-//                }
+                intent = new Intent(this.getActivity(), SearchActivity.class);
+                if (recommendModel != null) {
+                    intent.putExtra("type", recommendModel.getData().getBrand().getType());
+                    intent.putExtra("key", recommendModel.getData().getBrand().getParam());
+                    intent.putExtra("title", recommendModel.getData().getBrand().getTitle());
+                    intent.putExtra("typeCode", "");
+                }
                 break;
             case R.id.perWeekTitleGroupV://每周更新
                 if (recommendModel != null) {
@@ -200,8 +202,8 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
 //                    intent.putExtra("key", recommendModel.getData().getLike().getParam());
 //                    intent.putExtra("title", recommendModel.getData().getLike().getTitle());
 //                }
-
-                break;
+                return;
+//            break;
             default:
 //                Intent intent = new Intent(this.getActivity(), ProductActivity.class);
 //                startActivity(intent);

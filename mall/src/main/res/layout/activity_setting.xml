@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:src="@drawable/ic_navigate_before_black_24dp"/>
+            android:src="@drawable/slic_all_back"/>
 
         <TextView
             android:id="@+id/titleV"
@@ -119,9 +119,8 @@
         android:paddingRight="15dp">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="版本信息"
             android:textColor="@color/three_text_color"
@@ -129,8 +128,9 @@
 
         <TextView
             android:id="@+id/versionInfoV"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="40dp"
+            android:layout_weight="1"
             android:gravity="center_vertical"
             android:text=""
             android:textColor="@color/nine_text_color"
@@ -225,7 +225,7 @@
         android:layout_height="40dp"
         android:background="@color/white"
         android:gravity="center"
-        android:text="登出"
+        android:text="退出"
         android:textColor="@color/yellow_mall"
         android:textSize="14sp"/>
 </LinearLayout>

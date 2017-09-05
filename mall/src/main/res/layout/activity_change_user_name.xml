@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="5dp"
-            android:src="@drawable/mall_back_img"/>
+            android:src="@drawable/slic_all_back"/>
 
         <TextView
             android:id="@+id/titleV"

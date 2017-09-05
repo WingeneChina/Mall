@@ -38,28 +38,40 @@
             android:onClick="onClick"
             android:src="@drawable/search_sea"/>
     </RelativeLayout>
+
     <View
         style="@style/Line.Horizontal"
         />
-    <android.support.design.widget.TabLayout
-        android:id="@+id/productTitleGroupV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:scrollbars="horizontal"
-        app:paddingEnd="10dp"
-        app:paddingStart="10dp"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@color/yellow_mall"
-        app:tabIndicatorHeight="2dp"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/menu_selected_color"
-        app:tabTextColor="@color/menu_unSelected_color"
-        app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
-        />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/productPagers"
+    <LinearLayout
+        android:id="@+id/haveDataGroupV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/productTitleGroupV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:scrollbars="horizontal"
+            app:paddingEnd="10dp"
+            app:paddingStart="10dp"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/yellow_mall"
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/menu_selected_color"
+            app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
+            app:tabTextColor="@color/menu_unSelected_color"
+            />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/productPagers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <include
+        layout="@layout/not_data_layout"/>
 </LinearLayout>

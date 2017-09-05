@@ -47,6 +47,7 @@ import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductRecommendActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.SearchActivity;
 import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
+import cn.wingene.mallxm.display.home.setting.AboutAsActivity;
 
 /**
  * Created by wangcq on 2017/8/7.
@@ -98,6 +99,7 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
     private void initEvent() {
         shoppingCart.setOnClickListener(this);
         searchMarkV.setOnClickListener(this);
+        logoV.setOnClickListener(this);
     }
 
     /**
@@ -121,6 +123,11 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
                 intent.putExtra("type", "0");//综合搜索
                 intent.putExtra("typeCode", "");//表示 CategoryCode 字段
                 startActivity(intent);
+                break;
+            case R.id.logoV:
+                Intent aboutIntent = new Intent(this.getActivity(), AboutAsActivity.class);
+                startActivity(aboutIntent);
+
                 break;
         }
     }

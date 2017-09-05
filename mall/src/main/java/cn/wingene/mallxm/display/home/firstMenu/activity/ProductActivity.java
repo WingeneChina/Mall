@@ -87,14 +87,24 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
 
     private void initViewPager(ProductGroupModel productGroupModel) {
         List<IndexModel> fragmentList = new ArrayList<>();
-        for (ProductGroupModel.DataBean dataBean : productGroupModel.getData()) {
+        if (productGroupModel.getData() != null && productGroupModel.getData().size() > 0) {
+            productTitleGroupV.setVisibility(View.VISIBLE);
+            for (ProductGroupModel.DataBean dataBean : productGroupModel.getData()) {
+                Bundle bundle = new Bundle();
+                bundle.putString("typeCode", dataBean.getCode());
+                fragmentList.add(new IndexModel(dataBean.getName(), IndoorFragment.newInstance(bundle)));
+            }
+
+            if (fragmentList.size() <= 4) {
+                productTitleGroupV.setTabMode(TabLayout.MODE_FIXED);
+            }
+        } else {
             Bundle bundle = new Bundle();
-            bundle.putString("typeCode", dataBean.getCode());
-            fragmentList.add(new IndexModel(dataBean.getName(), IndoorFragment.newInstance(bundle)));
+            bundle.putString("typeCode", String.valueOf(getIntent().getStringExtra("key")));
+            fragmentList.add(new IndexModel("", IndoorFragment.newInstance(bundle)));
+            productTitleGroupV.setVisibility(View.GONE);
         }
-        if (fragmentList.size() <= 4) {
-            productTitleGroupV.setTabMode(TabLayout.MODE_FIXED);
-        }
+
         mMailFragmentPagerAdapter = new MailFragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
         productPagers.setAdapter(mMailFragmentPagerAdapter);
         productTitleGroupV.setupWithViewPager(productPagers, true);//同步

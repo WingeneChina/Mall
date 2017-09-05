@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:src="@drawable/ic_navigate_before_black_24dp"/>
+            android:src="@drawable/slic_all_back"/>
 
         <TextView
             android:id="@+id/titleV"
