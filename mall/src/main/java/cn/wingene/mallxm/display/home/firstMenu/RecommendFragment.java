@@ -339,13 +339,13 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
 
     @Override
     public void onPageSelected(int position) {
-        if (position == urlList.size() - 1) {
-            currentIndex = 1;
-        } else if (position == 0) {
-            currentIndex = urlList.size() - 2;
-        } else {
+//        if (position == urlList.size() - 1) {
+//            currentIndex = 1;
+//        } else if (position == 0) {
+//            currentIndex = urlList.size() - 2;
+//        } else {
             currentIndex = position;
-        }
+//        }
     }
 
     @Override

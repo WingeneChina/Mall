@@ -80,7 +80,7 @@ public class IndoorFragment extends MyBaseFragment implements HttpListener<Strin
         mJDRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPagerIndex = 0;
+                mPagerIndex = 1;
                 requestData();
             }
 
@@ -125,7 +125,7 @@ public class IndoorFragment extends MyBaseFragment implements HttpListener<Strin
     }
 
     private void showResultData(ProductListModel productListModel) {
-        if (mPagerIndex == 0) {
+        if (mPagerIndex == 1) {
             mListBeanList.clear();
         }
         mListBeanList.addAll(productListModel
