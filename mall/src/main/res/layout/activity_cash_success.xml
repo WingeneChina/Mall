@@ -53,6 +53,7 @@
                 />
 
             <TextView
+                android:id="@+id/cashStateDesV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
@@ -121,7 +122,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/cashCommitV"
+        android:id="@+id/cashCompletedV"
         android:layout_width="225dp"
         android:layout_height="42dp"
         android:layout_gravity="center"

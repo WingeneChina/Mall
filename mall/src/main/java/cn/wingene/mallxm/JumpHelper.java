@@ -3,6 +3,7 @@ package cn.wingene.mallxm;
 import android.app.Activity;
 import android.content.Context;
 
+import cn.wingene.mallxm.purchase1.CashActivity;
 import junze.androidxf.core.Agent.Major.IntentBuilder;
 
 import cn.wingene.mallxm.account.LoginActivity;
@@ -90,12 +91,30 @@ public class JumpHelper {
 //        create(context, MainActivity.class).startActivity();
 //    }
 
-
+    /**
+     * 开始设置
+     *
+     * @param context
+     */
     public static void startSettingActivity(Context context) {
         create(context, SettingActivity.class).startActivity();
 
     }
 
+    /**
+     * 开始提现
+     *
+     * @param context
+     */
+    public static void startCashActivity(Context context) {
+        create(context, CashActivity.class);
+    }
+
+    /**
+     * @param context
+     * @param cls
+     * @return
+     */
     private static IntentBuilder create(Context context, Class<? extends Activity> cls) {
         return new IntentBuilder(context).setClass(cls);
     }

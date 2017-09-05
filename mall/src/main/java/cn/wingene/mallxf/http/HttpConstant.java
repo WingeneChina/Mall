@@ -121,4 +121,19 @@ public class HttpConstant {
      * 提交提现信息
      */
     public static final String COMMIT_CASH = HOST + "User/Deposit/CreateAmount";
+
+    /**
+     * 获取银行卡址列表
+     */
+    public static final String BANK_CARD_LIST = HOST + "User/BankCard/List";
+
+    /**
+     * 进入银行卡（添加/编辑)
+     */
+    public static final String ADD_CARD = HOST + "User/BankCard/GetEdit";
+
+    /**
+     * 提交添加银行卡信息
+     */
+    public static final String COMMIT_ADD_CARD = HOST + "User/BankCard/Edit";
 }
