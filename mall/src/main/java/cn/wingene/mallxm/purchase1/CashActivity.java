@@ -105,6 +105,7 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
     private void initEvent() {
         backIcon.setOnClickListener(this);
         addNewAccountGroupV.setOnClickListener(this);
+        accountMsgGroupV.setOnClickListener(this);
         cashCommitV.setOnClickListener(this);
     }
 
@@ -114,6 +115,7 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.backIcon:
                 onBackPressed();
                 break;
+            case R.id.accountMsgGroupV:
             case R.id.addNewAccountGroupV:
                 Intent intent = new Intent(this, AddNewCardCountActivity.class);
                 intent.putExtra("id", mBankId);

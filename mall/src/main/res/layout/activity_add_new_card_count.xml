@@ -101,6 +101,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/line_gray_shape"
                 android:textSize="15sp"
+                android:inputType="number"
                 />
 
             <TextView

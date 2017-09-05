@@ -101,7 +101,7 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
         mJDRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPagerIndex = 0;
+                mPagerIndex = 1;
                 requestData();
             }
 
@@ -196,7 +196,7 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
 
     private void showResultData(ProductListModel productListModel) {
         initRollPagerV(productListModel);
-        if (mPagerIndex == 0) {
+        if (mPagerIndex == 1) {
             mListBeanList.clear();
         }
         mListBeanList.addAll(productListModel.getData().getList());
@@ -210,13 +210,13 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
 
     @Override
     public void onPageSelected(int position) {
-        if (position == urlList.size() - 1) {
-            currentIndex = 1;
-        } else if (position == 0) {
-            currentIndex = urlList.size() - 2;
-        } else {
+//        if (position == urlList.size() - 1) {
+//            currentIndex = 1;
+//        } else if (position == 0) {
+//            currentIndex = urlList.size() - 2;
+//        } else {
             currentIndex = position;
-        }
+//        }
     }
 
     @Override
