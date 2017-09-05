@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              xmlns:tools="http://schemas.android.com/tools"
               android:background="@drawable/line_gray_shape"
               android:orientation="vertical"
               android:paddingBottom="10dp"
@@ -15,9 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical"
-        tools:text="三伏天看完这个酒店，我差点着凉了"
         android:textColor="@color/three_text_color"
         android:textSize="16sp"
+        tools:text="三伏天看完这个酒店，我差点着凉了"
         />
 
     <LinearLayout
@@ -62,17 +62,19 @@
             android:id="@+id/markOneV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="不拉旅行"
             android:textColor="@color/nine_text_color"
-            android:textSize="13sp"/>
+            android:textSize="13sp"
+            tools:text="不拉旅行"/>
 
         <TextView
             android:id="@+id/markTwoV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            tools:text="2.4万"
+            android:drawableLeft="@drawable/special_look"
+            android:drawablePadding="5dp"
             android:textColor="@color/nine_text_color"
-            android:textSize="13sp"/>
+            android:textSize="13sp"
+            tools:text="2.4万"/>
     </LinearLayout>
 </LinearLayout>

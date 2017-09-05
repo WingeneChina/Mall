@@ -3,6 +3,7 @@ package cn.wingene.mallxm.display.home;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -19,17 +20,21 @@ import com.yanzhenjie.nohttp.rest.Response;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.cacheData.UserData;
+import cn.wingene.mallxf.http.HttpConstant;
 import cn.wingene.mallxf.model.BaseResponse;
 import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
+import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.util.VersionUtil;
 import cn.wingene.mallxm.D;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.account.data.LoginModel;
+import cn.wingene.mallxm.display.home.dialog.VersionUpdateDialog;
 import cn.wingene.mallxm.display.home.fiveMenu.UserInfoModel;
 import cn.wingene.mallxm.display.home.setting.AboutAsActivity;
+import cn.wingene.mallxm.display.home.setting.data.VersionModel;
 
 import static cn.wingene.mallxf.http.HttpConstant.USER_INFO;
 
@@ -39,6 +44,9 @@ import static cn.wingene.mallxf.http.HttpConstant.USER_INFO;
  */
 
 public class FiveMenuFragment extends MyBaseFragment implements View.OnClickListener, HttpListener<String> {
+    private static final int USER_INFO_WHAT = 1;//用户信息
+    private static final int VERSION_INFO_WHAT = 2;//版本信息
+
 
     private ImageView settingV;
     private SimpleDraweeView personHeadV;
@@ -58,6 +66,12 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
     private TextView versonInfoV;
     private TextView aboutAsV;
     private TextView versonConentV;
+
+    private VersionUpdateDialog mDialog;
+    /**
+     * download url
+     */
+    private String mDownloadUrl;
 
     public static FiveMenuFragment newInstance(Bundle args) {
         FiveMenuFragment fiveMenuFragment = new FiveMenuFragment();
@@ -86,7 +100,7 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
 
     private void requestData() {
         NoHttpRequest<UserInfoModel> noHttpRequest = new NoHttpRequest<>(UserInfoModel.class);
-        noHttpRequest.request(this.getActivity(), USER_INFO, null, 1, this, false, null, false, false);
+        noHttpRequest.request(this.getActivity(), USER_INFO, null, USER_INFO_WHAT, this, false, null, false, false);
     }
 
     private void initClickViews(View root) {
@@ -108,15 +122,13 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
         versonInfoV = (TextView) root.findViewById(R.id.versonInfoV);
         aboutAsV = (TextView) root.findViewById(R.id.aboutAsV);
         versonConentV = (TextView) root.findViewById(R.id.versonConentV);
-        versonConentV.setText(VersionUtil.getPackageInfo(getContext()));
+        versonConentV.setText(VersionUtil.getAppVersionName(getContext()));
 
     }
 
 
     private void initEvent() {
-        if (TextUtils.isEmpty(UserData.getverifiCode())) {
-            personHeadV.setOnClickListener(this);
-        }
+        personHeadV.setOnClickListener(this);
         settingV.setOnClickListener(this);
         findOrderV.setOnClickListener(this);
         orderReadyPayV.setOnClickListener(this);
@@ -127,6 +139,9 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
 
         aboutAsV.setOnClickListener(this);
         customerV.setOnClickListener(this);
+
+        versonConentV.setOnClickListener(this);
+        mallMoneyV.setOnClickListener(this);
     }
 
     @Override
@@ -134,7 +149,13 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
         switch (v.getId()) {
             case R.id.personHeadV:
                 Log.e(this.getClass().getName(), "点击头像");
-                JumpHelper.startLoginActivity(this.getActivity());
+                if (TextUtils.isEmpty(UserData.getverifiCode())) {
+                    JumpHelper.startLoginActivity(this.getActivity());
+
+                } else {
+                    JumpHelper.startSettingActivity(this.getActivity());
+
+                }
 
                 break;
             case R.id.settingV:
@@ -172,9 +193,44 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
             case R.id.customerV:
                 agent().tryCallPhone("客服", D.CUSTOMER_PHONE);
                 break;
+            case R.id.versonConentV:
+                requestVersionInfo();
+                break;
+            case R.id.mallMoneyV:
+
+                break;
+            case R.id.btn_ok:
+                downApp();
+                mDialog.dismiss();
+                break;
+            case R.id.btn_cancel:
+                mDialog.dismiss();
+                break;
             default:
 
         }
+
+    }
+
+    /**
+     * 下载App
+     */
+    private void downApp() {
+//        DownLoadService.startDownloadFile(this, mDownloadUrl);
+
+        Uri uri = Uri.parse(mDownloadUrl);
+        Intent downloadIntent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(downloadIntent);
+
+    }
+
+    /**
+     * 请求版本信息
+     */
+    private void requestVersionInfo() {//APP_VERSION
+        NoHttpRequest<VersionModel> noHttpRequest = new NoHttpRequest(VersionModel.class);
+        noHttpRequest.request(this.getActivity(), HttpConstant.APP_VERSION, null, VERSION_INFO_WHAT, this, false,
+                null, true, false);
 
     }
 
@@ -182,17 +238,6 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-//            try {
-//                String userInfoJson = UserData.getUserInfo();
-//                GsonUtil<LoginModel> gsonUtil = new GsonUtil<>(LoginModel.class);
-//                LoginModel loginModel = gsonUtil.fromJson(userInfoJson);
-//                if (loginModel != null && loginModel.getData() != null) {
-//                    personHeadV.setImageURI(loginModel.getData().getAvatar());
-//                    personNameV.setText(loginModel.getData().getNickname());
-//                }
-//            } catch (Exception e) {
-////                e.printStackTrace();
-//            }
             personHeadV.setImageURI(UserData.getPersonHeadUrl());
 
         }
@@ -202,19 +247,44 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
     @Override
     public void onSucceed(int what, Response<String> response) {
         try {
-            GsonUtil<UserInfoModel> gsonUtil = new GsonUtil<>(UserInfoModel.class);
-            UserInfoModel userInfoModel = gsonUtil.fromJson(response.get());
-            if (userInfoModel != null && userInfoModel.getErr() == 0 && userInfoModel.getData() != null) {
-                UserData.savePersonHeadUrl(userInfoModel.getData().getAvatar());//保存服务端提供的默认头像地址
-                personHeadV.setImageURI(userInfoModel.getData().getAvatar());
-                personNameV.setText(userInfoModel.getData().getNickname());
-                yingMoneyV.setText(String.valueOf(userInfoModel.getData().getIntegral()));
-                youMoneyV.setText(String.valueOf(userInfoModel.getData().getAmount()));
-            } else if (userInfoModel.getErr() != 0) {
-                personHeadV.setImageURI(userInfoModel.getData().getAvatar());
-                personNameV.setText("未登录");
-                yingMoneyV.setText("0");
-                youMoneyV.setText("0");
+            switch (what) {
+                case USER_INFO_WHAT:
+                    GsonUtil<UserInfoModel> gsonUtil = new GsonUtil<>(UserInfoModel.class);
+                    UserInfoModel userInfoModel = gsonUtil.fromJson(response.get());
+                    if (userInfoModel != null && userInfoModel.getErr() == 0 && userInfoModel.getData() != null) {
+                        UserData.savePersonHeadUrl(userInfoModel.getData().getAvatar());//保存服务端提供的默认头像地址
+                        personHeadV.setImageURI(userInfoModel.getData().getAvatar());
+                        personNameV.setText(userInfoModel.getData().getNickname());
+                        yingMoneyV.setText(String.valueOf("应币   " + userInfoModel.getData().getIntegral()));
+                        youMoneyV.setText(String.valueOf("游币   " + userInfoModel.getData().getAmount()));
+                    } else if (userInfoModel.getErr() != 0) {
+                        personHeadV.setImageURI(userInfoModel.getData().getAvatar());
+                        personNameV.setText("未登录");
+                        yingMoneyV.setText("0");
+                        youMoneyV.setText("0");
+                    }
+                    break;
+                case VERSION_INFO_WHAT:
+                    GsonUtil<VersionModel> versonGson = new GsonUtil<>(VersionModel.class);
+                    VersionModel versionModel = versonGson.fromJson(response.get());
+
+                    if (versionModel.getData().getVersionCode() == VersionUtil.getAppVersionCode(this.getActivity())) {
+                        ToastUtil.show("当前已经是最新版本了", this.getActivity());
+                    } else if (versionModel.getData().getVersionCode() > VersionUtil.getAppVersionCode(this
+                            .getActivity())) {
+
+                        mDialog = new VersionUpdateDialog(this.getContext()
+                                , VersionUtil.getAppVersionName(this.getContext())
+                                , versionModel.getData().getVersionName()
+                                , versionModel.getData().getReason());
+                        mDownloadUrl = versionModel.getData().getDownloadUrl();
+
+                        mDialog.showDialog();
+                        mDialog.getmBtnOk().setOnClickListener(this);
+                        mDialog.getmBtnCancel().setOnClickListener(this);
+
+                    }
+                    break;
             }
         } catch (Exception e) {
 //            e.printStackTrace();

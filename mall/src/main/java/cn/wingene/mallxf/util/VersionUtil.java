@@ -11,15 +11,45 @@ import android.content.pm.PackageManager;
 
 public class VersionUtil {
 
-    public static String getPackageInfo(Context context) {
+    public static PackageInfo getPackageInfo(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
             PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), PackageManager
                     .GET_CONFIGURATIONS);
-            return packageInfo.versionName;
+            return packageInfo;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "";
+        return null;
+    }
+
+    public static int getAppVersionCode(Context context) {
+        String packageName = context.getPackageName();
+        int versionCode = 0;
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(packageName, 0);
+            versionCode = pi.versionCode;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            return versionCode;
+        }
+    }
+
+    public static String getAppVersionName(Context context) {
+        String packageName = context.getPackageName();
+        String versionCode = "0";
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(packageName, 0);
+            versionCode = pi.versionName;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return "v" + versionCode;
+        }
     }
 }

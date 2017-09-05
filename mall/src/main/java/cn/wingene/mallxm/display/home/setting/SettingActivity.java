@@ -1,6 +1,7 @@
 package cn.wingene.mallxm.display.home.setting;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -32,12 +33,15 @@ import cn.wingene.mallxf.http.HttpConstant;
 import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
+import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.util.VersionUtil;
 import cn.wingene.mallxm.account.LoginActivity;
 import cn.wingene.mallxm.account.RegisterFirstStepActivity;
 import cn.wingene.mallxm.account.data.LoginModel;
+import cn.wingene.mallxm.display.home.dialog.VersionUpdateDialog;
 import cn.wingene.mallxm.display.home.firstMenu.data.HeadUpLoadModel;
 import cn.wingene.mallxm.display.home.firstMenu.dialog.IphoneStyleMenuDialog;
+import cn.wingene.mallxm.display.home.setting.data.VersionModel;
 
 /**
  * 设置界面
@@ -45,6 +49,7 @@ import cn.wingene.mallxm.display.home.firstMenu.dialog.IphoneStyleMenuDialog;
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener, HttpListener<String> {
 
     private static final int FILE_UPLOAD = 1;//文件上传
+    private static final int VERSION_INFO = 2;//版本信息
 
     private ImageView backIcon;
     private TextView titleV;
@@ -64,6 +69,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private String mHeadImgPath;
     private LoginModel loginModel;
 
+    private VersionUpdateDialog mDialog;
+    /**
+     * download url
+     */
+    private String mDownloadUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +98,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         aboutClauseV = (TextView) findViewById(R.id.aboutClauseV);
         loginOutV = (Button) findViewById(R.id.loginOutV);
 
-        versionInfoV.append(VersionUtil.getPackageInfo(this));
+        versionInfoV.append(VersionUtil.getAppVersionName(this));
         headV.setImageURI(UserData.getPersonHeadUrl());
 
     }
@@ -104,6 +114,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         aboutAsV.setOnClickListener(this);
         aboutClauseV.setOnClickListener(this);
         loginOutV.setOnClickListener(this);
+
+        versionInfoV.setOnClickListener(this);
     }
 
     @Override
@@ -172,7 +184,38 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 Intent loginOutIntent = new Intent(this, LoginActivity.class);
                 startActivity(loginOutIntent);
                 break;
+            case R.id.versionInfoV:
+                requestVersionInfo();
+                break;
+            case R.id.btn_ok:
+                downApp();
+                mDialog.dismiss();
+                break;
+            case R.id.btn_cancel:
+                mDialog.dismiss();
+                break;
         }
+    }
+
+    /**
+     * 下载App
+     */
+    private void downApp() {
+//        DownLoadService.startDownloadFile(this, mDownloadUrl);
+
+        Uri uri = Uri.parse(mDownloadUrl);
+        Intent downloadIntent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(downloadIntent);
+
+    }
+
+    /**
+     * 请求版本信息
+     */
+    private void requestVersionInfo() {//APP_VERSION
+        NoHttpRequest<VersionModel> noHttpRequest = new NoHttpRequest(VersionModel.class);
+        noHttpRequest.request(this, HttpConstant.APP_VERSION, null, VERSION_INFO, this, false, null, true, false);
+
     }
 
     @Override
@@ -234,6 +277,29 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                     if (headUpLoadModel.getErr() == 0) {
                         UserData.savePersonHeadUrl(headUpLoadModel.getData().getAvatar());
                     }
+                    break;
+                case VERSION_INFO:
+                    GsonUtil<VersionModel> versonGson = new GsonUtil<>(VersionModel.class);
+                    VersionModel versionModel = versonGson.fromJson(response.get());
+                    if (versionModel.getData().getVersionCode() == VersionUtil.getAppVersionCode(this.getBaseContext
+                            ())) {
+                        ToastUtil.show("当前已经是最新版本了", this);
+                    } else if (versionModel.getData().getVersionCode() > VersionUtil.getAppVersionCode(this
+                            .getBaseContext
+                                    ())) {
+
+                        mDialog = new VersionUpdateDialog(this
+                                , VersionUtil.getAppVersionName(this)
+                                , versionModel.getData().getVersionName()
+                                , versionModel.getData().getReason());
+                        mDownloadUrl = versionModel.getData().getDownloadUrl();
+
+                        mDialog.showDialog();
+                        mDialog.getmBtnOk().setOnClickListener(this);
+                        mDialog.getmBtnCancel().setOnClickListener(this);
+
+                    }
+
                     break;
             }
         } catch (Exception e) {

@@ -102,7 +102,7 @@ public class IndoorFragment extends MyBaseFragment implements HttpListener<Strin
             hasmapParams.put("CategoryCode", getArguments().getString("typeCode", ""));
             responseNoHttpRequest.request(getActivity(), HttpConstant.PRODUCT_LIST, hasmapParams, 1, this, false,
                     "specialOffer",
-                    false, true);
+                    true, true);
         }
     }
 

@@ -105,7 +105,7 @@ public class ChangeUserNameActivity extends AppCompatActivity implements View.On
             GsonUtil<ChangeUserNameModel> changeUserNameModelGsonUtil = new GsonUtil<>(ChangeUserNameModel.class);
             ChangeUserNameModel changeUserNameModel = changeUserNameModelGsonUtil.fromJson(response.get());
             if (changeUserNameModel.getErr() == 0) {
-                Toast toast = Toast.makeText(this, "修改密码成功", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(this, "修改用户名成功", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
 

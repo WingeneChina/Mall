@@ -16,7 +16,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="3dp"
-            android:background="@drawable/grzx_gy"/>
+            android:background="@drawable/search_logo"/>
 
         <TextView
             android:id="@+id/searchMarkV"

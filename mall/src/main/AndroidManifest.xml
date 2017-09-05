@@ -110,14 +110,17 @@
         </activity>
         <activity
             android:name="cn.wingene.mallxm.display.home.firstMenu.activity.SearchActivity"
-            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden">
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
             android:theme="@style/ImagePickerThemeFullScreen"/>
-        <activity android:name="cn.wingene.mallxm.display.home.setting.ChangeUserNameActivity">
+        <activity android:name="cn.wingene.mallxm.display.home.setting.ChangeUserNameActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name="cn.wingene.mallxm.display.home.setting.AboutAsActivity">
+        <activity android:name="cn.wingene.mallxm.display.home.setting.AboutAsActivity"
+                  android:screenOrientation="portrait">
         </activity>
 
         <meta-data
@@ -130,16 +133,18 @@
             android:process=":remote">
         </service>
 
-        <activity android:name="cn.wingene.mallxm.display.home.secondMenu.SpecialDetailActivity">
+        <activity android:name="cn.wingene.mallxm.display.home.secondMenu.SpecialDetailActivity"
+                  android:screenOrientation="portrait">
         </activity>
-
         <activity
             android:name="cn.wingene.mallxm.purchase.LogisticsActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name="cn.wingene.mallxm.purchase.OrderDetailActivity"
             android:screenOrientation="portrait"/>
-
+        <activity android:name="cn.wingene.mallxm.display.WebActivity"
+                  android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

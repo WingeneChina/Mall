@@ -92,23 +92,23 @@ public class NumberTool {
                 option.inputType = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL;
                 EditText et = new EditText(agent.getActivity());
                 et.setBackgroundResource(R.drawable.shape_stroke_darkgray_buttom);
-                EditViewDialog dialog = new EditViewDialog(agent.getActivity(), et);
-                dialog.setParams(title,new OnEditCompleteListener(){
-                    @Override
-                    public void onEditComplete(String record) {
-                        try {
-                        BigDecimal b = new BigDecimal(record);
-                            if (b.compareTo(min) != -1 && b.compareTo(bMax.build()) != 1) {
-                                callback.callBack(b);
-                            } else {
-                                agent.showToast("您输入的值无效!");
-                            }
-                        } catch (Exception e) {
-
-                        }
-                    }
-                },option);
-                agent.showDialog(dialog.getDialog());
+//                EditViewDialog dialog = new EditViewDialog(agent.getActivity(), et);
+//                dialog.setParams(title,new OnEditCompleteListener(){
+//                    @Override
+//                    public void onEditComplete(String record) {
+//                        try {
+//                        BigDecimal b = new BigDecimal(record);
+//                            if (b.compareTo(min) != -1 && b.compareTo(bMax.build()) != 1) {
+//                                callback.callBack(b);
+//                            } else {
+//                                agent.showToast("您输入的值无效!");
+//                            }
+//                        } catch (Exception e) {
+//
+//                        }
+//                    }
+//                },option);
+//                agent.showDialog(dialog.getDialog());
             }
         });
     }

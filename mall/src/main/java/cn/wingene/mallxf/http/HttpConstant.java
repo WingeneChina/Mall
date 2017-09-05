@@ -106,4 +106,9 @@ public class HttpConstant {
      * 热门搜索
      */
     public static final String HOT_SEARCH = HOST + "DictionaryItem/HotSearchList";
+
+    /**
+     * 版本更新
+     */
+    public static final String APP_VERSION = HOST + "SysVersion/Android";
 }

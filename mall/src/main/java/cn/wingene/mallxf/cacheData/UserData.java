@@ -139,4 +139,23 @@ public class UserData {
         return MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getString("localSearch", null);
 
     }
+
+    /**
+     * 保存用户密码
+     */
+    public static void saveUserPwd(String userPwd) {
+        MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).edit().putString("password",
+                userPwd).apply();
+    }
+
+    /**
+     * 获取用户密码
+     *
+     * @return
+     */
+    public static String getUserPwd() {
+        return MyApp.mApp.get().getSharedPreferences("userData", Context.MODE_PRIVATE).getString("password", null);
+
+    }
+
 }
