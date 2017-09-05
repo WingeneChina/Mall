@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="5dp"
+        android:headerDividersEnabled="false"
         android:footerDividersEnabled="false"
         android:orientation="vertical">
     </junze.widget.PullToRefreshListView>
