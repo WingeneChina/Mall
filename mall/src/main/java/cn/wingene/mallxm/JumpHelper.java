@@ -5,7 +5,6 @@ import android.content.Context;
 
 import junze.java.util.StringUtil;
 
-import cn.wingene.mallxm.purchase1.CashActivity;
 import junze.androidxf.core.Agent.Major.IntentBuilder;
 
 import cn.wingene.mallxf.cacheData.UserData;
@@ -16,7 +15,9 @@ import cn.wingene.mallxm.display.home.setting.SettingActivity;
 import cn.wingene.mallxm.purchase.AddressManagerActivity;
 import cn.wingene.mallxm.purchase.CommodityDetailActivity;
 import cn.wingene.mallxm.purchase.OrderListActivity;
+import cn.wingene.mallxm.purchase.RechargeIndexActivity;
 import cn.wingene.mallxm.purchase.ShoppingCartActivity;
+import cn.wingene.mallxm.purchase1.CashActivity;
 
 
 /**
@@ -114,7 +115,16 @@ public class JumpHelper {
      * @param context
      */
     public static void startCashActivity(Context context) {
-        create(context, CashActivity.class);
+        create(context, CashActivity.class).startActivity();
+    }
+
+    /**
+     * 查看账户余额，跳转到应币/游币界面
+     *
+     * @param context
+     */
+    public static void startAccountMoney(Context context) {
+        RechargeIndexActivity.major.startForAmount(context);
     }
 
     /**

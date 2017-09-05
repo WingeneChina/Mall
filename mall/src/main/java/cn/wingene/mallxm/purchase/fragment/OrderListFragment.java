@@ -63,6 +63,11 @@ public class OrderListFragment extends BasePullListFragment {
     }
 
     @Override
+    public int getLayout() {
+        return R.layout.fragment_order_pull_list;
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         BaseSchemeOption option = new BaseSchemeOption();

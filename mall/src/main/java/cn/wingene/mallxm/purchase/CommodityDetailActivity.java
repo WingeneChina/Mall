@@ -321,7 +321,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
     }
 
     public void refreshUI() {
-        if (mSpecList == null && mSpecList.isEmpty()) {
+        if (mSpecList == null || mSpecList.isEmpty()) {
             llytSpec.setVisibility(View.GONE);
         } else {
             llytSpec.setVisibility(View.VISIBLE);

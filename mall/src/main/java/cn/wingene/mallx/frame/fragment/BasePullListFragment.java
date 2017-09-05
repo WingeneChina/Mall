@@ -50,11 +50,15 @@ public abstract class BasePullListFragment extends MyBaseFragment implements Pag
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_pull_list, null);
+        View v = inflater.inflate(getLayout(), null);
         mListViewHolder = new PullListViewHolder(v, R.id.lvContent, this);
         mListView = (PullToRefreshListView) v.findViewById(R.id.lvContent);
         ObserverManager.getInstance().registerObserver(this);
         return v;
+    }
+
+    public int getLayout() {
+        return R.layout.fragment_pull_list;
     }
 
     public final boolean needLoadFirstPage() {

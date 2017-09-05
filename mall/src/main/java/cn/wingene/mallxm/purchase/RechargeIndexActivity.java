@@ -8,9 +8,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import static cn.wingene.mallxm.purchase.RechargeIndexActivity.Major.MAJOR_AMOUNT;
-import static cn.wingene.mallxm.purchase.RechargeIndexActivity.Major.MAJOR_INTEGRAL;
-
 import junze.java.util.StringUtil;
 
 import junze.widget.Tile;
@@ -30,6 +27,7 @@ import cn.wingene.mallxm.purchase.ask.AskIntegralIndex.Response;
  */
 
 public class RechargeIndexActivity extends MyBaseActivity {
+    public static Major major = new Major(RechargeIndexActivity.class);
     private BigDecimal mBigDecimal;
 
     private Tile tlBack;
@@ -74,7 +72,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
         tlList.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                RechargeLogListActivity.major.startForMajor(getActivity(), getMajor());
             }
         });
         tvRecharge.setOnClickListener(new OnClickListener() {
@@ -86,7 +84,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
         tvCash.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                JumpHelper.startCashActivity(getActivity());
             }
         });
         tvAmount.setOnClickListener(new OnClickListener() {
@@ -110,10 +108,10 @@ public class RechargeIndexActivity extends MyBaseActivity {
 
     public void askInit() {
         switch (getMajor()) {
-        case MAJOR_INTEGRAL:
+        case Major.MAJOR_INTEGRAL:
             askIntegral();
             break;
-        case MAJOR_AMOUNT:
+        case Major.MAJOR_AMOUNT:
         default:
             askAmount();
             break;
@@ -144,7 +142,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
 
     public void updateUI2() {
         switch (getMajor()) {
-        case MAJOR_INTEGRAL:
+        case Major.MAJOR_INTEGRAL:
             tvTitle.setText("应币余额");
             tvLabel.setText("应币余额(元)");
             tvCount.setText(String.format("%s", mBigDecimal != null ? mBigDecimal : "0"));
@@ -155,7 +153,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
             tvIntegral.setSelected(true);
             tvAmount.setSelected(false);
             break;
-        case MAJOR_AMOUNT:
+        case Major.MAJOR_AMOUNT:
         default:
             tvTitle.setText("游币余额");
             tvLabel.setText("游币余额(元)");
