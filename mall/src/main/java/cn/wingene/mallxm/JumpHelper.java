@@ -131,15 +131,6 @@ public class JumpHelper {
     }
 
     /**
-     * 查看账户余额，跳转到应币/游币界面
-     *
-     * @param context
-     */
-    public static void startAccountMoney(Context context) {
-
-    }
-
-    /**
      * 跳转到抽奖界面
      *
      * @param context

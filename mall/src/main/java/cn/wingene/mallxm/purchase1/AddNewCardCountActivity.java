@@ -115,7 +115,10 @@ public class AddNewCardCountActivity extends AppCompatActivity implements View.O
      */
     private void requestData() {
         NoHttpRequest<BankListModel> noHttpRequest = new NoHttpRequest<>(BankListModel.class);
-        noHttpRequest.request(this, HttpConstant.ADD_CARD, null, REUEST_ADD_CARD_WHAT, this, false, null, true, false);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("Id", getIntent().getIntExtra("id", 0));
+        noHttpRequest.request(this, HttpConstant.ADD_CARD, hashMap, REUEST_ADD_CARD_WHAT, this, false, null, true,
+                false);
     }
 
     /**
@@ -126,7 +129,7 @@ public class AddNewCardCountActivity extends AppCompatActivity implements View.O
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("Id", getIntent().getIntExtra("id", 0));
         hashMap.put("IsDefault", 0);
-        hashMap.put("BankType", mBankTypeListBeen.get(bankSpinnerV.getSelectedItemPosition()));
+        hashMap.put("BankType", mBankTypeListBeen.get(bankSpinnerV.getSelectedItemPosition()).getId());
         hashMap.put("BankAccount", bankCardUserNameV.getText().toString());
         hashMap.put("BankCardNo", bankCardNumberV.getText().toString());
         hashMap.put("OpenBank", bankBranchV.getText().toString());
@@ -141,9 +144,6 @@ public class AddNewCardCountActivity extends AppCompatActivity implements View.O
                 case REUEST_ADD_CARD_WHAT:
                     GsonUtil<BankListModel> gsonUtil = new GsonUtil<>(BankListModel.class);
                     BankListModel bankListModel = gsonUtil.fromJson(response.get());
-                    bankBranchV.setText(bankListModel.getData().getBankBack().getOpenBank());
-                    bankCardNumberV.setText(bankListModel.getData().getBankBack().getBankCardNo());
-                    bankCardUserNameV.setText(bankListModel.getData().getBankBack().getBankAccount());
 
                     mBankTypeListBeen.clear();
                     mBankTypeListBeen.addAll(bankListModel.getData().getBankTypeList());
@@ -158,6 +158,11 @@ public class AddNewCardCountActivity extends AppCompatActivity implements View.O
                             bankSpinnerV.setSelection(i);
                             break;
                         }
+                    }
+                    if (bankListModel.getData().getBankBack() != null) {
+                        bankBranchV.setText(bankListModel.getData().getBankBack().getOpenBank());
+                        bankCardNumberV.setText(bankListModel.getData().getBankBack().getBankCardNo());
+                        bankCardUserNameV.setText(bankListModel.getData().getBankBack().getBankAccount());
                     }
                     break;
                 case COMMIT_ADD_CARD_WHAT:
