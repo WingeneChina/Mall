@@ -65,6 +65,11 @@ public class RechargeIndexActivity extends MyBaseActivity {
             }
         });
         initListener();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         askInit();
     }
 
@@ -124,7 +129,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
             public void updateUI(Response rsp) {
                 mBigDecimal = new BigDecimal(rsp.getIntegral());
                 setMajor(Major.MAJOR_AMOUNT);
-                RechargeIndexActivity.this.updateUI2();
+                RechargeIndexActivity.this.updateUI();
             }
         });
     }
@@ -135,12 +140,12 @@ public class RechargeIndexActivity extends MyBaseActivity {
             public void updateUI(AskAmountIndex.Response rsp) {
                 mBigDecimal = new BigDecimal(rsp.getAmount());
                 setMajor(Major.MAJOR_INTEGRAL);
-                RechargeIndexActivity.this.updateUI2();
+                RechargeIndexActivity.this.updateUI();
             }
         });
     }
 
-    public void updateUI2() {
+    public void updateUI() {
         switch (getMajor()) {
         case Major.MAJOR_INTEGRAL:
             tvTitle.setText("应币余额");

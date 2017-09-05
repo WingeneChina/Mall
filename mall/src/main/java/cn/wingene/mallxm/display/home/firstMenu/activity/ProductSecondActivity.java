@@ -11,8 +11,6 @@ import cn.wingene.mall.R;
 import cn.wingene.mallxf.util.ActivityUtils;
 import cn.wingene.mallxm.display.home.firstMenu.ProductListFragment;
 
-import static cn.wingene.mallxm.display.home.FirstMenuFragment.PRODUCT_PARAMS;
-
 /**
  * 点击子条目的界面，比如"品牌制造商直供"
  */

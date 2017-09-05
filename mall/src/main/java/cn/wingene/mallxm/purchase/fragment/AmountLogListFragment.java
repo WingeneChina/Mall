@@ -84,7 +84,6 @@ public class AmountLogListFragment extends BasePullListFragment {
     }
 
     public static class RechargeScheme extends Scheme<Integer, AmountLog> {
-        Integer mState;
 
         public RechargeScheme(BasePullListFragment fragmetn) {
             super(fragmetn);
@@ -93,8 +92,7 @@ public class AmountLogListFragment extends BasePullListFragment {
 
         @Override
         public void onInit(BaseSchemeOption option) {
-            mState = option.bundle.getInt("state");
-            peformatInit(mState, new OrderItemHolder(getActivity()));
+            peformatInit(null, new OrderItemHolder(getActivity()));
         }
 
         @Override

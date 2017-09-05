@@ -3,6 +3,6 @@
 
     <!-- auto create by Img2Selector on 2017-08-10 23:28:16; -->
 
-    <item android:drawable="@drawable/shape_solid_color_yellow" android:state_pressed="true"/>
+    <item android:drawable="@drawable/shape_solid_color_yellow" android:state_selected="true"/>
     <item android:drawable="@drawable/shape_solid_color_gray"/>
 </selector>

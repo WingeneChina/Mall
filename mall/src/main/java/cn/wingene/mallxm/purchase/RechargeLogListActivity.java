@@ -41,12 +41,14 @@ public class RechargeLogListActivity extends MyBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recharge_log_list);
+        initComponent();
         tlBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
+        tvTitle.setText("账单详情");
         initFragmentParentId(R.id.lvContent);
         if (getMajor() == 0) {
             turntoFragment(AmountLogListFragment.class, null);

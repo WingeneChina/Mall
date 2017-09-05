@@ -29,6 +29,9 @@
         <junze.widget.Tile
             android:id="@+id/tl_list"
             style="@style/LinearLayout.ActionBarBox"
+            android:layout_width="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
             android:layout_weight="0"
             app:tileText="账单明细"
             app:tileTextColor="@color/dimgray"
@@ -108,7 +111,6 @@
             android:layout_height="@dimen/p70"
             android:text="应币余额"
             android:background="@drawable/slbg_recharge_button"
-
             android:textSize="@dimen/f32"/>
 
         <TextView

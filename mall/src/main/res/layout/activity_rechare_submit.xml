@@ -30,6 +30,9 @@
             android:id="@+id/tl_service"
             style="@style/LinearLayout.ActionBarBox"
             android:layout_weight="0"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:layout_width="wrap_content"
             app:tileText="账单明细"
             app:tileTextColor="@color/dimgray"
             app:tileTextSize="@dimen/f28"
@@ -60,6 +63,7 @@
             android:textSize="@dimen/f36"/>
 
         <EditText
+            android:inputType="numberSigned"
             android:id="@+id/et_number"
             android:layout_width="@dimen/p600"
             android:layout_height="@dimen/p100"
@@ -79,6 +83,7 @@
             android:textSize="@dimen/f36"/>
 
         <EditText
+            android:inputType="numberSigned"
             android:id="@+id/et_password"
             android:layout_width="@dimen/p600"
             android:layout_height="@dimen/p100"
@@ -88,6 +93,7 @@
             android:gravity="center"
             android:hint="请输入密码"
             android:textSize="@dimen/f36"/>
+
         <TextView
             android:id="@+id/tv_submit"
             android:layout_gravity="center_horizontal"
