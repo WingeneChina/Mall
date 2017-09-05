@@ -37,6 +37,7 @@ import static cn.wingene.mallxm.display.home.SecondMenuFragment.MENU_CODE_ARG;
 
 /**
  * Created by wangcq on 2017/8/27.
+ * 周边界面的子界面
  */
 
 public class ThridMenuItemFragment extends MyBaseFragment implements HttpListener<String>, OnReceiveLoactionListener {
@@ -47,7 +48,7 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
     private ThirdMenuItemAdatper mSelectItemAdapter;
 
     private int mOrderBy = 0;
-    private int mPagerIndex = 1;//分页索引
+    private int mPagerIndex = 0;//分页索引
     private List<ThridItemModel.DataBean.ListBean> mListBean = new ArrayList<>();
     private String mLat;
     private String mLong;
@@ -67,8 +68,9 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
         View view = inflater.inflate(R.layout.fragment_select_layout, container, false);
         initViews(view);
         initRecyclerV();
-
-        requestData("", "");
+        mPagerIndex = 0;
+        LocationHelper.getInstance().start(this);
+//        requestData("","");
         return view;
     }
 
@@ -81,7 +83,7 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
         mJDRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPagerIndex = 0;
+                mPagerIndex = 1;
 //                LocationHelper.getInstance().start(ThridMenuItemFragment.this);
                 requestData(mLat, mLong);
 
@@ -117,7 +119,7 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
                 selectRecyclerV.setVisibility(View.VISIBLE);
             }
         }
-        if (mPagerIndex == 0) {
+        if (mPagerIndex == 1) {
             mListBean.clear();
         }
         mListBean.addAll(menuItemContentModel.getData().getList());
@@ -190,9 +192,5 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (!hidden) {
-            LocationHelper.getInstance().start(this);
-
-        }
     }
 }

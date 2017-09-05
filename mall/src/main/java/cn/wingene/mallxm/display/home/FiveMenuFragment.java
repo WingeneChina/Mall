@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -62,6 +63,7 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
     private TextView customerV;
     private TextView updateAddressV;
     private TextView luckyDesV;
+    private RelativeLayout luckGroupV;
     private TextView oneLuckyDesV;
     private TextView versonInfoV;
     private TextView aboutAsV;
@@ -117,6 +119,7 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
         mallMoneyV = (TextView) root.findViewById(R.id.mallMoneyV);
         customerV = (TextView) root.findViewById(R.id.customerV);
         updateAddressV = (TextView) root.findViewById(R.id.updateAddressV);
+        luckGroupV = (RelativeLayout) root.findViewById(R.id.luckGroupV);
         luckyDesV = (TextView) root.findViewById(R.id.luckyDesV);
         oneLuckyDesV = (TextView) root.findViewById(R.id.oneLuckyDesV);
         versonInfoV = (TextView) root.findViewById(R.id.versonInfoV);
@@ -142,6 +145,9 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
 
         versonConentV.setOnClickListener(this);
         mallMoneyV.setOnClickListener(this);
+
+        luckGroupV.setOnClickListener(this);
+
     }
 
     @Override
@@ -197,7 +203,7 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
                 requestVersionInfo();
                 break;
             case R.id.mallMoneyV:
-
+                JumpHelper.startAccountMoney(this.getActivity());
                 break;
             case R.id.btn_ok:
                 downApp();
@@ -205,6 +211,9 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
                 break;
             case R.id.btn_cancel:
                 mDialog.dismiss();
+                break;
+            case R.id.luckGroupV:
+                JumpHelper.startLuckyGame(this.getActivity());
                 break;
             default:
 
