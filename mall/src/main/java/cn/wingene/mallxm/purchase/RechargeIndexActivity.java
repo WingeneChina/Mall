@@ -96,7 +96,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
             @Override
             public void onClick(View v) {
                 if (!tvAmount.isSelected()) {
-                    askIntegral();
+                    askAmount();
                 }
             }
         });
@@ -104,7 +104,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
             @Override
             public void onClick(View v) {
                 if (!tvIntegral.isSelected()) {
-                    askAmount();
+                    askIntegral();
                 }
             }
         });
@@ -128,7 +128,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
             @Override
             public void updateUI(Response rsp) {
                 mBigDecimal = new BigDecimal(rsp.getIntegral());
-                setMajor(Major.MAJOR_AMOUNT);
+                setMajor(Major.MAJOR_INTEGRAL);
                 RechargeIndexActivity.this.updateUI();
             }
         });
@@ -139,7 +139,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
             @Override
             public void updateUI(AskAmountIndex.Response rsp) {
                 mBigDecimal = new BigDecimal(rsp.getAmount());
-                setMajor(Major.MAJOR_INTEGRAL);
+                setMajor(Major.MAJOR_AMOUNT);
                 RechargeIndexActivity.this.updateUI();
             }
         });

@@ -46,7 +46,7 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
     private ThirdMenuItemAdatper mSelectItemAdapter;
 
     private int mOrderBy = 0;
-    private int mPagerIndex = 0;//分页索引
+    private int mPagerIndex = 1;//分页索引
     private List<ThridItemModel.DataBean.ListBean> mListBean = new ArrayList<>();
     private String mLat = "";
     private String mLong = "";
