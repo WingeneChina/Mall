@@ -77,7 +77,7 @@
             android:id="@+id/tv_is_default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_stroke_darkgray"
+            android:background="@drawable/shape_address_solid_color_primary"
             android:paddingLeft="@dimen/p32"
             android:paddingTop="@dimen/p8"
             android:paddingBottom="@dimen/p8"

@@ -3,8 +3,11 @@ package cn.wingene.mallxm;
 import android.app.Activity;
 import android.content.Context;
 
+import junze.java.util.StringUtil;
+
 import junze.androidxf.core.Agent.Major.IntentBuilder;
 
+import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxm.account.LoginActivity;
 import cn.wingene.mallxm.account.RegisterActivity;
 import cn.wingene.mallxm.account.RegisterFirstStepActivity;
@@ -58,6 +61,10 @@ public class JumpHelper {
      * @param context
      */
     public static void startShoppingCartActivity(Context context) {
+        if (!StringUtil.isValid(UserData.getverifiCode())) {
+            JumpHelper.startLoginActivity(context);
+            return;
+        }
         create(context, ShoppingCartActivity.class).startActivity();
     }
 

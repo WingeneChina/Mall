@@ -467,11 +467,32 @@ public class CommodityDetailActivity extends MyBaseActivity {
             etNumber.setSelectAllOnFocus(true);
         }
 
-        public void dispaly(Agent agent, OnClickListener onBuyClick, OnClickListener onCartClick, ProductModel
+        public void dispaly(final Agent agent, final OnClickListener onBuyClick, final OnClickListener onCartClick,
+                ProductModel
                 mModel, UiData mUiData, final IBuilder<Integer> bCurrent, final IBuilder<Integer> bMax, final
         ICallBack<Integer> numberCallback) {
-            tvBuy.setOnClickListener(onBuyClick);
-            tvAddCart.setOnClickListener(onCartClick);
+            tvBuy.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!StringUtil.isValid(etNumber.getText().toString())){
+                        agent.showToast("请输入数量");
+                        return;
+                    }
+                    onBuyClick.onClick(v);
+
+
+                }
+            });
+            tvAddCart.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!StringUtil.isValid(etNumber.getText().toString())){
+                        agent.showToast("请输入数量");
+                        return;
+                    }
+                    onCartClick.onClick(v);
+                }
+            });
             updateNumber(bCurrent.build());
             NumberTool.bindInteger(agent, "请输入数量", 1, bCurrent, bMax, tvReduce, etNumber, tvIncrease, numberCallback);
             //添加list组

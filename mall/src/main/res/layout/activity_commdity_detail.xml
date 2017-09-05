@@ -20,7 +20,8 @@
         <TextView
             android:layout_weight="1"
             android:text="商品详情"
-            android:textSize="@dimen/f36"
+            android:textColor="@color/def_action_bar_title_font"
+            android:textSize="@dimen/def_action_bar_title_font"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

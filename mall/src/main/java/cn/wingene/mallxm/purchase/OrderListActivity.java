@@ -11,11 +11,15 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
+import junze.java.util.StringUtil;
+
 import junze.androidxf.core.Agent;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.model.IndexModel;
 import cn.wingene.mallxf.ui.MyBaseActivity;
+import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.purchase.adapter.OrderFragmentPagerAdapter;
 import cn.wingene.mallxm.purchase.fragment.OrderListFragment;
 
@@ -82,6 +86,10 @@ public class OrderListActivity extends MyBaseActivity {
         }
 
         public void startForOrderState(Context context,int state){
+            if (!StringUtil.isValid(UserData.getverifiCode())) {
+                JumpHelper.startLoginActivity(context);
+                return;
+            }
             buildParams(context,state).startActivity();
         }
 

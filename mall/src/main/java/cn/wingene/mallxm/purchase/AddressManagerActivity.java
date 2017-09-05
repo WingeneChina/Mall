@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import junze.java.util.StringUtil;
+
 import junze.widget.Tile;
 
 import junze.android.ui.ItemViewHolder;
@@ -21,7 +23,9 @@ import junze.android.ui.ItemViewHolder.OnItemViewClickListener;
 import junze.androidxf.core.Agent;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.ui.MyBaseActivity;
+import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.purchase.ask.AskAddressDefault;
 import cn.wingene.mallxm.purchase.ask.AskAddressList;
 import cn.wingene.mallxm.purchase.ask.AskAddressList.AddressItem;
@@ -200,9 +204,9 @@ public class AddressManagerActivity extends MyBaseActivity {
         @Override
         public void display(int i, AddressItem item) {
             tvName.setText(item.getConsignee());
-            tvIsDefault.setText(item.getIsDefault() ? "默认" : "设为默认");
-            tvIsDefault.setBackgroundResource(item.getIsDefault() ? R.drawable.shape_cart_solid_color_primary : R
-                    .drawable.shape_stroke_darkgray);
+            tvIsDefault.setText(item.getIsDefault() ? "   默  认   " : "设为默认");
+            tvIsDefault.setBackgroundResource(item.getIsDefault() ? R.drawable.shape_address_solid_color_primary : R
+                    .drawable.shape_address_stroke_darkgray);
             tvPhone.setText(item.getMobile());
             tvAddress.setText(item.getRegion() + item.getAddress());
             tvEdit.setOnClickListener(buildClickForItem("edit", i));
@@ -219,6 +223,10 @@ public class AddressManagerActivity extends MyBaseActivity {
         }
 
         public void startForChoise(Activity activity, int rc) {
+            if (!StringUtil.isValid(UserData.getverifiCode())) {
+                JumpHelper.startLoginActivity(activity);
+                return;
+            }
             builder(activity).setMajor(MAJOR_CHOISE).startActivityForResult(rc);
         }
 
