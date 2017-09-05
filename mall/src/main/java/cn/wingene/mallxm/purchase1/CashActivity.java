@@ -126,6 +126,22 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
                     cashEditV.setError("请输入提现金额");
                     return;
                 }
+                try {
+                    if (cashEditV.getText().length() > 0) {
+                        double money = Double.parseDouble(cashEditV.getText().toString());
+                        if (money < minMoney) {
+                            cashEditV.setError("提现金额不足100");
+                            return;
+                        }
+                        if (money > maxMoney) {
+                            cashEditV.setError("超过最大金额");
+                        }
+                        return;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return;
+                }
                 if (mBankId == 0) {
                     ToastUtil.show("请选择账户", this);
                     return;
