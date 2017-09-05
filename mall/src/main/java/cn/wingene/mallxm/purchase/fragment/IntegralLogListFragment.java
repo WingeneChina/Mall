@@ -53,7 +53,7 @@ public class IntegralLogListFragment extends BasePullListFragment {
         BaseSchemeOption option = new BaseSchemeOption();
         option.bundle = getArguments();
         getScheme().onInit(option);
-        EmptyOrderViewHolder eh = new EmptyOrderViewHolder(getActivity());
+        EmptyOrderViewHolder eh = new EmptyOrderViewHolder(getActivity(),"暂无明细");
         eh.getView().setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         eh.getView().setVisibility(View.GONE);
         ((ViewGroup) getListView().getParent()).addView(eh.getView());
