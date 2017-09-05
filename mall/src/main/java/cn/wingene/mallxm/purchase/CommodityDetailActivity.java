@@ -22,6 +22,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -39,6 +40,7 @@ import junze.widget.Tile;
 import junze.widget.ViewPager;
 
 import junze.android.ui.ViewHolder;
+import junze.android.util.EditTextUtil;
 import junze.android.util.TextViewUtil;
 import junze.androidxf.core.Agent;
 import junze.androidxf.tool.HtmlLoader;
@@ -358,7 +360,8 @@ public class CommodityDetailActivity extends MyBaseActivity {
             }, new IBuilder<Integer>() {
                 @Override
                 public Integer build() {
-                    return Math.min(mProduct.getStock(), getValidStock());
+                    int max = Math.min(mProduct.getStock(), getValidStock());
+                    return Math.max(max, 1);
                 }
             }, new ICallBack<Integer>() {
                 @Override
@@ -438,20 +441,19 @@ public class CommodityDetailActivity extends MyBaseActivity {
         private LinearLayout llytNumber;
         private TextView tvTitle;
         private TextView tvReduce;
-        private TextView tvNumber;
+        private EditText etNumber;
         private TextView tvIncrease;
         private LinearLayout llOperation;
         private TextView tvBuy;
         private TextView tvAddCart;
 
-        @Override
         protected void initComponent() {
             rlBottom = (RelativeLayout) super.findViewById(R.id.rl_bottom);
             llList = (LinearLayout) super.findViewById(R.id.ll_list);
             llytNumber = (LinearLayout) super.findViewById(R.id.llyt_number);
             tvTitle = (TextView) super.findViewById(R.id.tv_title);
             tvReduce = (TextView) super.findViewById(R.id.tv_reduce);
-            tvNumber = (TextView) super.findViewById(R.id.tv_number);
+            etNumber = (EditText) super.findViewById(R.id.et_number);
             tvIncrease = (TextView) super.findViewById(R.id.tv_increase);
             llOperation = (LinearLayout) super.findViewById(R.id.ll_operation);
             tvBuy = (TextView) super.findViewById(R.id.tv_buy);
@@ -462,6 +464,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
 
         public BottomSheetHolder(Context context) {
             super(context, R.layout.bottom_sheet);
+            etNumber.setSelectAllOnFocus(true);
         }
 
         public void dispaly(Agent agent, OnClickListener onBuyClick, OnClickListener onCartClick, ProductModel
@@ -470,7 +473,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
             tvBuy.setOnClickListener(onBuyClick);
             tvAddCart.setOnClickListener(onCartClick);
             updateNumber(bCurrent.build());
-            NumberTool.bindInteger(agent, "请输入数量", 0, bCurrent, bMax, tvReduce, tvNumber, tvIncrease, numberCallback);
+            NumberTool.bindInteger(agent, "请输入数量", 1, bCurrent, bMax, tvReduce, etNumber, tvIncrease, numberCallback);
             //添加list组
             for (int i = 0; i < mModel.getAttributes().size(); i++) {
                 View viewList = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet_group, null);
@@ -490,7 +493,8 @@ public class CommodityDetailActivity extends MyBaseActivity {
         }
 
         public void updateNumber(Integer integer) {
-            tvNumber.setText(String.format("%s", integer));
+            etNumber.setText(String.format("%s", integer));
+            EditTextUtil.moveCourseToLast(etNumber);
         }
 
 

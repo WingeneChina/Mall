@@ -55,7 +55,7 @@
             android:layout_marginLeft="@dimen/p32"
             android:text=""/>
         <TextView
-            android:id="@+id/tv_number"
+            android:id="@+id/et_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/p16"

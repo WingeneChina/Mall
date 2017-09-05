@@ -51,13 +51,15 @@
                 android:layout_width="1dp"
                 style="@style/Line.Vertical"/>
 
-            <TextView
-                android:id="@+id/tv_number"
+            <EditText
+                android:id="@+id/et_number"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:minWidth="@dimen/p80"
                 android:text="1"
+                android:inputType="numberSigned"
+                android:background="@null"
                 android:textSize="@dimen/f36"/>
 
             <View

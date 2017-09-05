@@ -169,6 +169,7 @@ public class PullListViewHolder extends ViewHolder {
                 public void run() {
                     loadCompleteSuccess();
                     // String msg = "－－已加载全部－－";
+                    //                    String msg = null;
                     String msg = "已加载全部";
                     AKit.e(msg);
                     setTvFooter(msg, false);
@@ -276,7 +277,7 @@ public class PullListViewHolder extends ViewHolder {
 
     public void setTvFooter(final String info, final boolean isLoading) {
         if (tvFooter != null) {
-            tvFooter.setVisibility(View.VISIBLE);
+            tvFooter.setVisibility(!info.contains("全部") ? View.VISIBLE : View.INVISIBLE);
             tvFooter.setText("" + info);
             tvFooter.postInvalidate();
         }

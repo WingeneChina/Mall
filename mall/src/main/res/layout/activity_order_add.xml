@@ -51,63 +51,88 @@
                 android:id="@+id/llyt_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:minHeight="@dimen/p110">
 
-
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/llyt_address_1"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="210"
-                    android:orientation="vertical">
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:paddingTop="@dimen/p16"
-                        android:id="@+id/tv_name"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/p30"
-                        android:text="收货人"
-                        android:textSize="@dimen/f28"/>
-                    <TextView
-                        android:id="@+id/tv_address"
-                        android:text="详情地址"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/p30"
-                        android:layout_marginTop="@dimen/p5"
-                        android:layout_marginBottom="@dimen/p16"
-                        android:textSize="@dimen/f28"/>
+                        android:layout_weight="210"
+                        android:orientation="vertical">
 
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/p30"
+                            android:paddingTop="@dimen/p16"
+                            android:text="收货人"
+                            android:textSize="@dimen/f28"/>
+
+                        <TextView
+                            android:id="@+id/tv_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/p16"
+                            android:layout_marginLeft="@dimen/p30"
+                            android:layout_marginTop="@dimen/p5"
+                            android:text="详情地址"
+                            android:textSize="@dimen/f28"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="450"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:paddingRight="@dimen/p32">
+
+                        <TextView
+                            android:id="@+id/tv_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/p10"
+                            android:paddingTop="@dimen/p16"
+                            android:text="电话"
+                            android:textSize="@dimen/f28"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_stroke_darkgray"
+                            android:paddingLeft="@dimen/p10"
+                            android:paddingTop="@dimen/p10"
+                            android:text="默认"
+                            android:visibility="invisible"/>
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="right"
-                    android:paddingRight="@dimen/p32"
-                    android:layout_weight="450"
-                    android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_address_2"
+                    android:visibility="gone"
+                    android:gravity="center_horizontal|left"
+                    android:layout_marginLeft="@dimen/p30"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/f28"
+                    android:text="请选择收货地址"/>
 
-                    <TextView
-                        android:paddingTop="@dimen/p16"
-                        android:id="@+id/tv_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/p10"
-                        android:textSize="@dimen/f28"
-                        android:text="电话"/>
-                    <TextView
-                        android:background="@drawable/shape_stroke_darkgray"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/p10"
-                        android:paddingTop="@dimen/p10"
-                        android:text="默认"
-                        android:visibility="invisible"/>
-
-
-                </LinearLayout>
 
                 <ImageView
                     android:layout_width="wrap_content"

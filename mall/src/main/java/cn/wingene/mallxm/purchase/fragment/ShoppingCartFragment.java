@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import junze.java.able.IBuilder;
@@ -49,19 +51,24 @@ public class ShoppingCartFragment extends MyBaseFragment {
 
     private Tile tlBack;
     private Tile tlService;
+    private LinearLayout llytCart;
     private ListView lvCartItem;
     private Tile tlSelectAll;
     private TextView tvTotal;
     private TextView tvOrder;
+    private RelativeLayout rlytCartEmpty;
 
     protected void initComponent(View v){
         tlBack = (Tile) v.findViewById(R.id.tl_back);
         tlService = (Tile) v.findViewById(R.id.tl_service);
+        llytCart = (LinearLayout) v.findViewById(R.id.llyt_cart);
         lvCartItem = (ListView) v.findViewById(R.id.lv_cart_item);
         tlSelectAll = (Tile) v.findViewById(R.id.tl_select_all);
         tvTotal = (TextView) v.findViewById(R.id.tv_total);
         tvOrder = (TextView) v.findViewById(R.id.tv_order);
+        rlytCartEmpty = (RelativeLayout) v.findViewById(R.id.rlyt_cart_empty);
     }
+
 
 
 
@@ -171,9 +178,12 @@ public class ShoppingCartFragment extends MyBaseFragment {
                 total += item.getProductNumber() * item.getProductPrice();
             }
         }
-        mItemHolder.notifyDataSetChanged();
         tlSelectAll.setSelected(isAllSelect());
         tvTotal.setText(String.format("￥%.2f", total));
+        mItemHolder.notifyDataSetChanged();
+        boolean empty = mItemHolder.isEmpty();
+        llytCart.setVisibility(empty ? View.GONE : View.VISIBLE);
+        rlytCartEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
 
     }
 
@@ -211,7 +221,7 @@ public class ShoppingCartFragment extends MyBaseFragment {
             ivDelete = (ImageView) super.findViewById(R.id.iv_delete);
             tvSubTitle = (TextView) super.findViewById(R.id.tv_sub_title);
             tvReduce = (TextView) super.findViewById(R.id.tv_reduce);
-            tvNumber = (TextView) super.findViewById(R.id.tv_number);
+            tvNumber = (TextView) super.findViewById(R.id.et_number);
             tvIncrease = (TextView) super.findViewById(R.id.tv_increase);
             tvPrice = (TextView) super.findViewById(R.id.tv_price);
         }

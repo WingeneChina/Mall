@@ -8,13 +8,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.location.BDLocation;
-
 import junze.java.able.ICallBack;
 
 import junze.android.ui.ViewHolder;
-import junze.androidx.baidu.LocationHelper;
-import junze.androidx.baidu.OnReceiveLoactionListener;
 import junze.androidxf.core.Agent;
 import junze.androidxf.kit.AKit;
 
@@ -29,6 +25,9 @@ public class BottomPayChoiseDialog extends BottomSheetDialog {
 
     public BottomPayChoiseDialog(@NonNull Context context) {
         super(context);
+//        getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED |
+//                LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
     }
 
     public void show(Agent agent, double sum, View.OnClickListener onClose, final ICallBack<Boolean> callBack) {
@@ -37,6 +36,7 @@ public class BottomPayChoiseDialog extends BottomSheetDialog {
             setContentView(mHolder.getView());
         }
         mHolder.dispaly(sum, onClose, callBack);
+//        adjustUnspecified|stateHidden
         agent.showDialog(this);
     }
 
@@ -74,6 +74,10 @@ public class BottomPayChoiseDialog extends BottomSheetDialog {
             ImageView[] ivAll = {ivPaySelect, ivWxSelect};
             bindSwitch(llytPay, ivAll, ivPaySelect);
             bindSwitch(llytWx, ivAll, ivWxSelect);
+            ////
+            llytWx.setVisibility(View.GONE); // // TODO: 2017/9/5 微信支付未实现。
+            ivPaySelect.setSelected(true);
+            ////
             tvOk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

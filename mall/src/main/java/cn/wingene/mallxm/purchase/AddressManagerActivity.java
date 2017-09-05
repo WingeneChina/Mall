@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import junze.widget.Tile;
@@ -36,14 +38,19 @@ public class AddressManagerActivity extends MyBaseActivity {
     ItemHolder mItemHolder;
 
     private Tile tlBack;
+    private LinearLayout llytAddress;
     private ListView lvAddressItem;
+    private RelativeLayout rlytAddressEmpty;
     private TextView tvAddAddress;
 
     protected void initComponent() {
         tlBack = (Tile) super.findViewById(R.id.tl_back);
+        llytAddress = (LinearLayout) super.findViewById(R.id.llyt_address);
         lvAddressItem = (ListView) super.findViewById(R.id.lv_address_item);
+        rlytAddressEmpty = (RelativeLayout) super.findViewById(R.id.rlyt_address_empty);
         tvAddAddress = (TextView) super.findViewById(R.id.tv_add_address);
     }
+
 
 
     @Override
@@ -81,7 +88,7 @@ public class AddressManagerActivity extends MyBaseActivity {
                 }
             }
         });
-        mItemHolder.notifyDataSetChanged();
+        refreshUI();
         OnItemViewClickListener listener = new OnItemViewClickListener() {
             @Override
             public void onItemViewClick(View view, String s, ItemViewHolder<?> itemViewHolder, int i) {
@@ -97,7 +104,7 @@ public class AddressManagerActivity extends MyBaseActivity {
                                 @Override
                                 public void updateUI(AskAddressRemove.Response rsp) {
                                     mItemHolder.getList().remove(item);
-                                    mItemHolder.notifyDataSetChanged();
+                                    refreshUI();
                                 }
                             });
                         }
@@ -111,7 +118,7 @@ public class AddressManagerActivity extends MyBaseActivity {
                                     ai.setDefault(false);
                                 }
                                 item.setDefault(true);
-                                mItemHolder.notifyDataSetChanged();
+                                refreshUI();
                             }
                         });
                     } else {
@@ -131,9 +138,16 @@ public class AddressManagerActivity extends MyBaseActivity {
             public void updateUI(Response rsp) {
                 mItemHolder.clear();
                 mItemHolder.addAll(rsp.getList());
-                mItemHolder.notifyDataSetChanged();
+                refreshUI();
             }
         });
+    }
+
+    public void refreshUI() {
+        mItemHolder.notifyDataSetChanged();
+        boolean empty = mItemHolder.isEmpty();
+        llytAddress.setVisibility(empty ? View.GONE : View.VISIBLE);
+        rlytAddressEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
     }
 
     @Override

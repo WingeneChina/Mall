@@ -74,7 +74,7 @@ public class OrderDetailActivity extends MyBaseActivity {
         tvPhone = (TextView) super.findViewById(R.id.tv_phone);
         hmlvProduct = (HightMatchListView) super.findViewById(R.id.hmlv_product);
         tvNo = (TextView) super.findViewById(R.id.tv_no);
-        tvNumber = (TextView) super.findViewById(R.id.tv_number);
+        tvNumber = (TextView) super.findViewById(R.id.et_number);
         tvSumPrice = (TextView) super.findViewById(R.id.tv_sum_price);
         tvDeliveryFee = (TextView) super.findViewById(R.id.tv_delivery_fee);
         tvAmount = (TextView) super.findViewById(R.id.tv_amount);

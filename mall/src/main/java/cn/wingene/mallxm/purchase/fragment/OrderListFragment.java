@@ -215,7 +215,7 @@ public class OrderListFragment extends BasePullListFragment {
         protected void initComponent() {
             hmlvProduct = (HightMatchListView) super.findViewById(R.id.hmlv_product);
             tvState = (TextView) super.findViewById(R.id.tv_state);
-            tvNumber = (TextView) super.findViewById(R.id.tv_number);
+            tvNumber = (TextView) super.findViewById(R.id.et_number);
             tvTotal = (TextView) super.findViewById(R.id.tv_total);
             tvNo = (TextView) super.findViewById(R.id.tv_no);
             tvLeft = (TextView) super.findViewById(R.id.tv_left);

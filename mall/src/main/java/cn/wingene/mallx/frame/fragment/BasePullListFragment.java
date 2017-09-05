@@ -23,12 +23,15 @@ import junze.widget.PullToRefreshListView;
 
 import junze.android.ui.ItemViewHolder;
 import junze.androidxf.http.BaseParamsRequest;
-import junze.androidxf.ui.holder.PullListViewHolder;
-import junze.androidxf.ui.holder.PullListViewHolder.PageAble;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallx.frame.holder.PullListViewHolder;
+import cn.wingene.mallx.frame.holder.PullListViewHolder.PageAble;
 import cn.wingene.mallxf.MyAgent;
 import cn.wingene.mallxf.ui.MyBaseFragment;
+
+//import junze.androidxf.ui.holder.PullListViewHolder;
+//import junze.androidxf.ui.holder.PullListViewHolder.PageAble;
 
 
 /**

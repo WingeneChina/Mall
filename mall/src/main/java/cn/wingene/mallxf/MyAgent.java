@@ -2,13 +2,17 @@ package cn.wingene.mallxf;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.widget.EditText;
 
 import junze.java.net.IHttpElement.IRequest;
 import junze.java.net.IHttpElement.IResponse;
 
 import junze.androidxf.core.Agent;
 
+import cn.wingene.mall.R;
 import cn.wingene.mallx.frame.ui.EditViewDialogDeclare.EditViewDialog;
+import cn.wingene.mallx.frame.ui.EditViewDialogDeclare.OnEditCompleteListener;
+import cn.wingene.mallx.frame.ui.EditViewDialogDeclare.Option;
 import cn.wingene.mallxf.http.Ask.NeedLoginException;
 import cn.wingene.mallxm.JumpHelper;
 
@@ -62,14 +66,13 @@ public class MyAgent extends Agent {
 
 
 
-//    public void showEditViewDialog2(CharSequence title, Option option, OnEditCompleteListener onEditComplete) {
-//        if(this.mEditViewDialog == null) {
-//            EditText et = new EditText(getActivity());
-//            et.setBackgroundResource(R.drawable.shape_stroke_darkgray_buttom);
-//            mEditViewDialog = new EditViewDialog(getActivity(), et);
-//        }
-//
-//        this.mEditViewDialog.setParams(title, onEditComplete, option);
-//        this.showDialog(this.mEditViewDialog.getDialog());
-//    }
+    public void showEditViewDialog2(CharSequence title, Option option, OnEditCompleteListener onEditComplete) {
+        if(this.mEditViewDialog == null) {
+            EditText et = new EditText(getActivity());
+            et.setBackgroundResource(R.drawable.shape_stroke_darkgray_buttom);
+            mEditViewDialog = new EditViewDialog(getActivity());
+        }
+        this.mEditViewDialog.setParams(title, onEditComplete, option);
+        this.showDialog(this.mEditViewDialog.getDialog());
+    }
 }

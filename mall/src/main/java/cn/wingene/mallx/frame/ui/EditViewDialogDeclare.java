@@ -1,11 +1,14 @@
 package cn.wingene.mallx.frame.ui;
 
+import java.math.BigDecimal;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -101,25 +104,22 @@ public class EditViewDialogDeclare {
         private OnEditCompleteListener mOnEditComplate;
         private String mInitial;
 
-        public EditViewDialog(Context context) {
-            super(context, R.layout.dialog_number);
+        private TextView tvReduce;
+        private EditText etNumber;
+        private TextView tvIncrease;
+
+        @Override
+        protected void initComponent(){
+            tvReduce = (TextView) super.findViewById(R.id.tv_reduce);
+            etNumber = (EditText) super.findViewById(R.id.et_number);
+            tvIncrease = (TextView) super.findViewById(R.id.tv_increase);
         }
 
-        //        public EditViewDialog(Activity activity) {
-//            this.mActivity = activity;
-//        }
-//
-//        public EditViewDialog(Activity activity, EditText editText) {
-//            this.mActivity = activity;
-//            mEditText = editText;
-//            _initEditText();
-//        }
 
-        public void initEditText() {
-            if (mEditText == null) {
-                mEditText = new EditText(mContext);
-                _initEditText();
-            }
+        public EditViewDialog(Context context) {
+            super(context, R.layout.dialog_number);
+            mEditText = etNumber;
+            _initEditText();
         }
 
         private void _initEditText() {
@@ -174,8 +174,7 @@ public class EditViewDialogDeclare {
 
         public void initDialog() {
             if (mDialog == null) {
-                initEditText();
-                mDialog = new AlertDialog.Builder(getActivity()).setView(mEditText).create();
+                mDialog = new AlertDialog.Builder(getActivity()).setView(this.getView()).create();
                 mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 
                     @Override
@@ -208,7 +207,6 @@ public class EditViewDialogDeclare {
         }
 
         public EditViewDialog setRawInputType(int type) {
-            initEditText();
             if(InputConfig.getInstance().isRawInputable()){
                 mEditText.setRawInputType(type);
             }
@@ -234,12 +232,33 @@ public class EditViewDialogDeclare {
             if (o.rawInputType != null && InputConfig.getInstance().isRawInputable()) {
                 mEditText.setRawInputType(o.rawInputType);
             }
+            tvReduce.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try{
+                        BigDecimal num = new BigDecimal(etNumber.getText().toString());
+                        num = num.subtract(BigDecimal.ONE);
+                        etNumber.setText(String.format("%s",num));
+                    }catch (Exception e){
+
+                    }
+
+                }
+            });
+            tvIncrease.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try{
+                        BigDecimal num = new BigDecimal(etNumber.getText().toString());
+                        num = num.add(BigDecimal.ONE);
+                        etNumber.setText(String.format("%s",num));
+                    }catch (Exception e){
+
+                    }
+                }
+            });
             return this;
         }
 
-        @Override
-        protected void initComponent() {
-
-        }
     }
 }

@@ -59,9 +59,11 @@ public class OrderAddActivity extends MyBaseActivity {
     private Tile tlBack;
     private Tile tlService;
     private LinearLayout llytAddress;
+    private LinearLayout llytAddress1;
     private TextView tvName;
     private TextView tvAddress;
     private TextView tvPhone;
+    private TextView tvAddress2;
     private HightMatchListView lvOrder;
     private TextView tvTotal;
     private TextView tvIntegral;
@@ -82,9 +84,11 @@ public class OrderAddActivity extends MyBaseActivity {
         tlBack = (Tile) super.findViewById(R.id.tl_back);
         tlService = (Tile) super.findViewById(R.id.tl_service);
         llytAddress = (LinearLayout) super.findViewById(R.id.llyt_address);
+        llytAddress1 = (LinearLayout) super.findViewById(R.id.llyt_address_1);
         tvName = (TextView) super.findViewById(R.id.tv_name);
         tvAddress = (TextView) super.findViewById(R.id.tv_address);
         tvPhone = (TextView) super.findViewById(R.id.tv_phone);
+        tvAddress2 = (TextView) super.findViewById(R.id.tv_address_2);
         lvOrder = (HightMatchListView) super.findViewById(R.id.lv_order);
         tvTotal = (TextView) super.findViewById(R.id.tv_total);
         tvIntegral = (TextView) super.findViewById(R.id.tv_integral);
@@ -101,6 +105,7 @@ public class OrderAddActivity extends MyBaseActivity {
         tvRealTotal = (TextView) super.findViewById(R.id.tv_real_total);
         tvPay = (TextView) super.findViewById(R.id.tv_pay);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,7 +184,7 @@ public class OrderAddActivity extends MyBaseActivity {
         }, new IBuilder<Double>() {
             @Override
             public Double build() {
-                return Math.min(mAccount.getAmount(), mPayPrice - mAmount - mIntegral / 100);
+                return Math.min(mAccount.getAmount(), mPayPrice - (double)mIntegral / 100);
             }
         }, tvAmountReduce, tvAmountNumber, tvAmountIncrease, new ICallBack<Double>() {
             @Override
@@ -198,7 +203,7 @@ public class OrderAddActivity extends MyBaseActivity {
         }, new IBuilder<Integer>() {
             @Override
             public Integer build() {
-                return Math.min(mAcceptIntegral, (int) (mPayPrice - mAmount - mIntegral / 100));
+                return Math.min(mAcceptIntegral, (int) (mPayPrice - mAmount) * 100);
             }
         }, tvIntegralReduce, tvIntegralNumber, tvIntegralIncrease, new ICallBack<Integer>() {
             @Override
@@ -220,9 +225,12 @@ public class OrderAddActivity extends MyBaseActivity {
 
 
     public void setAddress(IAddress address) {
+        llytAddress1.setVisibility(address != null ? View.VISIBLE : View.GONE);
+        tvAddress2.setVisibility(address == null ? View.VISIBLE : View.GONE);
         tvName.setText(address != null ? address.getConsignee() : "");
         tvPhone.setText(address != null ? address.getMobile() : "");
         tvAddress.setText(address != null ? address.getRegion() + address.getAddress() : "");
+
     }
 
     public void setAccount(Account account) {
@@ -258,7 +266,7 @@ public class OrderAddActivity extends MyBaseActivity {
         protected void initComponent() {
             ivProduct = (ImageView) super.findViewById(R.id.iv_product);
             tvTitle = (TextView) super.findViewById(R.id.tv_title);
-            tvNumber = (TextView) super.findViewById(R.id.tv_number);
+            tvNumber = (TextView) super.findViewById(R.id.et_number);
             tvSubTitle = (TextView) super.findViewById(R.id.tv_sub_title);
             tvPrice = (TextView) super.findViewById(R.id.tv_price);
         }
