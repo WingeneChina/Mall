@@ -91,9 +91,9 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
                             cashEditV.setError("提现金额不足100");
                             return;
                         }
-                        if (money > maxMoney) {
-                            cashEditV.setError("超过最大金额");
-                        }
+//                        if (money > maxMoney) {
+//                            cashEditV.setError("超过最大金额");
+//                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -133,10 +133,6 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
                             cashEditV.setError("提现金额不足100");
                             return;
                         }
-                        if (money > maxMoney) {
-                            cashEditV.setError("超过最大金额");
-                        }
-                        return;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
