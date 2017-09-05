@@ -30,7 +30,8 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
     private final int ENTER_CASH_WHAT = 1;
     private final int COMMIT_CASH_WHAT = 2;
 
-    private final int BANK_REQUEST_CODE = 1;
+    public static final int BANK_REQUEST_CODE = 1;
+    public static final int BANK_FINISH_CODE = 2;
 
     private ImageView backIcon;
     private TextView titleV;
@@ -115,6 +116,7 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.addNewAccountGroupV:
                 Intent intent = new Intent(this, AddNewCardCountActivity.class);
+                intent.putExtra("id", mBankId);
                 startActivityForResult(intent, BANK_REQUEST_CODE);
                 break;
             case R.id.cashCommitV:
@@ -181,13 +183,9 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
 
                     break;
                 case COMMIT_CASH_WHAT:
-                    GsonUtil<CashCommitResultModel> gsonUtil1 = new GsonUtil<>(CashCommitResultModel.class);
-                    CashCommitResultModel cashCommitResultModel = gsonUtil1.fromJson(response.get());
-                    if (cashCommitResultModel.getErr() == 0 && cashCommitResultModel.getData() != null) {
-
-                    } else {
-                        ToastUtil.show(cashCommitResultModel.getMsg(), this);
-                    }
+                    Intent intent = new Intent(this, CashSuccessActivity.class);
+                    intent.putExtra("cashResult", response.get());
+                    startActivityForResult(intent, BANK_FINISH_CODE);
                     break;
             }
         } catch (Exception e) {
@@ -203,6 +201,15 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case BANK_REQUEST_CODE://获取账户
+                requestUserCanCash();
 
+                break;
+
+            case BANK_FINISH_CODE://流程结束
+                finish();
+                break;
+        }
     }
 }
