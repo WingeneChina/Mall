@@ -48,7 +48,7 @@ public class RechargeLogListActivity extends MyBaseActivity {
                 onBackPressed();
             }
         });
-        tvTitle.setText("账单详情");
+        tvTitle.setText("账单明细");
         initFragmentParentId(R.id.lvContent);
         if (getMajor() == 0) {
             turntoFragment(AmountLogListFragment.class, null);
