@@ -48,8 +48,8 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
     private int mOrderBy = 0;
     private int mPagerIndex = 1;//分页索引
     private List<ThridItemModel.DataBean.ListBean> mListBean = new ArrayList<>();
-    private String mLat = "";
-    private String mLong = "";
+    private String mLat = "";//"26.134389";
+    private String mLong = "";//"119.328601";
 
 
     public static ThridMenuItemFragment newInstance(Bundle bundle) {
@@ -68,7 +68,7 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
         initRecyclerV();
         mPagerIndex = 1;
         LocationHelper.getInstance().start(this);
-//        requestData("","");
+//        requestData(mLat,mLong);
         return view;
     }
 
