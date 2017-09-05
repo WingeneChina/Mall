@@ -7,5 +7,6 @@
     <dimen name="f24">@dimen/pxd24_360xh</dimen>
     <dimen name="f20">@dimen/pxd20_360xh</dimen>
 
-    <dimen name="def_action_bar_title_font">@dimen/f32</dimen>
+    <dimen name="def_action_bar_title_font">16sp</dimen>
+
 </resources>

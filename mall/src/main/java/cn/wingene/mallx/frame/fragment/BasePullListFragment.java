@@ -1,8 +1,6 @@
 package cn.wingene.mallx.frame.fragment;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +14,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListAdapter;
 
-import junze.java.able.IdAble;
-import junze.java.bean.Duo;
 import junze.java.manager.ObserverManager;
 import junze.java.manager.ObserverManager.Observer;
 import junze.java.net.IHttpCacheElement.ICacheRequest;
@@ -82,7 +78,9 @@ public abstract class BasePullListFragment extends MyBaseFragment implements Pag
 
     @Override
     public void onDestroy() {
-        mListViewHolder.onDestory();
+        if(mListViewHolder != null){
+            mListViewHolder.onDestory();
+        }
         super.onDestroy();
     }
 

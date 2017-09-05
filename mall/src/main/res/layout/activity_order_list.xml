@@ -16,15 +16,7 @@
             android:layout_centerVertical="true"
             android:onClick="onClick"
             android:padding="10dp"
-            android:src="@drawable/ic_navigate_before_black_24dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="我的订单"
-            android:textColor="@color/three_text_color"
-            android:textSize="16sp"/>
+            android:src="@drawable/slic_all_back"/>
 
         <ImageView
             android:visibility="invisible"
@@ -34,6 +26,17 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_search_black_24dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="我的订单"
+            android:textColor="@color/def_action_bar_title_font"
+            android:textSize="@dimen/def_action_bar_title_font"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
     </RelativeLayout>
     <View style="@style/Line.Horizontal" />
 

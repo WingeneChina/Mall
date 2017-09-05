@@ -41,7 +41,7 @@ import junze.androidxf.manager.PhoneManager;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.util.GlideImageLoader;
-import cn.wingene.mallxm.MainActivity;
+import cn.wingene.mallxm.WgMainActivity;
 
 /**
  * Created by Wingene on 2017/6/12.
@@ -138,7 +138,7 @@ public class MyApp extends Application implements CrashHandleAble {
         // 以下用来捕获程序崩溃异常
         Intent intent = new Intent();
         // 参数1：包名，参数2：程序入口的activity
-        intent.setClassName(getPackageName(), MainActivity.class.getName());
+        intent.setClassName(getPackageName(), WgMainActivity.class.getName());
         PendingIntent restartIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
         AlarmManager mgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);

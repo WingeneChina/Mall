@@ -319,7 +319,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
     }
 
     public void refreshUI() {
-        if (mSpecList == null) {
+        if (mSpecList == null && mSpecList.isEmpty()) {
             llytSpec.setVisibility(View.GONE);
         } else {
             llytSpec.setVisibility(View.VISIBLE);
@@ -338,7 +338,8 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 if (StringUtil.isValid(mProduct.getSpecDesp2()) && StringUtil.isValid(names[1])) {
                     list.add(String.format("%s:%s",mProduct.getSpecDesp2(),names[1]));
                 }
-                tvSpec.setText(StringUtil.spellBy(list));
+                String info = StringUtil.spellBy(list);
+                tvSpec.setText(StringUtil.isValid(info) ? info : "请选择商品规格");
             }
         }
     }
@@ -477,7 +478,8 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 RecyclerView recyclerViewBottom = (RecyclerView) viewList.findViewById(R.id.recycler_bottom);
                 AttributesEntity attributesEntity = mModel.getAttributes().get(i);
                 SkuAdapter skuAdapter = new SkuAdapter(attributesEntity.getAttributeMembers());
-                tvTitle.setText(attributesEntity.getName());
+//                tvTitle.setText(attributesEntity.getName());
+                TextViewUtil.showOrGone(tvTitle,attributesEntity.getName());
                 mUiData.getAdapters().add(skuAdapter);
                 int item = 4;//设置列数
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), item);

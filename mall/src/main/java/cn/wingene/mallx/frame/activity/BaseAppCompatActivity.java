@@ -71,7 +71,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         setMajor(Major.getMajor(this, savedInstanceState));
         super.onCreate(savedInstanceState);
         if(savedInstanceState != null){
-            RestoreKit.restoreInstance(BaseFragmentActivity.class,this, RestoreType.ON_CREATE,savedInstanceState
+            RestoreKit.restoreInstance(BaseAppCompatActivity.class,this, RestoreType.ON_CREATE,savedInstanceState
                     .getString(BASE_FRAGMENT_ACTIVITY_SAVE_INSTANCE));
         }
         getAgent().addAgent(AndroidFramer.getInstance().getAgent());
@@ -124,7 +124,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         Major.saveMajor(this, outState);
-        outState.putString(BASE_FRAGMENT_ACTIVITY_SAVE_INSTANCE,RestoreKit.buildInstanceString(BaseFragmentActivity.class,
+        outState.putString(BASE_FRAGMENT_ACTIVITY_SAVE_INSTANCE,RestoreKit.buildInstanceString(BaseAppCompatActivity.class,
                 this)); ;
         FragmentHelper.saveFragmentState(this, outState);
         getAgent().onSaveInstanceState(this, outState);

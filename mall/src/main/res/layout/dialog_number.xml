@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_margin="@dimen/p64"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        android:layout_marginRight="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/p60"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/shape_stroke_darkgray">
+
+        <TextView
+            android:id="@+id/tv_reduce"
+            android:layout_width="@dimen/p80"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="-"
+            android:textSize="@dimen/f40"
+            android:textStyle="bold"/>
+
+        <View
+            android:layout_width="1dp"
+            style="@style/Line.Vertical"/>
+
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:minWidth="@dimen/p80"
+            android:text="1"
+            android:textSize="@dimen/f36"/>
+
+        <View
+            android:layout_width="1dp"
+            style="@style/Line.Vertical"/>
+
+        <TextView
+            android:id="@+id/tv_increase"
+            android:layout_width="@dimen/p80"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="+"
+            android:textSize="@dimen/f40"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+</LinearLayout>

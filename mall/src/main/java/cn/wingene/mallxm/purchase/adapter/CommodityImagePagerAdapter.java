@@ -2,16 +2,15 @@ package cn.wingene.mallxm.purchase.adapter;
 
 import java.util.List;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cn.wingene.mall.R;
-import cn.wingene.mallxm.game.LuckyActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import cn.wingene.mall.R;
 
 /**
  * Created by wangcq on 2017/8/9.
@@ -51,15 +50,15 @@ public class CommodityImagePagerAdapter extends PagerAdapter {
 
         container.addView(mView);
 
-        mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (position == urlList.size() - 2) {
-                    Intent intent = new Intent(container.getContext(), LuckyActivity.class);
-                    container.getContext().startActivity(intent);
-                }
-            }
-        });
+//        mView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (position == urlList.size() - 2) {
+//                    Intent intent = new Intent(container.getContext(), LuckyActivity.class);
+//                    container.getContext().startActivity(intent);
+//                }
+//            }
+//        });
 
         return mView;
     }

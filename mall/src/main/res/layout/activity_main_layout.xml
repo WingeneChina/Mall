@@ -28,7 +28,6 @@
         <RadioButton
             android:id="@+id/firstMenuV"
             style="@style/menu_style"
-            android:checked="true"
             android:drawableTop="@drawable/home_selector"
             android:text="@string/first_menu"
             />

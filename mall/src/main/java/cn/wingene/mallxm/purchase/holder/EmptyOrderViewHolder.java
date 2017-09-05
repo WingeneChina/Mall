@@ -8,7 +8,7 @@ import android.widget.TextView;
 import junze.android.ui.ViewHolder;
 
 import cn.wingene.mall.R;
-import cn.wingene.mallxm.JumpHelper;
+import cn.wingene.mallxm.WgMainActivity;
 
 /**
  * Created by Wingene on 2017/8/30.
@@ -28,7 +28,7 @@ public class EmptyOrderViewHolder extends ViewHolder {
         tvGoHome.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpHelper.startMainActivity(context);
+                WgMainActivity.major.startForPosition(context,0);
             }
         });
     }

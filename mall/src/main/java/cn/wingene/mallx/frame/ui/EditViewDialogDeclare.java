@@ -1,6 +1,5 @@
 package cn.wingene.mallx.frame.ui;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,9 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import junze.android.text.mothed.InputConfig;
+import junze.android.ui.ViewHolder;
 import junze.android.util.DialogUtil;
 import junze.android.util.EditTextUtil;
 import junze.androidxf.kit.AKit;
+
+import cn.wingene.mall.R;
 
 public class EditViewDialogDeclare {
     public interface OnEditCompleteListener {
@@ -75,7 +77,12 @@ public class EditViewDialogDeclare {
 //        }
 
         public static Option createOption() {
-            return createOption("", "确定", new OnClickListener() {
+            return createOption("", "取消 ", new OnClickListener() {
+                @Override
+                public void onClick(EditViewDialog dialog, int which) {
+                    dialog.hideOnCancel();
+                }
+            }, "确定", new OnClickListener() {
 
                 @Override
                 public void onClick(EditViewDialog dialog, int which) {
@@ -83,35 +90,34 @@ public class EditViewDialogDeclare {
                     dialog.hideOnSuccess();
 
                 }
-            }, "取消 ", new OnClickListener() {
-                @Override
-                public void onClick(EditViewDialog dialog, int which) {
-                    dialog.hideOnCancel();
-                }
             });
         }
     }
 
-    public static class EditViewDialog {
-        private final Activity mActivity;
+    public static class EditViewDialog extends ViewHolder {
+//        private final Activity mActivity;
         private AlertDialog mDialog;
         private EditText mEditText;
         private OnEditCompleteListener mOnEditComplate;
         private String mInitial;
 
-        public EditViewDialog(Activity activity) {
-            this.mActivity = activity;
+        public EditViewDialog(Context context) {
+            super(context, R.layout.dialog_number);
         }
 
-        public EditViewDialog(Activity activity, EditText editText) {
-            this.mActivity = activity;
-            mEditText = editText;
-            _initEditText();
-        }
+        //        public EditViewDialog(Activity activity) {
+//            this.mActivity = activity;
+//        }
+//
+//        public EditViewDialog(Activity activity, EditText editText) {
+//            this.mActivity = activity;
+//            mEditText = editText;
+//            _initEditText();
+//        }
 
         public void initEditText() {
             if (mEditText == null) {
-                mEditText = new EditText(mActivity);
+                mEditText = new EditText(mContext);
                 _initEditText();
             }
         }
@@ -151,7 +157,7 @@ public class EditViewDialogDeclare {
 
         public void onEditComplete() {
             mDialog.cancel();
-            AKit.hideSoftInput(mActivity);
+            AKit.hideSoftInput(getActivity());
             if (mOnEditComplate != null) {
                 mOnEditComplate.onEditComplete(mEditText.getText().toString());
             }
@@ -159,7 +165,7 @@ public class EditViewDialogDeclare {
 
         public void hideOnCancel(){
             mDialog.cancel();
-            AKit.hideSoftInput(mActivity);
+            AKit.hideSoftInput(getActivity());
             mDialog.show();
         }
         public void hideOnSuccess(){
@@ -169,14 +175,14 @@ public class EditViewDialogDeclare {
         public void initDialog() {
             if (mDialog == null) {
                 initEditText();
-                mDialog = new AlertDialog.Builder(mActivity).setView(mEditText).create();
+                mDialog = new AlertDialog.Builder(getActivity()).setView(mEditText).create();
                 mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 
                     @Override
                     public void onShow(DialogInterface dialog) {
                         mEditText.setText(mInitial);
                         EditTextUtil.moveCourseToLast(mEditText);
-                        InputMethodManager imm = (InputMethodManager) mActivity
+                        InputMethodManager imm = (InputMethodManager) getActivity()
                                 .getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                     }
@@ -189,7 +195,7 @@ public class EditViewDialogDeclare {
 
                             @Override
                             public void run() {
-                                AKit.hideSoftInputFromWindow(mActivity);
+                                AKit.hideSoftInputFromWindow(getActivity());
                             };
                         }, 200);
                     }
@@ -229,6 +235,11 @@ public class EditViewDialogDeclare {
                 mEditText.setRawInputType(o.rawInputType);
             }
             return this;
+        }
+
+        @Override
+        protected void initComponent() {
+
         }
     }
 }
