@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class SecondMenuItemFragment extends MyBaseFragment implements HttpListen
 
 
     private int mOrderBy = 0;
-    private int mPagerIndex = 1;//分页索引
+    private int mPagerIndex = 0;//分页索引
 
     public static SecondMenuItemFragment newInstance(Bundle bundle) {
         SecondMenuItemFragment secondMenuItemFragment = new SecondMenuItemFragment();
@@ -60,6 +61,7 @@ public class SecondMenuItemFragment extends MyBaseFragment implements HttpListen
         View view = inflater.inflate(R.layout.fragment_select_layout, container, false);
         initViews(view);
         initRecyclerV();
+        mPagerIndex = 0;
         requestData();
         return view;
     }
@@ -104,9 +106,9 @@ public class SecondMenuItemFragment extends MyBaseFragment implements HttpListen
                 selectRecyclerV.setVisibility(View.VISIBLE);
             }
         }
-            if (mPagerIndex == 0 && mListBean.size() != 0) {
-                mListBean.clear();
-            }
+        if (mPagerIndex == 0 && mListBean.size() != 0) {
+            mListBean.clear();
+        }
         mListBean.addAll(menuItemContentModel.getData().getList());
         mSelectItemAdapter.notifyDataSetChanged();
     }

@@ -129,24 +129,23 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
         if (productListModel != null && productListModel.getData().getBannerList().size() > 0) {
             Collections.sort(productListModel.getData().getBannerList());
 
-            urlList.add(productListModel.getData().getBannerList().get(productListModel.getData().getBannerList().size()
-                    - 1).getImage());
+//            urlList.add(productListModel.getData().getBannerList().get(productListModel.getData().getBannerList().size()
+//                    - 1).getImage());
 
             for (RecommendModel.DataBean.BannerListBean bannerListBean : productListModel.getData().getBannerList()) {
                 urlList.add(bannerListBean.getImage());
             }
-            urlList.add(productListModel.getData().getBannerList().get(0).getImage());
+//            urlList.add(productListModel.getData().getBannerList().get(0).getImage());
 
             mImagePagerAdapter.setBinnerClickListener(new ImagePagerAdapter.BinnerClickListener() {
                 @Override
                 public void binnerItemClick(int position) {
                     try {
-                        if (position == 0) {
-                            position = productListModel.getData().getBannerList().size() - 1;
-                        } else if (position == productListModel.getData().getBannerList().size() + 1) {
-                            position = 0;
-                        }
-
+//                        if (position == 0) {
+//                            position = productListModel.getData().getBannerList().size() - 1;
+//                        } else if (position == productListModel.getData().getBannerList().size() + 1) {
+//                            position = 0;
+//                        }
 
                         JumpHelper.startCommodityDetailActivity(getActivity(), Integer.parseInt(productListModel.getData
                                 ().getBannerList().get

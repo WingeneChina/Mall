@@ -306,12 +306,12 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     private void initRollPager(final List<RecommendModel.DataBean.BannerListBean> bannerListBeens) {
         Collections.sort(bannerListBeens);
         urlList.clear();
-        urlList.add(bannerListBeens.get(bannerListBeens.size() - 1).getImage());
+//        urlList.add(bannerListBeens.get(bannerListBeens.size() - 1).getImage());
 
         for (RecommendModel.DataBean.BannerListBean bannerListBean : bannerListBeens) {
             urlList.add(bannerListBean.getImage());
         }
-        urlList.add(bannerListBeens.get(0).getImage());
+//        urlList.add(bannerListBeens.get(0).getImage());
 
 
         mImagePagerAdapter = new ImagePagerAdapter(urlList);

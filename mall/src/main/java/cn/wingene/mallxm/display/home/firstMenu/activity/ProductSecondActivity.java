@@ -47,6 +47,9 @@ public class ProductSecondActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    private void initEvent(){
+        backIcon.setOnClickListener(this);
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

@@ -2,7 +2,10 @@ package cn.wingene.mallxm;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
+import cn.wingene.mallxm.game.LuckyActivity;
+import cn.wingene.mallxm.purchase1.CashActivity;
 import junze.java.util.StringUtil;
 
 import junze.androidxf.core.Agent.Major.IntentBuilder;
@@ -125,6 +128,25 @@ public class JumpHelper {
      */
     public static void startAccountMoney(Context context) {
         RechargeIndexActivity.major.startForAmount(context);
+    }
+
+    /**
+     * 查看账户余额，跳转到应币/游币界面
+     *
+     * @param context
+     */
+    public static void startAccountMoney(Context context) {
+
+    }
+
+    /**
+     * 跳转到抽奖界面
+     *
+     * @param context
+     */
+    public static void startLuckyGame(Context context) {
+        create(context, LuckyActivity.class).startActivity();
+
     }
 
     /**

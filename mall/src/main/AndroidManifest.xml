@@ -150,11 +150,14 @@
             android:name="cn.wingene.mallxm.display.WebActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name="cn.wingene.mallxm.purchase1.AddNewCardCountActivity">
+        <activity android:name="cn.wingene.mallxm.purchase1.AddNewCardCountActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name="cn.wingene.mallxm.purchase1.CashActivity">
+        <activity android:name="cn.wingene.mallxm.purchase1.CashActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name="cn.wingene.mallxm.purchase1.CashSuccessActivity">
+        <activity android:name="cn.wingene.mallxm.purchase1.CashSuccessActivity"
+                  android:screenOrientation="portrait">
         </activity>
 
         <activity
