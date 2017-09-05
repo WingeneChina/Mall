@@ -109,6 +109,7 @@
             android:background="@drawable/edit_selector"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
+            android:visibility="gone"
             >
 
             <ImageView
@@ -137,7 +138,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/edit_selector"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -208,7 +209,7 @@
             android:layout_marginTop="38dp"
             android:background="@drawable/login"
             android:gravity="center"
-            android:text="保存"
+            android:text="提现"
             android:textColor="@color/three_text_color"
             android:textSize="15sp"/>
     </LinearLayout>

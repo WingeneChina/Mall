@@ -165,17 +165,19 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
                     CashEnterModel cashEnterModel = gsonUtil.fromJson(response.get());
                     if (cashEnterModel.getErr() == 0 && cashEnterModel.getData() != null) {
                         maxMoney = cashEnterModel.getData().getAmount();
-                        canCashShowV.setText(String.valueOf(maxMoney));
+                        canCashShowV.setText("可提现金额" + String.valueOf(maxMoney));
 
                         if (cashEnterModel.getData().getBankBack() != null) {
-                            accountMsgGroupV.setVisibility(View.GONE);
+                            accountMsgGroupV.setVisibility(View.VISIBLE);
+                            addNewAccountGroupV.setVisibility(View.GONE);
                             bankNameV.setText(cashEnterModel.getData().getBankBack().getOpenBank());
                             bankCardNumberV.setText(cashEnterModel.getData().getBankBack().getBankCardNo());
                             bankCardUserNameV.setText(cashEnterModel.getData().getBankBack().getBankAccount());
 
                             mBankId = cashEnterModel.getData().getBankBack().getId();
                         } else {
-                            accountMsgGroupV.setVisibility(View.VISIBLE);
+                            accountMsgGroupV.setVisibility(View.GONE);
+                            addNewAccountGroupV.setVisibility(View.VISIBLE);
                         }
                     } else {
                         ToastUtil.show(cashEnterModel.getMsg(), this);
