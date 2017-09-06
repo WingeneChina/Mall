@@ -1,9 +1,10 @@
 package cn.wingene.mallxm.purchase1;
 
+import java.util.HashMap;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.ExpandedMenuView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,8 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yanzhenjie.nohttp.rest.Response;
-
-import java.util.HashMap;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.HttpConstant;
@@ -46,8 +45,8 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
     private TextView bankCardUserNameV;
 
     private int mBankId;
-    private int minMoney = 100;
-    private int maxMoney = 0;
+    private double minMoney = 100;
+    private double maxMoney = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,7 +178,7 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
                     CashEnterModel cashEnterModel = gsonUtil.fromJson(response.get());
                     if (cashEnterModel.getErr() == 0 && cashEnterModel.getData() != null) {
                         maxMoney = cashEnterModel.getData().getAmount();
-                        canCashShowV.setText("可提现金额" + String.valueOf(maxMoney));
+                        canCashShowV.setText(String.format("可提现金额%s.2f",maxMoney));
 
                         if (cashEnterModel.getData().getBankBack() != null) {
                             accountMsgGroupV.setVisibility(View.VISIBLE);

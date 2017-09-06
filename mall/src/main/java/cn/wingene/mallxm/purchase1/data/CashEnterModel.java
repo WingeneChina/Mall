@@ -48,7 +48,7 @@ public class CashEnterModel {
     }
 
     public static class DataBean {
-        private int Amount;
+        private double Amount;
         /**
          * Id : 1
          * IsDefault : 1
@@ -61,11 +61,11 @@ public class CashEnterModel {
 
         private BankBackBean BankBack;
 
-        public int getAmount() {
+        public double getAmount() {
             return Amount;
         }
 
-        public void setAmount(int Amount) {
+        public void setAmount(double Amount) {
             this.Amount = Amount;
         }
 

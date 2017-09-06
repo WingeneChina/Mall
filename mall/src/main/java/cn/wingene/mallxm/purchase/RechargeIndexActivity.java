@@ -1,7 +1,5 @@
 package cn.wingene.mallxm.purchase;
 
-import java.math.BigDecimal;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +26,9 @@ import cn.wingene.mallxm.purchase.ask.AskIntegralIndex.Response;
 
 public class RechargeIndexActivity extends MyBaseActivity {
     public static Major major = new Major(RechargeIndexActivity.class);
-    private BigDecimal mBigDecimal;
+    //    private BigDecimal mBigDecimal;
+    private Integer mIntegral;
+    private Double mAmount;
 
     private Tile tlBack;
     private TextView tvTitle;
@@ -127,7 +127,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
         ask(new AskIntegralIndex.Request() {
             @Override
             public void updateUI(Response rsp) {
-                mBigDecimal = new BigDecimal(rsp.getIntegral());
+                mIntegral = rsp.getIntegral();
                 setMajor(Major.MAJOR_INTEGRAL);
                 RechargeIndexActivity.this.updateUI();
             }
@@ -138,7 +138,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
         ask(new AskAmountIndex.Request() {
             @Override
             public void updateUI(AskAmountIndex.Response rsp) {
-                mBigDecimal = new BigDecimal(rsp.getAmount());
+                mAmount = rsp.getAmount();
                 setMajor(Major.MAJOR_AMOUNT);
                 RechargeIndexActivity.this.updateUI();
             }
@@ -150,7 +150,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
         case Major.MAJOR_INTEGRAL:
             tvTitle.setText("应币余额");
             tvLabel.setText("应币余额(元)");
-            tvCount.setText(String.format("%s", mBigDecimal != null ? mBigDecimal : "0"));
+            tvCount.setText(String.format("%s", mIntegral != null ? mIntegral : 0));
 
             //            tvRecharge // 充值
             tvCash.setVisibility(View.INVISIBLE);
@@ -162,7 +162,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
         default:
             tvTitle.setText("游币余额");
             tvLabel.setText("游币余额(元)");
-            tvCount.setText(String.format("%s", mBigDecimal != null ? mBigDecimal : "0"));
+            tvCount.setText(String.format("%.2f", mAmount != null ? mAmount : 0f));
 
             //            tvRecharge // 充值
             tvCash.setVisibility(View.VISIBLE);

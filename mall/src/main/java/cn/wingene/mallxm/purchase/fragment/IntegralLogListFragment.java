@@ -154,14 +154,13 @@ public class IntegralLogListFragment extends BasePullListFragment {
             tvDesc.setText(item.getChargeTypeDesp());
             tvTime.setText(item.getLogTime());
 
-            if (item.getChargeAmount() >= 0) {
+            if (item.getOperateKey() >= 0) {
                 tvNumber.setText(String.format("+%.2f", item.getChargeAmount()));
                 tvNumber.setTextColor(mContext.getResources().getColor(R.color.fontYellow));
             } else {
                 tvNumber.setText(String.format("-%.2f", item.getChargeAmount()));
                 tvNumber.setTextColor(mContext.getResources().getColor(R.color.fontYellow));
             }
-
         }
 
     }

@@ -1,5 +1,7 @@
 package cn.wingene.mallxm.account;
 
+import java.util.HashMap;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +19,6 @@ import android.widget.TextView;
 
 import com.yanzhenjie.nohttp.rest.Response;
 
-import java.util.HashMap;
-
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.http.HttpConstant;
@@ -27,7 +27,6 @@ import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.nohttp.ToastUtil;
-import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.account.data.LoginModel;
 
 /**
@@ -148,7 +147,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     UserData.saveVerifiCode(loginModel.getData().getVerifiCode());
                     UserData.savePersonHeadUrl(loginModel.getData().getAvatar());
                     if (resultCode == 0) {
-                        Log.e(this.getClass().getName(), "登陆成功");
+                        Log.e(this.getClass().getName(), "登录成功");
                         finish();
                     }
                     break;

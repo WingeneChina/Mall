@@ -77,6 +77,10 @@ public class JumpHelper {
      * @param context
      */
     public static void startAddressManagerActivity(Context context) {
+        if (!StringUtil.isValid(UserData.getverifiCode())) {
+            JumpHelper.startLoginActivity(context);
+            return;
+        }
         create(context, AddressManagerActivity.class).startActivity();
     }
 
@@ -106,8 +110,11 @@ public class JumpHelper {
      * @param context
      */
     public static void startSettingActivity(Context context) {
+        if (!StringUtil.isValid(UserData.getverifiCode())) {
+            JumpHelper.startLoginActivity(context);
+            return;
+        }
         create(context, SettingActivity.class).startActivity();
-
     }
 
     /**

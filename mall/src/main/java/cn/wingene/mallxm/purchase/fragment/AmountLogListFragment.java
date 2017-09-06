@@ -153,11 +153,11 @@ public class AmountLogListFragment extends BasePullListFragment {
             tvDesc.setText(item.getChargeTypeDesp());
             tvTime.setText(item.getLogTime());
 
-            if (item.getChargeAmount() >= 0) {
-                tvNumber.setText(String.format("+%.2f", item.getChargeAmount()));
+            if (item.getOperateKey() >= 0) {
+                tvNumber.setText(String.format("+%.2f", Math.abs(item.getChargeAmount())));
                 tvNumber.setTextColor(mContext.getResources().getColor(R.color.fontYellow));
             } else {
-                tvNumber.setText(String.format("-%.2f", item.getChargeAmount()));
+                tvNumber.setText(String.format("-%.2f", Math.abs(item.getChargeAmount())));
                 tvNumber.setTextColor(mContext.getResources().getColor(R.color.fontYellow));
             }
 
