@@ -1,11 +1,7 @@
 package cn.wingene.mallxm.display.home.firstMenu;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.dalong.refreshlayout.OnRefreshListener;
 import com.yanzhenjie.nohttp.rest.Response;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,55 +20,37 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.wingene.mall.R;
-import cn.wingene.mallxf.adapter.ImagePagerAdapter;
 import cn.wingene.mallxf.http.HttpConstant;
 import cn.wingene.mallxf.model.BaseResponse;
 import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
-import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.ui.MyBaseFragment;
-import cn.wingene.mallxf.ui.customview.InnerViewpager;
+import cn.wingene.mallxf.ui.banner.BannerImgLoader;
 import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.ProductListCommentAdapter;
-import cn.wingene.mallxm.display.home.firstMenu.adapter.YouLikeProduceAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.data.ProductListModel;
 import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
-
-import static cn.wingene.mallxm.display.home.FirstMenuFragment.PRODUCT_PARAMS;
 
 /**
  * Created by wangcq on 2017/8/13.
  * 商品列表页面
  */
 
-public class ProductListFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener,
+public class ProductListFragment extends MyBaseFragment implements
         HttpListener<String>, View.OnClickListener {
     private JDRefreshLayout mJDRefreshLayout;
     private RecyclerView productListRecyclerV;
-    private InnerViewpager rollPagerV;
-    private ImagePagerAdapter mImagePagerAdapter;
+    private Banner mBanner;
     private List<String> urlList = new ArrayList<>();
+    private List<String> titleList = new ArrayList<>();
 
     private int orderBy = 0;//0 综合、2 金额降序 、1 金额升序
     private int mPagerIndex = 1;
     private List<ProductListModel.DataBean.ListBean> mListBeanList = new ArrayList<>();
     private ProductListCommentAdapter productListCommentAdapter;
-
-    int currentIndex = 0;
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (rollPagerV.getChildCount() > 1) {
-                rollPagerV.setCurrentItem(currentIndex + 1, false);
-
-                mHandler.sendEmptyMessageDelayed(1, 5000);
-            }
-        }
-    };
 
     public static ProductListFragment newInstance(Bundle bundle) {
         ProductListFragment productListFragment = new ProductListFragment();
@@ -94,7 +75,7 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
     private void initViews(View root) {
         mJDRefreshLayout = (JDRefreshLayout) root.findViewById(R.id.refreshLayoutV);
         productListRecyclerV = (RecyclerView) root.findViewById(R.id.productListV);
-        rollPagerV = (InnerViewpager) root.findViewById(R.id.rollPagerV);
+        mBanner = (Banner) root.findViewById(R.id.banner);
 
         mJDRefreshLayout.setCanLoad(true);
         mJDRefreshLayout.setCanRefresh(true);
@@ -122,46 +103,29 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
 
     }
 
-    private void initRollPagerV(final ProductListModel productListModel) {
-        productListRecyclerV.setNestedScrollingEnabled(false);
-        mImagePagerAdapter = new ImagePagerAdapter(urlList);
-
+    private void initBanner(final ProductListModel productListModel) {
         if (productListModel != null && productListModel.getData().getBannerList().size() > 0) {
             Collections.sort(productListModel.getData().getBannerList());
 
-//            urlList.add(productListModel.getData().getBannerList().get(productListModel.getData().getBannerList().size()
-//                    - 1).getImage());
-
             for (RecommendModel.DataBean.BannerListBean bannerListBean : productListModel.getData().getBannerList()) {
                 urlList.add(bannerListBean.getImage());
+                titleList.add(bannerListBean.getTitle());
             }
-//            urlList.add(productListModel.getData().getBannerList().get(0).getImage());
-
-            mImagePagerAdapter.setBinnerClickListener(new ImagePagerAdapter.BinnerClickListener() {
-                @Override
-                public void binnerItemClick(int position) {
-                    try {
-//                        if (position == 0) {
-//                            position = productListModel.getData().getBannerList().size() - 1;
-//                        } else if (position == productListModel.getData().getBannerList().size() + 1) {
-//                            position = 0;
-//                        }
-
+        }
+        mBanner.setImages(urlList).setBannerTitles(titleList).setDelayTime(3000)
+                .setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
+                .setImageLoader(new BannerImgLoader())
+                .setOnBannerListener(new OnBannerListener() {
+                    @Override
+                    public void OnBannerClick(int position) {
                         JumpHelper.startCommodityDetailActivity(getActivity(), Integer.parseInt(productListModel.getData
                                 ().getBannerList().get
                                 (position).getParam()));
-                    } catch (Exception e) {
-                        e.printStackTrace();
+
                     }
-                }
-            });
-        } else {
-            urlList.add(Uri.parse("res://rrr/" + R.mipmap.banner).toString());
-        }
-        rollPagerV.setAdapter(mImagePagerAdapter);
-        rollPagerV.addOnPageChangeListener(this);
-        mHandler.sendEmptyMessageDelayed(1, 1000);
+                }).start();
     }
+
 
     private void requestData() {
         NoHttpRequest<BaseResponse> responseNoHttpRequest = new NoHttpRequest<>(BaseResponse.class);
@@ -180,6 +144,8 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
      * 初始化商品数据
      */
     private void initProductListData() {
+        productListRecyclerV.setNestedScrollingEnabled(false);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
         productListRecyclerV.setLayoutManager(gridLayoutManager);
 //
@@ -195,35 +161,13 @@ public class ProductListFragment extends MyBaseFragment implements ViewPager.OnP
     }
 
     private void showResultData(ProductListModel productListModel) {
-        initRollPagerV(productListModel);
+        initBanner(productListModel);
+
         if (mPagerIndex == 1) {
             mListBeanList.clear();
         }
         mListBeanList.addAll(productListModel.getData().getList());
         productListCommentAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-//        if (position == urlList.size() - 1) {
-//            currentIndex = 1;
-//        } else if (position == 0) {
-//            currentIndex = urlList.size() - 2;
-//        } else {
-            currentIndex = position;
-//        }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        if (state == ViewPager.SCROLL_STATE_IDLE) {
-            rollPagerV.setCurrentItem(currentIndex, false);
-        }
     }
 
     @Override

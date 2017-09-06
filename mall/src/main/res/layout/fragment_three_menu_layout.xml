@@ -20,21 +20,32 @@
         style="@style/Line.Horizontal"
         />
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/selectTabLayout"
+    <LinearLayout
+        android:id="@+id/haveDataGroupV"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:tabIndicatorColor="@color/yellow_mall"
-        app:tabIndicatorHeight="2dp"
-        app:tabSelectedTextColor="@color/menu_selected_color"
-        app:tabTextColor="@color/menu_unSelected_color"
-        />
-    <!--app:tabTextColor="@color/nine_text_color"-->
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/nearbyPagerV"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/selectTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:tabIndicatorColor="@color/yellow_mall"
+            app:tabIndicatorHeight="2dp"
+            app:tabSelectedTextColor="@color/menu_selected_color"
+            app:tabTextColor="@color/menu_unSelected_color"
+            />
+        <!--app:tabTextColor="@color/nine_text_color"-->
 
-        />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/nearbyPagerV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            />
+    </LinearLayout>
+
+    <include
+        layout="@layout/not_data_layout"/>
+
 </LinearLayout>

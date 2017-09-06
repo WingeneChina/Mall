@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.yanzhenjie.nohttp.rest.Response;
 
@@ -39,6 +40,9 @@ public class SecondMenuFragment extends MyBaseFragment implements HttpListener<S
     private TabLayout selectTabLayout;
     private MailFragmentPagerAdapter mMailFragmentPagerAdapter;
 
+    private LinearLayout not_data_layout;
+    private LinearLayout haveDataGroupV;
+
 
     public static SecondMenuFragment newInstance(Bundle args) {
         SecondMenuFragment secondMenuFragment = new SecondMenuFragment();
@@ -62,6 +66,9 @@ public class SecondMenuFragment extends MyBaseFragment implements HttpListener<S
     private void initViews(View root) {
         specialPagerV = (ViewPager) root.findViewById(R.id.specialPagerV);
         selectTabLayout = (TabLayout) root.findViewById(R.id.selectTabLayout);
+
+        not_data_layout = (LinearLayout) root.findViewById(R.id.noDataGroup);
+        haveDataGroupV = (LinearLayout) root.findViewById(R.id.haveDataGroupV);
 
     }
 
@@ -105,7 +112,14 @@ public class SecondMenuFragment extends MyBaseFragment implements HttpListener<S
             GsonUtil<MenuItemModel> gsonUtil = new GsonUtil<>(MenuItemModel.class);
             MenuItemModel menuItemModel = gsonUtil.fromJson(response.get());
             if (menuItemModel.getErr() == 0) {
-                initViewPagerData(menuItemModel.getData());
+                if (menuItemModel.getData().size() > 0) {
+                    haveDataGroupV.setVisibility(View.VISIBLE);
+                    not_data_layout.setVisibility(View.GONE);
+                    initViewPagerData(menuItemModel.getData());
+                } else {
+                    haveDataGroupV.setVisibility(View.GONE);
+                    not_data_layout.setVisibility(View.VISIBLE);
+                }
             } else {
                 ToastUtil.show("获取数据失败", this.getContext());
             }
