@@ -2,10 +2,7 @@ package cn.wingene.mallxm.display.home.firstMenu;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,32 +12,28 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dalong.refreshlayout.OnRefreshListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yanzhenjie.nohttp.rest.Response;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Exchanger;
 
 import cn.wingene.mall.R;
-import cn.wingene.mallxf.adapter.ImagePagerAdapter;
 import cn.wingene.mallxf.http.HttpConstant;
 import cn.wingene.mallxf.model.BaseResponse;
 import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.ui.MyBaseFragment;
-import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
-import cn.wingene.mallxf.util.ActivityUtils;
+import cn.wingene.mallxf.ui.banner.BannerImgLoader;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.FirstMenuFragment;
-import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductRecommendActivity;
-import cn.wingene.mallxm.display.home.firstMenu.activity.ProductSecondActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.SearchActivity;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.BrandProductAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.DaySpecialPriceAdapter;
@@ -54,9 +47,8 @@ import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
  * 推荐
  */
 
-public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener, View
+public class RecommendFragment extends MyBaseFragment implements View
         .OnClickListener, HttpListener<String> {
-    private ViewPager mRollViewPager;
     private RecyclerView brandProductRecyclerV;
     private SimpleDraweeView perWeekBGV;
     private TextView perWeekNameV;
@@ -65,22 +57,13 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     private RecyclerView daySpecialPRecyclerV;
     private RecyclerView youLikeRecyclerV;
 
-    private ImagePagerAdapter mImagePagerAdapter;
     private List<String> urlList = new ArrayList<>();
+    private List<String> titleList = new ArrayList<>();
 
     private RecommendModel recommendModel;
 
-    int currentIndex = 0;
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            mRollViewPager.setCurrentItem(currentIndex + 1, false);
+    private Banner mBanner;
 
-            mHandler.sendEmptyMessageDelayed(1, 5000);
-
-        }
-    };
     private RelativeLayout brandTitleGroupV;
     private RelativeLayout perWeekTitleGroupV;
     private RelativeLayout personRecommendTitleGroupV;
@@ -123,8 +106,6 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
     }
 
     private void initView(View root) {
-
-        mRollViewPager = (ViewPager) root.findViewById(R.id.rollPagerV);
         brandProductRecyclerV = (RecyclerView) root.findViewById(R.id.brandProductRecyclerV);
         perWeekBGV = (SimpleDraweeView) root.findViewById(R.id.perWeekBGV);
         perWeekNameV = (TextView) root.findViewById(R.id.perWeekNameV);
@@ -144,6 +125,7 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
         daySpecialBgV = (SimpleDraweeView) root.findViewById(R.id.daySpecialBgV);
         youLikeBgV = (SimpleDraweeView) root.findViewById(R.id.youLikeBgV);
 
+        mBanner = (Banner) root.findViewById(R.id.banner);
 
     }
 
@@ -303,57 +285,28 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
 
     }
 
-    private void initRollPager(final List<RecommendModel.DataBean.BannerListBean> bannerListBeens) {
+    private void initBanner(final List<RecommendModel.DataBean.BannerListBean> bannerListBeens) {
         Collections.sort(bannerListBeens);
         urlList.clear();
-//        urlList.add(bannerListBeens.get(bannerListBeens.size() - 1).getImage());
+        titleList.clear();
 
         for (RecommendModel.DataBean.BannerListBean bannerListBean : bannerListBeens) {
             urlList.add(bannerListBean.getImage());
+            titleList.add(bannerListBean.getTitle());
         }
-//        urlList.add(bannerListBeens.get(0).getImage());
+        mBanner.setImages(urlList).setBannerTitles(titleList).setDelayTime(3000)
+                .setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
+                .setImageLoader(new BannerImgLoader())
+                .setOnBannerListener(new OnBannerListener() {
+                    @Override
+                    public void OnBannerClick(int position) {
+                        JumpHelper.startCommodityDetailActivity(getActivity(), Integer.parseInt(bannerListBeens.get
+                                (position).getParam()));
 
-
-        mImagePagerAdapter = new ImagePagerAdapter(urlList);
-        mRollViewPager.setAdapter(mImagePagerAdapter);
-        mRollViewPager.addOnPageChangeListener(this);
-        mHandler.sendEmptyMessageDelayed(1, 1000);
-
-        mImagePagerAdapter.setBinnerClickListener(new ImagePagerAdapter.BinnerClickListener() {
-            @Override
-            public void binnerItemClick(int position) {
-                try {
-                    JumpHelper.startCommodityDetailActivity(getActivity(), Integer.parseInt(bannerListBeens.get
-                            (position).getParam()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+                    }
+                }).start();
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-//        if (position == urlList.size() - 1) {
-//            currentIndex = 1;
-//        } else if (position == 0) {
-//            currentIndex = urlList.size() - 2;
-//        } else {
-            currentIndex = position;
-//        }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        if (state == ViewPager.SCROLL_STATE_IDLE) {
-            mRollViewPager.setCurrentItem(currentIndex, false);
-        }
-    }
 
     @Override
     public void onSucceed(int what, Response<String> response) {
@@ -365,7 +318,7 @@ public class RecommendFragment extends MyBaseFragment implements ViewPager.OnPag
         try {
             GsonUtil<RecommendModel> gsonUtil = new GsonUtil<>(RecommendModel.class);
             recommendModel = gsonUtil.fromJson(resultJson);
-            initRollPager(recommendModel.getData().getBannerList());
+            initBanner(recommendModel.getData().getBannerList());
             initBrandProduct(recommendModel.getData().getBrand());
             initPerWeekProduct(recommendModel.getData().getNew());
             initPersonRecommend(recommendModel.getData().getRecommend());

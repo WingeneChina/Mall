@@ -122,14 +122,13 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
     private void initViewPager(final RecommendModel recommendModel, String resultJson) {
         Bundle bundle = new Bundle();
         bundle.putString(RESULT_ARG, resultJson);
-
         List<IndexModel> fragmentList = new ArrayList<>();
         fragmentList.add(new IndexModel("推荐", RecommendFragment.newInstance(bundle)));
 
         for (RecommendModel.DataBean.HeadMenuListBean headMenuListBean : recommendModel.getData().getHeadMenuList()) {
             TabLayout.Tab tab = mTabLayout.newTab();
             tab.setText(headMenuListBean.getTitle());
-            mTabLayout.addTab(tab, true);
+            mTabLayout.addTab(tab);
         }
 
         mMailFragmentPagerAdapter = new MailFragmentPagerAdapter(getChildFragmentManager(), fragmentList);
@@ -169,7 +168,27 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+                for (RecommendModel.DataBean.HeadMenuListBean headMenuListBean : recommendModel.getData()
+                        .getHeadMenuList()) {
+                    if (headMenuListBean.getTitle().contains(String.valueOf(tab.getText()))) {
+                        if (!TextUtils.isEmpty(headMenuListBean.getParam())) {
+                            Intent intent = new Intent(getActivity(), ProductActivity.class);
+                            intent.putExtra("key", headMenuListBean.getParam());
+                            intent.putExtra("type", headMenuListBean.getType());
+                            intent.putExtra("title", headMenuListBean.getTitle());
+                            startActivity(intent);
 
+                        } else {
+                            Intent intent = new Intent(getActivity(), ProductRecommendActivity.class);
+                            intent.putExtra("key", String.valueOf(headMenuListBean.getParam()));
+                            intent.putExtra("type", String.valueOf(headMenuListBean.getType()));
+                            intent.putExtra("title", headMenuListBean.getTitle());
+
+                            startActivity(intent);
+
+                        }
+                    }
+                }
             }
         });
     }

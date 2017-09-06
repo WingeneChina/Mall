@@ -15,24 +15,35 @@
         android:textColor="@color/three_text_color"
         android:textSize="16sp"
         android:visibility="visible"/>
+
     <View
         style="@style/Line.Horizontal"
         />
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/selectTabLayout"
+    <LinearLayout
+        android:id="@+id/haveDataGroupV"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:tabIndicatorColor="@color/yellow_mall"
-        app:tabIndicatorHeight="2dp"
-        app:tabSelectedTextColor="@color/menu_selected_color"
-        app:tabTextColor="@color/menu_unSelected_color"
-        app:tabTextAppearance="@style/MyTabLayoutTextAppearance"/>
-    <!--app:tabTextColor="@color/nine_text_color"-->
-    <android.support.v4.view.ViewPager
-        android:id="@+id/specialPagerV"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        />
+        <android.support.design.widget.TabLayout
+            android:id="@+id/selectTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:tabIndicatorColor="@color/yellow_mall"
+            app:tabIndicatorHeight="2dp"
+            app:tabSelectedTextColor="@color/menu_selected_color"
+            app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
+            app:tabTextColor="@color/menu_unSelected_color"/>
+        <!--app:tabTextColor="@color/nine_text_color"-->
+        <android.support.v4.view.ViewPager
+            android:id="@+id/specialPagerV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            />
+    </LinearLayout>
+
+    <include
+        layout="@layout/not_data_layout"/>
 </LinearLayout>

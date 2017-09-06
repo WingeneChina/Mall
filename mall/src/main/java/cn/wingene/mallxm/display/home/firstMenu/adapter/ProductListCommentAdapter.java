@@ -1,6 +1,7 @@
 package cn.wingene.mallxm.display.home.firstMenu.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,17 +60,19 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
             productListHolder.personRecommendItemImgV.setImageURI(listBean.getDefaultImage());
             productListHolder.personRecommendProductNameV.setText(listBean.getName());
             productListHolder.personRecommendProductDesV.setVisibility(View.GONE);
-            for (String string : listBean.getTag().toString().split(",")) {
-                TextView textView = (TextView) LayoutInflater.from(productListHolder.personRecommendMarkGroupV
-                        .getContext())
-
-                        .inflate(R
-                                .layout.productmark_layout, productListHolder.personRecommendMarkGroupV, false);
-                textView.setText(string);
-                productListHolder.personRecommendMarkGroupV.addView(textView);
-            }
             productListHolder.personRecommendItemMarkTwoV.setVisibility(View.GONE);
             productListHolder.personRecommendItemMarkOneV.setVisibility(View.GONE);
+            if(!TextUtils.isEmpty(listBean.getTag())) {
+                for (String string : listBean.getTag().toString().split(",")) {
+                    TextView textView = (TextView) LayoutInflater.from(productListHolder.personRecommendMarkGroupV
+                            .getContext())
+
+                            .inflate(R
+                                    .layout.productmark_layout, productListHolder.personRecommendMarkGroupV, false);
+                    textView.setText(string);
+                    productListHolder.personRecommendMarkGroupV.addView(textView);
+                }
+            }
             productListHolder.personRecommendProductPriceV.setText("¥" + listBean.getPrice());
 
             productListHolder.itemView.setOnClickListener(new View.OnClickListener() {
