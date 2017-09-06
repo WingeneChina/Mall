@@ -6,8 +6,10 @@ import android.widget.EditText;
 
 import junze.java.net.IHttpElement.IRequest;
 import junze.java.net.IHttpElement.IResponse;
+import junze.java.util.CheckUtil;
 
 import junze.androidxf.core.Agent;
+import junze.androidxf.http.BaseRequest.NotOKException;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallx.frame.ui.EditViewDialogDeclare.EditViewDialog;
@@ -15,6 +17,10 @@ import cn.wingene.mallx.frame.ui.EditViewDialogDeclare.OnEditCompleteListener;
 import cn.wingene.mallx.frame.ui.EditViewDialogDeclare.Option;
 import cn.wingene.mallxf.http.Ask.NeedLoginException;
 import cn.wingene.mallxm.JumpHelper;
+import cn.wingene.mallxm.purchase.AddressManagerActivity;
+import cn.wingene.mallxm.purchase.OrderListActivity;
+import cn.wingene.mallxm.purchase.RechargeIndexActivity;
+import cn.wingene.mallxm.purchase.ShoppingCartActivity;
 
 /**
  * Created by Wingene on 2017/8/26.
@@ -48,11 +54,24 @@ public class MyAgent extends Agent {
                     request.updateUI(response);
                 } else {
                     if (autoHandleException) {
-                        if (request.getException() != null && request.getException() instanceof NeedLoginException) {
+                        Exception exception = request.getException();
+                        if (exception != null && exception instanceof NeedLoginException) {
+                            if (CheckUtil.isInclude(getActivity().getClass(), ShoppingCartActivity.class,
+                                    OrderListActivity.class, AddressManagerActivity.class, RechargeIndexActivity
+                                            .class)) {
+                                getActivity().finish();
+                            }
                             JumpHelper.startLoginActivity(getActivity());
-                        } else {
-                            showToast(request.getException());
+                            return;
                         }
+                        if (exception != null && exception instanceof NotOKException) {
+                            NotOKException e = (NotOKException) exception;
+                            if (e.responseCode == 400) {
+                                showToast("网络不稳定!!!!");
+                                return;
+                            }
+                        }
+                        showToast(exception);
                     } else {
                         request.updateUIWhenException();
                     }

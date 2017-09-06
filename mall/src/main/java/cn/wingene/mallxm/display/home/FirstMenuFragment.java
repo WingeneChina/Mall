@@ -1,11 +1,13 @@
 package cn.wingene.mallxm.display.home;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,12 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.common.collect.Collections2;
 import com.yanzhenjie.nohttp.rest.Response;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.adapter.MailFragmentPagerAdapter;
@@ -32,17 +29,7 @@ import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxm.JumpHelper;
-import cn.wingene.mallxm.display.home.firstMenu.BeautyFragment;
-import cn.wingene.mallxm.display.home.firstMenu.CarUseFragment;
-import cn.wingene.mallxm.display.home.firstMenu.ClothesFragment;
-import cn.wingene.mallxm.display.home.firstMenu.GamingFragment;
-import cn.wingene.mallxm.display.home.firstMenu.IndoorFragment;
-import cn.wingene.mallxm.display.home.firstMenu.NewProductFragment;
-import cn.wingene.mallxm.display.home.firstMenu.OutdoorsFragment;
-import cn.wingene.mallxm.display.home.firstMenu.PersonalCareFragment;
 import cn.wingene.mallxm.display.home.firstMenu.RecommendFragment;
-import cn.wingene.mallxm.display.home.firstMenu.SnacksFragment;
-import cn.wingene.mallxm.display.home.firstMenu.SpecialOfferFragment;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductRecommendActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.SearchActivity;
@@ -138,6 +125,7 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
 
         List<IndexModel> fragmentList = new ArrayList<>();
         fragmentList.add(new IndexModel("推荐", RecommendFragment.newInstance(bundle)));
+
         for (RecommendModel.DataBean.HeadMenuListBean headMenuListBean : recommendModel.getData().getHeadMenuList()) {
             TabLayout.Tab tab = mTabLayout.newTab();
             tab.setText(headMenuListBean.getTitle());

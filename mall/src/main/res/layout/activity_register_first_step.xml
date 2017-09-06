@@ -100,7 +100,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="点击获取验证码"
-            android:textColor="@color/menu_selected_color"
+            android:textColor="@color/six_text_color"
             android:textSize="12sp"/>
 
     </RelativeLayout>

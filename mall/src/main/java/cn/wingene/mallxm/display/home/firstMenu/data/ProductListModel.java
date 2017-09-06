@@ -212,7 +212,7 @@ public class ProductListModel {
             }
 
             public String getTag() {
-                return Tag;
+                return Tag != null ? Tag : "";
             }
 
             public void setTag(String Tag) {

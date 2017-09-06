@@ -1,5 +1,7 @@
 package cn.wingene.mallxm.display.home.firstMenu.adapter;
 
+import java.util.List;
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +11,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.util.List;
+import junze.java.util.StringUtil;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxm.JumpHelper;
@@ -47,7 +49,6 @@ public class DaySpecialPriceAdapter extends RecyclerView.Adapter {
         daySpecialPrice.personRecommendItemImgV.setImageURI(productListBean.getProductImage());
         daySpecialPrice.personRecommendProductNameV.setText(productListBean.getProductName());
         daySpecialPrice.personRecommendProductPriceV.setText("¥" + productListBean.getProductPrice());
-
         for (String string : productListBean.getTag().split(",")) {
             TextView textView = (TextView) LayoutInflater.from(daySpecialPrice.personRecommendMarkGroupV.getContext())
                     .inflate(R
@@ -55,6 +56,8 @@ public class DaySpecialPriceAdapter extends RecyclerView.Adapter {
             textView.setText(string);
             daySpecialPrice.personRecommendMarkGroupV.addView(textView);
         }
+        daySpecialPrice.personRecommendMarkGroupV.setVisibility(StringUtil.isValid(productListBean.getTag()
+            .toString()) ? View.VISIBLE : View.GONE);
 //        daySpecialPrice.personRecommendItemMarkTwoV.setText(productListBean.getTag().replace(",", "/"));
         daySpecialPrice.personRecommendItemMarkTwoV.setVisibility(View.GONE);
         daySpecialPrice.personRecommendItemMarkOneV.setVisibility(View.GONE);

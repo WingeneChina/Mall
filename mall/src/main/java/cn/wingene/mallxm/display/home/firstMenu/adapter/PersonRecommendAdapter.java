@@ -1,5 +1,7 @@
 package cn.wingene.mallxm.display.home.firstMenu.adapter;
 
+import java.util.List;
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +11,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.util.Collections;
-import java.util.List;
+import junze.java.util.StringUtil;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxm.JumpHelper;
@@ -49,12 +50,14 @@ public class PersonRecommendAdapter extends RecyclerView.Adapter {
         personRecommendHolder.personRecommendProductNameV.setText(productListBean.getProductName());
         personRecommendHolder.personRecommendProductDesV.setVisibility(View.GONE);
         for (String string : productListBean.getTag().toString().split(",")) {
-            TextView textView = (TextView) LayoutInflater.from(personRecommendHolder.personRecommendMarkGroupV.getContext())
-                    .inflate(R
-                            .layout.productmark_layout, personRecommendHolder.personRecommendMarkGroupV, false);
+            TextView textView = (TextView) LayoutInflater.from(personRecommendHolder.personRecommendMarkGroupV
+                    .getContext()).inflate(R.layout.productmark_layout, personRecommendHolder
+                    .personRecommendMarkGroupV, false);
             textView.setText(string);
             personRecommendHolder.personRecommendMarkGroupV.addView(textView);
         }
+        personRecommendHolder.personRecommendMarkGroupV.setVisibility(StringUtil.isValid(productListBean.getTag()
+                .toString()) ? View.VISIBLE : View.GONE);
         personRecommendHolder.personRecommendItemMarkTwoV.setVisibility(View.GONE);
         personRecommendHolder.personRecommendItemMarkOneV.setVisibility(View.GONE);
         personRecommendHolder.personRecommendProductPriceV.setText("¥" + productListBean.getProductPrice());

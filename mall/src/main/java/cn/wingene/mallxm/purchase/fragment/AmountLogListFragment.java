@@ -158,7 +158,7 @@ public class AmountLogListFragment extends BasePullListFragment {
                 tvNumber.setTextColor(mContext.getResources().getColor(R.color.fontYellow));
             } else {
                 tvNumber.setText(String.format("-%.2f", Math.abs(item.getChargeAmount())));
-                tvNumber.setTextColor(mContext.getResources().getColor(R.color.fontYellow));
+                tvNumber.setTextColor(mContext.getResources().getColor(R.color.gray));
             }
 
         }

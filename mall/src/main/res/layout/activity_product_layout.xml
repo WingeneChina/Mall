@@ -62,8 +62,8 @@
             app:tabIndicatorHeight="2dp"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/menu_selected_color"
-            app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
             app:tabTextColor="@color/menu_unSelected_color"
+            app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
             />
 
         <android.support.v4.view.ViewPager

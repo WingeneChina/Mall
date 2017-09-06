@@ -1,8 +1,8 @@
 package cn.wingene.mallxm.display.home.firstMenu.data;
 
-import android.support.annotation.NonNull;
-
 import java.util.List;
+
+import android.support.annotation.NonNull;
 
 /**
  * Created by wangcq on 2017/8/22.
@@ -488,7 +488,7 @@ public class RecommendModel {
                 }
 
                 public String getTag() {
-                    return Tag;
+                    return Tag != null ? Tag : "";
                 }
 
                 public void setTag(String Tag) {
@@ -621,7 +621,7 @@ public class RecommendModel {
                 }
 
                 public String getTag() {
-                    return Tag;
+                    return Tag != null ? Tag : "";
                 }
 
                 public void setTag(String Tag) {
@@ -754,7 +754,7 @@ public class RecommendModel {
                 }
 
                 public Object getTag() {
-                    return Tag;
+                    return Tag != null ? Tag : "";
                 }
 
                 public void setTag(Object Tag) {
@@ -887,7 +887,7 @@ public class RecommendModel {
                 }
 
                 public String getTag() {
-                    return Tag;
+                    return Tag != null ? Tag : "";
                 }
 
                 public void setTag(String Tag) {
@@ -1020,7 +1020,7 @@ public class RecommendModel {
                 }
 
                 public String getTag() {
-                    return Tag;
+                    return Tag != null ? Tag : "";
                 }
 
                 public void setTag(String Tag) {

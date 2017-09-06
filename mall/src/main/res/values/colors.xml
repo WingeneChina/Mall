@@ -9,8 +9,10 @@
     <color name="def_darkYellow">#f7cd11</color>
 
     <color name="menuGroup_bg">#F4C19F</color>
-    <color name="menu_selected_color">#BC7356</color>
-    <color name="menu_unSelected_color">#C79472</color>
+    <color name="menu_selected_color">@color/def_tab_layout_text_selected</color>
+    <color name="menu_unSelected_color">@color/def_tab_layout_text_normal</color>
+    <!--<color name="menu_selected_color">#BC7356</color>-->
+    <!--<color name="menu_unSelected_color">#C79472</color>-->
 
     <color name="translucent">#20999999</color>
 

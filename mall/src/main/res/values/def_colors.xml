@@ -2,4 +2,7 @@
 <resources>
     <color name="fontYellow">#F7CB0B</color>
     <color name="def_action_bar_title_font">@color/three_text_color</color>
+    <color name="def_tab_layout_text_normal">@color/black</color>
+    <color name="def_tab_layout_text_selected">@color/fontYellow</color>
+    <color name="def_bg_image">@color/transparent</color>
 </resources>

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/def_bg_image"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:stateListAnimator="@animator/raise"
     >
 
     <LinearLayout
+        android:background="@color/def_bg_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -31,13 +32,13 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:layout_below="@+id/youLikeItemImgV"
-                android:background="@color/translucent"
+                android:background="@color/transparent"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="100%原木浆,吸水不易破"
                 android:textSize="13sp"/>
-
+            <!--android:background="@color/translucent"-->
         </RelativeLayout>
 
         <TextView
@@ -63,4 +64,4 @@
             android:textColor="@color/deepRed"
             android:textSize="16sp"/>
     </LinearLayout>
-</android.support.v7.widget.CardView>
+</FrameLayout>

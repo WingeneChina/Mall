@@ -2,14 +2,14 @@ package cn.wingene.mallxm.purchase.ask;
 
 import java.util.List;
 
-import cn.wingene.mallxf.http.Ask.BaseSignRequest;
-import cn.wingene.mallxf.http.Ask.MyBaseResponse;
-
 import com.google.gson.JsonElement;
 import com.google.gson.annotations.SerializedName;
 
 import junze.androidxf.http.requestargs.RequestArgs;
 import junze.androidxf.kit.AKit;
+
+import cn.wingene.mallxf.http.Ask.BaseSignRequest;
+import cn.wingene.mallxf.http.Ask.MyBaseResponse;
 
 /**
  * Created by Wingene on 2017/8/19.
@@ -354,7 +354,7 @@ public class AskProductDetail {
          * 商品标签	可空 如：爆品,满赠 逗号隔开
          */
         public String getTag() {
-            return tag;
+            return tag != null ? tag : "";
         }
 
         /**
