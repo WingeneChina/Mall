@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.dalong.refreshlayout.OnRefreshListener;
 import com.yanzhenjie.nohttp.rest.Response;
@@ -42,6 +43,8 @@ import static cn.wingene.mallxm.display.home.FirstMenuFragment.PRODUCT_PARAMS;
 
 public class IndoorFragment extends MyBaseFragment implements HttpListener<String> {
     private RecyclerView indoorRecyclerV;
+    private LinearLayout noDataGroup;
+
     private JDRefreshLayout mJDRefreshLayout;
     private int orderBy = 0;//0 综合、2 金额降序 、1 金额升序
     private int mPagerIndex = 1;
@@ -73,6 +76,7 @@ public class IndoorFragment extends MyBaseFragment implements HttpListener<Strin
     private void initViews(View root) {
         indoorRecyclerV = (RecyclerView) root.findViewById(R.id.indoorRecyclerV);
         mJDRefreshLayout = (JDRefreshLayout) root.findViewById(R.id.refreshProductLayoutV);
+        noDataGroup = (LinearLayout) root.findViewById(R.id.noDataGroup);
 
         mJDRefreshLayout.setCanRefresh(true);
         mJDRefreshLayout.setCanLoad(true);
@@ -143,10 +147,16 @@ public class IndoorFragment extends MyBaseFragment implements HttpListener<Strin
 
             GsonUtil<ProductListModel> gsonUtil = new GsonUtil(ProductListModel.class);
             ProductListModel productListModel = gsonUtil.fromJson(response.get());
-            showResultData(productListModel);
             if (productListModel.getData().getList().size() == 0) {
 //                ToastUtil.show("暂无商品", getContext());
+                noDataGroup.setVisibility(View.VISIBLE);
+                indoorRecyclerV.setVisibility(View.GONE);
+            } else {
+                noDataGroup.setVisibility(View.GONE);
+                indoorRecyclerV.setVisibility(View.VISIBLE);
             }
+            showResultData(productListModel);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

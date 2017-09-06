@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import static cn.wingene.mallxm.display.home.SecondMenuFragment.MENU_CODE_ARG;
 import com.baidu.location.BDLocation;
@@ -82,6 +83,8 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
 
         selectRecyclerV = (RecyclerView) root.findViewById(R.id.selectRecyclerV);
         noDataGroup = (LinearLayout) root.findViewById(R.id.noDataGroup);
+        TextView errorTextV = (TextView) noDataGroup.findViewById(R.id.errorTextV);
+        errorTextV.setText("sorry,还没有相关信息");
 
         mJDRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
