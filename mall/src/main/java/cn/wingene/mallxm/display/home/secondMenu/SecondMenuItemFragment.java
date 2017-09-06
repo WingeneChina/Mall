@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.dalong.refreshlayout.OnRefreshListener;
 import com.yanzhenjie.nohttp.rest.Response;
@@ -70,6 +71,8 @@ public class SecondMenuItemFragment extends MyBaseFragment implements HttpListen
         mJDRefreshLayout = (JDRefreshLayout) root.findViewById(R.id.secondMenuRefreshV);
         selectRecyclerV = (RecyclerView) root.findViewById(R.id.selectRecyclerV);
         noDataGroup = (LinearLayout) root.findViewById(R.id.noDataGroup);
+        TextView errorTextV = (TextView) noDataGroup.findViewById(R.id.errorTextV);
+        errorTextV.setText("sorry,还没有相关信息");
 
         mJDRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override

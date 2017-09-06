@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yanzhenjie.nohttp.rest.Response;
@@ -44,6 +45,10 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
     private int orderBy = 0;//0 综合、2 金额降序 、1 金额升序
     private int mPagerIndex = 1;
 
+    private LinearLayout haveDataGroupV;
+    private LinearLayout noDataGroupV;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +79,9 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
         titleV = (TextView) findViewById(R.id.titleV);
         productTitleGroupV = (TabLayout) findViewById(R.id.productTitleGroupV);
         productPagers = (ViewPager) findViewById(R.id.productPagers);
+
+        haveDataGroupV = (LinearLayout) findViewById(R.id.haveDataGroupV);
+        noDataGroupV = (LinearLayout) findViewById(R.id.noDataGroup);
 
         titleV.setText(getIntent().getStringExtra("title"));
 
@@ -132,7 +140,14 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
             GsonUtil<ProductGroupModel> gsonUtil = new GsonUtil<>(ProductGroupModel.class);
             ProductGroupModel productGroupModel = gsonUtil.fromJson(response.get());
             if (productGroupModel.getErr() == 0) {
-                initViewPager(productGroupModel);
+                if (productGroupModel.getData().size() > 0) {
+                    haveDataGroupV.setVisibility(View.VISIBLE);
+                    noDataGroupV.setVisibility(View.GONE);
+                    initViewPager(productGroupModel);
+                } else {
+                    haveDataGroupV.setVisibility(View.GONE);
+                    noDataGroupV.setVisibility(View.VISIBLE);
+                }
 
             } else {
                 ToastUtil.show(productGroupModel.getMsg(), this);

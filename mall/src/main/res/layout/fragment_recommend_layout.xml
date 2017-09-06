@@ -23,7 +23,7 @@
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                app:banner_default_image="@drawable/placeholder"
+                app:banner_default_image="@drawable/no_banner"
                 />
 
             <RelativeLayout
