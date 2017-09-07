@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f6f6f6"
     android:orientation="vertical"
     tools:context="cn.wingene.mallxm.display.home.setting.AboutAsActivity">
 
@@ -33,6 +34,32 @@
         android:id="@+id/simpleDraweeView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:placeholderImage="@mipmap/aboutas"
-        app:placeholderImageScaleType="fitXY"/>
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="86dp"
+            android:layout_height="86dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            android:src="@mipmap/aboutas_logo"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:gravity="left"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="       光合商城是青柠科技公司推出的一款线上新零售电子商务平台。丰富的商品和趣味的玩法，让光合商城成为中国驾培行业最喜爱的合作方之一。
+　　\r\n         客户可以根据自身驾校招生活动需求，自行选择合作招生模式，让自己驾校接入最新的互联网营销模式，牢牢把握年轻人的喜好，增加自身驾校软实力，提升驾校形象，增加竞争优势。"
+            android:textColor="@color/six_text_color"
+            android:textSize="14sp"/>
+    </LinearLayout>
 </LinearLayout>

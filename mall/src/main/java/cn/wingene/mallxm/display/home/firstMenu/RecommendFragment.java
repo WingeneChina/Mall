@@ -145,7 +145,9 @@ public class RecommendFragment extends MyBaseFragment implements View
         Intent intent = new Intent(this.getActivity(), ProductRecommendActivity.class);
         switch (v.getId()) {
             case R.id.brandTitleGroupV://品牌大厂
-                intent = new Intent(this.getActivity(), SearchActivity.class);
+                if ("4".equals(recommendModel.getData().getBrand().getType())) {
+                    intent = new Intent(this.getActivity(), SearchActivity.class);
+                }
                 if (recommendModel != null) {
                     intent.putExtra("type", recommendModel.getData().getBrand().getType());
                     intent.putExtra("key", recommendModel.getData().getBrand().getParam());

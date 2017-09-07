@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.dalong.refreshlayout.OnRefreshListener;
 import com.yanzhenjie.nohttp.rest.Response;
@@ -51,6 +52,8 @@ public class ProductListFragment extends MyBaseFragment implements
     private int mPagerIndex = 1;
     private List<ProductListModel.DataBean.ListBean> mListBeanList = new ArrayList<>();
     private ProductListCommentAdapter productListCommentAdapter;
+    private LinearLayout haveDataGroupV;
+    private LinearLayout noDataGroup;
 
     public static ProductListFragment newInstance(Bundle bundle) {
         ProductListFragment productListFragment = new ProductListFragment();
@@ -75,6 +78,10 @@ public class ProductListFragment extends MyBaseFragment implements
     private void initViews(View root) {
         mJDRefreshLayout = (JDRefreshLayout) root.findViewById(R.id.refreshLayoutV);
         productListRecyclerV = (RecyclerView) root.findViewById(R.id.productListV);
+
+        haveDataGroupV = (LinearLayout) root.findViewById(R.id.haveDataGroupV);
+        noDataGroup = (LinearLayout) root.findViewById(R.id.noDataGroup);
+
         mBanner = (Banner) root.findViewById(R.id.banner);
 
         mJDRefreshLayout.setCanLoad(true);
@@ -161,6 +168,13 @@ public class ProductListFragment extends MyBaseFragment implements
     }
 
     private void showResultData(ProductListModel productListModel) {
+        if (productListModel.getData().getList() == null || productListModel.getData().getList().size() == 0) {
+            noDataGroup.setVisibility(View.VISIBLE);
+            haveDataGroupV.setVisibility(View.GONE);
+        } else {
+            noDataGroup.setVisibility(View.GONE);
+            haveDataGroupV.setVisibility(View.VISIBLE);
+        }
         initBanner(productListModel);
 
         if (mPagerIndex == 1) {
