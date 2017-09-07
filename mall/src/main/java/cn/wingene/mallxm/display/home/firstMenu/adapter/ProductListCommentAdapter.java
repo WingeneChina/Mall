@@ -59,10 +59,16 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
         try {
             productListHolder.personRecommendItemImgV.setImageURI(listBean.getDefaultImage());
             productListHolder.personRecommendProductNameV.setText(listBean.getName());
-            productListHolder.personRecommendProductDesV.setVisibility(View.GONE);
+            if (!TextUtils.isEmpty(listBean.getSellingPoint())) {
+                productListHolder.personRecommendProductDesV.setVisibility(View.VISIBLE);
+                productListHolder.personRecommendProductDesV.setText(listBean.getSellingPoint());
+            } else {
+                productListHolder.personRecommendProductDesV.setVisibility(View.GONE);
+            }
             productListHolder.personRecommendItemMarkTwoV.setVisibility(View.GONE);
             productListHolder.personRecommendItemMarkOneV.setVisibility(View.GONE);
-            if(!TextUtils.isEmpty(listBean.getTag())) {
+
+            if (!TextUtils.isEmpty(listBean.getTag())) {
                 for (String string : listBean.getTag().toString().split(",")) {
                     TextView textView = (TextView) LayoutInflater.from(productListHolder.personRecommendMarkGroupV
                             .getContext())
@@ -72,7 +78,15 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
                     textView.setText(string);
                     productListHolder.personRecommendMarkGroupV.addView(textView);
                 }
+            } else {
+                productListHolder.personRecommendMarkGroupV.setVisibility(View.GONE);
             }
+            if (TextUtils.isEmpty(listBean.getAcceptIntegral())) {
+                productListHolder.personRecommendCanDeductible.setVisibility(View.GONE);
+            } else {
+                productListHolder.personRecommendCanDeductible.append(listBean.getAcceptIntegral());
+            }
+
             productListHolder.personRecommendProductPriceV.setText("¥" + listBean.getPrice());
 
             productListHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +124,7 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
         private TextView personRecommendProductDesV;
         private TextView personRecommendProductPriceV;
         private RelativeLayout personRecommendMarkGroupV;
+        private TextView personRecommendCanDeductible;
 
         public ProductListHolder(View itemView) {
             super(itemView);
@@ -125,6 +140,7 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
             personRecommendProductDesV = (TextView) root.findViewById(R.id.personRecommendProductDesV);
             personRecommendProductPriceV = (TextView) root.findViewById(R.id.personRecommendProductPriceV);
             personRecommendMarkGroupV = (RelativeLayout) root.findViewById(R.id.personRecommendMarkGroupV);
+            personRecommendCanDeductible = (TextView) root.findViewById(R.id.personRecommendCanDeductible);
         }
     }
 

@@ -25,7 +25,8 @@
                     android:layout_height="match_parent"/>
 
                 <include
-                    layout="@layout/not_data_layout"/>
+                    layout="@layout/not_data_layout"
+                    android:visibility="gone"/>
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

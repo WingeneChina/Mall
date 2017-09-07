@@ -257,9 +257,9 @@ public class SearchActivity extends AppCompatActivity implements HttpListener<St
             searchResultRecyclerV.setVisibility(View.VISIBLE);
             searchPreGroupV.setVisibility(View.GONE);
         } else {
-            searchPreGroupV.setVisibility(View.GONE);
+            searchPreGroupV.setVisibility(View.VISIBLE);
             searchResultRecyclerV.setVisibility(View.GONE);
-            notDataGroupV.setVisibility(View.VISIBLE);
+//            notDataGroupV.setVisibility(View.VISIBLE);
         }
     }
 
@@ -295,6 +295,7 @@ public class SearchActivity extends AppCompatActivity implements HttpListener<St
                         @Override
                         public void historySearchItemChoice(int position) {
                             searchEditV.setText(hotSearchModel.getData().getList().get(position).getName());
+                            requestSearch();
                         }
                     });
                     break;

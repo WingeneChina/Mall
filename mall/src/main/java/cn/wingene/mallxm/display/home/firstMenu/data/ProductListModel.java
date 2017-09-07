@@ -130,6 +130,15 @@ public class ProductListModel {
             private int IsReducePrice;
             private String Tag;
             private String SellingPoint;
+            private String AcceptIntegral;
+
+            public String getAcceptIntegral() {
+                return AcceptIntegral;
+            }
+
+            public void setAcceptIntegral(String acceptIntegral) {
+                AcceptIntegral = acceptIntegral;
+            }
 
             public int getId() {
                 return Id;
