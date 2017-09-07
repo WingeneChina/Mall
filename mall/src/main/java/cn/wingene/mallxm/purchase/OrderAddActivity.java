@@ -231,7 +231,12 @@ public class OrderAddActivity extends MyBaseActivity {
         tvIntegralNumber.setText(String.format("%s", mIntegral));
         setAccount(mAccount);
         tvRealTotal.setText(String.format("￥%s", mPayPrice));
-        tvAcceptIntegral.setText(String.format("可用￥%s",mAcceptIntegral));
+        if(mAcceptIntegral==0){
+            tvAcceptIntegral.setText("不可抵用");
+        }else{
+            tvAcceptIntegral.setText(String.format("可用￥%s",mAcceptIntegral));
+        }
+
     }
 
 
