@@ -2,6 +2,8 @@ package cn.wingene.mallxm.display.home.firstMenu;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.NestedScrollingParentHelper;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -44,7 +46,7 @@ import static cn.wingene.mallxm.display.home.FirstMenuFragment.PRODUCT_PARAMS;
 public class IndoorFragment extends MyBaseFragment implements HttpListener<String> {
     private RecyclerView indoorRecyclerV;
     private LinearLayout noDataGroup;
-
+    private NestedScrollView haveDataGroupV;
     private JDRefreshLayout mJDRefreshLayout;
     private int orderBy = 0;//0 综合、2 金额降序 、1 金额升序
     private int mPagerIndex = 1;
@@ -77,6 +79,7 @@ public class IndoorFragment extends MyBaseFragment implements HttpListener<Strin
         indoorRecyclerV = (RecyclerView) root.findViewById(R.id.indoorRecyclerV);
         mJDRefreshLayout = (JDRefreshLayout) root.findViewById(R.id.refreshProductLayoutV);
         noDataGroup = (LinearLayout) root.findViewById(R.id.noDataGroup);
+        haveDataGroupV = (NestedScrollView) root.findViewById(R.id.haveDataGroupView);
 
         mJDRefreshLayout.setCanRefresh(true);
         mJDRefreshLayout.setCanLoad(true);
@@ -147,12 +150,14 @@ public class IndoorFragment extends MyBaseFragment implements HttpListener<Strin
 
             GsonUtil<ProductListModel> gsonUtil = new GsonUtil(ProductListModel.class);
             ProductListModel productListModel = gsonUtil.fromJson(response.get());
-            if (productListModel.getData().getList().size() == 0) {
+            if (mListBeanList.size() == 0 && productListModel.getData().getList().size() == 0) {
 //                ToastUtil.show("暂无商品", getContext());
                 noDataGroup.setVisibility(View.VISIBLE);
                 indoorRecyclerV.setVisibility(View.GONE);
+                haveDataGroupV.setVisibility(View.GONE);
             } else {
                 noDataGroup.setVisibility(View.GONE);
+                haveDataGroupV.setVisibility(View.VISIBLE);
                 indoorRecyclerV.setVisibility(View.VISIBLE);
             }
             showResultData(productListModel);

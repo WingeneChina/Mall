@@ -63,7 +63,11 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
             perWeekHolder.perWeekItemMarkTwoV.setVisibility(View.GONE);
         }
         perWeekHolder.perWeekProductPriceV.setText("¥" + String.valueOf(productListBean.getProductPrice()));
-        perWeekHolder.perWeekanDeductibleV.append("¥" + String.valueOf(productListBean.getAcceptIntegral()));
+        if (!TextUtils.isEmpty(productListBean.getAcceptIntegral())) {
+            perWeekHolder.perWeekanDeductibleV.append("¥" + String.valueOf(productListBean.getAcceptIntegral()));
+        } else {
+            perWeekHolder.perWeekanDeductibleV.setVisibility(View.GONE);
+        }
 
         perWeekHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

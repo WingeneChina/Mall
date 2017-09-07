@@ -2,6 +2,7 @@ package cn.wingene.mallxm.display.home.firstMenu;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -52,7 +53,7 @@ public class ProductListFragment extends MyBaseFragment implements
     private int mPagerIndex = 1;
     private List<ProductListModel.DataBean.ListBean> mListBeanList = new ArrayList<>();
     private ProductListCommentAdapter productListCommentAdapter;
-    private LinearLayout haveDataGroupV;
+    private NestedScrollView haveDataGroupV;
     private LinearLayout noDataGroup;
 
     public static ProductListFragment newInstance(Bundle bundle) {
@@ -79,7 +80,7 @@ public class ProductListFragment extends MyBaseFragment implements
         mJDRefreshLayout = (JDRefreshLayout) root.findViewById(R.id.refreshLayoutV);
         productListRecyclerV = (RecyclerView) root.findViewById(R.id.productListV);
 
-        haveDataGroupV = (LinearLayout) root.findViewById(R.id.haveDataGroupV);
+        haveDataGroupV = (NestedScrollView) root.findViewById(R.id.haveDataGroupV);
         noDataGroup = (LinearLayout) root.findViewById(R.id.noDataGroup);
 
         mBanner = (Banner) root.findViewById(R.id.banner);
@@ -168,7 +169,8 @@ public class ProductListFragment extends MyBaseFragment implements
     }
 
     private void showResultData(ProductListModel productListModel) {
-        if (productListModel.getData().getList() == null || productListModel.getData().getList().size() == 0) {
+        if ((productListModel.getData().getList() == null || productListModel.getData().getList().size() == 0) &&
+                mListBeanList.size() == 0) {
             noDataGroup.setVisibility(View.VISIBLE);
             haveDataGroupV.setVisibility(View.GONE);
         } else {
