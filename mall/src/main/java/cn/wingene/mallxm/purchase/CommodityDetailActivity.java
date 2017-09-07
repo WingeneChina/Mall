@@ -342,8 +342,8 @@ public class CommodityDetailActivity extends MyBaseActivity {
             urlList.add(item.getThumbSrc());
         }
         mImagePagerAdapter = new CommodityImagePagerAdapter(urlList);
-        bannerImage.setImages(urlList).setBannerStyle(BannerConfig.NUM_INDICATOR).setImageLoader(new
-                BannerImgLoader());
+        bannerImage.setImages(urlList).isAutoPlay(false).setBannerStyle(BannerConfig.NUM_INDICATOR).setImageLoader(new
+                BannerImgLoader()).start();
 
     }
 
