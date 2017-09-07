@@ -50,7 +50,7 @@ public class DaySpecialPriceAdapter extends RecyclerView.Adapter {
         daySpecialPrice.personRecommendItemImgV.setImageURI(productListBean.getProductImage());
         daySpecialPrice.personRecommendProductNameV.setText(productListBean.getProductName());
         daySpecialPrice.personRecommendProductPriceV.setText("¥" + productListBean.getProductPrice());
-        if (TextUtils.isEmpty(productListBean.getTag())) {
+        if (!TextUtils.isEmpty(productListBean.getTag())) {
             for (String string : productListBean.getTag().split(",")) {
                 TextView textView = (TextView) LayoutInflater.from(daySpecialPrice.personRecommendMarkGroupV
                         .getContext())
@@ -63,6 +63,7 @@ public class DaySpecialPriceAdapter extends RecyclerView.Adapter {
         } else {
             daySpecialPrice.personRecommendMarkGroupV.setVisibility(View.INVISIBLE);
         }
+
         if (!TextUtils.isEmpty(productListBean.getAcceptIntegral())) {
             daySpecialPrice.personRecommendCanDeductible.append(productListBean.getAcceptIntegral());
         } else {
