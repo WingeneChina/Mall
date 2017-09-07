@@ -96,6 +96,9 @@ public class SearchActivity extends AppCompatActivity implements HttpListener<St
         notDataGroupV = (LinearLayout) findViewById(R.id.noDataGroup);
         notDataGroupV.setVisibility(View.GONE);
         initSearchResultRecyclerV();
+
+        TextView textView = (TextView) notDataGroupV.findViewById(R.id.errorTextV);
+        textView.setText("sorry,还没有相关数据");
     }
 
     /**

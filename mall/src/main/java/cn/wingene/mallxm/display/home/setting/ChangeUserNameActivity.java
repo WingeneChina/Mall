@@ -81,10 +81,25 @@ public class ChangeUserNameActivity extends AppCompatActivity implements View.On
         }
     }
 
+    /**
+     * 判断字符串长度
+     *
+     * @param de
+     * @return
+     */
+    private int legthOf(String de) {
+        int lenght = 0;
+        for (int i = 0; i < de.length(); i++) {
+            lenght += String.valueOf(de.charAt(i)).matches("[\u4E00-\u9FA5]") ? 2 : 1;
+        }
+        return lenght;
+    }
+
+
     private void commitMsg() {
         //EDITOR_PERSON_INFO
         String userName = userNameEditV.getText().toString();
-        if (userName.length() < 4) {
+        if (legthOf(userName) < 4) {
             userNameEditV.setError("用户名必须大于4个字符");
             return;
         }

@@ -3,6 +3,7 @@ package cn.wingene.mallxm.display.home.firstMenu.adapter;
 import java.util.List;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,15 +50,25 @@ public class DaySpecialPriceAdapter extends RecyclerView.Adapter {
         daySpecialPrice.personRecommendItemImgV.setImageURI(productListBean.getProductImage());
         daySpecialPrice.personRecommendProductNameV.setText(productListBean.getProductName());
         daySpecialPrice.personRecommendProductPriceV.setText("¥" + productListBean.getProductPrice());
-        for (String string : productListBean.getTag().split(",")) {
-            TextView textView = (TextView) LayoutInflater.from(daySpecialPrice.personRecommendMarkGroupV.getContext())
-                    .inflate(R
-                            .layout.productmark_layout, daySpecialPrice.personRecommendMarkGroupV, false);
-            textView.setText(string);
-            daySpecialPrice.personRecommendMarkGroupV.addView(textView);
+        if (TextUtils.isEmpty(productListBean.getTag())) {
+            for (String string : productListBean.getTag().split(",")) {
+                TextView textView = (TextView) LayoutInflater.from(daySpecialPrice.personRecommendMarkGroupV
+                        .getContext())
+
+                        .inflate(R
+                                .layout.productmark_layout, daySpecialPrice.personRecommendMarkGroupV, false);
+                textView.setText(string);
+                daySpecialPrice.personRecommendMarkGroupV.addView(textView);
+            }
+        } else {
+            daySpecialPrice.personRecommendMarkGroupV.setVisibility(View.INVISIBLE);
         }
-        daySpecialPrice.personRecommendMarkGroupV.setVisibility(StringUtil.isValid(productListBean.getTag()
-            .toString()) ? View.VISIBLE : View.GONE);
+        if (!TextUtils.isEmpty(productListBean.getAcceptIntegral())) {
+            daySpecialPrice.personRecommendCanDeductible.append(productListBean.getAcceptIntegral());
+        } else {
+            daySpecialPrice.personRecommendCanDeductible.setVisibility(View.INVISIBLE);
+        }
+
 //        daySpecialPrice.personRecommendItemMarkTwoV.setText(productListBean.getTag().replace(",", "/"));
         daySpecialPrice.personRecommendItemMarkTwoV.setVisibility(View.GONE);
         daySpecialPrice.personRecommendItemMarkOneV.setVisibility(View.GONE);
@@ -88,6 +99,7 @@ public class DaySpecialPriceAdapter extends RecyclerView.Adapter {
         private TextView personRecommendProductDesV;
         private TextView personRecommendProductPriceV;
         private RelativeLayout personRecommendMarkGroupV;
+        private TextView personRecommendCanDeductible;
 
         public DaySpecialPrice(View itemView) {
             super(itemView);
@@ -102,6 +114,7 @@ public class DaySpecialPriceAdapter extends RecyclerView.Adapter {
             personRecommendProductDesV = (TextView) root.findViewById(R.id.personRecommendProductDesV);
             personRecommendProductPriceV = (TextView) root.findViewById(R.id.personRecommendProductPriceV);
             personRecommendMarkGroupV = (RelativeLayout) root.findViewById(R.id.personRecommendMarkGroupV);
+            personRecommendCanDeductible = (TextView) root.findViewById(R.id.personRecommendCanDeductible);
         }
     }
 }

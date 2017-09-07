@@ -26,6 +26,11 @@
                 app:banner_default_image="@drawable/no_banner"
                 />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/linear_bg"/>
+
             <RelativeLayout
                 android:id="@+id/brandTitleGroupV"
                 android:layout_width="match_parent"
@@ -53,6 +58,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/linear_bg"/>
 
             <RelativeLayout
                 android:id="@+id/perWeekTitleGroupV"
@@ -98,6 +108,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/linear_bg"/>
+
             <RelativeLayout
                 android:id="@+id/personRecommendTitleGroupV"
                 android:layout_width="match_parent"
@@ -124,6 +139,11 @@
                 android:id="@+id/personRecommendRecyclerV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/linear_bg"/>
 
             <RelativeLayout
                 android:id="@+id/daySpecialTitleGroupV"
@@ -152,6 +172,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/linear_bg"/>
+
             <RelativeLayout
                 android:id="@+id/youLikeTitleGroupV"
                 android:layout_width="match_parent"
@@ -177,7 +202,9 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/youLikeRecyclerV"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout>

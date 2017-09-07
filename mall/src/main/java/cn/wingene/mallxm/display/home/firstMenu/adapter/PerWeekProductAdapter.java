@@ -43,7 +43,10 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
         perWeekHolder.perWeekProductNameV.setText(productListBean.getProductName());
         perWeekHolder.perWeekProductImgV.setImageURI(productListBean.getProductImage());
         perWeekHolder.perWeekProductNameV.setText(productListBean.getProductName());
-        perWeekHolder.perWeekProductDesV.setVisibility(View.GONE);
+
+        if (!TextUtils.isEmpty(productListBean.getSellingPoint())) {
+            perWeekHolder.perWeekProductDesV.setText(productListBean.getSellingPoint());
+        }
         if (!TextUtils.isEmpty(productListBean.getTag())) {
             perWeekHolder.perWeekItemMarkOneV.setVisibility(View.GONE);
             perWeekHolder.perWeekItemMarkTwoV.setVisibility(View.GONE);
@@ -60,6 +63,7 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
             perWeekHolder.perWeekItemMarkTwoV.setVisibility(View.GONE);
         }
         perWeekHolder.perWeekProductPriceV.setText("¥" + String.valueOf(productListBean.getProductPrice()));
+        perWeekHolder.perWeekanDeductibleV.append("¥" + String.valueOf(productListBean.getAcceptIntegral()));
 
         perWeekHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +88,7 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
         private TextView perWeekProductNameV;
         private TextView perWeekProductDesV;
         private TextView perWeekProductPriceV;
+        private TextView perWeekanDeductibleV;
         private RelativeLayout perWeekMarkGroupV;
 
         public PerWeekHolder(View itemView) {
@@ -99,6 +104,7 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
             perWeekProductDesV = (TextView) root.findViewById(R.id.perWeekProductDesV);
             perWeekProductPriceV = (TextView) root.findViewById(R.id.perWeekProductPriceV);
             perWeekMarkGroupV = (RelativeLayout) root.findViewById(R.id.perWeekMarkGroupV);
+            perWeekanDeductibleV = (TextView) root.findViewById(R.id.perWeekanDeductible);
         }
     }
 }

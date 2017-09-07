@@ -445,7 +445,16 @@ public class RecommendModel {
                 private double ProductPrice;
                 private double ProductOldPrice;
                 private String Tag;
-                private Object SellingPoint;
+                private String SellingPoint;
+                private String AcceptIntegral;
+
+                public String getAcceptIntegral() {
+                    return AcceptIntegral;
+                }
+
+                public void setAcceptIntegral(String acceptIntegral) {
+                    AcceptIntegral = acceptIntegral;
+                }
 
                 public int getProductId() {
                     return ProductId;
@@ -495,11 +504,11 @@ public class RecommendModel {
                     this.Tag = Tag;
                 }
 
-                public Object getSellingPoint() {
+                public String getSellingPoint() {
                     return SellingPoint;
                 }
 
-                public void setSellingPoint(Object SellingPoint) {
+                public void setSellingPoint(String SellingPoint) {
                     this.SellingPoint = SellingPoint;
                 }
             }
@@ -578,7 +587,16 @@ public class RecommendModel {
                 private double ProductPrice;
                 private double ProductOldPrice;
                 private String Tag;
-                private Object SellingPoint;
+                private String SellingPoint;
+                private String AcceptIntegral;
+
+                public String getAcceptIntegral() {
+                    return AcceptIntegral;
+                }
+
+                public void setAcceptIntegral(String acceptIntegral) {
+                    AcceptIntegral = acceptIntegral;
+                }
 
                 public int getProductId() {
                     return ProductId;
@@ -628,11 +646,11 @@ public class RecommendModel {
                     this.Tag = Tag;
                 }
 
-                public Object getSellingPoint() {
+                public String getSellingPoint() {
                     return SellingPoint;
                 }
 
-                public void setSellingPoint(Object SellingPoint) {
+                public void setSellingPoint(String SellingPoint) {
                     this.SellingPoint = SellingPoint;
                 }
             }
@@ -710,8 +728,17 @@ public class RecommendModel {
                 private String ProductName;
                 private double ProductPrice;
                 private double ProductOldPrice;
-                private Object Tag;
-                private Object SellingPoint;
+                private String Tag;
+                private String SellingPoint;
+                private String AcceptIntegral;
+
+                public String getAcceptIntegral() {
+                    return AcceptIntegral;
+                }
+
+                public void setAcceptIntegral(String acceptIntegral) {
+                    AcceptIntegral = acceptIntegral;
+                }
 
                 public int getProductId() {
                     return ProductId;
@@ -753,19 +780,19 @@ public class RecommendModel {
                     this.ProductOldPrice = ProductOldPrice;
                 }
 
-                public Object getTag() {
-                    return Tag != null ? Tag : "";
+                public String getTag() {
+                     return Tag != null ? Tag : "";
                 }
 
-                public void setTag(Object Tag) {
+                public void setTag(String Tag) {
                     this.Tag = Tag;
                 }
 
-                public Object getSellingPoint() {
+                public String getSellingPoint() {
                     return SellingPoint;
                 }
 
-                public void setSellingPoint(Object SellingPoint) {
+                public void setSellingPoint(String SellingPoint) {
                     this.SellingPoint = SellingPoint;
                 }
             }
@@ -845,6 +872,15 @@ public class RecommendModel {
                 private double ProductOldPrice;
                 private String Tag;
                 private String SellingPoint;
+                private String AcceptIntegral;
+
+                public String getAcceptIntegral() {
+                    return AcceptIntegral;
+                }
+
+                public void setAcceptIntegral(String acceptIntegral) {
+                    AcceptIntegral = acceptIntegral;
+                }
 
                 public int getProductId() {
                     return ProductId;
@@ -978,6 +1014,15 @@ public class RecommendModel {
                 private double ProductOldPrice;
                 private String Tag;
                 private String SellingPoint;
+                private String AcceptIntegral;
+
+                public String getAcceptIntegral() {
+                    return AcceptIntegral;
+                }
+
+                public void setAcceptIntegral(String acceptIntegral) {
+                    AcceptIntegral = acceptIntegral;
+                }
 
                 public int getProductId() {
                     return ProductId;
