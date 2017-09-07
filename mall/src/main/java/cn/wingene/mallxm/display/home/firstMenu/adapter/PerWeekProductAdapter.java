@@ -2,6 +2,7 @@ package cn.wingene.mallxm.display.home.firstMenu.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,8 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
 
         if (!TextUtils.isEmpty(productListBean.getSellingPoint())) {
             perWeekHolder.perWeekProductDesV.setText(productListBean.getSellingPoint());
+        } else {
+            perWeekHolder.perWeekProductDesV.setVisibility(View.GONE);
         }
         if (!TextUtils.isEmpty(productListBean.getTag())) {
             perWeekHolder.perWeekItemMarkOneV.setVisibility(View.GONE);
@@ -63,7 +66,11 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
             perWeekHolder.perWeekItemMarkTwoV.setVisibility(View.GONE);
         }
         perWeekHolder.perWeekProductPriceV.setText("¥" + String.valueOf(productListBean.getProductPrice()));
+
         if (!TextUtils.isEmpty(productListBean.getAcceptIntegral())) {
+            Log.e(this.getClass().getName(), "productListBean.getAcceptIntegral() = " + productListBean
+                    .getAcceptIntegral());
+            perWeekHolder.perWeekanDeductibleV.setVisibility(View.VISIBLE);
             perWeekHolder.perWeekanDeductibleV.append("¥" + String.valueOf(productListBean.getAcceptIntegral()));
         } else {
             perWeekHolder.perWeekanDeductibleV.setVisibility(View.GONE);
