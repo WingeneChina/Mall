@@ -29,7 +29,8 @@
 
     <color name="yellow_mall">#f7cd11</color>
 
-    <color name="linear_bg">#f6f6f6</color>
+    <!--<color name="linear_bg">#f6f6f6</color>-->
+    <color name="linear_bg">#f4f4f4</color>
 
     <color name="pager_bg">#fafafa</color>
 

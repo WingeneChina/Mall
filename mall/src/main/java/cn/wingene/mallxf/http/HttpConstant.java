@@ -1,7 +1,5 @@
 package cn.wingene.mallxf.http;
 
-import cn.wingene.mall.BuildConfig;
-
 /**
  * Created by Wingene on 2017/5/23.
  * <p>
@@ -10,8 +8,9 @@ import cn.wingene.mall.BuildConfig;
 
 public class HttpConstant {
     //    public static final String SERVER_ADDRESS = ;
-    public static final String SERVER_ADDRESS = BuildConfig.DEBUG ? "http://guangheapp.usoft100.com/" :
-            "http://api.52lime.cn/";
+    public static final String SERVER_ADDRESS = "http://api.52lime.cn/";
+//    public static final String SERVER_ADDRESS = BuildConfig.DEBUG ? "http://guangheapp.usoft100.com/" :
+//            "http://api.52lime.cn/";
 
     public static final String HOST = SERVER_ADDRESS;
 
