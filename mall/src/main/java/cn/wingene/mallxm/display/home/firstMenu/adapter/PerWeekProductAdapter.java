@@ -1,5 +1,7 @@
 package cn.wingene.mallxm.display.home.firstMenu.adapter;
 
+import java.util.List;
+
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,7 +12,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.util.List;
+import junze.android.util.TextViewUtil;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxm.JumpHelper;
@@ -44,9 +46,9 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
         perWeekHolder.perWeekProductImgV.setImageURI(productListBean.getProductImage());
         perWeekHolder.perWeekProductNameV.setText(productListBean.getProductName());
 
-        if (!TextUtils.isEmpty(productListBean.getSellingPoint())) {
-            perWeekHolder.perWeekProductDesV.setText(productListBean.getSellingPoint());
-        }
+
+            TextViewUtil.showOrGone(perWeekHolder.perWeekProductDesV,productListBean.getSellingPoint());
+
         if (!TextUtils.isEmpty(productListBean.getTag())) {
             perWeekHolder.perWeekItemMarkOneV.setVisibility(View.GONE);
             perWeekHolder.perWeekItemMarkTwoV.setVisibility(View.GONE);
@@ -64,7 +66,9 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
         }
         perWeekHolder.perWeekProductPriceV.setText("¥" + String.valueOf(productListBean.getProductPrice()));
         if (!TextUtils.isEmpty(productListBean.getAcceptIntegral())) {
-            perWeekHolder.perWeekanDeductibleV.append("¥" + String.valueOf(productListBean.getAcceptIntegral()));
+            perWeekHolder.perWeekanDeductibleV.setVisibility(View.VISIBLE);
+            perWeekHolder.perWeekanDeductibleV.setText("可抵应币¥" + String.valueOf(productListBean.getAcceptIntegral
+                    ()));
         } else {
             perWeekHolder.perWeekanDeductibleV.setVisibility(View.GONE);
         }

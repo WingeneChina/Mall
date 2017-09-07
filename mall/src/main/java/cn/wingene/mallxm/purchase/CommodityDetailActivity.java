@@ -87,6 +87,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
     UiData mUiData;
 
     private Tile tlBack;
+    private TextView tvActionbarTitle;
     private LinearLayout llytValid;
     private Banner bannerImage;
     private ImageView ivSellImage;
@@ -106,6 +107,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
 
     protected void initComponent(){
         tlBack = (Tile) super.findViewById(R.id.tl_back);
+        tvActionbarTitle = (TextView) super.findViewById(R.id.tv_actionbar_title);
         llytValid = (LinearLayout) super.findViewById(R.id.llyt_valid);
         bannerImage = (Banner) super.findViewById(R.id.banner_image);
         ivSellImage = (ImageView) super.findViewById(R.id.iv_sell_image);
@@ -123,6 +125,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
         rlytInvalid = (RelativeLayout) super.findViewById(R.id.rlyt_invalid);
         tvInvalidMsg = (TextView) super.findViewById(R.id.tv_invalid_msg);
     }
+
 
 
 
@@ -191,7 +194,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
         ask("数据加载中...",false,new AskProductDetail.Request(mProductId, mPromotionId) {
             @Override
             public void updateUI(Response rsp) {
-                tvTitle.setText("商品详情");
+                tvActionbarTitle.setText("商品详情");
                 rlytInvalid.setVisibility(View.GONE);
                 llytValid.setVisibility(View.VISIBLE);
                 mProduct = rsp.getProduct();
@@ -232,9 +235,9 @@ public class CommodityDetailActivity extends MyBaseActivity {
                     }
                 }
                 if(exception != null && exception.getMessage().contains("下架")){
-                    tvTitle.setText("商品已下架");
+                    tvActionbarTitle.setText("商品已下架");
                 }else{
-                    tvTitle.setText("商品详情");
+                    tvActionbarTitle.setText("商品详情");
                     showToast(exception);
                 }
             }

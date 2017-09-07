@@ -18,6 +18,7 @@
             >
         </junze.widget.Tile>
         <TextView
+            android:id="@+id/tv_actionbar_title"
             android:layout_weight="1"
             android:text="商品详情"
             android:textColor="@color/def_action_bar_title_font"

@@ -8,11 +8,12 @@ package cn.wingene.mallxf.http;
 
 public class HttpConstant {
     //    public static final String SERVER_ADDRESS = ;
-    public static final String SERVER_ADDRESS = "http://api.52lime.cn/";
+//    public static final String SERVER_ADDRESS = "http://api.52lime.cn/";
+    public static final String SERVER_ADDRESS = "http://guangheapp.usoft100.com/";
 //    public static final String SERVER_ADDRESS = BuildConfig.DEBUG ? "http://guangheapp.usoft100.com/" :
 //            "http://api.52lime.cn/";
 
-    public static final String HOST = "http://api.52lime.cn/";//SERVER_ADDRESS;
+    public static final String HOST = SERVER_ADDRESS;//SERVER_ADDRESS;
 
 
     /**
