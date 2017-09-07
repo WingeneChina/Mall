@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <android.support.v4.widget.NestedScrollView
+            android:id="@+id/haveDataGroupV"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -22,7 +23,6 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/haveDataGroupV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -39,11 +39,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                 </LinearLayout>
-
-                <include
-                    layout="@layout/not_data_layout"
-                    android:visibility="gone"/>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
+
+        <include
+            layout="@layout/not_data_layout"
+            android:visibility="gone"/>
     </cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout>
 </LinearLayout>

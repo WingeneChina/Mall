@@ -154,7 +154,9 @@ public class RecommendFragment extends MyBaseFragment implements View
                     intent.putExtra("title", recommendModel.getData().getBrand().getTitle());
                     intent.putExtra("typeCode", "");
                 }
-                break;
+                startActivity(intent);
+                return;
+//            break;
             case R.id.perWeekTitleGroupV://每周更新
                 if (recommendModel != null) {
                     intent.putExtra("type", recommendModel.getData().getNew().getType());
