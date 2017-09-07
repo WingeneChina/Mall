@@ -8,6 +8,7 @@ import junze.androidxf.kit.AKit;
 
 import cn.wingene.mallxf.http.Ask.BaseSignRequest;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
+import cn.wingene.mallxm.purchase.tool.PayHelper.PayMothed;
 
 /**
  * Created by Wingene on 2017/8/27.
@@ -35,12 +36,12 @@ public class AskSubmitPayNow {
 //            this.amount = amount;
 //            this.integral = integral;
 //        }
-        public Request(String no,boolean isAlipay, Integer couponId, Double amount, Integer
+        public Request(String no,PayMothed payMothed, Integer couponId, Double amount, Integer
                 integral) {
             super(HttpAddress.ORDER_SUBMIT_PAY_NOW, new Response());
             this.no = no;
-            this.payment = isAlipay ? 21 : 22;
-            this.subPayment = isAlipay ? 2102 : 2202;
+            this.payment = payMothed.code;
+            this.subPayment = payMothed.sonCode;
             this.couponId = couponId;
             this.amount = amount;
             this.integral = integral;

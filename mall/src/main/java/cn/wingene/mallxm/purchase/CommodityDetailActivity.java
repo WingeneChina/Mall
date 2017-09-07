@@ -30,6 +30,8 @@ import android.widget.TextView;
 
 import com.sennie.skulib.Sku;
 import com.sennie.skulib.model.BaseSkuModel;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
 import junze.java.able.IBuilder;
 import junze.java.able.ICallBack;
@@ -37,7 +39,6 @@ import junze.java.util.CheckUtil;
 import junze.java.util.StringUtil;
 
 import junze.widget.Tile;
-import junze.widget.ViewPager;
 
 import junze.android.ui.ViewHolder;
 import junze.android.util.EditTextUtil;
@@ -49,6 +50,7 @@ import cn.wingene.mall.R;
 import cn.wingene.mallx.universalimageloader.ImageHelper;
 import cn.wingene.mallxf.http.Ask.NeedLoginException;
 import cn.wingene.mallxf.ui.MyBaseActivity;
+import cn.wingene.mallxf.ui.banner.BannerImgLoader;
 import cn.wingene.mallxm.D;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.purchase.adapter.CommodityImagePagerAdapter;
@@ -86,7 +88,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
 
     private Tile tlBack;
     private LinearLayout llytValid;
-    private ViewPager vpImage;
+    private Banner bannerImage;
     private ImageView ivSellImage;
     private TextView tvTitle;
     private TextView tvSubTitle;
@@ -105,7 +107,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
     protected void initComponent(){
         tlBack = (Tile) super.findViewById(R.id.tl_back);
         llytValid = (LinearLayout) super.findViewById(R.id.llyt_valid);
-        vpImage = (ViewPager) super.findViewById(R.id.vp_image);
+        bannerImage = (Banner) super.findViewById(R.id.banner_image);
         ivSellImage = (ImageView) super.findViewById(R.id.iv_sell_image);
         tvTitle = (TextView) super.findViewById(R.id.tv_title);
         tvSubTitle = (TextView) super.findViewById(R.id.tv_sub_title);
@@ -121,6 +123,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
         rlytInvalid = (RelativeLayout) super.findViewById(R.id.rlyt_invalid);
         tvInvalidMsg = (TextView) super.findViewById(R.id.tv_invalid_msg);
     }
+
 
 
 
@@ -188,6 +191,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
         ask("数据加载中...",false,new AskProductDetail.Request(mProductId, mPromotionId) {
             @Override
             public void updateUI(Response rsp) {
+                tvTitle.setText("商品详情");
                 rlytInvalid.setVisibility(View.GONE);
                 llytValid.setVisibility(View.VISIBLE);
                 mProduct = rsp.getProduct();
@@ -227,7 +231,12 @@ public class CommodityDetailActivity extends MyBaseActivity {
                         return;
                     }
                 }
-                showToast(exception);
+                if(exception != null && exception.getMessage().contains("下架")){
+                    tvTitle.setText("商品已下架");
+                }else{
+                    tvTitle.setText("商品详情");
+                    showToast(exception);
+                }
             }
         });
     }
@@ -333,7 +342,8 @@ public class CommodityDetailActivity extends MyBaseActivity {
             urlList.add(item.getThumbSrc());
         }
         mImagePagerAdapter = new CommodityImagePagerAdapter(urlList);
-        vpImage.setAdapter(mImagePagerAdapter);
+        bannerImage.setImages(urlList).setBannerStyle(BannerConfig.NUM_INDICATOR).setImageLoader(new
+                BannerImgLoader());
 
     }
 

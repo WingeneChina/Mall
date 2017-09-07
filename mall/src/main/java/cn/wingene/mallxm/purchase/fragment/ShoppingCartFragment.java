@@ -190,6 +190,11 @@ public class ShoppingCartFragment extends MyBaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         agent().ask(new AskCartList.Request() {
             @Override
             public void updateUI(Response rsp) {

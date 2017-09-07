@@ -35,6 +35,7 @@ import cn.wingene.mallxm.purchase.ask.AskOrderPayNow;
 import cn.wingene.mallxm.purchase.holder.EmptyOrderViewHolder;
 import cn.wingene.mallxm.purchase.tool.PayHelper;
 import cn.wingene.mallxm.purchase.tool.PayHelper.OnOrderBuild;
+import cn.wingene.mallxm.purchase.tool.PayHelper.PayMothed;
 
 /**
  * Created by wangcq on 2017/8/13.
@@ -125,11 +126,11 @@ public class OrderListFragment extends BasePullListFragment {
     public void pay(final OrderItem item) {
         mPayHelper.setOnOrderBuild(new OnOrderBuild() {
             @Override
-            public void onOrderBuild(final PayHelper helper, final boolean isAlipay, final double amount, final int integral) {
+            public void onOrderBuild(final PayHelper helper, final PayMothed payMothed, final double amount, final int integral) {
                 agent().ask(new AskOrderPayNow.Request(item.getNo()) {
                     @Override
                     public void updateUI(AskOrderPayNow.Response rsp) {
-                       helper.askPay(rsp.data,isAlipay,amount,integral);
+                       helper.askPay(rsp.data,payMothed,amount,integral);
                     }
                 });
             }

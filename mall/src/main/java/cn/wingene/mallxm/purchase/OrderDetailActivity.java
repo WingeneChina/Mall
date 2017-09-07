@@ -32,6 +32,7 @@ import cn.wingene.mallxm.purchase.ask.AskOrderPayNow;
 import cn.wingene.mallxm.purchase.bean.Address4;
 import cn.wingene.mallxm.purchase.tool.PayHelper;
 import cn.wingene.mallxm.purchase.tool.PayHelper.OnOrderBuild;
+import cn.wingene.mallxm.purchase.tool.PayHelper.PayMothed;
 
 /**
  * Created by Wingene on 2017/9/3.
@@ -267,12 +268,12 @@ public class OrderDetailActivity extends MyBaseActivity {
     public void pay(final OrderDetail item) {
         mPayHelper.setOnOrderBuild(new OnOrderBuild() {
             @Override
-            public void onOrderBuild(final PayHelper helper, final boolean isAlipay, final double amount, final int
+            public void onOrderBuild(final PayHelper helper, final PayMothed payMothed, final double amount, final int
                     integral) {
                 getAgent().ask(new AskOrderPayNow.Request(item.getNo()) {
                     @Override
                     public void updateUI(AskOrderPayNow.Response rsp) {
-                        helper.askPay(rsp.data, isAlipay, amount, integral);
+                        helper.askPay(rsp.data, payMothed, amount, integral);
                     }
                 });
             }

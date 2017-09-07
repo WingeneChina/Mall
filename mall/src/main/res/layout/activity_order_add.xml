@@ -215,8 +215,8 @@
                     android:text="可用Y15"
                     android:layout_height="wrap_content"/>
                 <LinearLayout
-                    android:layout_width="@dimen/p158"
-                    android:layout_height="@dimen/p48"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/pxd48_360xh"
                     android:layout_below="@+id/tv_title"
                     android:layout_weight="0"
                     android:layout_gravity="center_vertical"
@@ -227,12 +227,11 @@
 
                     <TextView
                         android:id="@+id/tv_integral_reduce"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="@dimen/p78"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="-"
-                        android:textSize="@dimen/p40"
+                        android:textSize="@dimen/p32"
                         />
 
                     <View
@@ -240,12 +239,11 @@
 
                     <TextView
                         android:id="@+id/tv_integral_number"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:textSize="@dimen/p20"
-                        android:minWidth="@dimen/p80"
+                        android:textSize="@dimen/p24"
+                        android:minWidth="@dimen/p66"
                         android:text="1"
                         />
 
@@ -254,12 +252,11 @@
 
                     <TextView
                         android:id="@+id/tv_integral_increase"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="@dimen/p78"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="+"
-                        android:textSize="@dimen/p30"
+                        android:textSize="@dimen/p24"
                         />
                 </LinearLayout>
 
@@ -282,7 +279,7 @@
                     android:text="当前游币Y102"
                     android:layout_height="wrap_content"/>
                 <LinearLayout
-                    android:layout_width="@dimen/p158"
+                    android:layout_width="wrap_content"
                     android:layout_height="@dimen/p48"
                     android:layout_below="@+id/tv_title"
                     android:layout_weight="0"
@@ -294,12 +291,11 @@
 
                     <TextView
                         android:id="@+id/tv_amount_reduce"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="@dimen/p78"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="-"
-                        android:textSize="@dimen/f40"
+                        android:textSize="@dimen/f32"
                         />
 
                     <View
@@ -307,25 +303,23 @@
 
                     <TextView
                         android:id="@+id/tv_amount_number"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:minWidth="@dimen/p80"
+                        android:minWidth="@dimen/p66"
                         android:text="1"
-                        android:textSize="@dimen/p20"/>
+                        android:textSize="@dimen/p24"/>
 
                     <View
                         style="@style/Line.Vertical"/>
 
                     <TextView
                         android:id="@+id/tv_amount_increase"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="@dimen/p78"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="+"
-                        android:textSize="@dimen/p30"
+                        android:textSize="@dimen/p24"
                         />
                 </LinearLayout>
 

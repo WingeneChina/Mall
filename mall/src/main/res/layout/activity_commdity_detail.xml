@@ -61,11 +61,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
-                <junze.widget.ViewPager
-                    android:id="@+id/vp_image"
+                <com.youth.banner.Banner
+                    android:id="@+id/banner_image"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/p720"></junze.widget.ViewPager>
+                    android:layout_height="@dimen/p720"
+                    app:banner_default_image="@drawable/no_banner"
+                    />
+                <!--<junze.widget.ViewPager-->
+                    <!--android:id="@+id/vp_image"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/p720"></junze.widget.ViewPager>-->
 
                 <ImageView
                     android:id="@+id/iv_sell_image"

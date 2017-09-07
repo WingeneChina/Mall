@@ -42,9 +42,13 @@ public class PayHelper {
         mAgent = agent;
     }
 
-    public void showBottomDialog(double mPayPrice, final double amount, final int integral) {
+    public void showBottomDialog(final double mPayPrice, final double amount, final int integral) {
         if (mPayChoiseDialog == null) {
             mPayChoiseDialog = new BottomPayChoiseDialog(getAgent().getActivity());
+        }
+        if (mPayPrice == 0) {
+            onOrderBuild(PayHelper.this, PayMothed.ACCOUNT, amount, integral);
+            return;
         }
         mPayChoiseDialog.show(getAgent(), mPayPrice, new OnClickListener() {
             @Override
@@ -54,18 +58,18 @@ public class PayHelper {
         }, new ICallBack<Boolean>() {
             @Override
             public void callBack(final Boolean isAlipay) {
-                onOrderBuild(PayHelper.this, isAlipay, amount, integral);
+                onOrderBuild(PayHelper.this, PayMothed.ALIPAY, amount, integral);
             }
         });
     }
 
     public static interface OnOrderBuild {
-        void onOrderBuild(PayHelper helper, boolean isAlipay, final double amount, final int integral);
+        void onOrderBuild(PayHelper helper, PayMothed payMothed, final double amount, final int integral);
     }
 
-    private void onOrderBuild(PayHelper helper, boolean isAlipay, final double amount, final int integral) {
+    private void onOrderBuild(PayHelper helper, PayMothed payMothed, final double amount, final int integral) {
         if (mOnOrderBuild != null) {
-            mOnOrderBuild.onOrderBuild(helper, isAlipay, amount, integral);
+            mOnOrderBuild.onOrderBuild(helper, payMothed, amount, integral);
         }
     }
 
@@ -87,15 +91,18 @@ public class PayHelper {
         return mAgent.ask(msg, autoHandleException, request);
     }
 
-    public void askPay(final Order order, final boolean isAlipay, double amount, int integral) {
-        ask("提交中...", false, new AskSubmitPayNow.Request(order.getNo(), isAlipay, 0, amount, integral) {
+    public void askPay(final Order order, final PayMothed payMothed, double amount, int integral) {
+        ask("提交中...", false, new AskSubmitPayNow.Request(order.getNo(), payMothed, 0, amount, integral) {
             @Override
             public void updateUI(final AskSubmitPayNow.Response rsp) {
                 if (rsp.data.getPayState() == 1) {
                     jumpToPayResultActivityAndFinish(order.getNo());
                     return;
                 }
-                if (isAlipay) {
+                if(payMothed == PayMothed.ACCOUNT){
+                    jumpToWaitPayActivityAndFinish(order.getNo());
+                    return;
+                }else if (payMothed ==PayMothed.ALIPAY) {
                     Runnable payRunnable = new Runnable() {
 
                         @Override
@@ -134,6 +141,7 @@ public class PayHelper {
             }
         });
     }
+
 
     public static final int SDK_PAY_FLAG = 2000;
     public static final int ORDER_NO = 3000;
@@ -214,5 +222,16 @@ public class PayHelper {
     public void showMsgDialog(CharSequence title, CharSequence message, String text, DialogInterface
             .OnClickListener l) {
         mAgent.showMsgDialog(title, message, text, l);
+    }
+
+    public enum PayMothed {
+        ACCOUNT(11,0), ALIPAY(21,2102), WX(22,2202);
+        public int code;
+        public int sonCode;
+
+        PayMothed(int code,int sonCode) {
+            this.code = code;
+            this.sonCode = sonCode;
+        }
     }
 }

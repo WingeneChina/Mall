@@ -1,5 +1,7 @@
 package cn.wingene.mallxm.purchase;
 
+import java.math.BigDecimal;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +36,7 @@ import cn.wingene.mallxm.purchase.bean.able.IProduct;
 import cn.wingene.mallxm.purchase.tool.NumberTool;
 import cn.wingene.mallxm.purchase.tool.PayHelper;
 import cn.wingene.mallxm.purchase.tool.PayHelper.OnOrderBuild;
+import cn.wingene.mallxm.purchase.tool.PayHelper.PayMothed;
 
 /**
  * Created by Wingene on 2017/8/14.
@@ -143,21 +146,21 @@ public class OrderAddActivity extends MyBaseActivity {
                     mPayHelper = new PayHelper(getAgent());
                     mPayHelper.setOnOrderBuild(new OnOrderBuild() {
                         @Override
-                        public void onOrderBuild(final PayHelper helper, final boolean isAlipay, final double
+                        public void onOrderBuild(final PayHelper helper, final PayMothed payMothed, final double
                                 amount, final int integral) {
                             if (mParams.isBuyNow()) {
                                 ask(new AskOrderCreateBuyNow.Request(mParams.buyNowData.getProduct(), mAddress
                                         .getId()) {
                                     @Override
                                     public void updateUI(AskOrderCreateBuyNow.Response rsp) {
-                                        helper.askPay(rsp.data, isAlipay, amount, integral);
+                                        helper.askPay(rsp.data, payMothed, amount, integral);
                                     }
                                 });
                             } else {
                                 ask(new AskOrderCreateBuyCart.Request(mParams.cartIds, mAddress.getId()) {
                                     @Override
                                     public void updateUI(AskOrderCreateBuyCart.Response rsp) {
-                                        helper.askPay(rsp.data, isAlipay, amount, integral);
+                                        helper.askPay(rsp.data, payMothed, amount, integral);
                                     }
                                 });
                             }
@@ -184,13 +187,13 @@ public class OrderAddActivity extends MyBaseActivity {
         }, new IBuilder<Double>() {
             @Override
             public Double build() {
-                return Math.min(mAccount.getAmount(), mPayPrice - (double)mIntegral / 100);
+                return Math.min(mAccount.getAmount(), mSumPrice - (double) mIntegral);
             }
         }, tvAmountReduce, tvAmountNumber, tvAmountIncrease, new ICallBack<Double>() {
             @Override
             public void callBack(Double aDouble) {
-                mAmount = aDouble;
-                tvAmountNumber.setText(String.format("%.1f", mAmount));
+                mAmount = new BigDecimal(aDouble).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
+                refreshUI();
             }
         });
 
@@ -203,23 +206,31 @@ public class OrderAddActivity extends MyBaseActivity {
         }, new IBuilder<Integer>() {
             @Override
             public Integer build() {
-                return Math.min(mAcceptIntegral, (int) (mPayPrice - mAmount) * 100);
+                return Math.min(mAcceptIntegral, (int) (mSumPrice - mAmount));
             }
         }, tvIntegralReduce, tvIntegralNumber, tvIntegralIncrease, new ICallBack<Integer>() {
             @Override
             public void callBack(Integer integer) {
                 mIntegral = integer;
-                tvIntegralNumber.setText(String.format("%s", mIntegral));
+                refreshUI();
             }
         });
     }
 
+    void updatePayPrice() {
+        mPayPrice = new BigDecimal(mSumPrice - mAmount - mIntegral).setScale(2, BigDecimal
+                .ROUND_DOWN).doubleValue();
+    }
+
     public void refreshUI() {
+        updatePayPrice();
         setAddress(mAddress);
         mItemHolder.notifyDataSetChanged();
         tvTotal.setText(String.format("￥%.2f", mSumPrice));
+        tvAmountNumber.setText(String.format("%s", mAmount));
+        tvIntegralNumber.setText(String.format("%s", mIntegral));
         setAccount(mAccount);
-        tvRealTotal.setText(String.format("￥%.2f", mPayPrice));
+        tvRealTotal.setText(String.format("￥%s", mPayPrice));
         tvAcceptIntegral.setText(String.format("可用￥%s",mAcceptIntegral));
     }
 

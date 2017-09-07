@@ -58,6 +58,7 @@ public class OrderListActivity extends MyBaseActivity {
         OrderFragmentPagerAdapter mMailFragmentPagerAdapter = new OrderFragmentPagerAdapter
                 (getSupportFragmentManager(), fragmentList);
         vpContent.setAdapter(mMailFragmentPagerAdapter);
+        tlContent.setTabMode(TabLayout.MODE_SCROLLABLE);
         tlContent.setupWithViewPager(vpContent, true);//同步
         List<Integer> list = new ArrayList<>();
         list.add(-1);
