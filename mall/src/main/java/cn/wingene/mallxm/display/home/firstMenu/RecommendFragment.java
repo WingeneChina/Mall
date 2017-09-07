@@ -209,7 +209,7 @@ public class RecommendFragment extends MyBaseFragment implements View
         YouLikeProduceAdapter youLikeProduceAdapter = new YouLikeProduceAdapter(likeBean.getProductList());
         youLikeRecyclerV.setAdapter(youLikeProduceAdapter);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 0);
         youLikeRecyclerV.addItemDecoration(spaceItemDecoration);
     }
 
@@ -226,7 +226,7 @@ public class RecommendFragment extends MyBaseFragment implements View
         DaySpecialPriceAdapter daySpecialPriceAdatper = new DaySpecialPriceAdapter(specialsBean.getProductList());
         daySpecialPRecyclerV.setAdapter(daySpecialPriceAdatper);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 0);
         daySpecialPRecyclerV.addItemDecoration(spaceItemDecoration);
 
     }
@@ -245,7 +245,7 @@ public class RecommendFragment extends MyBaseFragment implements View
         PersonRecommendAdapter personRecommendAdapter = new PersonRecommendAdapter(recommendBean.getProductList());
         personRecommendRecyclerV.setAdapter(personRecommendAdapter);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 0);
         personRecommendRecyclerV.addItemDecoration(spaceItemDecoration);
     }
 
@@ -253,7 +253,7 @@ public class RecommendFragment extends MyBaseFragment implements View
      * 每周新品
      */
     private void initPerWeekProduct(RecommendModel.DataBean.NewBean newBean) {
-        perWeekRecyclerV.setNestedScrollingEnabled(false);
+//        perWeekRecyclerV.setNestedScrollingEnabled(false);
         perWeekBGV.setImageURI(newBean.getImage());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager
                 .HORIZONTAL, false);
@@ -262,7 +262,7 @@ public class RecommendFragment extends MyBaseFragment implements View
         PerWeekProductAdapter perWeekProductAdapter = new PerWeekProductAdapter(newBean.getProductList());
         perWeekRecyclerV.setAdapter(perWeekProductAdapter);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 0, 10);
         perWeekRecyclerV.addItemDecoration(spaceItemDecoration);
     }
 

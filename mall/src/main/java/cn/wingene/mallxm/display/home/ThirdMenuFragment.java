@@ -70,6 +70,9 @@ public class ThirdMenuFragment extends MyBaseFragment implements HttpListener<St
 
         not_data_layout = (LinearLayout) root.findViewById(R.id.noDataGroup);
         haveDataGroupV = (LinearLayout) root.findViewById(R.id.haveDataGroupV);
+
+        TextView errorView = (TextView) not_data_layout.findViewById(R.id.errorTextV);
+        errorView.setText("sorry,还没有相关数据");
     }
 
     private void requestData() {

@@ -96,7 +96,6 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
     private void initViewPager(ProductGroupModel productGroupModel) {
         List<IndexModel> fragmentList = new ArrayList<>();
         if (productGroupModel.getData() != null && productGroupModel.getData().size() > 0) {
-            productTitleGroupV.setVisibility(View.VISIBLE);
             for (ProductGroupModel.DataBean dataBean : productGroupModel.getData()) {
                 Bundle bundle = new Bundle();
                 bundle.putString("typeCode", dataBean.getCode());
@@ -140,14 +139,14 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
             GsonUtil<ProductGroupModel> gsonUtil = new GsonUtil<>(ProductGroupModel.class);
             ProductGroupModel productGroupModel = gsonUtil.fromJson(response.get());
             if (productGroupModel.getErr() == 0) {
-                if (productGroupModel.getData().size() > 0) {
-                    haveDataGroupV.setVisibility(View.VISIBLE);
-                    noDataGroupV.setVisibility(View.GONE);
-                    initViewPager(productGroupModel);
-                } else {
-                    haveDataGroupV.setVisibility(View.GONE);
-                    noDataGroupV.setVisibility(View.VISIBLE);
-                }
+//                if (productGroupModel.getData().size() > 0) {
+//                    haveDataGroupV.setVisibility(View.VISIBLE);
+//                    noDataGroupV.setVisibility(View.GONE);
+                initViewPager(productGroupModel);
+//                } else {
+//                    haveDataGroupV.setVisibility(View.GONE);
+//                    noDataGroupV.setVisibility(View.VISIBLE);
+//                }
 
             } else {
                 ToastUtil.show(productGroupModel.getMsg(), this);

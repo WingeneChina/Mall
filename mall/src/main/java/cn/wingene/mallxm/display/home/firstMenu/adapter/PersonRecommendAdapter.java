@@ -3,6 +3,7 @@ package cn.wingene.mallxm.display.home.firstMenu.adapter;
 import java.util.List;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,25 +50,33 @@ public class PersonRecommendAdapter extends RecyclerView.Adapter {
         personRecommendHolder.personRecommendItemImgV.setImageURI(productListBean.getProductImage());
         personRecommendHolder.personRecommendProductNameV.setText(productListBean.getProductName());
         personRecommendHolder.personRecommendProductDesV.setVisibility(View.GONE);
-        for (String string : productListBean.getTag().toString().split(",")) {
-            TextView textView = (TextView) LayoutInflater.from(personRecommendHolder.personRecommendMarkGroupV
-                    .getContext()).inflate(R.layout.productmark_layout, personRecommendHolder
-                    .personRecommendMarkGroupV, false);
-            textView.setText(string);
-            personRecommendHolder.personRecommendMarkGroupV.addView(textView);
+        if (!TextUtils.isEmpty(productListBean.getTag())) {
+            for (String string : productListBean.getTag().split(",")) {
+                TextView textView = (TextView) LayoutInflater.from(personRecommendHolder.personRecommendMarkGroupV
+                        .getContext()).inflate(R.layout.productmark_layout, personRecommendHolder
+                        .personRecommendMarkGroupV, false);
+                textView.setText(string);
+                personRecommendHolder.personRecommendMarkGroupV.addView(textView);
+            }
+        } else {
+            personRecommendHolder.personRecommendMarkGroupV.setVisibility(View.INVISIBLE);
         }
-        personRecommendHolder.personRecommendMarkGroupV.setVisibility(StringUtil.isValid(productListBean.getTag()
-                .toString()) ? View.VISIBLE : View.GONE);
+
         personRecommendHolder.personRecommendItemMarkTwoV.setVisibility(View.GONE);
         personRecommendHolder.personRecommendItemMarkOneV.setVisibility(View.GONE);
         personRecommendHolder.personRecommendProductPriceV.setText("¥" + productListBean.getProductPrice());
+        if (!TextUtils.isEmpty(productListBean.getAcceptIntegral())) {
+            personRecommendHolder.personRecommendCanDeductible.append(productListBean.getAcceptIntegral());
+        } else {
+            personRecommendHolder.personRecommendCanDeductible.setVisibility(View.GONE);
+        }
 
         personRecommendHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 JumpHelper.startCommodityDetailActivity(personRecommendHolder.personRecommendProductDesV.getContext()
                         , productListBean
-                        .getProductId());
+                                .getProductId());
             }
         });
     }
@@ -86,6 +95,7 @@ public class PersonRecommendAdapter extends RecyclerView.Adapter {
         private TextView personRecommendProductDesV;
         private TextView personRecommendProductPriceV;
         private RelativeLayout personRecommendMarkGroupV;
+        private TextView personRecommendCanDeductible;
 
         public PersonRecommendHolder(View itemView) {
             super(itemView);
@@ -101,6 +111,7 @@ public class PersonRecommendAdapter extends RecyclerView.Adapter {
             personRecommendProductDesV = (TextView) root.findViewById(R.id.personRecommendProductDesV);
             personRecommendProductPriceV = (TextView) root.findViewById(R.id.personRecommendProductPriceV);
             personRecommendMarkGroupV = (RelativeLayout) root.findViewById(R.id.personRecommendMarkGroupV);
+            personRecommendCanDeductible = (TextView) root.findViewById(R.id.personRecommendCanDeductible);
 
         }
     }

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.yanzhenjie.nohttp.rest.Response;
 
@@ -69,6 +70,9 @@ public class SecondMenuFragment extends MyBaseFragment implements HttpListener<S
 
         not_data_layout = (LinearLayout) root.findViewById(R.id.noDataGroup);
         haveDataGroupV = (LinearLayout) root.findViewById(R.id.haveDataGroupV);
+
+        TextView errorView = (TextView) not_data_layout.findViewById(R.id.errorTextV);
+        errorView.setText("sorry,还没有相关数据");
 
     }
 

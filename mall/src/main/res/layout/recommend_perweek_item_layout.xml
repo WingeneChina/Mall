@@ -2,15 +2,16 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="135dp"
-    android:background="@color/def_bg_image"
     android:layout_height="wrap_content"
+    android:background="@color/def_bg_image"
     >
 
     <LinearLayout
-        android:background="@color/def_bg_image"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
+        android:background="@color/def_bg_image"
         android:orientation="vertical">
 
         <com.facebook.drawee.view.SimpleDraweeView
@@ -33,7 +34,7 @@
                 android:id="@+id/perWeekMarkGroupV"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:gravity="center_horizontal">
+                >
 
                 <TextView
                     android:id="@+id/perWeekItemMarkOneV"
@@ -64,9 +65,9 @@
                 android:gravity="center"
                 android:maxEms="8"
                 android:maxLines="1"
-                android:text="我是商品啊哈哈哈哈阿德"
                 android:textColor="@color/three_text_color"
-                android:textSize="16sp"/>
+                android:textSize="15sp"
+                tools:text="我是商品啊哈哈哈哈阿德"/>
 
             <TextView
                 android:id="@+id/perWeekProductDesV"
@@ -76,19 +77,35 @@
                 android:ellipsize="end"
                 android:gravity="left"
                 android:maxEms="18"
+                android:maxLength="10"
                 android:maxLines="1"
                 android:text="啦啦啦啦啦"
                 android:textColor="@color/six_text_color"
-                android:textSize="14sp"/>
+                android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/perWeekProductPriceV"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="¥"
-                android:textColor="@color/deepRed"
-                android:textSize="16sp"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/perWeekProductPriceV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥"
+                    android:textColor="@color/deepRed"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/perWeekanDeductible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="可抵应币"
+                    android:textColor="@color/deepRed"
+                    android:textSize="9sp"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>
