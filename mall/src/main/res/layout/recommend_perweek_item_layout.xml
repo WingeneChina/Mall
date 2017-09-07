@@ -79,7 +79,7 @@
                 android:maxEms="18"
                 android:maxLength="10"
                 android:maxLines="1"
-                android:text="啦啦啦啦啦"
+                tools:text=""
                 android:textColor="@color/six_text_color"
                 android:textSize="13sp"/>
 
