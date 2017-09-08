@@ -1,5 +1,7 @@
 package cn.wingene.mallxm.display.home.firstMenu.adapter;
 
+import java.util.List;
+
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -8,11 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import java.util.List;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxm.JumpHelper;
@@ -81,10 +80,12 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
             } else {
                 productListHolder.personRecommendMarkGroupV.setVisibility(View.GONE);
             }
-            if (TextUtils.isEmpty(listBean.getAcceptIntegral())) {
-                productListHolder.personRecommendCanDeductible.setVisibility(View.GONE);
+            if (!TextUtils.isEmpty(listBean.getAcceptIntegral())) {
+                productListHolder.personRecommendCanDeductible.setVisibility(View.VISIBLE);
+                productListHolder.personRecommendCanDeductible.setText("可抵应币¥" + String.valueOf(listBean.getAcceptIntegral
+                        ()));
             } else {
-                productListHolder.personRecommendCanDeductible.append(listBean.getAcceptIntegral());
+                productListHolder.personRecommendCanDeductible.setVisibility(View.GONE);
             }
 
             productListHolder.personRecommendProductPriceV.setText("¥" + listBean.getPrice());

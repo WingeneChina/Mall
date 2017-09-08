@@ -1,5 +1,10 @@
 package cn.wingene.mallxm.display.home.firstMenu;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
@@ -15,11 +20,6 @@ import com.yanzhenjie.nohttp.rest.Response;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.HttpConstant;
@@ -121,7 +121,7 @@ public class ProductListFragment extends MyBaseFragment implements
             }
         }
         mBanner.setImages(urlList).setBannerTitles(titleList).setDelayTime(3000)
-                .setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
+                .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                 .setImageLoader(new BannerImgLoader())
                 .setOnBannerListener(new OnBannerListener() {
                     @Override

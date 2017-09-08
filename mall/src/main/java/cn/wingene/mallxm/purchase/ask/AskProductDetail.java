@@ -132,6 +132,12 @@ public class AskProductDetail {
         private Double oldPrice;
 
         /**
+         * 可抵扣应币	不可
+         */
+        @SerializedName("AcceptIntegral")
+        private Integer acceptIntegral;
+
+        /**
          * 库存数量	不可
          */
         @SerializedName("Stock")
@@ -427,7 +433,9 @@ public class AskProductDetail {
             return limitEachNum;
         }
 
-
+        public Integer getAcceptIntegral() {
+            return acceptIntegral;
+        }
     }
 
     public static class ProductImageList {

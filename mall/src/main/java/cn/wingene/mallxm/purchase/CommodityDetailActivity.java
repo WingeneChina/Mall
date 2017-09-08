@@ -94,6 +94,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
     private TextView tvTitle;
     private TextView tvSubTitle;
     private TextView tvPrice;
+    private TextView tvAcceptIntegral;
     private LinearLayout llytSpec;
     private TextView tvSpec;
     private WebView wvDetail;
@@ -114,6 +115,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
         tvTitle = (TextView) super.findViewById(R.id.tv_title);
         tvSubTitle = (TextView) super.findViewById(R.id.tv_sub_title);
         tvPrice = (TextView) super.findViewById(R.id.tv_price);
+        tvAcceptIntegral = (TextView) super.findViewById(R.id.tv_accept_integral);
         llytSpec = (LinearLayout) super.findViewById(R.id.llyt_spec);
         tvSpec = (TextView) super.findViewById(R.id.tv_spec);
         wvDetail = (WebView) super.findViewById(R.id.wv_detail);
@@ -125,6 +127,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
         rlytInvalid = (RelativeLayout) super.findViewById(R.id.rlyt_invalid);
         tvInvalidMsg = (TextView) super.findViewById(R.id.tv_invalid_msg);
     }
+
 
 
 
@@ -210,6 +213,13 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 tvTitle.setText(mProduct.getName());
                 TextViewUtil.showOrGone(tvSubTitle, mProduct.getSellingPoint());
                 tvPrice.setText(String.format("￥%.2f", mProduct.getPrice()));
+                if(mProduct.getAcceptIntegral() != 0){
+                    tvAcceptIntegral.setVisibility(View.VISIBLE);
+                    tvAcceptIntegral.setText("可抵应币¥" + String.valueOf(mProduct.getAcceptIntegral
+                            ()));
+                }else{
+                    tvAcceptIntegral.setVisibility(View.GONE);
+                }
                 loadWebData(rsp.getProduct().getDetail());
                 refreshUI();
             }

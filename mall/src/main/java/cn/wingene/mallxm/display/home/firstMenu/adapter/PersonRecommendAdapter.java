@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import junze.java.util.StringUtil;
-
 import cn.wingene.mall.R;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
@@ -66,7 +64,9 @@ public class PersonRecommendAdapter extends RecyclerView.Adapter {
         personRecommendHolder.personRecommendItemMarkOneV.setVisibility(View.GONE);
         personRecommendHolder.personRecommendProductPriceV.setText("¥" + productListBean.getProductPrice());
         if (!TextUtils.isEmpty(productListBean.getAcceptIntegral())) {
-            personRecommendHolder.personRecommendCanDeductible.append(productListBean.getAcceptIntegral());
+            personRecommendHolder.personRecommendCanDeductible.setVisibility(View.VISIBLE);
+            personRecommendHolder.personRecommendCanDeductible.setText("可抵应币¥" + String.valueOf(productListBean.getAcceptIntegral
+                    ()));
         } else {
             personRecommendHolder.personRecommendCanDeductible.setVisibility(View.GONE);
         }

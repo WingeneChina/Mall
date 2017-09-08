@@ -1,16 +1,15 @@
 package cn.wingene.mallxm.display.home.firstMenu.adapter;
 
+import java.util.List;
+
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import java.util.List;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxm.JumpHelper;
@@ -41,7 +40,20 @@ public class BrandProductAdapter extends RecyclerView.Adapter {
         final RecommendModel.DataBean.BrandBean.ProductListBean productListBean = mProductListBeen.get(position);
         final BrandHolder brandHolder = (BrandHolder) holder;
         brandHolder.brandProductNameV.setText(productListBean.getProductName());
-        brandHolder.brandProductPriceV.setText(String.valueOf(productListBean.getProductPrice()));
+//        brandHolder.brandProductPriceV.setText(String.valueOf(productListBean.getProductPrice()));
+        // 2017年9月8日，要加Y吧？
+        brandHolder.brandProductPriceV.setText(String.format("￥%.2f",productListBean.getProductPrice()));
+
+        if(brandHolder.brandProductCanDeductible != null){
+            if (!TextUtils.isEmpty(productListBean.getAcceptIntegral())) {
+                brandHolder.brandProductCanDeductible.setVisibility(View.VISIBLE);
+                brandHolder.brandProductCanDeductible.setText("可抵应币¥" + String.valueOf(productListBean.getAcceptIntegral
+                        ()));
+            } else {
+                brandHolder.brandProductCanDeductible.setVisibility(View.GONE);
+            }
+        }
+
         brandHolder.brandProductImgV.setImageURI(productListBean.getProductImage());
         if (!TextUtils.isEmpty(productListBean.getTag())) {
             String tags = productListBean.getTag().replace(",", "/");
@@ -67,6 +79,7 @@ public class BrandProductAdapter extends RecyclerView.Adapter {
     class BrandHolder extends RecyclerView.ViewHolder {
         private TextView brandProductNameV;
         private TextView brandProductPriceV;
+        private TextView brandProductCanDeductible;
         private TextView brandProductMarkV;
         private TextView brandProductMarkTwoV;
         private SimpleDraweeView brandProductImgV;
@@ -79,6 +92,7 @@ public class BrandProductAdapter extends RecyclerView.Adapter {
         private void initViews(View root) {
             brandProductNameV = (TextView) root.findViewById(R.id.brandProductNameV);
             brandProductPriceV = (TextView) root.findViewById(R.id.brandProductPriceV);
+            brandProductCanDeductible = (TextView) root.findViewById(R.id.brandProductCanDeductible);
             brandProductMarkV = (TextView) root.findViewById(R.id.brandProductMarkV);
             brandProductMarkTwoV = (TextView) root.findViewById(R.id.brandProductMarkTwoV);
             brandProductImgV = (SimpleDraweeView) root.findViewById(R.id.brandProductImgV);

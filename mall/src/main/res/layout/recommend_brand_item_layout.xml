@@ -34,21 +34,42 @@
                 android:textSize="12sp"
                 />
 
-            <TextView
-                android:id="@+id/brandProductPriceV"
+            <LinearLayout
+                android:id="@+id/_llyt_price"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_below="@+id/brandProductNameV"
-                android:text="59元起"
-                android:textColor="@color/nine_text_color"
-                android:textSize="12sp"
-                />
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/brandProductPriceV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="59元起"
+                    android:textColor="@color/nine_text_color"
+                    android:textSize="12sp"
+                    />
+
+                <TextView
+                    android:id="@+id/brandProductCanDeductible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="59元起"
+                    android:textColor="@color/deepRed"
+                    android:textSize="9sp"
+                    />
+
+
+            </LinearLayout>
+
+
 
             <TextView
                 android:id="@+id/brandProductMarkV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/brandProductPriceV"
+                android:layout_below="@+id/_llyt_price"
                 android:layout_marginTop="5dp"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"/>
@@ -57,7 +78,7 @@
                 android:id="@+id/brandProductMarkTwoV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/brandProductPriceV"
+                android:layout_below="@+id/_llyt_price"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/brandProductMarkV"

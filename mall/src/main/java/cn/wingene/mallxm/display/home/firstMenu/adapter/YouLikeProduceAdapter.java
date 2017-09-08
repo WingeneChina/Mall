@@ -3,6 +3,7 @@ package cn.wingene.mallxm.display.home.firstMenu.adapter;
 import java.util.List;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,13 @@ public class YouLikeProduceAdapter extends RecyclerView.Adapter {
         youLikeHolder.youLikeProductNameV.setText(productListBean.getProductName());
         TextViewUtil.showOrGone(youLikeHolder.youLikeProductDesV,productListBean.getSellingPoint());
         youLikeHolder.youLikeProductPriceV.setText("¥" + productListBean.getProductPrice());
-
+        if (!TextUtils.isEmpty(productListBean.getAcceptIntegral())) {
+            youLikeHolder.youLikeProductCanDeductible.setVisibility(View.VISIBLE);
+            youLikeHolder.youLikeProductCanDeductible.setText("可抵应币¥" + String.valueOf(productListBean.getAcceptIntegral
+                    ()));
+        } else {
+            youLikeHolder.youLikeProductCanDeductible.setVisibility(View.GONE);
+        }
         youLikeHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +72,7 @@ public class YouLikeProduceAdapter extends RecyclerView.Adapter {
         private TextView youLikeProductDesV;
         private TextView youLikeProductNameV;
         private TextView youLikeProductPriceV;
+        private TextView youLikeProductCanDeductible;
 
         public YouLikeHolder(View itemView) {
             super(itemView);
@@ -76,6 +84,7 @@ public class YouLikeProduceAdapter extends RecyclerView.Adapter {
             youLikeProductDesV = (TextView) root.findViewById(R.id.youLikeProductDesV);
             youLikeProductNameV = (TextView) root.findViewById(R.id.youLikeProductNameV);
             youLikeProductPriceV = (TextView) root.findViewById(R.id.youLikeProductPriceV);
+            youLikeProductCanDeductible = (TextView) root.findViewById(R.id.youLikeProductCanDeductible);
         }
     }
 }

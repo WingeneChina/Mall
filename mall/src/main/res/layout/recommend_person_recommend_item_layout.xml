@@ -76,28 +76,36 @@
             android:textColor="@color/six_text_color"
             android:textSize="13sp"/>
 
-        <TextView
-            android:id="@+id/personRecommendProductPriceV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:layout_below="@+id/personRecommendProductDesV"
-            android:layout_marginTop="5dp"
-            android:text="¥114"
-            android:textColor="@color/deepRed"
-            android:textSize="14sp"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/personRecommendCanDeductible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:layout_marginTop="6dp"
-            android:layout_toRightOf="@+id/personRecommendProductPriceV"
-            android:layout_below="@+id/personRecommendProductDesV"
-            android:layout_alignBottom="@+id/personRecommendProductPriceV"
-            android:layout_marginLeft="8dp"
-            android:text="可抵应币￥"
-            android:textColor="@color/deepRed"
-            android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/personRecommendProductPriceV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="5dp"
+                android:text="¥114"
+                android:textColor="@color/deepRed"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/personRecommendCanDeductible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="8dp"
+                android:text="可抵应币￥"
+                android:textColor="@color/deepRed"
+                android:textSize="9sp"/>
+
+        </LinearLayout>
+
+
     </RelativeLayout>
 </LinearLayout>
