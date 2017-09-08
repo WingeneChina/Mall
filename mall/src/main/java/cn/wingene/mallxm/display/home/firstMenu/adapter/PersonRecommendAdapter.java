@@ -49,10 +49,11 @@ public class PersonRecommendAdapter extends RecyclerView.Adapter {
         personRecommendHolder.personRecommendProductNameV.setText(productListBean.getProductName());
         personRecommendHolder.personRecommendProductDesV.setVisibility(View.GONE);
         if (!TextUtils.isEmpty(productListBean.getTag())) {
+            int index = 0;
             for (String string : productListBean.getTag().split(",")) {
                 TextView textView = (TextView) LayoutInflater.from(personRecommendHolder.personRecommendMarkGroupV
-                        .getContext()).inflate(R.layout.productmark_layout, personRecommendHolder
-                        .personRecommendMarkGroupV, false);
+                        .getContext()).inflate(index++ == 0 ? R.layout.productmark_layout_first : R.layout
+                        .productmark_layout, personRecommendHolder.personRecommendMarkGroupV, false);
                 textView.setText(string);
                 personRecommendHolder.personRecommendMarkGroupV.addView(textView);
             }

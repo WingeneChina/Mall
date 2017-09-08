@@ -5,4 +5,5 @@
     <color name="def_tab_layout_text_normal">@color/black</color>
     <color name="def_tab_layout_text_selected">@color/fontYellow</color>
     <color name="def_bg_image">@color/transparent</color>
+    <color name="def_bg_desc">#f0ece1</color>
 </resources>

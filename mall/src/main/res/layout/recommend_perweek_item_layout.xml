@@ -62,11 +62,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:gravity="center"
+                android:gravity="left"
                 android:maxEms="8"
                 android:maxLines="1"
                 android:textColor="@color/three_text_color"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 tools:text="我是商品啊哈哈哈哈阿德"/>
 
             <TextView
@@ -81,7 +81,7 @@
                 android:maxLines="1"
                 tools:text=""
                 android:textColor="@color/six_text_color"
-                android:textSize="13sp"/>
+                android:textSize="12sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:text="¥"
                     android:textColor="@color/deepRed"
-                    android:textSize="14sp"/>
+                    android:textSize="13sp"/>
 
                 <TextView
                     android:id="@+id/perWeekanDeductible"

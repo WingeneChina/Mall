@@ -53,10 +53,11 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
             perWeekHolder.perWeekItemMarkOneV.setVisibility(View.GONE);
             perWeekHolder.perWeekItemMarkTwoV.setVisibility(View.GONE);
 //            perWeekHolder.perWeekItemMarkTwoV.setText(productListBean.getTag().replace(",", "/"));
+            int index = 0;
             for (String string : productListBean.getTag().split(",")) {
                 TextView textView = (TextView) LayoutInflater.from(perWeekHolder.perWeekMarkGroupV.getContext())
-                        .inflate(R
-                                .layout.productmark_layout, perWeekHolder.perWeekMarkGroupV, false);
+                        .inflate(index++ == 0 ? R.layout.productmark_layout_first : R.layout.productmark_layout,
+                                perWeekHolder.perWeekMarkGroupV, false);
                 textView.setText(string);
                 perWeekHolder.perWeekMarkGroupV.addView(textView);
             }

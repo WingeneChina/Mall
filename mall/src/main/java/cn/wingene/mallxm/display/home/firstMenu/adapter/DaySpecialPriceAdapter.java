@@ -49,14 +49,14 @@ public class DaySpecialPriceAdapter extends RecyclerView.Adapter {
         daySpecialPrice.personRecommendProductNameV.setText(productListBean.getProductName());
         daySpecialPrice.personRecommendProductPriceV.setText("¥" + productListBean.getProductPrice());
         if (!TextUtils.isEmpty(productListBean.getTag())) {
+            int index = 0;
             for (String string : productListBean.getTag().split(",")) {
                 TextView textView = (TextView) LayoutInflater.from(daySpecialPrice.personRecommendMarkGroupV
-                        .getContext())
-
-                        .inflate(R
-                                .layout.productmark_layout, daySpecialPrice.personRecommendMarkGroupV, false);
+                        .getContext()).inflate(index++ == 0 ? R.layout.productmark_layout_first : R.layout
+                        .productmark_layout, daySpecialPrice.personRecommendMarkGroupV, false);
                 textView.setText(string);
                 daySpecialPrice.personRecommendMarkGroupV.addView(textView);
+                ;
             }
         } else {
             daySpecialPrice.personRecommendMarkGroupV.setVisibility(View.INVISIBLE);

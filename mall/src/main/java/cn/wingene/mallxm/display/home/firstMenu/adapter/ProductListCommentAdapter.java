@@ -68,12 +68,11 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
             productListHolder.personRecommendItemMarkOneV.setVisibility(View.GONE);
 
             if (!TextUtils.isEmpty(listBean.getTag())) {
+                int index = 0;
                 for (String string : listBean.getTag().toString().split(",")) {
                     TextView textView = (TextView) LayoutInflater.from(productListHolder.personRecommendMarkGroupV
-                            .getContext())
-
-                            .inflate(R
-                                    .layout.productmark_layout, productListHolder.personRecommendMarkGroupV, false);
+                            .getContext()).inflate(index++ == 0 ? R.layout.productmark_layout_first : R.layout
+                            .productmark_layout, productListHolder.personRecommendMarkGroupV, false);
                     textView.setText(string);
                     productListHolder.personRecommendMarkGroupV.addView(textView);
                 }
