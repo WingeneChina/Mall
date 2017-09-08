@@ -256,6 +256,7 @@ public class SearchActivity extends AppCompatActivity implements HttpListener<St
         if (mListBeanList.size() > 0) {
             searchResultRecyclerV.setVisibility(View.VISIBLE);
             searchPreGroupV.setVisibility(View.GONE);
+
         } else {
             searchPreGroupV.setVisibility(View.VISIBLE);
             searchResultRecyclerV.setVisibility(View.GONE);

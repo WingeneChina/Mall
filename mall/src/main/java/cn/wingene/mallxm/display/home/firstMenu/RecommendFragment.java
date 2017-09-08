@@ -33,6 +33,7 @@ import cn.wingene.mallxf.ui.banner.BannerImgLoader;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.FirstMenuFragment;
+import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductRecommendActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.SearchActivity;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.BrandProductAdapter;
@@ -146,8 +147,9 @@ public class RecommendFragment extends MyBaseFragment implements View
         switch (v.getId()) {
             case R.id.brandTitleGroupV://品牌大厂
                 if ("4".equals(recommendModel.getData().getBrand().getType())) {
-                    intent = new Intent(this.getActivity(), SearchActivity.class);
+                    intent = new Intent(this.getActivity(), ProductActivity.class);
                 }
+
                 if (recommendModel != null) {
                     intent.putExtra("type", recommendModel.getData().getBrand().getType());
                     intent.putExtra("key", recommendModel.getData().getBrand().getParam());

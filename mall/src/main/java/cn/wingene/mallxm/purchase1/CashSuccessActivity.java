@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import cn.wingene.mall.R;
+import cn.wingene.mallxf.model.BaseResponse;
 import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxm.purchase1.data.CashCommitResultModel;
@@ -50,26 +51,37 @@ public class CashSuccessActivity extends AppCompatActivity implements View.OnCli
 
     private void showCashResult() {
         try {
-            GsonUtil<CashCommitResultModel> gsonUtil1 = new GsonUtil<>(CashCommitResultModel.class);
-            CashCommitResultModel cashCommitResultModel = gsonUtil1.fromJson(getIntent().getStringExtra("cashResult"));
-            if (cashCommitResultModel.getErr() == 0 && cashCommitResultModel.getData() != null) {
-                cashStateImgV.setImageResource(R.drawable.cash_success);
-                cashStateDesV.setText("提现申请成功");
-                String lastNumber = cashCommitResultModel.getData().getBankBack().getBankCardNo().substring
-                        (cashCommitResultModel.getData().getBankBack().getBankCardNo().length() - 3,
-                                cashCommitResultModel.getData().getBankBack().getBankCardNo().length());
+            GsonUtil<BaseResponse> baseResponseGsonUtil = new GsonUtil<>(BaseResponse.class);
+            BaseResponse baseResponse = baseResponseGsonUtil.fromJson(getIntent().getStringExtra("cashResult"));
+            if (baseResponse.err == 0) {
+                GsonUtil<CashCommitResultModel> gsonUtil1 = new GsonUtil<>(CashCommitResultModel.class);
+                CashCommitResultModel cashCommitResultModel = gsonUtil1.fromJson(getIntent().getStringExtra
+                        ("cashResult"));
 
-                cardInfoV.setText(cashCommitResultModel.getData().getBankBack().getBankTypeDesp() + "    尾号  " +
-                        lastNumber);
-                cashV.setText(String.valueOf(cashCommitResultModel.getData().getAmountPrice()));
+                if (cashCommitResultModel.getErr() == 0 && cashCommitResultModel.getData() != null) {
+                    cashStateImgV.setImageResource(R.drawable.cash_success);
+                    cashStateDesV.setText("提现申请成功");
+                    String lastNumber = cashCommitResultModel.getData().getBankBack().getBankCardNo().substring
+                            (cashCommitResultModel.getData().getBankBack().getBankCardNo().length() - 3,
+                                    cashCommitResultModel.getData().getBankBack().getBankCardNo().length());
 
+                    cardInfoV.setText(cashCommitResultModel.getData().getBankBack().getBankTypeDesp() + "    尾号  " +
+                            lastNumber);
+                    cashV.setText(String.valueOf(cashCommitResultModel.getData().getAmountPrice()));
+
+                } else {
+                    cashStateImgV.setImageResource(R.drawable.cash_fail);
+                    cashStateDesV.setText("提现申请失败");
+
+                }
             } else {
                 cashStateImgV.setImageResource(R.drawable.cash_fail);
                 cashStateDesV.setText("提现申请失败");
-
             }
         } catch (Exception e) {
             e.printStackTrace();
+            cashStateImgV.setImageResource(R.drawable.cash_fail);
+            cashStateDesV.setText("提现申请失败");
         }
 
     }

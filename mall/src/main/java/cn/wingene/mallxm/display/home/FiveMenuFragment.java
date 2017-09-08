@@ -277,8 +277,9 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
                     GsonUtil<VersionModel> versonGson = new GsonUtil<>(VersionModel.class);
                     VersionModel versionModel = versonGson.fromJson(response.get());
 
-                    if (versionModel.getData().getVersionCode() == VersionUtil.getAppVersionCode(this.getActivity())) {
+                    if (VersionUtil.getAppVersionCode(this.getActivity()) >= versionModel.getData().getVersionCode()) {
                         ToastUtil.show("当前已经是最新版本了", this.getActivity());
+
                     } else if (versionModel.getData().getVersionCode() > VersionUtil.getAppVersionCode(this
                             .getActivity())) {
 

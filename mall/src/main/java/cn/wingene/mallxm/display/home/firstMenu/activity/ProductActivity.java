@@ -134,7 +134,7 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
 
     @Override
     public void onSucceed(int what, Response<String> response) {
-        Log.e(this.getClass().getName(), "居家...返回数据 = " + response.get());
+        Log.e(this.getClass().getName(), "...返回数据 = " + response.get());
         try {
             GsonUtil<ProductGroupModel> gsonUtil = new GsonUtil<>(ProductGroupModel.class);
             ProductGroupModel productGroupModel = gsonUtil.fromJson(response.get());

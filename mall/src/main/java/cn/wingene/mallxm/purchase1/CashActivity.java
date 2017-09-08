@@ -46,7 +46,7 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
 
     private int mBankId;
     private double minMoney = 100;
-    private double maxMoney = 0;
+    private double maxMoney = 10000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +90,10 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
                             cashEditV.setError("提现金额不足100");
                             return;
                         }
-//                        if (money > maxMoney) {
-//                            cashEditV.setError("超过最大金额");
-//                        }
+                        if (money > maxMoney) {
+                            cashEditV.setError("超过最大可提现金额");
+
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -130,6 +131,10 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
                         double money = Double.parseDouble(cashEditV.getText().toString());
                         if (money < minMoney) {
                             cashEditV.setError("提现金额不足100");
+                            return;
+                        }
+                        if (money > maxMoney) {
+                            cashEditV.setError("超过最大可提现金额");
                             return;
                         }
                     }
@@ -178,7 +183,7 @@ public class CashActivity extends AppCompatActivity implements View.OnClickListe
                     CashEnterModel cashEnterModel = gsonUtil.fromJson(response.get());
                     if (cashEnterModel.getErr() == 0 && cashEnterModel.getData() != null) {
                         maxMoney = cashEnterModel.getData().getAmount();
-                        canCashShowV.setText(String.format("可提现金额%.2f",maxMoney));
+                        canCashShowV.setText(String.format("可提现金额%.2f", maxMoney));
 
                         if (cashEnterModel.getData().getBankBack() != null) {
                             accountMsgGroupV.setVisibility(View.VISIBLE);
