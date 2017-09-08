@@ -249,7 +249,7 @@ public class RecommendFragment extends MyBaseFragment implements View
         PersonRecommendAdapter personRecommendAdapter = new PersonRecommendAdapter(recommendBean.getProductList());
         personRecommendRecyclerV.setAdapter(personRecommendAdapter);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 0);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 15, 0);
         personRecommendRecyclerV.addItemDecoration(spaceItemDecoration);
     }
 
@@ -266,7 +266,7 @@ public class RecommendFragment extends MyBaseFragment implements View
         PerWeekProductAdapter perWeekProductAdapter = new PerWeekProductAdapter(newBean.getProductList());
         perWeekRecyclerV.setAdapter(perWeekProductAdapter);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 0, 10);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 15, 0, 10);
         perWeekRecyclerV.addItemDecoration(spaceItemDecoration);
     }
 
