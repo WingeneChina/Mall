@@ -34,7 +34,7 @@
                 android:layout_below="@+id/youLikeItemImgV"
                 android:background="@color/def_bg_desc"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
+                android:paddingLeft="5dp"
                 android:paddingRight="10dp"
                 android:text="100%原木浆,吸水不易破"
                 android:textSize="12sp"/>
@@ -42,11 +42,11 @@
         </RelativeLayout>
 
         <TextView
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
             android:id="@+id/youLikeProductNameV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
+            android:paddingLeft="5dp"
             android:paddingRight="10dp"
             android:maxLines="2"
             android:ellipsize="end"
@@ -55,6 +55,7 @@
             android:textSize="14sp"/>
 
         <LinearLayout
+            android:layout_marginTop="2dp"
             android:layout_width="match_parent"
             android:gravity="center_vertical"
             android:layout_height="wrap_content">
@@ -63,8 +64,7 @@
                 android:id="@+id/youLikeProductPriceV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:paddingLeft="10dp"
+                android:paddingLeft="5dp"
                 android:text="¥114"
                 android:textColor="@color/deepRed"
                 android:textSize="13sp"/>
@@ -72,7 +72,6 @@
                 android:id="@+id/youLikeProductCanDeductible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:paddingRight="10dp"
                 android:layout_marginLeft="8dp"
                 android:text=""

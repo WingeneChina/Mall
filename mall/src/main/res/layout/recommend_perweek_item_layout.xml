@@ -26,9 +26,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="5dp"
-            android:paddingLeft="10dp"
+            android:paddingLeft="2dp"
             android:paddingRight="10dp"
-            android:paddingTop="5dp">
+            android:paddingTop="2dp">
 
             <RelativeLayout
                 android:id="@+id/perWeekMarkGroupV"
@@ -58,6 +58,7 @@
             </RelativeLayout>
 
             <TextView
+                android:layout_marginTop="2dp"
                 android:id="@+id/perWeekProductNameV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,10 +71,10 @@
                 tools:text="我是商品啊哈哈哈哈阿德"/>
 
             <TextView
+                android:layout_marginTop="2dp"
                 android:id="@+id/perWeekProductDesV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:gravity="left"
                 android:maxEms="18"
@@ -86,7 +87,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal">
 
                 <TextView

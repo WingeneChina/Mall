@@ -7,7 +7,11 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:layout_toRightOf="@+id/perWeekItemMarkOneV"
-    android:background="@drawable/orange_shape"
+    android:background="@drawable/shape_mark"
     android:text="满赠"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
     android:textColor="@android:color/white"
-    android:textSize="12sp"/>
+    android:textSize="10sp"/>
