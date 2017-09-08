@@ -26,9 +26,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="5dp"
-            android:paddingLeft="10dp"
+            android:paddingLeft="5dp"
             android:paddingRight="10dp"
-            android:paddingTop="5dp">
+            android:paddingTop="8dp">
 
             <RelativeLayout
                 android:id="@+id/perWeekMarkGroupV"
@@ -65,28 +65,29 @@
                 android:gravity="left"
                 android:maxEms="8"
                 android:maxLines="1"
+                android:layout_marginTop="8dp"
                 android:textColor="@color/three_text_color"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 tools:text="我是商品啊哈哈哈哈阿德"/>
 
             <TextView
                 android:id="@+id/perWeekProductDesV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="6dp"
                 android:ellipsize="end"
                 android:gravity="left"
                 android:maxEms="18"
                 android:maxLength="10"
                 android:maxLines="1"
                 tools:text=""
-                android:textColor="@color/six_text_color"
-                android:textSize="12sp"/>
+                android:textColor="#888888"
+                android:textSize="11sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -94,8 +95,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="¥"
-                    android:textColor="@color/deepRed"
-                    android:textSize="13sp"/>
+                    android:textColor="#b4282d"
+                    android:textSize="11sp"/>
 
                 <TextView
                     android:id="@+id/perWeekanDeductible"

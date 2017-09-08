@@ -54,13 +54,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/personRecommendMarkGroupV"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="9dp"
             android:ellipsize="end"
             android:maxEms="8"
             android:maxLines="3"
             android:text="我是商品啊哈哈哈哈阿德"
             android:textColor="@color/three_text_color"
-            android:textSize="14sp"/>
+            android:textSize="13sp"/>
 
         <TextView
             android:id="@+id/personRecommendProductDesV"
@@ -74,7 +74,7 @@
             android:maxLines="1"
             android:text="啦啦啦啦啦"
             android:textColor="@color/six_text_color"
-            android:textSize="12sp"/>
+            android:textSize="11sp"/>
 
         <LinearLayout
             android:layout_below="@+id/personRecommendProductDesV"
@@ -87,11 +87,10 @@
                 android:id="@+id/personRecommendProductPriceV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="5dp"
                 android:text="¥114"
-                android:textColor="@color/deepRed"
-                android:textSize="13sp"/>
+                android:textColor="#b4282d"
+                android:textSize="11sp"/>
 
             <TextView
                 android:id="@+id/personRecommendCanDeductible"
@@ -101,7 +100,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginLeft="8dp"
                 android:text=""
-                android:textColor="@color/deepRed"
+                android:textColor="#b4282d"
                 android:textSize="9sp"/>
 
         </LinearLayout>

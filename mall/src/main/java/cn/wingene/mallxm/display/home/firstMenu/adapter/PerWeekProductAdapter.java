@@ -46,8 +46,13 @@ public class PerWeekProductAdapter extends RecyclerView.Adapter {
         perWeekHolder.perWeekProductImgV.setImageURI(productListBean.getProductImage());
         perWeekHolder.perWeekProductNameV.setText(productListBean.getProductName());
 
+//        TextViewUtil.showOrGone(perWeekHolder.perWeekProductDesV, productListBean.getSellingPoint());
 
-            TextViewUtil.showOrGone(perWeekHolder.perWeekProductDesV,productListBean.getSellingPoint());
+        if (!TextUtils.isEmpty(productListBean.getSellingPoint())) {
+            perWeekHolder.perWeekProductDesV.setText(productListBean.getSellingPoint());
+        } else {
+            perWeekHolder.perWeekProductDesV.setVisibility(View.INVISIBLE);
+        }
 
         if (!TextUtils.isEmpty(productListBean.getTag())) {
             perWeekHolder.perWeekItemMarkOneV.setVisibility(View.GONE);
