@@ -54,24 +54,7 @@ public class MyAgent extends Agent {
                     request.updateUI(response);
                 } else {
                     if (autoHandleException) {
-                        Exception exception = request.getException();
-                        if (exception != null && exception instanceof NeedLoginException) {
-                            if (CheckUtil.isInclude(getActivity().getClass(), ShoppingCartActivity.class,
-                                    OrderListActivity.class, AddressManagerActivity.class, RechargeIndexActivity
-                                            .class)) {
-                                getActivity().finish();
-                            }
-                            JumpHelper.startLoginActivity(getActivity());
-                            return;
-                        }
-                        if (exception != null && exception instanceof NotOKException) {
-                            NotOKException e = (NotOKException) exception;
-                            if (e.responseCode == 400) {
-                                showToast("网络不稳定!!!!");
-                                return;
-                            }
-                        }
-                        showToast(exception);
+                        handleException(request);
                     } else {
                         request.updateUIWhenException();
                     }
@@ -83,6 +66,25 @@ public class MyAgent extends Agent {
         }.execute("");
     }
 
+    private <T extends IResponse> void handleException(IRequest<T> request) {
+        Exception exception = request.getException();
+        if (exception != null && exception instanceof NeedLoginException) {
+            if (CheckUtil.isInclude(getActivity().getClass(), ShoppingCartActivity.class, OrderListActivity.class,
+                    AddressManagerActivity.class, RechargeIndexActivity.class)) {
+                getActivity().finish();
+            }
+            JumpHelper.startLoginActivity(getActivity());
+            return;
+        }
+        if (exception != null && exception instanceof NotOKException) {
+            NotOKException e = (NotOKException) exception;
+            if (e.responseCode == 400) {
+                showToast("网络不稳定!!!!");
+                return;
+            }
+        }
+        showToast(exception);
+    }
 
 
     public void showEditViewDialog2(CharSequence title, Option option, OnEditCompleteListener onEditComplete) {

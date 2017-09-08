@@ -44,14 +44,12 @@ public class BrandProductAdapter extends RecyclerView.Adapter {
         // 2017年9月8日，要加Y吧？
         brandHolder.brandProductPriceV.setText(String.format("￥%.2f",productListBean.getProductPrice()));
 
-        if(brandHolder.brandProductCanDeductible != null){
-            if (!TextUtils.isEmpty(productListBean.getAcceptIntegral())) {
-                brandHolder.brandProductCanDeductible.setVisibility(View.VISIBLE);
-                brandHolder.brandProductCanDeductible.setText("可抵应币¥" + String.valueOf(productListBean.getAcceptIntegral
-                        ()));
-            } else {
-                brandHolder.brandProductCanDeductible.setVisibility(View.GONE);
-            }
+        if (!TextUtils.isEmpty(productListBean.getAcceptIntegral())) {
+            brandHolder.brandProductCanDeductible.setVisibility(View.VISIBLE);
+            brandHolder.brandProductCanDeductible.setText("可抵应币¥" + String.valueOf(productListBean
+                    .getAcceptIntegral()));
+        } else {
+            brandHolder.brandProductCanDeductible.setVisibility(View.GONE);
         }
 
         brandHolder.brandProductImgV.setImageURI(productListBean.getProductImage());

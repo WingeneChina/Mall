@@ -1,14 +1,15 @@
 package cn.wingene.mallxm.display.home.firstMenu.adapter;
 
+import java.util.List;
+
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import java.util.List;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxm.JumpHelper;
@@ -51,6 +52,13 @@ public class SpecialOfferRecyclerVAdapter extends RecyclerView.Adapter {
         specialHolder.personRecommendItemMarkTwoV.setText(productItemData.getTag().toString().replace(",",
                 "/"));
         specialHolder.personRecommendProductPriceV.setText("¥" + productItemData.getPrice());
+        if (!TextUtils.isEmpty(productItemData.getAcceptIntegral())) {
+            specialHolder.personRecommendProductPriceV.setVisibility(View.VISIBLE);
+            specialHolder.personRecommendProductPriceV.setText("可抵应币¥" + String.valueOf(productItemData.getAcceptIntegral
+                    ()));
+        } else {
+            specialHolder.personRecommendProductPriceV.setVisibility(View.GONE);
+        }
 
         specialHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +81,7 @@ public class SpecialOfferRecyclerVAdapter extends RecyclerView.Adapter {
         private TextView personRecommendProductNameV;
         private TextView personRecommendProductDesV;
         private TextView personRecommendProductPriceV;
+        private TextView personRecommendCanDeductible;
 
         public SpecialHolder(View itemView) {
             super(itemView);
@@ -86,6 +95,7 @@ public class SpecialOfferRecyclerVAdapter extends RecyclerView.Adapter {
             personRecommendProductNameV = (TextView) root.findViewById(R.id.personRecommendProductNameV);
             personRecommendProductDesV = (TextView) root.findViewById(R.id.personRecommendProductDesV);
             personRecommendProductPriceV = (TextView) root.findViewById(R.id.personRecommendProductPriceV);
+            personRecommendCanDeductible = (TextView) root.findViewById(R.id.personRecommendCanDeductible);
         }
     }
 }

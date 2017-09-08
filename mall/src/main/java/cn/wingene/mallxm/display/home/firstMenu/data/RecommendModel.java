@@ -449,7 +449,7 @@ public class RecommendModel {
                 private String AcceptIntegral;
 
                 public String getAcceptIntegral() {
-                    return AcceptIntegral;
+                    return AcceptIntegral != null && !AcceptIntegral.isEmpty() ? AcceptIntegral : "" ;
                 }
 
                 public void setAcceptIntegral(String acceptIntegral) {
@@ -591,7 +591,7 @@ public class RecommendModel {
                 private String AcceptIntegral;
 
                 public String getAcceptIntegral() {
-                    return AcceptIntegral;
+                    return AcceptIntegral != null && !AcceptIntegral.isEmpty() ? AcceptIntegral : "" ;
                 }
 
                 public void setAcceptIntegral(String acceptIntegral) {
@@ -733,7 +733,7 @@ public class RecommendModel {
                 private String AcceptIntegral;
 
                 public String getAcceptIntegral() {
-                    return AcceptIntegral;
+                    return AcceptIntegral != null && !AcceptIntegral.isEmpty() ? AcceptIntegral : "" ;
                 }
 
                 public void setAcceptIntegral(String acceptIntegral) {
@@ -875,7 +875,7 @@ public class RecommendModel {
                 private String AcceptIntegral;
 
                 public String getAcceptIntegral() {
-                    return AcceptIntegral;
+                    return AcceptIntegral != null && !AcceptIntegral.isEmpty() ? AcceptIntegral : "" ;
                 }
 
                 public void setAcceptIntegral(String acceptIntegral) {
@@ -1017,7 +1017,7 @@ public class RecommendModel {
                 private String AcceptIntegral;
 
                 public String getAcceptIntegral() {
-                    return AcceptIntegral;
+                    return AcceptIntegral != null && !AcceptIntegral.isEmpty() ? AcceptIntegral : "" ;
                 }
 
                 public void setAcceptIntegral(String acceptIntegral) {
