@@ -42,6 +42,7 @@ public class SpecialOfferRecyclerVAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+//        holder.onoBindViewHOlder( bean )
         final SpecialHolder specialHolder = (SpecialHolder) holder;
         final ProductListModel.DataBean.ListBean productItemData = mDataBeanList.get(position);
 
@@ -53,11 +54,11 @@ public class SpecialOfferRecyclerVAdapter extends RecyclerView.Adapter {
                 "/"));
         specialHolder.personRecommendProductPriceV.setText("¥" + productItemData.getPrice());
         if (!TextUtils.isEmpty(productItemData.getAcceptIntegral())) {
-            specialHolder.personRecommendProductPriceV.setVisibility(View.VISIBLE);
-            specialHolder.personRecommendProductPriceV.setText("可抵应币¥" + String.valueOf(productItemData.getAcceptIntegral
+            specialHolder.personRecommendCanDeductible.setVisibility(View.VISIBLE);
+            specialHolder.personRecommendCanDeductible.setText("可抵应币¥" + String.valueOf(productItemData.getAcceptIntegral
                     ()));
         } else {
-            specialHolder.personRecommendProductPriceV.setVisibility(View.GONE);
+            specialHolder.personRecommendCanDeductible.setVisibility(View.GONE);
         }
 
         specialHolder.itemView.setOnClickListener(new View.OnClickListener() {
