@@ -192,7 +192,7 @@ public class OrderAddActivity extends MyBaseActivity {
         }, tvAmountReduce, tvAmountNumber, tvAmountIncrease, new ICallBack<Double>() {
             @Override
             public void callBack(Double aDouble) {
-                mAmount = new BigDecimal(aDouble).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
+                mAmount = new BigDecimal(aDouble).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                 refreshUI();
             }
         });
@@ -218,8 +218,7 @@ public class OrderAddActivity extends MyBaseActivity {
     }
 
     void updatePayPrice() {
-        mPayPrice = new BigDecimal(mSumPrice - mAmount - mIntegral).setScale(2, BigDecimal
-                .ROUND_DOWN).doubleValue();
+        mPayPrice = new BigDecimal(mSumPrice - mAmount - mIntegral).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public void refreshUI() {
