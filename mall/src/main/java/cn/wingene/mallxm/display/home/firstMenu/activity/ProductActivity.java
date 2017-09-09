@@ -144,13 +144,20 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
     public void onSucceed(int what, Response<String> response) {
         Log.e(this.getClass().getName(), "...返回数据 = " + response.get());
         try {
-            GsonUtil<ProductGroupModel> gsonUtil = new GsonUtil<>(ProductGroupModel.class);
-            ProductGroupModel productGroupModel = gsonUtil.fromJson(response.get());
-            if (productGroupModel.getErr() == 0) {
-                initViewPager(productGroupModel);
+            GsonUtil<BaseResponse> gsonUtil1 = new GsonUtil<>(BaseResponse.class);
+            BaseResponse baseResponse = gsonUtil1.fromJson(response.get());
+            if (baseResponse.err == 0) {
+                GsonUtil<ProductGroupModel> gsonUtil = new GsonUtil<>(ProductGroupModel.class);
+                ProductGroupModel productGroupModel = gsonUtil.fromJson(response.get());
+                if (productGroupModel.getErr() == 0) {
+                    initViewPager(productGroupModel);
 
+                } else {
+                    ToastUtil.show(productGroupModel.getMsg(), this);
+                }
             } else {
-                ToastUtil.show(productGroupModel.getMsg(), this);
+                ToastUtil.show(baseResponse.msg, this);
+
             }
         } catch (Exception e) {
             e.printStackTrace();

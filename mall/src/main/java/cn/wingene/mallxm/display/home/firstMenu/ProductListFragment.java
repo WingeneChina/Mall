@@ -141,7 +141,8 @@ public class ProductListFragment extends MyBaseFragment implements
         hasmapParams.put("OrderBy", orderBy);
         hasmapParams.put("PageIndex", mPagerIndex);
         hasmapParams.put("Type", getArguments().getString("type"));
-        hasmapParams.put("CategoryCode", getArguments().getString("key", ""));
+        hasmapParams.put("Key",getArguments().getString("key", ""));
+        hasmapParams.put("CategoryCode", "");//getArguments().getString("key", "")
         responseNoHttpRequest.request(getActivity(), HttpConstant.PRODUCT_LIST, hasmapParams, 1, this, false,
                 "productList",
                 false, false);
