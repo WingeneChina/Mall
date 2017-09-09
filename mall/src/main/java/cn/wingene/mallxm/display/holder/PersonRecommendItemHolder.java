@@ -5,7 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -26,7 +26,7 @@ public class PersonRecommendItemHolder extends ViewHolder {
     private TextView personRecommendProductNameV;
     private TextView personRecommendProductDesV;
     private TextView personRecommendProductPriceV;
-    private RelativeLayout personRecommendMarkGroupV;
+    private LinearLayout personRecommendMarkGroupV;
     private TextView personRecommendCanDeductible;
 
     private void initViews(View root) {
@@ -36,7 +36,7 @@ public class PersonRecommendItemHolder extends ViewHolder {
         personRecommendProductNameV = (TextView) root.findViewById(R.id.personRecommendProductNameV);
         personRecommendProductDesV = (TextView) root.findViewById(R.id.personRecommendProductDesV);
         personRecommendProductPriceV = (TextView) root.findViewById(R.id.personRecommendProductPriceV);
-        personRecommendMarkGroupV = (RelativeLayout) root.findViewById(R.id.personRecommendMarkGroupV);
+        personRecommendMarkGroupV = (LinearLayout) root.findViewById(R.id.personRecommendMarkGroupV);
         personRecommendCanDeductible = (TextView) root.findViewById(R.id.personRecommendCanDeductible);
 
     }

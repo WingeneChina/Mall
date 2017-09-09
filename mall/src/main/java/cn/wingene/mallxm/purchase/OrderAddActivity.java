@@ -120,11 +120,12 @@ public class OrderAddActivity extends MyBaseActivity {
         IAddOrder bean = mParams.isBuyNow() ? mParams.buyNowData : mParams.buyCarData;
         mAddress = bean.getAddress();
         mItemHolder.addAll(bean.getProductList());
-        mAccount = bean.getAccount();
         mAddress = bean.getAddress();
         mSumPrice = bean.getSumPrice();
-        mPayPrice = bean.getPayPrice();
+        mAccount = bean.getAccount();
         mAcceptIntegral = bean.getAcceptIntegral();
+        mPayPrice = bean.getPayPrice();
+        fillAcceptPay();
         refreshUI();
 
         tlBack.setOnClickListener(new OnClickListener() {
@@ -177,6 +178,11 @@ public class OrderAddActivity extends MyBaseActivity {
         bindNumber();
     }
 
+    private void fillAcceptPay() {
+        mIntegral = (int) Math.min((double) getRealAcceptIntegral(), mSumPrice);
+        mAmount = Math.min(mAccount.getAmount(),round2(mSumPrice-mIntegral));
+    }
+
     private void bindNumber() {
         tvAmountNumber.setText(String.format("%.1f", mAmount));
         NumberTool.bindDouble(getAgent(), "请输入使用游币的值", 0, new IBuilder<Double>() {
@@ -206,7 +212,7 @@ public class OrderAddActivity extends MyBaseActivity {
         }, new IBuilder<Integer>() {
             @Override
             public Integer build() {
-                return Math.min(mAcceptIntegral, (int) (mSumPrice - mAmount));
+                return Math.min(getRealAcceptIntegral(), (int) (mSumPrice - mAmount));
             }
         }, tvIntegralReduce, tvIntegralNumber, tvIntegralIncrease, new ICallBack<Integer>() {
             @Override
@@ -218,7 +224,15 @@ public class OrderAddActivity extends MyBaseActivity {
     }
 
     void updatePayPrice() {
-        mPayPrice = new BigDecimal(mSumPrice - mAmount - mIntegral).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+        mPayPrice = round2(mSumPrice - mAmount - mIntegral);
+    }
+
+    public static double round2(double value){
+        return new BigDecimal(value).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+    }
+
+    public int getRealAcceptIntegral(){
+        return Math.min(mAccount.getIntegral(),mAcceptIntegral);
     }
 
     public void refreshUI() {
@@ -233,7 +247,7 @@ public class OrderAddActivity extends MyBaseActivity {
         if(mAcceptIntegral==0){
             tvAcceptIntegral.setText("不可抵用");
         }else{
-            tvAcceptIntegral.setText(String.format("可用￥%s",mAcceptIntegral));
+            tvAcceptIntegral.setText(String.format("可抵￥%s",mAcceptIntegral));
         }
 
     }

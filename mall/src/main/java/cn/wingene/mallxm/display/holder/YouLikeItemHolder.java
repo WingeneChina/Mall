@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -25,13 +25,13 @@ public class YouLikeItemHolder extends RecyclerView.ViewHolder {
     private TextView youLikeMarkTwoV;
     private TextView youLikeProductPriceV;
     private TextView youLikeProductCanDeductible;
-    private RelativeLayout youLikeMarkGroupV;
+    private LinearLayout youLikeMarkGroupV;
 
     private void initViews(View root) {
         youLikeItemImgV = (SimpleDraweeView) root.findViewById(R.id.youLikeItemImgV);
         youLikeProductDesV = (TextView) root.findViewById(R.id.youLikeProductDesV);
         youLikeProductNameV = (TextView) root.findViewById(R.id.youLikeProductNameV);
-        youLikeMarkGroupV = (RelativeLayout) root.findViewById(R.id.youLikeMarkGroupV);
+        youLikeMarkGroupV = (LinearLayout) root.findViewById(R.id.youLikeMarkGroupV);
         youLikeMarkOneV = (TextView) root.findViewById(R.id.youLikeMarkOneV);
         youLikeMarkTwoV = (TextView) root.findViewById(R.id.youLikeMarkTwoV);
         youLikeProductPriceV = (TextView) root.findViewById(R.id.youLikeProductPriceV);

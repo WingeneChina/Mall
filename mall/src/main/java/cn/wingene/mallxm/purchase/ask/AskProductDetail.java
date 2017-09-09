@@ -434,7 +434,7 @@ public class AskProductDetail {
         }
 
         public Integer getAcceptIntegral() {
-            return acceptIntegral;
+            return acceptIntegral != null ? acceptIntegral : 0;
         }
     }
 

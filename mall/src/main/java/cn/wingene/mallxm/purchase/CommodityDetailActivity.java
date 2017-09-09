@@ -44,6 +44,7 @@ import junze.android.ui.ViewHolder;
 import junze.android.util.EditTextUtil;
 import junze.android.util.TextViewUtil;
 import junze.androidxf.core.Agent;
+import junze.androidxf.kit.AKit;
 import junze.androidxf.tool.HtmlLoader;
 
 import cn.wingene.mall.R;
@@ -240,15 +241,16 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 if (exception != null && exception instanceof NotOKException) {
                     NotOKException e = (NotOKException) exception;
                     if (e.responseCode == 400) {
-                        showToast("网络不稳定!!!!");
+                        tvInvalidMsg.setText("网络不稳定!!!!");
                         return;
                     }
                 }
                 if(exception != null && exception.getMessage().contains("下架")){
                     tvActionbarTitle.setText("商品已下架");
+                    tvInvalidMsg.setText("很抱歉，你查看的商品已下架");
                 }else{
                     tvActionbarTitle.setText("商品详情");
-                    showToast(exception);
+                    tvInvalidMsg.setText(AKit.getFriendExceptionMessage(getActivity(),exception));
                 }
             }
         });

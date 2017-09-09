@@ -3,7 +3,7 @@ package cn.wingene.mallxm.display.tool;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -25,14 +25,14 @@ public class BindTool {
      * @param ivImg
      * @param tvName
      * @param tvDesc        support null
-     * @param rlytMarkGroup
+     * @param llytMarkGroup
      * @param tvMark1       support null
      * @param tvMark2       support null
      * @param tvPrice
      * @param tvDeductible
      */
     public static void bindProducItemView(final IProductItem item, final View itemView, SimpleDraweeView ivImg,
-            TextView tvName, TextView tvDesc, RelativeLayout rlytMarkGroup, TextView tvMark1, TextView tvMark2,
+            TextView tvName, TextView tvDesc, LinearLayout llytMarkGroup, TextView tvMark1, TextView tvMark2,
             TextView tvPrice, TextView tvDeductible) {
         ivImg.setImageURI(item.getProductImage());
 
@@ -49,16 +49,16 @@ public class BindTool {
 
 
         if (!TextUtils.isEmpty(item.getTag())) {
-            rlytMarkGroup.setVisibility(View.VISIBLE);
+            llytMarkGroup.setVisibility(View.VISIBLE);
             int index = 0;
             for (String string : item.getTag().split(",")) {
-                TextView textView = (TextView) LayoutInflater.from(rlytMarkGroup.getContext()).inflate(index++ == 0
-                        ? R.layout.productmark_layout_first : R.layout.productmark_layout, rlytMarkGroup, false);
+                TextView textView = (TextView) LayoutInflater.from(llytMarkGroup.getContext()).inflate(index++ == 0
+                        ? R.layout.productmark_layout_first : R.layout.productmark_layout, llytMarkGroup, false);
                 textView.setText(string);
-                rlytMarkGroup.addView(textView);
+                llytMarkGroup.addView(textView);
             }
         } else {
-            rlytMarkGroup.setVisibility(View.GONE);
+            llytMarkGroup.setVisibility(View.GONE);
         }
 
         tvPrice.setText("¥" + String.valueOf(item.getProductPrice()));

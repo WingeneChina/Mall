@@ -63,9 +63,11 @@
 
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/brandProductMarkGroupV"
                 android:layout_below="@+id/_llyt_price"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -89,7 +91,7 @@
                     android:text="爆品"
                     android:textColor="@android:color/white"
                     android:textSize="12sp"/>
-            </RelativeLayout>
+            </LinearLayout>
 
         </RelativeLayout>
 

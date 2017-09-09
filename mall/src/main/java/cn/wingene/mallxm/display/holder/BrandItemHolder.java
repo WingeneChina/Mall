@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -21,7 +21,7 @@ public class BrandItemHolder extends RecyclerView.ViewHolder {
     private TextView brandProductNameV;
     private TextView brandProductPriceV;
     private TextView brandProductCanDeductible;
-    private RelativeLayout brandProductMarkGroupV;
+    private LinearLayout brandProductMarkGroupV;
     private TextView brandProductMarkV;
     private TextView brandProductMarkTwoV;
     private SimpleDraweeView brandProductImgV;
@@ -30,7 +30,7 @@ public class BrandItemHolder extends RecyclerView.ViewHolder {
         brandProductNameV = (TextView) root.findViewById(R.id.brandProductNameV);
         brandProductPriceV = (TextView) root.findViewById(R.id.brandProductPriceV);
         brandProductCanDeductible = (TextView) root.findViewById(R.id.brandProductCanDeductible);
-        brandProductMarkGroupV = (RelativeLayout) root.findViewById(R.id.brandProductMarkGroupV);
+        brandProductMarkGroupV = (LinearLayout) root.findViewById(R.id.brandProductMarkGroupV);
         brandProductMarkV = (TextView) root.findViewById(R.id.brandProductMarkV);
         brandProductMarkTwoV = (TextView) root.findViewById(R.id.brandProductMarkTwoV);
         brandProductImgV = (SimpleDraweeView) root.findViewById(R.id.brandProductImgV);
