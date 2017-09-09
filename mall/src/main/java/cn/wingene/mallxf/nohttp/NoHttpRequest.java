@@ -61,7 +61,6 @@ public class NoHttpRequest<T> {
                                           isCache) {
         Logger.e("url = " + url);
         request = NoHttp.createStringRequest(url,RequestMethod.POST);
-
         request.setCancelSign(cancelSign);
         if (isCache) {
             request.setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE);

@@ -106,10 +106,17 @@ public class SpecialDetailActivity extends AppCompatActivity implements View.OnC
     public void onSucceed(int what, Response<String> response) {
         Log.e(this.getClass().getName(), response.get());
         try {
-            GsonUtil<SpecailDetailModel> gsonUtil = new GsonUtil<>(SpecailDetailModel.class);
-            SpecailDetailModel specailDetailModel = gsonUtil.fromJson(response.get());
-            titleV.setText(specailDetailModel.getData().getTitle());
-            showResultData(specailDetailModel);
+            GsonUtil<BaseResponse> gsonUtil1 = new GsonUtil<>(BaseResponse.class);
+            BaseResponse baseResponse = gsonUtil1.fromJson(response.get());
+            if (baseResponse.err == 0) {
+                GsonUtil<SpecailDetailModel> gsonUtil = new GsonUtil<>(SpecailDetailModel.class);
+                SpecailDetailModel specailDetailModel = gsonUtil.fromJson(response.get());
+                titleV.setText(specailDetailModel.getData().getTitle());
+                showResultData(specailDetailModel);
+
+            } else {
+                ToastUtil.show(baseResponse.msg, this);
+            }
 
         } catch (Exception e) {
             GsonUtil<BaseResponse> gsonUtil = new GsonUtil<>(BaseResponse.class);

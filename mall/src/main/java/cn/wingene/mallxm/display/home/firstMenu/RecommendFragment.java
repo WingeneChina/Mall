@@ -144,8 +144,10 @@ public class RecommendFragment extends MyBaseFragment implements View
     public void onClick(View v) {
         Intent intent = new Intent(this.getActivity(), ProductRecommendActivity.class);
         switch (v.getId()) {
-            case R.id.brandTitleGroupV://品牌大厂
-                if ("4".equals(recommendModel.getData().getBrand().getType())) {
+            case R.id.brandTitleGroupV://品牌大厂 type 1/2/3进入ProductRecommendActivity
+                // 推荐、天天特价、新品界面，4、20进入ProductActivity商品列表界面
+                String type = recommendModel.getData().getBrand().getType();
+                if ("4".equals(type) || "20".equals(type)) {
                     intent = new Intent(this.getActivity(), ProductActivity.class);
                 }
 
