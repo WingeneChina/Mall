@@ -301,7 +301,7 @@ public class RecommendFragment extends MyBaseFragment implements View
             urlList.add(bannerListBean.getImage());
             titleList.add(bannerListBean.getTitle());
         }
-        mBanner.setImages(urlList).setBannerTitles(titleList).setDelayTime(3000)
+        mBanner.setImages(urlList).setBannerTitles(titleList).setDelayTime(3000).setIndicatorGravity(BannerConfig.RIGHT)
                 .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                 .setImageLoader(new BannerImgLoader())
                 .setOnBannerListener(new OnBannerListener() {
