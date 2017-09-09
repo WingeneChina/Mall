@@ -14,6 +14,9 @@ import android.widget.RelativeLayout;
 import com.baidu.location.BDLocation;
 import com.yanzhenjie.nohttp.rest.Response;
 
+import junze.java.tool.Trigger;
+import junze.java.tool.Trigger.OnTriggerListener;
+
 import junze.android.annotation.AutoRestore;
 import junze.androidx.baidu.LocationHelper;
 import junze.androidx.baidu.OnReceiveLoactionListener;
@@ -230,6 +233,31 @@ public class WgMainActivity extends MyBaseActivity implements RadioGroup.OnCheck
 
     }
 
+    Trigger mTrigger;
+
+    @Override
+    public void onBackPressed() {
+        if (mTrigger == null) {
+            mTrigger = new Trigger();
+            mTrigger.setOnTriggerListener(new OnTriggerListener() {
+                @Override
+                public void onTrigger(Trigger trigger, int i, long l) {
+                    if (i == 1) {
+                        showToast("再按一次退出");
+                    } else if (i > 1) {
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onReset(Trigger trigger, int i, long l) {
+
+                }
+            });
+        }
+        mTrigger.trigger(2000);
+
+    }
 
     public static class Major extends Agent.Major {
         public Major(Class<? extends WgMainActivity> clazz) {
@@ -246,73 +274,4 @@ public class WgMainActivity extends MyBaseActivity implements RadioGroup.OnCheck
     }
 
 
-    //    private void initFragments(Bundle savedInstanceState) {
-    //        if (savedInstanceState == null) {
-    //            mFragments[0] = FirstMenuFragment.newInstance(null);
-    //            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[0], R
-    //                    .id.contentMenuV);
-    //
-    //        }
-    //    }
-    //
-    //    private void switchFragment(int showPosition, int hidePosition) {
-    //        if (mFragments[showPosition] == null) {
-    //            switch (showPosition) {
-    //            case 0:
-    //                mFragments[0] = FirstMenuFragment.newInstance(null);
-    //                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[0], R
-    //                        .id.contentMenuV);
-    //                break;
-    //            case 1:
-    //                mFragments[1] = SecondMenuFragment.newInstance(null);
-    //                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[1], R
-    //                        .id.contentMenuV);
-    //                break;
-    //            case 2:
-    //                mFragments[2] = ThirdMenuFragment.newInstance(null);
-    //                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[2], R
-    //                        .id.contentMenuV);
-    //                break;
-    //            case 3:
-    //                mFragments[3] = FourthMenuFragment.newInstance(null);
-    //                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[3], R
-    //                        .id.contentMenuV);
-    //                break;
-    //            case 4:
-    //                mFragments[4] = FiveMenuFragment.newInstance(null);
-    //                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[4], R
-    //                        .id.contentMenuV);
-    //                break;
-    //            }
-    //            return;
-    //        }
-    //        ActivityUtils.showHideFragment(getSupportFragmentManager(), mFragments[showPosition],
-    //                mFragments[hidePosition], mFragments);
-    //    }
-    //
-    //    @Override
-    //    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-    //        switch (group.getCheckedRadioButtonId()) {
-    //        case R.id.firstMenuV:
-    //            switchFragment(0, hidePosition);
-    //            hidePosition = 0;
-    //            break;
-    //        case R.id.secondMenuV:
-    //            switchFragment(1, hidePosition);
-    //            hidePosition = 1;
-    //            break;
-    //        case R.id.thirdMenuV:
-    //            switchFragment(2, hidePosition);
-    //            hidePosition = 2;
-    //            break;
-    //        case R.id.fourthMenuV:
-    //            switchFragment(3, hidePosition);
-    //            hidePosition = 3;
-    //            break;
-    //        case R.id.fiveMenuV:
-    //            switchFragment(4, hidePosition);
-    //            hidePosition = 4;
-    //            break;
-    //        }
-    //    }
 }

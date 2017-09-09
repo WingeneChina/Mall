@@ -50,6 +50,7 @@ public class BindTool {
 
         if (!TextUtils.isEmpty(item.getTag())) {
             llytMarkGroup.setVisibility(View.VISIBLE);
+            llytMarkGroup.removeAllViews();
             int index = 0;
             for (String string : item.getTag().split(",")) {
                 TextView textView = (TextView) LayoutInflater.from(llytMarkGroup.getContext()).inflate(index++ == 0

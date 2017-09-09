@@ -267,7 +267,7 @@ public class RecommendFragment extends MyBaseFragment implements View
         PerWeekProductAdapter perWeekProductAdapter = new PerWeekProductAdapter(newBean.getProductList());
         perWeekRecyclerV.setAdapter(perWeekProductAdapter);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(15, 15, 0, 15);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(15, 7, 8, 15);
         perWeekRecyclerV.addItemDecoration(spaceItemDecoration);
     }
 
