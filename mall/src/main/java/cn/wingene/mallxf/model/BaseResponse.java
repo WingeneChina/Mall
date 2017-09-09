@@ -1,5 +1,7 @@
 package cn.wingene.mallxf.model;
 
+import com.google.gson.JsonElement;
+
 /**
  * Created by wangcq on 2017/8/20.
  * 基本返回参数,其它各接口参数继承这个
@@ -27,7 +29,7 @@ public class BaseResponse {
     /**
      * 请求数据
      */
-    public String data;
+    public JsonElement data;
 
     @Override
     public String toString() {

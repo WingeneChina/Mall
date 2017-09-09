@@ -105,8 +105,16 @@ public class IndoorFragment extends MyBaseFragment implements HttpListener<Strin
             HashMap<String, Object> hasmapParams = new HashMap<>();
             hasmapParams.put("OrderBy", orderBy);
             hasmapParams.put("PageIndex", mPagerIndex);
-            hasmapParams.put("Type", 20);
-            hasmapParams.put("CategoryCode", getArguments().getString("typeCode", ""));
+            String Type = getArguments().getString("type", "");
+            hasmapParams.put("Type", Type);
+            if ("4".equals(Type)) {
+                hasmapParams.put("Key", getArguments().getString("key", ""));
+                hasmapParams.put("CategoryCode", "");
+            } else {
+                hasmapParams.put("CategoryCode", getArguments().getString("key", ""));
+                hasmapParams.put("Key", "");
+
+            }
             responseNoHttpRequest.request(getActivity(), HttpConstant.PRODUCT_LIST, hasmapParams, 1, this, false,
                     "specialOffer",
                     true, true);

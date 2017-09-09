@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import cn.wingene.mall.R;
@@ -24,6 +25,7 @@ public class CashSuccessActivity extends AppCompatActivity implements View.OnCli
     private TextView cardInfoV;
     private TextView cashV;
     private TextView cashCommitV;
+    private LinearLayout cashSuccessGroupV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class CashSuccessActivity extends AppCompatActivity implements View.OnCli
         cardInfoV = (TextView) findViewById(R.id.cardInfoV);
         cashV = (TextView) findViewById(R.id.cashV);
         cashCommitV = (TextView) findViewById(R.id.cashCompletedV);
+        cashSuccessGroupV = (LinearLayout) findViewById(R.id.cashSuccessGroupV);
     }
 
     private void initEvent() {
@@ -59,8 +62,9 @@ public class CashSuccessActivity extends AppCompatActivity implements View.OnCli
                         ("cashResult"));
 
                 if (cashCommitResultModel.getErr() == 0 && cashCommitResultModel.getData() != null) {
+                    cashSuccessGroupV.setVisibility(View.VISIBLE);
                     cashStateImgV.setImageResource(R.drawable.cash_success);
-                    cashStateDesV.setText("提现申请成功");
+                    cashStateDesV.setText(cashCommitResultModel.getMsg());
                     String lastNumber = cashCommitResultModel.getData().getBankBack().getBankCardNo().substring
                             (cashCommitResultModel.getData().getBankBack().getBankCardNo().length() - 3,
                                     cashCommitResultModel.getData().getBankBack().getBankCardNo().length());
@@ -71,17 +75,16 @@ public class CashSuccessActivity extends AppCompatActivity implements View.OnCli
 
                 } else {
                     cashStateImgV.setImageResource(R.drawable.cash_fail);
-                    cashStateDesV.setText("提现申请失败");
+                    cashStateDesV.setText(cashCommitResultModel.getMsg());
 
                 }
             } else {
+                cashSuccessGroupV.setVisibility(View.GONE);
                 cashStateImgV.setImageResource(R.drawable.cash_fail);
-                cashStateDesV.setText("提现申请失败");
+                cashStateDesV.setText(baseResponse.msg);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            cashStateImgV.setImageResource(R.drawable.cash_fail);
-            cashStateDesV.setText("提现申请失败");
         }
 
     }

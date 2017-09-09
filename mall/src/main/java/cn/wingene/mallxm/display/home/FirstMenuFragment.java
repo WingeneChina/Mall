@@ -195,12 +195,17 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
 
     @Override
     public void onSucceed(int what, Response<String> response) {
-        GsonUtil<RecommendModel> gsonUtil = new GsonUtil<>(RecommendModel.class);
-        RecommendModel recommendModel = gsonUtil.fromJson(response.get());
-        if (recommendModel.getErr() == 0) {
-            initViewPager(recommendModel, response.get());
-        } else {
-            ToastUtil.show("加载首页信息失败", getContext());
+        try {
+            GsonUtil<RecommendModel> gsonUtil = new GsonUtil<>(RecommendModel.class);
+            RecommendModel recommendModel = gsonUtil.fromJson(response.get());
+            if (recommendModel.getErr() == 0) {
+                initViewPager(recommendModel, response.get());
+            } else {
+                ToastUtil.show(recommendModel.getMsg(), getContext());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
         }
     }
 

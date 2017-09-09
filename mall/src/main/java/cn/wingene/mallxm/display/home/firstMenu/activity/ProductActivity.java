@@ -107,7 +107,8 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
             }
         } else {
             Bundle bundle = new Bundle();
-            bundle.putString("typeCode", String.valueOf(getIntent().getStringExtra("key")));
+            bundle.putString("key", String.valueOf(getIntent().getStringExtra("key")));
+            bundle.putString("type", String.valueOf(getIntent().getStringExtra("type")));
             fragmentList.add(new IndexModel("", IndoorFragment.newInstance(bundle)));
             productTitleGroupV.setVisibility(View.GONE);
         }
@@ -125,7 +126,14 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
             case R.id.searchV:
                 Intent intent = new Intent(this, SearchActivity.class);
                 intent.putExtra("type", String.valueOf(getIntent().getStringExtra("type")));//综合搜索
-                intent.putExtra("typeCode", getIntent().getStringExtra("key"));
+                if ("4".equals(String.valueOf(getIntent().getStringExtra("type")))) {
+//                    intent.putExtra("key", getIntent().getStringExtra("key"));
+                    intent.putExtra("typeCode", "");
+
+                } else {
+                    intent.putExtra("typeCode", getIntent().getStringExtra("key"));
+
+                }
                 startActivity(intent);
 
                 break;
@@ -139,14 +147,7 @@ public class ProductActivity extends AppCompatActivity implements HttpListener<S
             GsonUtil<ProductGroupModel> gsonUtil = new GsonUtil<>(ProductGroupModel.class);
             ProductGroupModel productGroupModel = gsonUtil.fromJson(response.get());
             if (productGroupModel.getErr() == 0) {
-//                if (productGroupModel.getData().size() > 0) {
-//                    haveDataGroupV.setVisibility(View.VISIBLE);
-//                    noDataGroupV.setVisibility(View.GONE);
                 initViewPager(productGroupModel);
-//                } else {
-//                    haveDataGroupV.setVisibility(View.GONE);
-//                    noDataGroupV.setVisibility(View.VISIBLE);
-//                }
 
             } else {
                 ToastUtil.show(productGroupModel.getMsg(), this);
