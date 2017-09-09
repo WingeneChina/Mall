@@ -164,7 +164,7 @@ public class ProductListFragment extends MyBaseFragment implements
         productListCommentAdapter = new ProductListCommentAdapter(mListBeanList);
         productListRecyclerV.setAdapter(productListCommentAdapter);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(0, 15, 15, 15);
         productListRecyclerV.addItemDecoration(spaceItemDecoration);
     }
 

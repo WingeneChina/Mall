@@ -1,5 +1,7 @@
 package cn.wingene.mallxm.display.home.firstMenu;
 
+import java.util.HashMap;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,8 +13,6 @@ import android.view.ViewGroup;
 
 import com.dalong.refreshlayout.OnRefreshListener;
 import com.yanzhenjie.nohttp.rest.Response;
-
-import java.util.HashMap;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.HttpConstant;
@@ -106,7 +106,7 @@ public class NewProductFragment extends MyBaseFragment implements HttpListener<S
                         ());
         specialRecyclerV.setAdapter(personRecommendAdapter);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(0, 15, 15, 15);
         specialRecyclerV.addItemDecoration(spaceItemDecoration);
     }
 

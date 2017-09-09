@@ -2,27 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
-              android:layout_height="140dp"
+              android:layout_height="128dp"
               android:background="@drawable/shape_rect_gray_fine"
               android:gravity="center_vertical"
               android:orientation="horizontal"
-              android:paddingLeft="12dp"
-              android:paddingRight="12dp"
               >
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/personRecommendItemImgV"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_margin="4dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         app:placeholderImage="@drawable/placeholder"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
+        android:paddingTop="18dp"
         android:paddingLeft="10dp">
 
         <RelativeLayout
+            android:layout_marginTop="8dp"
             android:id="@+id/personRecommendMarkGroupV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -31,7 +31,7 @@
                 android:id="@+id/personRecommendItemMarkOneV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/red_shape"
+                android:background="@drawable/shape_mark"
                 android:text="爆品"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"/>
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/personRecommendItemMarkOneV"
-                android:background="@drawable/orange_shape"
+                android:background="@drawable/shape_mark"
                 android:text="爆品"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"/>
@@ -53,12 +53,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/personRecommendMarkGroupV"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="6dp"
             android:ellipsize="end"
-            android:maxEms="8"
-            android:maxLines="3"
+            android:maxLines="1"
             android:text="我是商品啊哈哈哈哈阿德"
-            android:textColor="@color/three_text_color"
+            android:textColor="@color/def_product_title"
             android:textSize="14sp"/>
 
         <TextView
@@ -69,38 +68,56 @@
             android:layout_marginTop="2dp"
             android:ellipsize="end"
             android:gravity="left"
-            android:maxEms="18"
             android:maxLines="1"
             android:text="啦啦啦啦啦"
-            android:textColor="@color/six_text_color"
+            android:textColor="@color/def_product_desc"
             android:textSize="12sp"/>
 
+
+        <!--<TextView-->
+            <!--android:id="@+id/personRecommendProductPriceV"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="¥114"-->
+            <!--android:layout_marginTop="4dp"-->
+            <!--android:layout_below="@+id/personRecommendProductDesV"-->
+            <!--android:textColor="@color/def_product_price"-->
+            <!--android:textSize="13sp"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/personRecommendCanDeductible"-->
+            <!--android:layout_alignBaseline="@+id/personRecommendProductPriceV"-->
+            <!--android:layout_toRightOf="@+id/personRecommendProductPriceV"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:text="可抵应币"-->
+            <!--android:textColor="@color/def_product_price"-->
+            <!--android:textSize="9sp"/>-->
         <LinearLayout
             android:layout_below="@+id/personRecommendProductDesV"
             android:orientation="horizontal"
+            android:baselineAligned="false"
             android:gravity="center_vertical"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/personRecommendProductPriceV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:text="¥114"
-                android:textColor="@color/deepRed"
+                android:textColor="@color/def_product_price"
                 android:textSize="13sp"/>
 
             <TextView
                 android:id="@+id/personRecommendCanDeductible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="bottom"
-
                 android:layout_marginLeft="8dp"
-                android:text=""
-                android:textColor="@color/deepRed"
+                android:text="可抵应币"
+                android:textColor="@color/def_product_price"
                 android:textSize="9sp"/>
 
         </LinearLayout>

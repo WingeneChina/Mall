@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import cn.wingene.mall.RequestArgUtil;
+import cn.wingene.mall.util.RequestArgUtil;
 import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 

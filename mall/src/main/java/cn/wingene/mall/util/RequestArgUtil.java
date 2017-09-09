@@ -1,4 +1,4 @@
-package cn.wingene.mall;
+package cn.wingene.mall.util;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

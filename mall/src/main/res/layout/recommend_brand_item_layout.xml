@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
-
+        <!--显示图片就行了-->
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -20,7 +20,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="5dp"
             android:paddingTop="10dp"
-            android:visibility="visible"
+            android:visibility="gone"
             >
 
             <TextView
@@ -94,7 +94,7 @@
         </RelativeLayout>
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/brandProductImgV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

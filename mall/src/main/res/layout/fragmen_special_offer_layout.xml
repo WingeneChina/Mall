@@ -24,6 +24,7 @@
                 />
 
             <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="15dp"
                 android:id="@+id/specialRecyclerV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

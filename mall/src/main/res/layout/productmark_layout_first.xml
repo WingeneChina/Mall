@@ -8,9 +8,5 @@
     android:layout_toRightOf="@+id/perWeekItemMarkOneV"
     android:background="@drawable/shape_mark"
     android:text="满赠"
-    android:paddingTop="2dp"
-    android:paddingBottom="2dp"
-    android:paddingLeft="4dp"
-    android:paddingRight="4dp"
     android:textColor="@android:color/white"
     android:textSize="10sp"/>

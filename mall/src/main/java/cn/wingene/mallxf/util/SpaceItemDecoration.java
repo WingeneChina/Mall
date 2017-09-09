@@ -7,6 +7,8 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import cn.wingene.mall.util.DensityUtil;
+
 /**
  * Created by 王传强 on 2017/3/4.
  */
@@ -34,22 +36,22 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
 //        parent.setPadding(0, 0, 0, 0);
         super.onDraw(c, parent, state);
-        int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View childV = parent.getChildAt(i);
-            int vleft = childV.getLeft()-left;
-            int vtop = childV.getTop();
-        }
+//        int childCount = parent.getChildCount();
+//        for (int i = 0; i < childCount; i++) {
+//            View childV = parent.getChildAt(i);
+//            int vleft = childV.getLeft()-left;
+//            int vtop = childV.getTop();
+//        }
     }
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
 //        parent.setPadding(0, 0, 0, 0);
-        outRect.top = this.top;
-        outRect.left = this.left;
-        outRect.right = this.right;
-        outRect.bottom = this.bottom;
+        outRect.top = DensityUtil.dip2px(view.getContext(),this.top);
+        outRect.left = DensityUtil.dip2px(view.getContext(),this.left);
+        outRect.right = DensityUtil.dip2px(view.getContext(),this.right);
+        outRect.bottom = DensityUtil.dip2px(view.getContext(),this.bottom);
 
 //        int position = parent.getChildAdapterPosition(view);
 //        if (position != 0) {

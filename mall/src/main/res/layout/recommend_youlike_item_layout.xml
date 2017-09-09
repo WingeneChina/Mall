@@ -2,52 +2,46 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/def_bg_image"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/def_bg_image"
     >
 
     <LinearLayout
-        android:background="@color/def_bg_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/def_bg_image"
         android:orientation="vertical"
-        android:paddingBottom="5dp">
+        >
 
-        <RelativeLayout
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/youLikeItemImgV"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:layout_height="130dp"
+            app:placeholderImage="@drawable/placeholder"/>
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/youLikeItemImgV"
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                app:placeholderImage="@drawable/placeholder"/>
 
-            <TextView
-                android:id="@+id/youLikeProductDesV"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:layout_below="@+id/youLikeItemImgV"
-                android:background="@color/def_bg_desc"
-                android:gravity="center_vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="10dp"
-                android:textColor="#9f8960"
-                android:text="100%原木浆,吸水不易破"
-                android:textSize="12sp"/>
-            <!--android:background="@color/translucent"-->
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/youLikeProductDesV"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@+id/youLikeItemImgV"
+            android:background="#f0ece1"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingLeft="5dp"
+            android:paddingRight="10dp"
+            android:text="100%原木浆,吸水不易破"
+            android:textColor="#9f8960"
+            android:textSize="12sp"/>
 
         <RelativeLayout
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="8dp"
             android:id="@+id/youLikeMarkGroupV"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="8dp">
 
             <TextView
                 android:id="@+id/youLikeMarkOneV"
@@ -71,23 +65,26 @@
         </RelativeLayout>
 
         <TextView
-            android:layout_marginTop="8dp"
             android:id="@+id/youLikeProductNameV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:paddingLeft="5dp"
             android:paddingRight="10dp"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:text="古木一风 软抽面巾纸"
             android:textColor="@color/def_product_title"
             android:textSize="14sp"/>
 
         <LinearLayout
-            android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
             android:gravity="center_vertical"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            >
 
             <TextView
                 android:id="@+id/youLikeProductPriceV"
@@ -97,14 +94,15 @@
                 android:text="¥114"
                 android:textColor="@color/def_product_price"
                 android:textSize="13sp"/>
+
             <TextView
                 android:id="@+id/youLikeProductCanDeductible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="10dp"
                 android:layout_marginLeft="8dp"
-                android:text=""
-                android:textColor="@color/deepRed"
+                android:paddingRight="10dp"
+                android:text="可抵应币"
+                android:textColor="@color/def_product_price"
                 android:textSize="9sp"/>
 
         </LinearLayout>

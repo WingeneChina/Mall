@@ -35,7 +35,6 @@ import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.FirstMenuFragment;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductRecommendActivity;
-import cn.wingene.mallxm.display.home.firstMenu.activity.SearchActivity;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.BrandProductAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.DaySpecialPriceAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.PerWeekProductAdapter;
@@ -215,7 +214,7 @@ public class RecommendFragment extends MyBaseFragment implements View
         YouLikeProduceAdapter youLikeProduceAdapter = new YouLikeProduceAdapter(likeBean.getProductList());
         youLikeRecyclerV.setAdapter(youLikeProduceAdapter);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 0);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(0, 8, 8, 15);
         youLikeRecyclerV.addItemDecoration(spaceItemDecoration);
     }
 
@@ -232,7 +231,7 @@ public class RecommendFragment extends MyBaseFragment implements View
         DaySpecialPriceAdapter daySpecialPriceAdatper = new DaySpecialPriceAdapter(specialsBean.getProductList());
         daySpecialPRecyclerV.setAdapter(daySpecialPriceAdatper);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 0);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(0, 15, 15, 15);
         daySpecialPRecyclerV.addItemDecoration(spaceItemDecoration);
 
     }
@@ -251,7 +250,7 @@ public class RecommendFragment extends MyBaseFragment implements View
         PersonRecommendAdapter personRecommendAdapter = new PersonRecommendAdapter(recommendBean.getProductList());
         personRecommendRecyclerV.setAdapter(personRecommendAdapter);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 15, 0);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(0, 15, 15, 15);
         personRecommendRecyclerV.addItemDecoration(spaceItemDecoration);
     }
 
@@ -268,7 +267,7 @@ public class RecommendFragment extends MyBaseFragment implements View
         PerWeekProductAdapter perWeekProductAdapter = new PerWeekProductAdapter(newBean.getProductList());
         perWeekRecyclerV.setAdapter(perWeekProductAdapter);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 15, 0, 10);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(15, 15, 0, 15);
         perWeekRecyclerV.addItemDecoration(spaceItemDecoration);
     }
 
@@ -286,7 +285,7 @@ public class RecommendFragment extends MyBaseFragment implements View
         BrandProductAdapter brandProductAdapter = new BrandProductAdapter(brandBean.getProductList());
         brandProductRecyclerV.setAdapter(brandProductAdapter);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(2, 2, 2, 2);
         brandProductRecyclerV.addItemDecoration(spaceItemDecoration);
 
     }

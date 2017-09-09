@@ -5,7 +5,7 @@ import java.util.List;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import cn.wingene.mallxm.display.holder.PersonItemHolder;
+import cn.wingene.mallxm.display.holder.PersonRecommendItemHolder;
 import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
 
 /**
@@ -28,12 +28,12 @@ public class DaySpecialPriceAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return PersonItemHolder.create(parent);
+        return PersonRecommendItemHolder.create(parent);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final PersonItemHolder itemHolder = (PersonItemHolder) holder;
+        final PersonRecommendItemHolder itemHolder = (PersonRecommendItemHolder) holder;
         final RecommendModel.DataBean.SpecialsBean.ProductListBean item = mProductListBeen.get(position);
         itemHolder.onBindViewHolder(item, position);
     }

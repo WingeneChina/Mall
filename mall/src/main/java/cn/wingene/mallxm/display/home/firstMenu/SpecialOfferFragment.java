@@ -1,22 +1,18 @@
 package cn.wingene.mallxm.display.home.firstMenu;
 
+import java.util.HashMap;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.dalong.refreshlayout.OnRefreshListener;
-import com.google.gson.JsonObject;
 import com.yanzhenjie.nohttp.rest.Response;
-
-import org.json.JSONObject;
-
-import java.util.HashMap;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.HttpConstant;
@@ -28,11 +24,8 @@ import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.ui.customview.InnerViewpager;
 import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
-import cn.wingene.mallxm.display.home.FirstMenuFragment;
-import cn.wingene.mallxm.display.home.firstMenu.adapter.PersonRecommendAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.SpecialOfferRecyclerVAdapter;
 import cn.wingene.mallxm.display.home.firstMenu.data.ProductListModel;
-import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
 
 /**
  * Created by wangcq on 2017/8/8.
@@ -112,7 +105,7 @@ public class SpecialOfferFragment extends MyBaseFragment implements HttpListener
                         ());
         specialRecyclerV.setAdapter(personRecommendAdapter);
 
-        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(10, 10, 10, 10);
+        SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(0, 15, 15, 15);
         specialRecyclerV.addItemDecoration(spaceItemDecoration);
     }
 

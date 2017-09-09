@@ -5,8 +5,8 @@
     <color name="def_tab_layout_text_normal">@color/black</color>
     <color name="def_tab_layout_text_selected">@color/fontYellow</color>
     <color name="def_bg_image">@color/transparent</color>
-    <color name="def_bg_desc">#f0ece1</color>
     <color name="def_bg_mark">#e49f50</color>
     <color name="def_product_title">#333333</color>
+    <color name="def_product_desc">#888888</color>
     <color name="def_product_price">#b4282d</color>
 </resources>

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cn.wingene.mall.R;
-import cn.wingene.mallxm.display.holder.PersonItemHolder;
+import cn.wingene.mallxm.display.holder.PersonRecommendItemHolder;
 import cn.wingene.mallxm.display.home.firstMenu.data.ProductListModel;
 
 /**
@@ -35,13 +35,13 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
 
             return new NotDataHolder(view);
         }
-        return PersonItemHolder.create(parent);
+        return PersonRecommendItemHolder.create(parent);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         try {
-            final PersonItemHolder itemHolder = (PersonItemHolder) holder;
+            final PersonRecommendItemHolder itemHolder = (PersonRecommendItemHolder) holder;
             final ProductListModel.DataBean.ListBean item = mDataBeanList.get(position);
             itemHolder.onBindViewHolder(item, position);
         } catch (Exception e) {

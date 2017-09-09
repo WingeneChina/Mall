@@ -19,7 +19,7 @@ import cn.wingene.mallxm.display.tool.BindTool;
  * Created by Wingene on 2017/9/9.
  */
 
-public class PersonItemHolder extends ViewHolder {
+public class PersonRecommendItemHolder extends ViewHolder {
     private SimpleDraweeView personRecommendItemImgV;
     private TextView personRecommendItemMarkOneV;
     private TextView personRecommendItemMarkTwoV;
@@ -41,15 +41,15 @@ public class PersonItemHolder extends ViewHolder {
 
     }
 
-    private PersonItemHolder(View itemView) {
+    private PersonRecommendItemHolder(View itemView) {
         super(itemView);
         initViews(itemView);
     }
 
-    public static PersonItemHolder create(ViewGroup parent) {
+    public static PersonRecommendItemHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout
                 .recommend_person_recommend_item_layout, parent, false);
-        return new PersonItemHolder(view);
+        return new PersonRecommendItemHolder(view);
     }
 
     public void onBindViewHolder(final IProductItem item, int position) {

@@ -103,31 +103,33 @@
                         android:id="@+id/tv_sub_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/p20"
+                        android:layout_marginTop="@dimen/p16"
                         android:text="买吧买吧买吧"
                         android:textSize="@dimen/f24"
                         />
 
                     <LinearLayout
+                        android:layout_marginTop="@dimen/p16"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
                             android:id="@+id/tv_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/p30"
                             android:text="￥0"
-                            android:textColor="@color/red"
+                            android:textColor="@color/def_product_price"
                             android:textSize="@dimen/f32"
                             />
                         <TextView
                             android:layout_marginLeft="@dimen/p15"
                             android:id="@+id/tv_accept_integral"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/p30"
                             android:text="￥0"
-                            android:textColor="@color/deepRed"
+                            android:textColor="@color/def_product_price"
                             android:textSize="@dimen/f24"
                             />
 
