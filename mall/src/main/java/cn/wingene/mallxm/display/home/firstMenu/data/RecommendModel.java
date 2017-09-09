@@ -438,7 +438,7 @@ public class RecommendModel {
                 this.ProductList = ProductList;
             }
 
-            public static class ProductListBean {
+            public static class ProductListBean implements IProductItem{
                 private int ProductId;
                 private String ProductImage;
                 private String ProductName;
@@ -580,7 +580,7 @@ public class RecommendModel {
                 this.ProductList = ProductList;
             }
 
-            public static class ProductListBean {
+            public static class ProductListBean implements IProductItem {
                 private int ProductId;
                 private String ProductImage;
                 private String ProductName;
@@ -722,7 +722,7 @@ public class RecommendModel {
                 this.ProductList = ProductList;
             }
 
-            public static class ProductListBean {
+            public static class ProductListBean implements IProductItem {
                 private int ProductId;
                 private String ProductImage;
                 private String ProductName;
@@ -864,7 +864,7 @@ public class RecommendModel {
                 this.ProductList = ProductList;
             }
 
-            public static class ProductListBean {
+            public static class ProductListBean implements IProductItem{
                 private int ProductId;
                 private String ProductImage;
                 private String ProductName;
@@ -1006,7 +1006,7 @@ public class RecommendModel {
                 this.ProductList = ProductList;
             }
 
-            public static class ProductListBean {
+            public static class ProductListBean implements IProductItem {
                 private int ProductId;
                 private String ProductImage;
                 private String ProductName;
@@ -1016,6 +1016,7 @@ public class RecommendModel {
                 private String SellingPoint;
                 private String AcceptIntegral;
 
+                @Override
                 public String getAcceptIntegral() {
                     return AcceptIntegral != null && !AcceptIntegral.isEmpty() ? AcceptIntegral : "" ;
                 }
@@ -1024,6 +1025,7 @@ public class RecommendModel {
                     AcceptIntegral = acceptIntegral;
                 }
 
+                @Override
                 public int getProductId() {
                     return ProductId;
                 }
@@ -1032,6 +1034,7 @@ public class RecommendModel {
                     this.ProductId = ProductId;
                 }
 
+                @Override
                 public String getProductImage() {
                     return ProductImage;
                 }
@@ -1040,6 +1043,7 @@ public class RecommendModel {
                     this.ProductImage = ProductImage;
                 }
 
+                @Override
                 public String getProductName() {
                     return ProductName;
                 }
@@ -1048,6 +1052,7 @@ public class RecommendModel {
                     this.ProductName = ProductName;
                 }
 
+                @Override
                 public double getProductPrice() {
                     return ProductPrice;
                 }
@@ -1056,6 +1061,7 @@ public class RecommendModel {
                     this.ProductPrice = ProductPrice;
                 }
 
+                @Override
                 public double getProductOldPrice() {
                     return ProductOldPrice;
                 }
@@ -1064,6 +1070,7 @@ public class RecommendModel {
                     this.ProductOldPrice = ProductOldPrice;
                 }
 
+                @Override
                 public String getTag() {
                     return Tag != null ? Tag : "";
                 }
@@ -1072,6 +1079,7 @@ public class RecommendModel {
                     this.Tag = Tag;
                 }
 
+                @Override
                 public String getSellingPoint() {
                     return SellingPoint;
                 }

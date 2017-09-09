@@ -3,16 +3,9 @@ package cn.wingene.mallxm.display.home.firstMenu.adapter;
 import java.util.List;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
-
-import cn.wingene.mall.R;
-import cn.wingene.mallxm.JumpHelper;
+import cn.wingene.mallxm.display.holder.BrandItemHolder;
 import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
 
 /**
@@ -29,43 +22,14 @@ public class BrandProductAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recommend_brand_item_layout, parent,
-                false);
-
-        return new BrandHolder(view);
+        return BrandItemHolder.create(parent);
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        final RecommendModel.DataBean.BrandBean.ProductListBean productListBean = mProductListBeen.get(position);
-        final BrandHolder brandHolder = (BrandHolder) holder;
-        brandHolder.brandProductNameV.setText(productListBean.getProductName());
-//        brandHolder.brandProductPriceV.setText(String.valueOf(productListBean.getProductPrice()));
-        // 2017年9月8日，要加Y吧？
-        brandHolder.brandProductPriceV.setText(String.format("￥%.2f",productListBean.getProductPrice()));
-
-        if (!TextUtils.isEmpty(productListBean.getAcceptIntegral())) {
-            brandHolder.brandProductCanDeductible.setVisibility(View.VISIBLE);
-            brandHolder.brandProductCanDeductible.setText("可抵应币¥" + String.valueOf(productListBean
-                    .getAcceptIntegral()));
-        } else {
-            brandHolder.brandProductCanDeductible.setVisibility(View.GONE);
-        }
-
-        brandHolder.brandProductImgV.setImageURI(productListBean.getProductImage());
-        if (!TextUtils.isEmpty(productListBean.getTag())) {
-            String tags = productListBean.getTag().replace(",", "/");
-            brandHolder.brandProductMarkV.setBackgroundResource(R.drawable.red_shape);
-            brandHolder.brandProductMarkV.setText(tags);
-        }
-
-        brandHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JumpHelper.startCommodityDetailActivity(brandHolder.brandProductImgV.getContext(), productListBean
-                        .getProductId());
-            }
-        });
+        final RecommendModel.DataBean.BrandBean.ProductListBean item = mProductListBeen.get(position);
+        final BrandItemHolder itemHolder = (BrandItemHolder) holder;
+        itemHolder.onBindViewHolder(item, position);
     }
 
     @Override
@@ -73,27 +37,4 @@ public class BrandProductAdapter extends RecyclerView.Adapter {
         return mProductListBeen.size();
     }
 
-
-    class BrandHolder extends RecyclerView.ViewHolder {
-        private TextView brandProductNameV;
-        private TextView brandProductPriceV;
-        private TextView brandProductCanDeductible;
-        private TextView brandProductMarkV;
-        private TextView brandProductMarkTwoV;
-        private SimpleDraweeView brandProductImgV;
-
-        public BrandHolder(View itemView) {
-            super(itemView);
-            initViews(itemView);
-        }
-
-        private void initViews(View root) {
-            brandProductNameV = (TextView) root.findViewById(R.id.brandProductNameV);
-            brandProductPriceV = (TextView) root.findViewById(R.id.brandProductPriceV);
-            brandProductCanDeductible = (TextView) root.findViewById(R.id.brandProductCanDeductible);
-            brandProductMarkV = (TextView) root.findViewById(R.id.brandProductMarkV);
-            brandProductMarkTwoV = (TextView) root.findViewById(R.id.brandProductMarkTwoV);
-            brandProductImgV = (SimpleDraweeView) root.findViewById(R.id.brandProductImgV);
-        }
-    }
 }

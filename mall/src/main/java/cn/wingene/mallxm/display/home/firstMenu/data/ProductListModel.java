@@ -117,7 +117,7 @@ public class ProductListModel {
             this.BannerList = BannerList;
         }
 
-        public static class ListBean {
+        public static class ListBean implements IProductItem {
             private int Id;
             private String Name;
             private String DefaultImage;
@@ -234,6 +234,33 @@ public class ProductListModel {
 
             public void setSellingPoint(String SellingPoint) {
                 this.SellingPoint = SellingPoint;
+            }
+
+            ////
+
+            @Override
+            public double getProductOldPrice() {
+                return OldPrice;
+            }
+
+            @Override
+            public double getProductPrice() {
+                return Price;
+            }
+
+            @Override
+            public String getProductImage() {
+                return DefaultImage;
+            }
+
+            @Override
+            public String getProductName() {
+                return Name;
+            }
+
+            @Override
+            public int getProductId() {
+                return Id;
             }
         }
     }
