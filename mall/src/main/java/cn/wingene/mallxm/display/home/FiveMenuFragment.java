@@ -33,6 +33,7 @@ import cn.wingene.mallxm.D;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.account.data.LoginModel;
 import cn.wingene.mallxm.display.home.dialog.VersionUpdateDialog;
+import cn.wingene.mallxm.display.home.fiveMenu.MyCollectionActivity;
 import cn.wingene.mallxm.display.home.fiveMenu.UserInfoModel;
 import cn.wingene.mallxm.display.home.setting.AboutAsActivity;
 import cn.wingene.mallxm.display.home.setting.data.VersionModel;
@@ -68,6 +69,7 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
     private TextView versonInfoV;
     private TextView aboutAsV;
     private TextView versonConentV;
+    private TextView myCollectionV;
 
     private VersionUpdateDialog mDialog;
     /**
@@ -127,6 +129,8 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
         versonConentV = (TextView) root.findViewById(R.id.versonConentV);
         versonConentV.setText(VersionUtil.getAppVersionName(getContext()));
 
+        myCollectionV = (TextView) root.findViewById(R.id.myCollectionV);
+
     }
 
 
@@ -147,6 +151,8 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
         mallMoneyV.setOnClickListener(this);
 
         luckGroupV.setOnClickListener(this);
+
+        myCollectionV.setOnClickListener(this);
 
     }
 
@@ -214,6 +220,10 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
                 break;
             case R.id.luckGroupV:
                 JumpHelper.startLuckyGame(this.getActivity());
+                break;
+            case R.id.myCollectionV:
+                Intent intent = new Intent(this.getActivity(), MyCollectionActivity.class);
+                startActivity(intent);
                 break;
             default:
 

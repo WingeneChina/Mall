@@ -97,7 +97,7 @@ public class SuggestActivity extends AppCompatActivity implements View.OnClickLi
 
                 break;
             case R.id.addSuggestV:
-                Log.e(this.getClass().getName(),"点击添加意见图片 ");
+                Log.e(this.getClass().getName(), "点击添加意见图片 ");
                 //打开选择,本次允许选择的数量
                 ImagePicker.getInstance().setSelectLimit(MAX_IMG_COUNT - imgItemList.size());
                 Intent intent = new Intent(this, ImageGridActivity.class);
@@ -108,6 +108,7 @@ public class SuggestActivity extends AppCompatActivity implements View.OnClickLi
 
     private void initImagePicker() {
         ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setMultiMode(true);
         imagePicker.setImageLoader(new GlideImageLoader());   //设置图片加载器
         imagePicker.setShowCamera(true);                      //显示拍照按钮
         imagePicker.setCrop(true);                           //允许裁剪（单选才有效）
