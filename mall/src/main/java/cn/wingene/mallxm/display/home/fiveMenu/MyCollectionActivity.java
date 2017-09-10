@@ -173,6 +173,9 @@ public class MyCollectionActivity extends MyBaseActivity implements View.OnClick
 
     @Override
     public void onSucceed(int what, Response<String> response) {
+        mJDRefreshLayout.stopRefresh(true);
+        mJDRefreshLayout.stopLoadMore(true);
+
         GsonUtil<BaseResponse> gsonUtil = new GsonUtil<>(BaseResponse.class);
         BaseResponse baseResponse = gsonUtil.fromJson(response.get());
         if (baseResponse.err == 0) {
