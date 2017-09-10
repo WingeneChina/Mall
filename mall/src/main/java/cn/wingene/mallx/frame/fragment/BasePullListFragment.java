@@ -25,6 +25,7 @@ import junze.android.ui.ItemViewHolder;
 import junze.androidxf.http.BaseParamsRequest;
 
 import cn.wingene.mall.R;
+import cn.wingene.mall.util.LayoutSwitcher;
 import cn.wingene.mallx.frame.holder.PullListViewHolder;
 import cn.wingene.mallx.frame.holder.PullListViewHolder.PageAble;
 import cn.wingene.mallxf.MyAgent;
@@ -55,6 +56,15 @@ public abstract class BasePullListFragment extends MyBaseFragment implements Pag
         mListView = (PullToRefreshListView) v.findViewById(R.id.lvContent);
         ObserverManager.getInstance().registerObserver(this);
         return v;
+    }
+
+    @Override
+    protected LayoutSwitcher initLayoutSwitch(View view) {
+        View normal = view.findViewById(R.id.lvContent);
+        if (normal != null) {
+            return new LayoutSwitcher(normal);
+        }
+        return null;
     }
 
     public int getLayout() {
@@ -293,6 +303,10 @@ public abstract class BasePullListFragment extends MyBaseFragment implements Pag
 
         public <T extends IResponse> void cacheAskInBack(ICacheRequest<T> request) {
             mFragment.cacheAskInBack(request);
+        }
+
+        public BasePullListFragment getFragment(){
+            return mFragment;
         }
 
     }

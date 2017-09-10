@@ -20,7 +20,7 @@ import cn.wingene.mallx.frame.fragment.BasePullListFragment;
 import cn.wingene.mallxm.purchase.ask.AskAmountLogList;
 import cn.wingene.mallxm.purchase.ask.AskAmountLogList.AmountLog;
 import cn.wingene.mallxm.purchase.ask.AskAmountLogList.Response;
-import cn.wingene.mallxm.purchase.holder.EmptyOrderViewHolder;
+import cn.wingene.mallxm.purchase.holder.OrderEmptyViewHolder;
 
 /**
  * Created by wangcq on 2017/8/13.
@@ -52,7 +52,7 @@ public class AmountLogListFragment extends BasePullListFragment {
         BaseSchemeOption option = new BaseSchemeOption();
         option.bundle = getArguments();
         getScheme().onInit(option);
-        EmptyOrderViewHolder eh = new EmptyOrderViewHolder(getActivity(),"暂无明细");
+        OrderEmptyViewHolder eh = new OrderEmptyViewHolder(getActivity(),"暂无明细");
         eh.getView().setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         eh.getView().setVisibility(View.GONE);
         ((ViewGroup) getListView().getParent()).addView(eh.getView());

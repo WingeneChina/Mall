@@ -20,7 +20,7 @@ import cn.wingene.mallx.frame.fragment.BasePullListFragment;
 import cn.wingene.mallxm.purchase.ask.AskIntegralLogList;
 import cn.wingene.mallxm.purchase.ask.AskIntegralLogList.IntegralLog;
 import cn.wingene.mallxm.purchase.ask.AskIntegralLogList.Response;
-import cn.wingene.mallxm.purchase.holder.EmptyOrderViewHolder;
+import cn.wingene.mallxm.purchase.holder.OrderEmptyViewHolder;
 
 
 /**
@@ -53,7 +53,7 @@ public class IntegralLogListFragment extends BasePullListFragment {
         BaseSchemeOption option = new BaseSchemeOption();
         option.bundle = getArguments();
         getScheme().onInit(option);
-        EmptyOrderViewHolder eh = new EmptyOrderViewHolder(getActivity(),"暂无明细");
+        OrderEmptyViewHolder eh = new OrderEmptyViewHolder(getActivity(),"暂无明细");
         eh.getView().setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         eh.getView().setVisibility(View.GONE);
         ((ViewGroup) getListView().getParent()).addView(eh.getView());

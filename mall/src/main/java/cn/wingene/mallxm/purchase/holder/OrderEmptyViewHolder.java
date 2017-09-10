@@ -14,7 +14,7 @@ import cn.wingene.mallxm.WgMainActivity;
  * Created by Wingene on 2017/8/30.
  */
 
-public class EmptyOrderViewHolder extends ViewHolder {
+public class OrderEmptyViewHolder extends ViewHolder {
 
     private TextView tvInfo;
     private TextView tvGoHome;
@@ -26,8 +26,8 @@ public class EmptyOrderViewHolder extends ViewHolder {
     }
 
 
-    public EmptyOrderViewHolder(final Context context) {
-        super(context, R.layout.holder_empty_order);
+    public OrderEmptyViewHolder(final Context context) {
+        super(context, R.layout.holder_order_empty);
         tvGoHome.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,8 +35,8 @@ public class EmptyOrderViewHolder extends ViewHolder {
             }
         });
     }
-    public EmptyOrderViewHolder(final Context context,String info) {
-        super(context, R.layout.holder_empty_order);
+    public OrderEmptyViewHolder(final Context context,String info) {
+        super(context, R.layout.holder_order_empty);
         tvInfo.setText(info);
         tvGoHome.setVisibility(View.INVISIBLE);
         tvGoHome.setOnClickListener(new OnClickListener() {
