@@ -259,7 +259,7 @@ public class OrderAddActivity extends MyBaseActivity {
         } else {
             tvAcceptIntegral.setText(String.format("可抵￥%s", mAcceptIntegral));
         }
-        tvActionbarTitle.setText(mParams.order != null ? "填写订单" : "订单支付");
+        tvActionbarTitle.setText(mParams.order == null ? "填写订单" : "订单支付");
     }
 
 
