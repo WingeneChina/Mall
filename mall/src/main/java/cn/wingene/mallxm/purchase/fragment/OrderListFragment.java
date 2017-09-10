@@ -32,7 +32,7 @@ import cn.wingene.mallxm.purchase.ask.AskOrderList;
 import cn.wingene.mallxm.purchase.ask.AskOrderList.OrderItem;
 import cn.wingene.mallxm.purchase.ask.AskOrderList.Response;
 import cn.wingene.mallxm.purchase.ask.AskOrderPayNow;
-import cn.wingene.mallxm.purchase.holder.EmptyOrderViewHolder;
+import cn.wingene.mallxm.purchase.holder.OrderEmptyViewHolder;
 import cn.wingene.mallxm.purchase.tool.PayHelper;
 import cn.wingene.mallxm.purchase.tool.PayHelper.OnOrderBuild;
 import cn.wingene.mallxm.purchase.tool.PayHelper.PayMothed;
@@ -74,7 +74,7 @@ public class OrderListFragment extends BasePullListFragment {
         BaseSchemeOption option = new BaseSchemeOption();
         option.bundle = getArguments();
         getScheme().onInit(option);
-        EmptyOrderViewHolder eh = new EmptyOrderViewHolder(getActivity());
+        OrderEmptyViewHolder eh = new OrderEmptyViewHolder(getActivity());
         eh.getView().setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         eh.getView().setVisibility(View.GONE);
         ((ViewGroup)getListView().getParent()).addView(eh.getView());
