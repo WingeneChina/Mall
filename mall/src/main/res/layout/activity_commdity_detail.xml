@@ -246,7 +246,7 @@
                 android:visibility="visible"
                 app:tileDrawablePadding="@dimen/p8"
                 app:tileImgHeight="@dimen/p38"
-                app:tileImgSrc="@drawable/ic_commdity_detail_collect"
+                app:tileImgSrc="@drawable/slic_commdity_detail_collect"
                 app:tileImgWidth="@dimen/p38"
                 app:tileText="收藏"
                 app:tileTextColor="@color/darkgray"

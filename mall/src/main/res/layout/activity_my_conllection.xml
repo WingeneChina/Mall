@@ -36,7 +36,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
             android:padding="5dp"
-            android:src="@drawable/grzx_kf"
+            android:src="@drawable/ic_goods_service_nor"
             android:visibility="visible"/>
 
     </RelativeLayout>
