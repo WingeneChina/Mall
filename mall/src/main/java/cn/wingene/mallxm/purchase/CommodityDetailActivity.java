@@ -48,7 +48,9 @@ import junze.androidxf.kit.AKit;
 import junze.androidxf.tool.HtmlLoader;
 
 import cn.wingene.mall.R;
+import cn.wingene.mall.util.LayoutSwitcher;
 import cn.wingene.mallx.universalimageloader.ImageHelper;
+import cn.wingene.mallxf.holder.ProductEmptyHolder;
 import cn.wingene.mallxf.http.Ask.NeedLoginException;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxf.ui.banner.BannerImgLoader;
@@ -85,11 +87,14 @@ public class CommodityDetailActivity extends MyBaseActivity {
     private List<String> urlList = new ArrayList<>();
     private ProductModel mModel;
 
+    private ProductEmptyHolder mProductEmptyHolder;
+    private LayoutSwitcher mLayoutSwitcher;
+
     UiData mUiData;
 
     private Tile tlBack;
     private TextView tvActionbarTitle;
-    private LinearLayout llytValid;
+    private LinearLayout layoutNormal;
     private Banner bannerImage;
     private ImageView ivSellImage;
     private TextView tvTitle;
@@ -104,13 +109,11 @@ public class CommodityDetailActivity extends MyBaseActivity {
     private Tile tlCollect;
     private TextView tvBuy;
     private TextView tvAddCart;
-    private RelativeLayout rlytInvalid;
-    private TextView tvInvalidMsg;
 
     protected void initComponent(){
         tlBack = (Tile) super.findViewById(R.id.tl_back);
         tvActionbarTitle = (TextView) super.findViewById(R.id.tv_actionbar_title);
-        llytValid = (LinearLayout) super.findViewById(R.id.llyt_valid);
+        layoutNormal = (LinearLayout) super.findViewById(R.id.layoutNormal);
         bannerImage = (Banner) super.findViewById(R.id.banner_image);
         ivSellImage = (ImageView) super.findViewById(R.id.iv_sell_image);
         tvTitle = (TextView) super.findViewById(R.id.tv_title);
@@ -125,14 +128,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
         tlCollect = (Tile) super.findViewById(R.id.tl_collect);
         tvBuy = (TextView) super.findViewById(R.id.tv_buy);
         tvAddCart = (TextView) super.findViewById(R.id.tv_add_cart);
-        rlytInvalid = (RelativeLayout) super.findViewById(R.id.rlyt_invalid);
-        tvInvalidMsg = (TextView) super.findViewById(R.id.tv_invalid_msg);
     }
-
-
-
-
-
 
 
     @Override
@@ -140,6 +136,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commdity_detail);
         initComponent();
+
         Params params = major.parseParams(this);
         if (params != null) {
             mProductId = params.productId;
@@ -151,6 +148,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
         mBuyNumber = 1;
 
         mUiData = new UiData();
+        mProductEmptyHolder = new ProductEmptyHolder(this);
 
         tlBack.setOnClickListener(new OnClickListener() {
             @Override
@@ -184,23 +182,22 @@ public class CommodityDetailActivity extends MyBaseActivity {
             }
         });
         askProductDetail();
-        rlytInvalid.setOnClickListener(new OnClickListener() {
+
+        mLayoutSwitcher = new LayoutSwitcher(this, R.id.layoutNormal);
+        mProductEmptyHolder.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 askProductDetail();
             }
         });
-
-
     }
 
     private void askProductDetail() {
         ask("数据加载中...",false,new AskProductDetail.Request(mProductId, mPromotionId) {
             @Override
             public void updateUI(Response rsp) {
+                mLayoutSwitcher.switchNormal();
                 tvActionbarTitle.setText("商品详情");
-                rlytInvalid.setVisibility(View.GONE);
-                llytValid.setVisibility(View.VISIBLE);
                 mProduct = rsp.getProduct();
                 mSpecList = rsp.getProductSpecList();
                 List<ProductImageList> imageList = rsp.getProductImageList();
@@ -227,8 +224,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
 
             @Override
             protected void updateUIWhenException(Exception exception) {
-                rlytInvalid.setVisibility(View.VISIBLE);
-                llytValid.setVisibility(View.GONE);
+                mLayoutSwitcher.switchOther(mProductEmptyHolder.getView());
                 if (exception != null && exception instanceof NeedLoginException) {
                     if (CheckUtil.isInclude(getActivity().getClass(), ShoppingCartActivity.class,
                             OrderListActivity.class, AddressManagerActivity.class, RechargeIndexActivity
@@ -241,16 +237,16 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 if (exception != null && exception instanceof NotOKException) {
                     NotOKException e = (NotOKException) exception;
                     if (e.responseCode == 400) {
-                        tvInvalidMsg.setText("网络不稳定!!!!");
+                        mProductEmptyHolder.setMsg("网络不稳定!!!!");
                         return;
                     }
                 }
                 if(exception != null && exception.getMessage().contains("下架")){
                     tvActionbarTitle.setText("商品已下架");
-                    tvInvalidMsg.setText("很抱歉，你查看的商品已下架");
+                    mProductEmptyHolder.setMsg("很抱歉，你查看的商品已下架");
                 }else{
                     tvActionbarTitle.setText("商品详情");
-                    tvInvalidMsg.setText(AKit.getFriendExceptionMessage(getActivity(),exception));
+                    mProductEmptyHolder.setMsg(AKit.getFriendExceptionMessage(getActivity(), exception));
                 }
             }
         });

@@ -46,7 +46,7 @@
         style="@style/Line.Horizontal"/>
 
     <LinearLayout
-        android:id="@+id/llyt_valid"
+        android:id="@id/layoutNormal"
         android:visibility="visible"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -280,35 +280,35 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/rlyt_invalid"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:visibility="gone">
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rlyt_invalid"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:visibility="gone">-->
 
-        <View
-            android:id="@+id/_v_center"
-            android:layout_width="1dp"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"></View>
+        <!--<View-->
+            <!--android:id="@+id/_v_center"-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_centerInParent="true"></View>-->
 
-        <ImageView
-            android:id="@+id/_iv_empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/_v_center"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_cart_empty"/>
+        <!--<ImageView-->
+            <!--android:id="@+id/_iv_empty"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_above="@id/_v_center"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:src="@drawable/ic_cart_empty"/>-->
 
-        <TextView
-            android:id="@+id/tv_invalid_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/_iv_empty"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/p68"
-            android:text="很抱歉，你查看的商品已下架"/>
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/tv_invalid_msg"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/_iv_empty"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginTop="@dimen/p68"-->
+            <!--android:text="很抱歉，你查看的商品已下架"/>-->
+    <!--</RelativeLayout>-->
 
 
 </LinearLayout>

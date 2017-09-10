@@ -54,7 +54,7 @@ public class MyAgent extends Agent {
                     request.updateUI(response);
                 } else {
                     if (autoHandleException) {
-                        handleException(request);
+                        handleException(request.getException());
                     } else {
                         request.updateUIWhenException();
                     }
@@ -66,8 +66,7 @@ public class MyAgent extends Agent {
         }.execute("");
     }
 
-    private <T extends IResponse> void handleException(IRequest<T> request) {
-        Exception exception = request.getException();
+    private <T extends IResponse> void handleException(Exception exception) {
         if (exception != null && exception instanceof NeedLoginException) {
             if (CheckUtil.isInclude(getActivity().getClass(), ShoppingCartActivity.class, OrderListActivity.class,
                     AddressManagerActivity.class, RechargeIndexActivity.class)) {

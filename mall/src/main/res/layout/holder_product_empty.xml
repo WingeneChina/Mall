@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlyt_invalid"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone">
+
+    <View
+        android:id="@+id/_v_center"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"></View>
+
+    <ImageView
+        android:id="@+id/_iv_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/_v_center"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_cart_empty"/>
+
+    <TextView
+        android:id="@+id/tv_invalid_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/_iv_empty"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/p68"
+        android:text="很抱歉，你查看的商品已下架"/>
+</RelativeLayout>
