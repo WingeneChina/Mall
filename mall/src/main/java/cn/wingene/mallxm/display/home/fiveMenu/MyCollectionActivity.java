@@ -127,7 +127,7 @@ public class MyCollectionActivity extends MyBaseActivity implements View.OnClick
 
     @Override
     public void onCollectionItemClick(int position) {
-        JumpHelper.startCommodityDetailActivity(this, mCollectionList.get(position).getId());
+        JumpHelper.startCommodityDetailActivity(this, mCollectionList.get(position).getProductId());
     }
 
 
