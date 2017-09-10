@@ -243,7 +243,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:tileDrawablePadding="@dimen/p8"
                 app:tileImgHeight="@dimen/p38"
                 app:tileImgSrc="@drawable/ic_commdity_detail_collect"

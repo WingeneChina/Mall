@@ -49,7 +49,7 @@ import junze.androidxf.tool.HtmlLoader;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallx.universalimageloader.ImageHelper;
-import cn.wingene.mallxm.purchase.holder.ProductEmptyHolder;
+import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.http.Ask.NeedLoginException;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxf.ui.banner.BannerImgLoader;
@@ -59,6 +59,7 @@ import cn.wingene.mallxm.purchase.adapter.CommodityImagePagerAdapter;
 import cn.wingene.mallxm.purchase.adapter.SkuAdapter;
 import cn.wingene.mallxm.purchase.ask.AskBuyNow;
 import cn.wingene.mallxm.purchase.ask.AskCartAdd;
+import cn.wingene.mallxm.purchase.ask.AskFavoritesSet;
 import cn.wingene.mallxm.purchase.ask.AskProductDetail;
 import cn.wingene.mallxm.purchase.ask.AskProductDetail.ProductDetail;
 import cn.wingene.mallxm.purchase.ask.AskProductDetail.ProductImageList;
@@ -68,6 +69,7 @@ import cn.wingene.mallxm.purchase.bean.ProductModel;
 import cn.wingene.mallxm.purchase.bean.ProductModel.AttributesEntity;
 import cn.wingene.mallxm.purchase.bean.ProductModel.AttributesEntity.AttributeMembersEntity;
 import cn.wingene.mallxm.purchase.bean.UiData;
+import cn.wingene.mallxm.purchase.holder.ProductEmptyHolder;
 import cn.wingene.mallxm.purchase.listener.ItemClickListener;
 import cn.wingene.mallxm.purchase.tool.NumberTool;
 
@@ -152,6 +154,12 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 onBackPressed();
             }
         });
+        tvSpec.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBottomSheetDialog(buildProductModel());
+            }
+        });
         tlService.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,10 +167,23 @@ public class CommodityDetailActivity extends MyBaseActivity {
             }
         });
         tlCart.setOnClickListener(onCartClick());
-        tvSpec.setOnClickListener(new OnClickListener() {
+        tlCollect.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                showBottomSheetDialog(buildProductModel());
+                if(!StringUtil.isValid(UserData.getverifiCode())){
+                    JumpHelper.startLoginActivity(getActivity());
+                    return;
+                }
+                if(tlCollect.getIvImage().isSelected()){
+                    showToast("您已收藏该商品！");
+                    return;
+                }
+                ask(new AskFavoritesSet.Request(mProductId){
+                    @Override
+                    public void updateUI(AskFavoritesSet.Response rsp) {
+                        tlCollect.getIvImage().setSelected(true);
+                    }
+                });
             }
         });
         tvAddCart.setOnClickListener(new OnClickListener() {
@@ -208,6 +229,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
                     tvAcceptIntegral.setVisibility(View.GONE);
                 }
                 loadWebData(rsp.getProduct().getDetail());
+                tlCollect.getIvImage().setSelected(mProduct.isFavorited());
                 refreshUI();
             }
 

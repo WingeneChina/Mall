@@ -155,7 +155,10 @@ public class HttpAddress extends HttpConstant{
      */
     public final static String DEPOSIT_GET_AMOUNT = SERVER_ADDRESS + "User/Deposit/GetAmount";
 
-
+    /**
+     * 2.1.2.3、收藏商品
+     */
+    public final static String FAVORITES_SET = SERVER_ADDRESS + "User/Favorites/Set";
 
 
 }

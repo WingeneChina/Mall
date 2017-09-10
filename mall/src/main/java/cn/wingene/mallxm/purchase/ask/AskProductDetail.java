@@ -257,6 +257,12 @@ public class AskProductDetail {
         @SerializedName("LimitEachNum")
         private Integer limitEachNum;
 
+        /**
+         * 不可0：未收藏,1:已收藏
+         */
+        @SerializedName("IsFavorited")
+        private Integer isFavorited;
+
 
         /**
          * 商品ID	不可
@@ -435,6 +441,10 @@ public class AskProductDetail {
 
         public Integer getAcceptIntegral() {
             return acceptIntegral != null ? acceptIntegral : 0;
+        }
+
+        public boolean isFavorited() {
+            return isFavorited != null && isFavorited == 1;
         }
     }
 
