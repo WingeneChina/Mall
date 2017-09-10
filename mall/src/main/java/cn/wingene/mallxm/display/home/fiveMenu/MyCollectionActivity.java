@@ -154,19 +154,19 @@ public class MyCollectionActivity extends MyBaseActivity implements View.OnClick
                 null, false, false);
     }
 
-    private void showResult(CollectionDataModel.DataBean dataBean) {
+    private void showResult(CollectionDataModel dataBean) {
         if (pageIndex == 1) {
             mCollectionList.clear();
             mCollectionAdapter.notifyDataSetChanged();
 
-            if (dataBean.getList() == null || dataBean.getList().size() == 0) {
+            if (dataBean.getData().getList() == null || dataBean.getData().getList().size() == 0) {
                 noDataGroup.setVisibility(View.VISIBLE);
             } else {
                 noDataGroup.setVisibility(View.GONE);
             }
         }
-        if (dataBean.getList() != null) {
-            mCollectionList.addAll(dataBean.getList());
+        if (dataBean.getData().getList() != null) {
+            mCollectionList.addAll(dataBean.getData().getList());
             mCollectionAdapter.notifyDataSetChanged();
         }
     }
@@ -180,9 +180,9 @@ public class MyCollectionActivity extends MyBaseActivity implements View.OnClick
                 case COLLECTION_LIST_WHAT:
                     Log.e(this.getClass().getName(), "收藏列表 返回 = " + response.get());
                     if (baseResponse.data != null) {
-                        GsonUtil<CollectionDataModel.DataBean> gsonUtil1 = new GsonUtil<>(CollectionDataModel.DataBean
+                        GsonUtil<CollectionDataModel> gsonUtil1 = new GsonUtil<>(CollectionDataModel
                                 .class);
-                        CollectionDataModel.DataBean dataBean = gsonUtil1.fromJson(baseResponse.data.toString());
+                        CollectionDataModel dataBean = gsonUtil1.fromJson(response.get());
                         showResult(dataBean);
                     }
                     break;

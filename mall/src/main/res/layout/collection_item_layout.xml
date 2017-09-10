@@ -36,11 +36,11 @@
                     android:id="@+id/productNameV"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="2"
                     android:layout_marginRight="15dp"
-                    android:layout_weight="1"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
-                    android:maxLength="1"
+                    android:maxLines="1"
                     android:textColor="@color/three_text_color"
                     android:textSize="14sp"
                     tools:text="我是商品名"/>

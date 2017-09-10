@@ -52,8 +52,18 @@ public class CollectionDataModel {
     }
 
     public static class DataBean {
-        private int pageCount;
-        private int recordCount;
+        private int PageCount;
+        private int RecordCount;
+        private int PageSize;
+
+        public int getPageSize() {
+            return PageSize;
+        }
+
+        public void setPageSize(int pageSize) {
+            PageSize = pageSize;
+        }
+
         /**
          * Id : 2
          * ProductId : 1
@@ -62,30 +72,30 @@ public class CollectionDataModel {
          * ProductPrice : 240
          */
 
-        private List<ListBean> list;
+        private List<ListBean> List;
 
         public int getPageCount() {
-            return pageCount;
+            return PageCount;
         }
 
         public void setPageCount(int pageCount) {
-            this.pageCount = pageCount;
+            this.PageCount = pageCount;
         }
 
         public int getRecordCount() {
-            return recordCount;
+            return RecordCount;
         }
 
         public void setRecordCount(int recordCount) {
-            this.recordCount = recordCount;
+            this.RecordCount = recordCount;
         }
 
         public List<ListBean> getList() {
-            return list;
+            return List;
         }
 
         public void setList(List<ListBean> list) {
-            this.list = list;
+            this.List = list;
         }
 
         public static class ListBean {
@@ -93,7 +103,7 @@ public class CollectionDataModel {
             private int ProductId;
             private String ProductName;
             private String ProductImage;
-            private int ProductPrice;
+            private String ProductPrice;
 
             public int getId() {
                 return Id;
@@ -127,11 +137,11 @@ public class CollectionDataModel {
                 this.ProductImage = ProductImage;
             }
 
-            public int getProductPrice() {
+            public String getProductPrice() {
                 return ProductPrice;
             }
 
-            public void setProductPrice(int ProductPrice) {
+            public void setProductPrice(String ProductPrice) {
                 this.ProductPrice = ProductPrice;
             }
         }
