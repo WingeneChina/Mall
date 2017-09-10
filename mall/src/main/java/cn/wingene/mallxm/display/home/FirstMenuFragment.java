@@ -29,6 +29,8 @@ import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxm.JumpHelper;
+import cn.wingene.mallxm.display.home.firstMenu.BeautyFragment;
+import cn.wingene.mallxm.display.home.firstMenu.ProductListFragment;
 import cn.wingene.mallxm.display.home.firstMenu.RecommendFragment;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductRecommendActivity;
@@ -129,68 +131,84 @@ public class FirstMenuFragment extends MyBaseFragment implements HttpListener<St
             TabLayout.Tab tab = mTabLayout.newTab();
             tab.setText(headMenuListBean.getTitle());
             mTabLayout.addTab(tab);
+
+            if ("20".equals(headMenuListBean.getType())) {//去商品列表样式页
+                bundle = new Bundle();
+                bundle.putString("key", headMenuListBean.getParam());
+                bundle.putString("type", headMenuListBean.getType());
+                bundle.putString("title", headMenuListBean.getTitle());
+                fragmentList.add(new IndexModel(headMenuListBean.getTitle(), BeautyFragment.newInstance(bundle)));
+
+            } else if (!"1".equals(headMenuListBean.getType())) {//去掉新品样式页
+                bundle = new Bundle();
+                bundle.putString("key", String.valueOf(headMenuListBean.getParam()));
+                bundle.putString("type", String.valueOf(headMenuListBean.getType()));
+                bundle.putString("title", headMenuListBean.getTitle());
+                fragmentList.add(new IndexModel(headMenuListBean.getTitle(), ProductListFragment.newInstance(bundle)));
+            }
         }
 
         mMailFragmentPagerAdapter = new MailFragmentPagerAdapter(getChildFragmentManager(), fragmentList);
         contentPagerV.setAdapter(mMailFragmentPagerAdapter);
+        mTabLayout.setupWithViewPager(contentPagerV);
 
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                Log.e(this.getClass().getName(), "tab.getText() = " + tab.getText());
-                for (RecommendModel.DataBean.HeadMenuListBean headMenuListBean : recommendModel.getData()
-                        .getHeadMenuList()) {
-                    if (headMenuListBean.getTitle().contains(String.valueOf(tab.getText()))) {
-                        if (!TextUtils.isEmpty(headMenuListBean.getParam())) {
-                            Intent intent = new Intent(getActivity(), ProductActivity.class);
-                            intent.putExtra("key", headMenuListBean.getParam());
-                            intent.putExtra("type", headMenuListBean.getType());
-                            intent.putExtra("title", headMenuListBean.getTitle());
-                            startActivity(intent);
-
-                        } else {
-                            Intent intent = new Intent(getActivity(), ProductRecommendActivity.class);
-                            intent.putExtra("key", String.valueOf(headMenuListBean.getParam()));
-                            intent.putExtra("type", String.valueOf(headMenuListBean.getType()));
-                            intent.putExtra("title", headMenuListBean.getTitle());
-
-                            startActivity(intent);
-
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                for (RecommendModel.DataBean.HeadMenuListBean headMenuListBean : recommendModel.getData()
-                        .getHeadMenuList()) {
-                    if (headMenuListBean.getTitle().contains(String.valueOf(tab.getText()))) {
-                        if (!TextUtils.isEmpty(headMenuListBean.getParam())) {
-                            Intent intent = new Intent(getActivity(), ProductActivity.class);
-                            intent.putExtra("key", headMenuListBean.getParam());
-                            intent.putExtra("type", headMenuListBean.getType());
-                            intent.putExtra("title", headMenuListBean.getTitle());
-                            startActivity(intent);
-
-                        } else {
-                            Intent intent = new Intent(getActivity(), ProductRecommendActivity.class);
-                            intent.putExtra("key", String.valueOf(headMenuListBean.getParam()));
-                            intent.putExtra("type", String.valueOf(headMenuListBean.getType()));
-                            intent.putExtra("title", headMenuListBean.getTitle());
-
-                            startActivity(intent);
-
-                        }
-                    }
-                }
-            }
-        });
+//        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                Log.e(this.getClass().getName(), "tab.getText() = " + tab.getText());
+//                for (RecommendModel.DataBean.HeadMenuListBean headMenuListBean : recommendModel.getData()
+//                        .getHeadMenuList()) {
+//                    if (headMenuListBean.getTitle().contains(String.valueOf(tab.getText()))) {
+//                        if (!TextUtils.isEmpty(headMenuListBean.getParam())) {
+//                            Intent intent = new Intent(getActivity(), ProductActivity.class);
+//                            intent.putExtra("key", headMenuListBean.getParam());
+//                            intent.putExtra("type", headMenuListBean.getType());
+//                            intent.putExtra("title", headMenuListBean.getTitle());
+//                            startActivity(intent);
+//
+//                        } else {
+//                            Intent intent = new Intent(getActivity(), ProductRecommendActivity.class);
+//                            intent.putExtra("key", String.valueOf(headMenuListBean.getParam()));
+//                            intent.putExtra("type", String.valueOf(headMenuListBean.getType()));
+//                            intent.putExtra("title", headMenuListBean.getTitle());
+//
+//                            startActivity(intent);
+//
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//                for (RecommendModel.DataBean.HeadMenuListBean headMenuListBean : recommendModel.getData()
+//                        .getHeadMenuList()) {
+//                    if (headMenuListBean.getTitle().contains(String.valueOf(tab.getText()))) {
+//                        if (!TextUtils.isEmpty(headMenuListBean.getParam())) {
+//                            Intent intent = new Intent(getActivity(), ProductActivity.class);
+//                            intent.putExtra("key", headMenuListBean.getParam());
+//                            intent.putExtra("type", headMenuListBean.getType());
+//                            intent.putExtra("title", headMenuListBean.getTitle());
+//                            startActivity(intent);
+//
+//                        } else {
+//                            Intent intent = new Intent(getActivity(), ProductRecommendActivity.class);
+//                            intent.putExtra("key", String.valueOf(headMenuListBean.getParam()));
+//                            intent.putExtra("type", String.valueOf(headMenuListBean.getType()));
+//                            intent.putExtra("title", headMenuListBean.getTitle());
+//
+//                            startActivity(intent);
+//
+//                        }
+//                    }
+//                }
+//            }
+//        });
     }
 
     @Override

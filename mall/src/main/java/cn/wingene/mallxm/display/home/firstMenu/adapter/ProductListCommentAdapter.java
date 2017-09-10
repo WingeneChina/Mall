@@ -28,7 +28,6 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.e(this.getClass().getName(), "搜索结果 view 类型= " + viewType);
         if (NOT_DATA == viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.not_data_layout, parent,
                     false);

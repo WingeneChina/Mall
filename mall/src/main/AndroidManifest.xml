@@ -150,16 +150,18 @@
             android:name="cn.wingene.mallxm.display.WebActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name="cn.wingene.mallxm.purchase1.AddNewCardCountActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name="cn.wingene.mallxm.purchase1.AddNewCardCountActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name="cn.wingene.mallxm.purchase1.CashActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name="cn.wingene.mallxm.purchase1.CashActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name="cn.wingene.mallxm.purchase1.CashSuccessActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name="cn.wingene.mallxm.purchase1.CashSuccessActivity"
+            android:screenOrientation="portrait">
         </activity>
-
         <activity
             android:name="cn.wingene.mallxm.purchase.RechargeIndexActivity"
             android:screenOrientation="portrait"/>
@@ -172,6 +174,8 @@
         <activity
             android:name="cn.wingene.mallxm.purchase.RechargeLogListActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name="cn.wingene.mallxm.display.home.setting.SuggestActivity">
+        </activity>
     </application>
 
 </manifest>

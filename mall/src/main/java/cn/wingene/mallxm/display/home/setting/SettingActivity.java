@@ -170,6 +170,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
                 break;
             case R.id.suggestionV:
+                Intent suggestIntent = new Intent(this, SuggestActivity.class);
+                startActivity(suggestIntent);
 
                 break;
             case R.id.aboutAsV:
