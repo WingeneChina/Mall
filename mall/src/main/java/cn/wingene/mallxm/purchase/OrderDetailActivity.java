@@ -204,7 +204,7 @@ public class OrderDetailActivity extends MyBaseActivity {
         mItemHolder.notifyDataSetChanged();
 
         tvNo.setText(String.format("订单编号:%s", bean.getNo()));
-        tvNumber.setText(String.format("共%s件", bean.getSumNumber()));
+        tvNumber.setText(String.format("共%s件", bean.getSumNumber().intValue()));
         tvSumPrice.setText(String.format("合计:￥%.2f", bean.getSumPrice()));
         tvDeliveryFee.setText(String.format("￥%.2f", bean.getDeliveryFee()));
 

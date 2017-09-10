@@ -10,7 +10,10 @@ import junze.androidxf.kit.AKit;
 
 import cn.wingene.mallxf.http.Ask.BaseSignRequest;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
+import cn.wingene.mallxm.purchase.bean.Account;
 import cn.wingene.mallxm.purchase.bean.Address4;
+import cn.wingene.mallxm.purchase.bean.OrderProductItem;
+import cn.wingene.mallxm.purchase.bean.able.IOrder;
 import cn.wingene.mallxm.purchase.bean.able.IProduct;
 
 /**
@@ -42,7 +45,7 @@ public class AskOrderDetail {
         }
     }
 
-    public static class OrderDetail {
+    public static class OrderDetail implements IOrder{
         /**
          * 订单单号	不可
          */
@@ -89,7 +92,7 @@ public class AskOrderDetail {
          * 总数量	不可
          */
         @SerializedName("SumNumber")
-        private Integer sumNumber;
+        private Double sumNumber;
 
         /**
          * 运费	不可
@@ -181,8 +184,22 @@ public class AskOrderDetail {
         @SerializedName("OrderPay")
         private OrderPay orderPay;
 
+        @Override
+        public Account getAccount() {
+            return null;
+        }
 
+        @Override
+        public List<OrderProductItem> getProductList() {
+            return null;
+        }
 
+        @Override
+        public Double getAcceptCouponPrice() {
+            return null;
+        }
+
+        ////
         /**
          * 订单单号	不可
          */
@@ -235,7 +252,7 @@ public class AskOrderDetail {
         /**
          * 总数量	不可
          */
-        public Integer getSumNumber() {
+        public Double getSumNumber() {
             return sumNumber;
         }
 

@@ -29,6 +29,7 @@ import cn.wingene.mallxm.purchase.ask.AskBuyCart.BuyCarData;
 import cn.wingene.mallxm.purchase.ask.AskBuyNow.BuyNowData;
 import cn.wingene.mallxm.purchase.ask.AskOrderCreateBuyCart;
 import cn.wingene.mallxm.purchase.ask.AskOrderCreateBuyNow;
+import cn.wingene.mallxm.purchase.ask.AskOrderDetail.OrderDetail;
 import cn.wingene.mallxm.purchase.bean.Account;
 import cn.wingene.mallxm.purchase.bean.able.IAddOrder;
 import cn.wingene.mallxm.purchase.bean.able.IAddress;
@@ -338,11 +339,19 @@ public class OrderAddActivity extends MyBaseActivity {
         private BuyCarData buyCarData;
         private BuyNowData buyNowData;
         private String cartIds;
+        private OrderDetail orderDetail;
 
-        public Params(String cartIds, BuyCarData buyCarData, BuyNowData buyNowData) {
+        //        public Params(String cartIds, BuyCarData buyCarData, BuyNowData buyNowData) {
+        //            this.buyCarData = buyCarData;
+        //            this.buyNowData = buyNowData;
+        //            this.cartIds = cartIds;
+        //        }
+
+        public Params(String cartIds, BuyCarData buyCarData, BuyNowData buyNowData, OrderDetail orderDetail) {
             this.buyCarData = buyCarData;
             this.buyNowData = buyNowData;
             this.cartIds = cartIds;
+            this.orderDetail = orderDetail;
         }
 
         public boolean isBuyNow() {
@@ -357,11 +366,14 @@ public class OrderAddActivity extends MyBaseActivity {
         }
 
         public void startActivity(Context src, BuyNowData data) {
-            buildParams(src, new Params(null, null, data)).startActivity();
+            buildParams(src, new Params(null, null, data, null)).startActivity();
+        }
+        public void startActivity(Context src,OrderDetail orderDetail) {
+            buildParams(src, new Params(null, null, null, orderDetail)).startActivity();
         }
 
         public void startActivity(Context src, String cardIds, BuyCarData data) {
-            buildParams(src, new Params(cardIds, data, null)).startActivity();
+            buildParams(src, new Params(cardIds, data, null, null)).startActivity();
         }
 
         public Params parseParams(Activity target) {
