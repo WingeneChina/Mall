@@ -1,6 +1,7 @@
 package cn.wingene.mallxm.purchase.fragment;
 
 import java.util.Date;
+import java.util.Map;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import cn.wingene.mall.R;
 import cn.wingene.mallx.frame.fragment.BasePullListFragment;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
 import cn.wingene.mallxm.purchase.LogisticsActivity;
+import cn.wingene.mallxm.purchase.OrderAddActivity;
 import cn.wingene.mallxm.purchase.OrderAddActivity.ProductItemHolder;
 import cn.wingene.mallxm.purchase.OrderDetailActivity;
 import cn.wingene.mallxm.purchase.ask.AskLogisticsDetail;
@@ -32,8 +34,6 @@ import cn.wingene.mallxm.purchase.ask.AskOrderList.Response;
 import cn.wingene.mallxm.purchase.ask.AskOrderPayNow;
 import cn.wingene.mallxm.purchase.holder.OrderEmptyViewHolder;
 import cn.wingene.mallxm.purchase.tool.PayHelper;
-import cn.wingene.mallxm.purchase.tool.PayHelper.OnOrderBuild;
-import cn.wingene.mallxm.purchase.tool.PayHelper.PayMothed;
 
 /**
  * Created by wangcq on 2017/8/13.
@@ -119,21 +119,18 @@ public class OrderListFragment extends BasePullListFragment {
         getScheme().getItemViewHolder().setOnItemViewClick(OrderItemHolder.OK, listener);
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     public void pay(final OrderItem item) {
-        mPayHelper.setOnOrderBuild(new OnOrderBuild() {
+            agent().ask(new AskOrderPayNow.Request(item.getNo()) {
             @Override
-            public void onOrderBuild(final PayHelper helper, final PayMothed payMothed, final double amount, final int integral) {
-                agent().ask(new AskOrderPayNow.Request(item.getNo()) {
-                    @Override
-                    public void updateUI(AskOrderPayNow.Response rsp) {
-                       helper.askPay(rsp.data,payMothed,amount,integral);
-                    }
-                });
+            public void updateUI(AskOrderPayNow.Response rsp) {
+                OrderAddActivity.major.startActivity(getActivity(), rsp.data);
             }
         });
-        mPayHelper.showBottomDialog(item.getPayPrice(), 0, 0);
     }
 
 
@@ -155,6 +152,12 @@ public class OrderListFragment extends BasePullListFragment {
 
     private IReqCallBack<Response> getCallback(int pageIndex) {
         return getScheme().getCallback(pageIndex);
+    }
+
+
+    @Override
+    public void updateForObserver(String filter, Map<String, Object> map) {
+        super.updateForObserver(filter, map);
     }
 
     public static class OrderScheme extends Scheme<Integer, OrderItem> {

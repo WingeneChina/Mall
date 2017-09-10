@@ -4,12 +4,14 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
+import cn.wingene.mallxm.purchase.bean.able.IEasyOrder;
 import cn.wingene.mallxm.purchase.bean.able.IOrder;
+import cn.wingene.mallxm.purchase.bean.able.IOrderProductItem;
 
 /**
  * Created by Wingene on 2017/8/27.
  */
-public class Order implements IOrder {
+public class Order implements IOrder, IEasyOrder {
     /**
      * 订单单号	不可
      */
@@ -87,6 +89,12 @@ public class Order implements IOrder {
      */
     @SerializedName("Address")
     private Address4 address;
+
+    /**
+     * 可使用应币支付
+     */
+    @SerializedName("AcceptIntegral")
+    private Integer acceptIntegral;
 
 
     /**
@@ -193,5 +201,14 @@ public class Order implements IOrder {
         return address;
     }
 
+    @Override
+    public Integer getAcceptIntegral() {
+        return acceptIntegral != null ? acceptIntegral : 0;
+    }
+
+    @Override
+    public List<? extends IOrderProductItem> getOrderProductItem() {
+        return productList;
+    }
 
 }

@@ -23,17 +23,19 @@ import junze.android.ui.ItemViewHolder;
 import junze.androidxf.core.Agent;
 
 import cn.wingene.mall.R;
+import cn.wingene.mall.util.MathUtil;
 import cn.wingene.mallx.universalimageloader.ImageHelper;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxm.purchase.ask.AskBuyCart.BuyCarData;
 import cn.wingene.mallxm.purchase.ask.AskBuyNow.BuyNowData;
 import cn.wingene.mallxm.purchase.ask.AskOrderCreateBuyCart;
 import cn.wingene.mallxm.purchase.ask.AskOrderCreateBuyNow;
-import cn.wingene.mallxm.purchase.ask.AskOrderDetail.OrderDetail;
 import cn.wingene.mallxm.purchase.bean.Account;
-import cn.wingene.mallxm.purchase.bean.able.IAddOrder;
+import cn.wingene.mallxm.purchase.bean.Order;
 import cn.wingene.mallxm.purchase.bean.able.IAddress;
-import cn.wingene.mallxm.purchase.bean.able.IProduct;
+import cn.wingene.mallxm.purchase.bean.able.IAddress4;
+import cn.wingene.mallxm.purchase.bean.able.IEasyOrder;
+import cn.wingene.mallxm.purchase.bean.able.IOrderProductItem;
 import cn.wingene.mallxm.purchase.tool.NumberTool;
 import cn.wingene.mallxm.purchase.tool.PayHelper;
 import cn.wingene.mallxm.purchase.tool.PayHelper.OnOrderBuild;
@@ -48,7 +50,7 @@ public class OrderAddActivity extends MyBaseActivity {
     public static final int RC_ADDRESS_ADD = 1000;
     public static final int RC_ADDRESS_CHOISE = 2000;
     Params mParams;
-    private IAddress mAddress;
+    private IAddress4 mAddress;
     private double mSumPrice;
     private double mPayPrice;
     private Account mAccount;
@@ -61,13 +63,15 @@ public class OrderAddActivity extends MyBaseActivity {
 
 
     private Tile tlBack;
+    private TextView tvActionbarTitle;
     private Tile tlService;
     private LinearLayout llytAddress;
     private LinearLayout llytAddress1;
     private TextView tvName;
-    private TextView tvAddress;
     private TextView tvPhone;
+    private TextView tvAddress;
     private TextView tvAddress2;
+    private ImageView ivAddressChoise;
     private HightMatchListView lvOrder;
     private TextView tvTotal;
     private TextView tvIntegral;
@@ -86,13 +90,15 @@ public class OrderAddActivity extends MyBaseActivity {
 
     protected void initComponent(){
         tlBack = (Tile) super.findViewById(R.id.tl_back);
+        tvActionbarTitle = (TextView) super.findViewById(R.id.tv_actionbar_title);
         tlService = (Tile) super.findViewById(R.id.tl_service);
         llytAddress = (LinearLayout) super.findViewById(R.id.llyt_address);
         llytAddress1 = (LinearLayout) super.findViewById(R.id.llyt_address_1);
         tvName = (TextView) super.findViewById(R.id.tv_name);
-        tvAddress = (TextView) super.findViewById(R.id.tv_address);
         tvPhone = (TextView) super.findViewById(R.id.tv_phone);
+        tvAddress = (TextView) super.findViewById(R.id.tv_address);
         tvAddress2 = (TextView) super.findViewById(R.id.tv_address_2);
+        ivAddressChoise = (ImageView) super.findViewById(R.id.iv_address_choise);
         lvOrder = (HightMatchListView) super.findViewById(R.id.lv_order);
         tvTotal = (TextView) super.findViewById(R.id.tv_total);
         tvIntegral = (TextView) super.findViewById(R.id.tv_integral);
@@ -118,10 +124,9 @@ public class OrderAddActivity extends MyBaseActivity {
         initComponent();
         mParams = major.parseParams(this);
         mItemHolder = ProductItemHolder.createForOrderAdd(this, lvOrder);
-        IAddOrder bean = mParams.isBuyNow() ? mParams.buyNowData : mParams.buyCarData;
+        IEasyOrder bean = mParams.getEasyOrder();
         mAddress = bean.getAddress();
-        mItemHolder.addAll(bean.getProductList());
-        mAddress = bean.getAddress();
+        mItemHolder.addAll(bean.getOrderProductItem());
         mSumPrice = bean.getSumPrice();
         mAccount = bean.getAccount();
         mAcceptIntegral = bean.getAcceptIntegral();
@@ -150,16 +155,20 @@ public class OrderAddActivity extends MyBaseActivity {
                         @Override
                         public void onOrderBuild(final PayHelper helper, final PayMothed payMothed, final double
                                 amount, final int integral) {
-                            if (mParams.isBuyNow()) {
-                                ask(new AskOrderCreateBuyNow.Request(mParams.buyNowData.getProduct(), mAddress
+                            if (mParams.order != null) {
+                                helper.askPay(mParams.order, payMothed, amount, integral);
+                            } else if (mParams.buyNowData != null) {
+                                ask(new AskOrderCreateBuyNow.Request(mParams.buyNowData.getProduct(), ((IAddress)
+                                        mAddress)
                                         .getId()) {
                                     @Override
                                     public void updateUI(AskOrderCreateBuyNow.Response rsp) {
                                         helper.askPay(rsp.data, payMothed, amount, integral);
                                     }
                                 });
-                            } else {
-                                ask(new AskOrderCreateBuyCart.Request(mParams.cartIds, mAddress.getId()) {
+                            } else if (mParams.buyCarData != null) {
+                                ask(new AskOrderCreateBuyCart.Request(mParams.cartIds, ((IAddress) mAddress).getId
+                                        ()) {
                                     @Override
                                     public void updateUI(AskOrderCreateBuyCart.Response rsp) {
                                         helper.askPay(rsp.data, payMothed, amount, integral);
@@ -229,7 +238,7 @@ public class OrderAddActivity extends MyBaseActivity {
     }
 
     public static double round2(double value){
-        return new BigDecimal(value).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+        return MathUtil.round2(value);
     }
 
     public int getRealAcceptIntegral(){
@@ -245,21 +254,29 @@ public class OrderAddActivity extends MyBaseActivity {
         tvIntegralNumber.setText(String.format("%s", mIntegral));
         setAccount(mAccount);
         tvRealTotal.setText(String.format("￥%s", mPayPrice));
-        if(mAcceptIntegral==0){
+        if (mAcceptIntegral == 0) {
             tvAcceptIntegral.setText("不可抵用");
-        }else{
-            tvAcceptIntegral.setText(String.format("可抵￥%s",mAcceptIntegral));
+        } else {
+            tvAcceptIntegral.setText(String.format("可抵￥%s", mAcceptIntegral));
         }
-
+        tvActionbarTitle.setText(mParams.order != null ? "填写订单" : "订单支付");
     }
 
 
-    public void setAddress(IAddress address) {
+    public void setAddress(IAddress4 address) {
         llytAddress1.setVisibility(address != null ? View.VISIBLE : View.GONE);
         tvAddress2.setVisibility(address == null ? View.VISIBLE : View.GONE);
         tvName.setText(address != null ? address.getConsignee() : "");
         tvPhone.setText(address != null ? address.getMobile() : "");
         tvAddress.setText(address != null ? address.getRegion() + address.getAddress() : "");
+        if (mParams.order != null) {
+            llytAddress.setEnabled(false);
+            ivAddressChoise.setVisibility(View.INVISIBLE);
+        } else {
+            llytAddress.setEnabled(true);
+            ivAddressChoise.setVisibility(View.VISIBLE);
+        }
+
 
     }
 
@@ -283,7 +300,7 @@ public class OrderAddActivity extends MyBaseActivity {
         }
     }
 
-    public static class ProductItemHolder extends ItemViewHolder<IProduct> {
+    public static class ProductItemHolder extends ItemViewHolder<IOrderProductItem> {
         int mLayout;
 
         private ImageView ivProduct;
@@ -319,17 +336,17 @@ public class OrderAddActivity extends MyBaseActivity {
         }
 
         @Override
-        public ItemViewHolder<IProduct> buildNewSelf(Context context) {
+        public ItemViewHolder<IOrderProductItem> buildNewSelf(Context context) {
             return new ProductItemHolder(context, null, mLayout);
         }
 
         @Override
-        public void display(int i, IProduct iProduct) {
-            ImageHelper.displayImage(iProduct.getDefaultImage(), ivProduct);
-            tvTitle.setText(iProduct.getName());
-            tvSubTitle.setText(iProduct.getSpecValue());
-            tvNumber.setText(String.format("x %s", iProduct.getBuyNum()));
-            tvPrice.setText(String.format("￥%.2f", iProduct.getPrice()));
+        public void display(int i, IOrderProductItem iProduct) {
+            ImageHelper.displayImage(iProduct.getProductImage(), ivProduct);
+            tvTitle.setText(iProduct.getProductName());
+            tvSubTitle.setText(iProduct.getSpecDesp());
+            tvNumber.setText(String.format("x %s", iProduct.getBuyNumber()));
+            tvPrice.setText(String.format("￥%.2f", iProduct.getSalePrice()));
         }
 
     }
@@ -339,24 +356,32 @@ public class OrderAddActivity extends MyBaseActivity {
         private BuyCarData buyCarData;
         private BuyNowData buyNowData;
         private String cartIds;
-        private OrderDetail orderDetail;
+        private Order order;
 
-        //        public Params(String cartIds, BuyCarData buyCarData, BuyNowData buyNowData) {
-        //            this.buyCarData = buyCarData;
-        //            this.buyNowData = buyNowData;
-        //            this.cartIds = cartIds;
-        //        }
+        public void getIOrder() {
 
-        public Params(String cartIds, BuyCarData buyCarData, BuyNowData buyNowData, OrderDetail orderDetail) {
+        }
+
+        public Params(String cartIds, BuyCarData buyCarData, BuyNowData buyNowData, Order order) {
             this.buyCarData = buyCarData;
             this.buyNowData = buyNowData;
             this.cartIds = cartIds;
-            this.orderDetail = orderDetail;
+            this.order = order;
         }
 
-        public boolean isBuyNow() {
-            return this.cartIds == null;
+        public IEasyOrder getEasyOrder() {
+            if (order != null) {
+                return order;
+            } else if (buyNowData != null) {
+                return buyNowData;
+            } else {
+                return buyCarData;
+            }
         }
+
+        //        public boolean isBuyNow() {
+        //            return this.cartIds == null;
+        //        }
     }
 
     public static class Major extends Agent.Major {
@@ -368,8 +393,9 @@ public class OrderAddActivity extends MyBaseActivity {
         public void startActivity(Context src, BuyNowData data) {
             buildParams(src, new Params(null, null, data, null)).startActivity();
         }
-        public void startActivity(Context src,OrderDetail orderDetail) {
-            buildParams(src, new Params(null, null, null, orderDetail)).startActivity();
+
+        public void startActivity(Context src, Order order) {
+            buildParams(src, new Params(null, null, null, order)).startActivity();
         }
 
         public void startActivity(Context src, String cardIds, BuyCarData data) {

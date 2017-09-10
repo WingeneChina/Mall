@@ -12,10 +12,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import static cn.wingene.mallx.frame.fragment.BasePullListFragment.ACTION_NEED_UPDATE;
 import com.alipay.sdk.app.PayTask;
 
 import junze.java.able.ICallBack;
 import junze.java.bean.Duo;
+import junze.java.manager.ObserverManager;
 import junze.java.net.IHttpElement.IRequest;
 import junze.java.net.IHttpElement.IResponse;
 
@@ -200,7 +202,7 @@ public class PayHelper {
     public void jumpToPayResultActivityAndFinish(String orderNo) {
         finish();
         OrderDetailActivity.major.startForOrderNo(getActivity(),orderNo);
-        //        JumpHelper.startOrderListActivity(getActivity(), 1);
+        ObserverManager.getInstance().notifyUpdate(ACTION_NEED_UPDATE);
     }
 
     public Activity getActivity() {

@@ -17,6 +17,7 @@
             ></junze.widget.Tile>
 
         <TextView
+            android:id="@+id/tv_actionbar_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -148,6 +149,7 @@
 
 
                 <ImageView
+                    android:id="@+id/iv_address_choise"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -257,7 +259,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:textSize="@dimen/p24"
-                        android:minWidth="@dimen/p66"
+                        android:minWidth="@dimen/p70"
                         android:text="1"
                         />
 
@@ -322,7 +324,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:minWidth="@dimen/p66"
+                        android:minWidth="@dimen/p70"
                         android:text="1"
                         android:textSize="@dimen/p24"/>
 

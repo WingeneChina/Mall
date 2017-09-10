@@ -2,12 +2,14 @@ package cn.wingene.mallxm.purchase.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import cn.wingene.mall.util.MathUtil;
+import cn.wingene.mallxm.purchase.bean.able.IOrderProductItem;
 import cn.wingene.mallxm.purchase.bean.able.IProduct;
 
 /**
  * Created by Wingene on 2017/8/27.
  */
-public class Product implements IProduct {
+public class Product implements IProduct, IOrderProductItem {
     /**
      * 商品ID	不可
      */
@@ -150,4 +152,38 @@ public class Product implements IProduct {
     }
 
 
+    @Override
+    public Integer getProductId() {
+        return id;
+    }
+
+    @Override
+    public String getProductName() {
+        return name;
+    }
+
+    @Override
+    public String getProductImage() {
+        return defaultImage;
+    }
+
+    @Override
+    public Double getSalePrice() {
+        return price;
+    }
+
+    @Override
+    public Double getSumPrice() {
+        return MathUtil.round2(price * buyNum);
+    }
+
+    @Override
+    public Integer getBuyNumber() {
+        return buyNum;
+    }
+
+    @Override
+    public String getSpecDesp() {
+        return specValue;
+    }
 }

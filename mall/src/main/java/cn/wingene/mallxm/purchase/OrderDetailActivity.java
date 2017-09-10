@@ -31,8 +31,6 @@ import cn.wingene.mallxm.purchase.ask.AskOrderDetail.Response;
 import cn.wingene.mallxm.purchase.ask.AskOrderPayNow;
 import cn.wingene.mallxm.purchase.bean.Address4;
 import cn.wingene.mallxm.purchase.tool.PayHelper;
-import cn.wingene.mallxm.purchase.tool.PayHelper.OnOrderBuild;
-import cn.wingene.mallxm.purchase.tool.PayHelper.PayMothed;
 
 /**
  * Created by Wingene on 2017/9/3.
@@ -209,7 +207,7 @@ public class OrderDetailActivity extends MyBaseActivity {
         tvDeliveryFee.setText(String.format("￥%.2f", bean.getDeliveryFee()));
 
         setOrderPay(bean.getOrderPay());
-        tvRealTotal.setText(String.format("￥%.2f", bean.getPayPrice()));
+
 
 
         tvLeft.setVisibility(str1 != null ? View.VISIBLE : View.INVISIBLE);
@@ -229,6 +227,7 @@ public class OrderDetailActivity extends MyBaseActivity {
     public void setOrderPay(OrderPay orderPay) {
         tvAmount.setText(String.format("￥%.2f", orderPay != null ? orderPay.getAmount() : 0.0f));
         tvIntegral.setText(String.format("￥%s", orderPay != null ? orderPay.getIntegral() : 0));
+        tvRealTotal.setText(String.format("￥%.2f", orderPay != null ? orderPay.getOrderPay() : 0.0f));
     }
 
     public OnClickListener makeClickListener(final String s, final OrderDetail item) {
@@ -266,19 +265,13 @@ public class OrderDetailActivity extends MyBaseActivity {
     }
 
     public void pay(final OrderDetail item) {
-        mPayHelper.setOnOrderBuild(new OnOrderBuild() {
+        getAgent().ask(new AskOrderPayNow.Request(item.getNo()) {
             @Override
-            public void onOrderBuild(final PayHelper helper, final PayMothed payMothed, final double amount, final int
-                    integral) {
-                getAgent().ask(new AskOrderPayNow.Request(item.getNo()) {
-                    @Override
-                    public void updateUI(AskOrderPayNow.Response rsp) {
-                        helper.askPay(rsp.data, payMothed, amount, integral);
-                    }
-                });
+            public void updateUI(AskOrderPayNow.Response rsp) {
+                OrderAddActivity.major.startActivity(getActivity(), rsp.data);
+                finish();
             }
         });
-        mPayHelper.showBottomDialog(item.getPayPrice(), 0, 0);
     }
 
 

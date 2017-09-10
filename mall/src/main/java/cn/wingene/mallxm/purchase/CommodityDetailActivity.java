@@ -358,6 +358,30 @@ public class CommodityDetailActivity extends MyBaseActivity {
         return mProduct.getStock();
     }
 
+    private Double getValidPrice() {
+        Double max = mProduct.getPrice();
+        StringBuilder sb = new StringBuilder();
+        Integer[] ids = new Integer[2];
+        for (AttributeMembersEntity key : mUiData.getSelectedEntities()) {
+            sb.append(String.format("name : %s%ngroupid : %s%nmemberId : %s%nstatus:%s%n ", key.getName(), key
+                    .getAttributeGroupId(), key.getAttributeMemberId(), key.getStatus()));
+            ids[key.getAttributeGroupId() - 1] = key.getAttributeMemberId();
+        }
+        if (StringUtil.isValid(mProduct.getSpecDesp1()) && ids[0] == null) {
+            return max;
+        }
+        if (StringUtil.isValid(mProduct.getSpecDesp2()) && ids[1] == null) {
+            return max;
+        }
+        for (ProductSpecList item : mSpecList) {
+            if (CheckUtil.isEquals(ids[0], item.getSpec1ValueId()) && CheckUtil.isEquals(ids[1], item
+                    .getSpec2ValueId())) {
+                return item.getPrice();
+            }
+        }
+        return mProduct.getPrice();
+    }
+
 
     private void loadWebData(String htmlCode) {
         if (htmlCode != null) {
@@ -427,6 +451,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
             mUiData.getSelectedEntities().clear();
             mUiData.getAdapters().clear();
             final BottomSheetHolder bottomSheetHolder = new BottomSheetHolder(this);
+            bottomSheetHolder.updatePrice(getValidPrice());
             bottomSheetHolder.dispaly(getAgent(), onOperaClick(true), onOperaClick(false), mModel, mUiData, new
                     IBuilder<Integer>() {
                 @Override
@@ -459,6 +484,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
                     @Override
                     public void onItemClickListener(int position) {
                         mBuyNumber = 1;
+                        bottomSheetHolder.updatePrice(getValidPrice());
                         bottomSheetHolder.updateNumber(mBuyNumber);
                     }
                 });
@@ -513,6 +539,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
 
     public static class BottomSheetHolder extends ViewHolder {
         private RelativeLayout rlBottom;
+        private TextView tvPrice;
         private LinearLayout llList;
         private LinearLayout llytNumber;
         private TextView tvTitle;
@@ -523,8 +550,10 @@ public class CommodityDetailActivity extends MyBaseActivity {
         private TextView tvBuy;
         private TextView tvAddCart;
 
+        @Override
         protected void initComponent() {
             rlBottom = (RelativeLayout) super.findViewById(R.id.rl_bottom);
+            tvPrice = (TextView) super.findViewById(R.id.tv_price);
             llList = (LinearLayout) super.findViewById(R.id.ll_list);
             llytNumber = (LinearLayout) super.findViewById(R.id.llyt_number);
             tvTitle = (TextView) super.findViewById(R.id.tv_title);
@@ -535,7 +564,6 @@ public class CommodityDetailActivity extends MyBaseActivity {
             tvBuy = (TextView) super.findViewById(R.id.tv_buy);
             tvAddCart = (TextView) super.findViewById(R.id.tv_add_cart);
         }
-
 
 
         public BottomSheetHolder(Context context) {
@@ -592,6 +620,9 @@ public class CommodityDetailActivity extends MyBaseActivity {
         public void updateNumber(Integer integer) {
             etNumber.setText(String.format("%s", integer));
             EditTextUtil.moveCourseToLast(etNumber);
+        }
+        public void updatePrice(Double price) {
+            tvPrice.setText(String.format("￥%.2f", price));
         }
 
 

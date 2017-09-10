@@ -3,7 +3,7 @@ package cn.wingene.mallxm.purchase.bean.able;
 /**
  * Created by Wingene on 2017/8/26.
  */
-public interface IAddress {
+public interface IAddress extends IAddress4{
         /**
          * 地址ID	不可
          */

@@ -15,6 +15,7 @@ import cn.wingene.mallxm.purchase.bean.Account;
 import cn.wingene.mallxm.purchase.bean.Address;
 import cn.wingene.mallxm.purchase.bean.Product;
 import cn.wingene.mallxm.purchase.bean.able.IAddOrder;
+import cn.wingene.mallxm.purchase.bean.able.IOrderProductItem;
 
 /**
  * Created by Wingene on 2017/8/26.
@@ -205,8 +206,13 @@ public class AskBuyNow {
             return payPrice;
         }
 
-        public int getAcceptIntegral() {
+        public Integer getAcceptIntegral() {
             return acceptIntegral;
+        }
+
+        @Override
+        public List<? extends IOrderProductItem> getOrderProductItem() {
+            return getProductList();
         }
     }
 

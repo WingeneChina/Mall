@@ -10,6 +10,7 @@ import junze.androidxf.kit.AKit;
 
 import cn.wingene.mallxf.http.Ask.BaseCacheSignRequest;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
+import cn.wingene.mallxm.purchase.bean.able.IOrderProductItem;
 import cn.wingene.mallxm.purchase.bean.able.IProduct;
 
 /**
@@ -361,7 +362,7 @@ public class AskOrderList {
         }
     }
 
-    public static class OrderProductList implements IProduct {
+    public static class OrderProductList implements IProduct,IOrderProductItem {
         /**
          * 订单商品ID	不可
          */

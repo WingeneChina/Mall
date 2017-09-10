@@ -10,4 +10,6 @@ public class D {
      * 客服电话
      */
     public static final String CUSTOMER_PHONE = "4000778910";
+
+//    public static final String MSG_ORDER_CHANGE = "MSG_ORDER_CHANGE";
 }

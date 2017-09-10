@@ -233,6 +233,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
                 app:tileDrawablePadding="@dimen/p8"
+                app:tileImgHeight="@dimen/p38"
                 app:tileImgSrc="@drawable/ic_commdity_detail_cart"
                 app:tileText="购物车"
                 app:tileTextColor="@color/darkgray"

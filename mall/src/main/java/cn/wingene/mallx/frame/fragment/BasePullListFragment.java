@@ -75,7 +75,7 @@ public abstract class BasePullListFragment extends MyBaseFragment implements Pag
     }
 
     public final boolean needLoadFirstPage() {
-        return mNeedLoadFirstPage && getScheme().haveInit();
+        return mNeedLoadFirstPage;
     }
 
     @Override

@@ -14,6 +14,7 @@ import cn.wingene.mallxm.purchase.bean.Account;
 import cn.wingene.mallxm.purchase.bean.Address4;
 import cn.wingene.mallxm.purchase.bean.OrderProductItem;
 import cn.wingene.mallxm.purchase.bean.able.IOrder;
+import cn.wingene.mallxm.purchase.bean.able.IOrderProductItem;
 import cn.wingene.mallxm.purchase.bean.able.IProduct;
 
 /**
@@ -284,6 +285,7 @@ public class AskOrderDetail {
             return payPrice;
         }
 
+
         /**
          * 支付状态	不可 详见1.11订单支付状态
          */
@@ -363,7 +365,7 @@ public class AskOrderDetail {
         }
     }
 
-    public static class OrderProductList implements IProduct {
+    public static class OrderProductList implements IProduct,IOrderProductItem {
         /**
          * 订单商品ID	不可
          */
