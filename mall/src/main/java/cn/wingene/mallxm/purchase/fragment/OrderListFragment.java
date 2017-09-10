@@ -5,10 +5,8 @@ import java.util.Date;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import junze.java.net.IHttpCacheElement.ICaheReqCallBack;
@@ -74,11 +72,11 @@ public class OrderListFragment extends BasePullListFragment {
         BaseSchemeOption option = new BaseSchemeOption();
         option.bundle = getArguments();
         getScheme().onInit(option);
-        OrderEmptyViewHolder eh = new OrderEmptyViewHolder(getActivity());
-        eh.getView().setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        eh.getView().setVisibility(View.GONE);
-        ((ViewGroup)getListView().getParent()).addView(eh.getView());
-        getListView().setEmptyView(eh.getView());
+//        OrderEmptyViewHolder eh = new OrderEmptyViewHolder(getActivity());
+//        eh.getView().setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//        eh.getView().setVisibility(View.GONE);
+//        ((ViewGroup)getListView().getParent()).addView(eh.getView());
+//        getListView().setEmptyView(eh.getView());
         getListViewHolder().setAdapter(getScheme().getAdapter());
         getListViewHolder().loadFirstPage();
         getListViewHolder().setOnItemClickListener(this);
@@ -146,8 +144,7 @@ public class OrderListFragment extends BasePullListFragment {
 
     @Override
     protected void askItem(int pageIndex) {
-        askInBack(new AskOrderList.Request(getScheme().getType(), pageIndex).setCallBack(getScheme().getCallback
-                (pageIndex)));
+        askInBack(new AskOrderList.Request(getScheme().getType(), pageIndex).setCallBack(getScheme().getCallback(pageIndex)), false);
     }
 
 
@@ -185,12 +182,15 @@ public class OrderListFragment extends BasePullListFragment {
 
                 @Override
                 public void updateUIWhenException(Exception e) {
-
+                    schemeUpdateException(pageIndex,e);
                 }
 
                 @Override
                 public void updateUI(Response rsp) {
                     schemeUpdateUI(pageIndex, rsp.data.getList());
+                    if(pageIndex ==1 && getItemViewHolder().isEmpty()){
+                        getFragment().switchLayoutOther(OrderEmptyViewHolder.class);
+                    }
                 }
 
                 @Override

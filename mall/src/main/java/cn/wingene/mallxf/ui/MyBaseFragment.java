@@ -59,14 +59,18 @@ public class MyBaseFragment extends BaseFragment implements View.OnTouchListener
     public Map<String, ViewHolder> mLayoutMap = new HashMap<>();
 
 
+    public void switchLayoutNormal() {
+        mLayoutSwitcher.switchNormal();
+    }
+
     /**
      *
      * @param clazz
      * @param <T>
      * @return possible null
      */
-    public <T extends ViewHolder> T switchLayout(Class<T> clazz) {
-        return switchLayout(null, clazz);
+    public <T extends ViewHolder> T switchLayoutOther(Class<T> clazz) {
+        return switchLayoutOther(null, clazz);
     }
 
     /**
@@ -76,10 +80,10 @@ public class MyBaseFragment extends BaseFragment implements View.OnTouchListener
      * @param <T>
      * @return possible null
      */
-    public <T extends ViewHolder> T switchLayout(String key, Class<T> clazz) {
+    public <T extends ViewHolder> T switchLayoutOther(String key, Class<T> clazz) {
         try {
             key = key != null ? key : "";
-            String mapKey = StringUtil.spellBy(new String[]{key, clazz.getName()});
+            String mapKey = StringUtil.spellBy(new String[]{key, clazz.getName()},"#");
             T holder = (T) mLayoutMap.get(mapKey);
             if (holder != null) {
                 return holder;

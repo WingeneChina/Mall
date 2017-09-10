@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -23,6 +24,7 @@ import junze.widget.PullToRefreshListView;
 
 import junze.android.ui.ItemViewHolder;
 import junze.androidxf.http.BaseParamsRequest;
+import junze.androidxf.kit.AKit;
 
 import cn.wingene.mall.R;
 import cn.wingene.mall.util.LayoutSwitcher;
@@ -30,6 +32,7 @@ import cn.wingene.mallx.frame.holder.PullListViewHolder;
 import cn.wingene.mallx.frame.holder.PullListViewHolder.PageAble;
 import cn.wingene.mallxf.MyAgent;
 import cn.wingene.mallxf.ui.MyBaseFragment;
+import cn.wingene.mallxm.purchase.holder.ExceptionViewHolder;
 
 //import junze.androidxf.ui.holder.PullListViewHolder;
 //import junze.androidxf.ui.holder.PullListViewHolder.PageAble;
@@ -272,6 +275,7 @@ public abstract class BasePullListFragment extends MyBaseFragment implements Pag
         }
 
         public void schemeUpdateUI(final int pageIndex, List<B> list) {
+            getFragment().switchLayoutNormal();
             if (pageIndex == 1) {
                 getItemViewHolder().clear();
             }
@@ -286,10 +290,27 @@ public abstract class BasePullListFragment extends MyBaseFragment implements Pag
         }
 
         public void schemeUpdateUIByCache(final int pageIndex, List<B> list, Date saveTime) {
+            getFragment().switchLayoutNormal();
             if (pageIndex == 1) {
                 getItemViewHolder().clear();
                 getItemViewHolder().addAll(list);
                 getItemViewHolder().notifyDataSetChanged();
+            }
+        }
+
+        public void schemeUpdateException(final int pageIndex, Exception e) {
+            String exceptionMsg = AKit.getFriendExceptionMessage(getListViewHolder().getContext(), e);
+            getListViewHolder().loadComplete("上次更新失败：" + exceptionMsg);
+            getListViewHolder().setTvFooter(exceptionMsg, false);
+            if (pageIndex == 1 && getItemViewHolder().isEmpty()) {
+                ExceptionViewHolder holder = getFragment().switchLayoutOther(ExceptionViewHolder.class);
+                holder.setText(getListViewHolder().getContext(), e);
+                holder.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loadFirstPage();
+                    }
+                });
             }
         }
 
