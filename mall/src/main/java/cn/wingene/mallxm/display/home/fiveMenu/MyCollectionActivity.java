@@ -72,6 +72,9 @@ public class MyCollectionActivity extends MyBaseActivity implements View.OnClick
         errorTextV = (TextView) findViewById(R.id.errorTextV);
         noDataGroup = (LinearLayout) findViewById(R.id.noDataGroup);
 
+        TextView textView = (TextView) noDataGroup.findViewById(R.id.errorTextV);
+        textView.setText("sorry，您还没收藏过商品");
+
         mJDRefreshLayout = (JDRefreshLayout) findViewById(R.id.refreshCollectionLayoutV);
         mJDRefreshLayout.setCanRefresh(true);
         mJDRefreshLayout.setCanLoad(true);
@@ -194,6 +197,11 @@ public class MyCollectionActivity extends MyBaseActivity implements View.OnClick
                     mCollectionList.remove(deletePosition);
                     mCollectionAdapter.notifyDataSetChanged();
                     deletePosition = 0;
+
+                    if (mCollectionList.size() == 0) {
+                        pageIndex = 1;
+                        requestMyCollection();
+                    }
                     break;
             }
         } else {
