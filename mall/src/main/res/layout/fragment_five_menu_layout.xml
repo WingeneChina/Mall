@@ -232,6 +232,25 @@
                 android:background="@color/linear_bg"/>
 
             <TextView
+                android:id="@+id/myCollectionV"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:drawableLeft="@drawable/grzx_sc"
+                android:drawablePadding="12dp"
+                android:drawableRight="@drawable/grzx_jt"
+                android:gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:text="我的收藏"
+                android:textColor="@color/three_text_color"
+                android:textSize="14sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="@color/linear_bg"/>
+
+            <TextView
                 android:id="@+id/updateAddressV"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"

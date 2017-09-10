@@ -176,6 +176,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name="cn.wingene.mallxm.display.home.setting.SuggestActivity">
         </activity>
+        <activity android:name="cn.wingene.mallxm.display.home.fiveMenu.MyCollectionActivity">
+        </activity>
     </application>
 
 </manifest>

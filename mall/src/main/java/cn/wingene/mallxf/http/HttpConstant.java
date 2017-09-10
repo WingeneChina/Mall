@@ -140,4 +140,16 @@ public class HttpConstant {
      * 提交添加银行卡信息
      */
     public static final String COMMIT_ADD_CARD = HOST + "User/BankCard/Edit";
+
+    /**
+     * 收藏列表
+     */
+    public static final String MY_COLLECTION_LIST = HOST + "User/Favorites/List";
+
+    /**
+     * 删除我的收藏
+     */
+    public static final String DELETE_MY_COLLECTION = HOST + "User/Favorites/Remove";
+
+
 }
