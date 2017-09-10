@@ -50,6 +50,57 @@ public class OrderProductItem implements IOrderProductItem {
     @SerializedName("SpecDesp")
     private String specDesp;
 
+//    @Override
+//    public Integer getId() {
+//        return productId;
+//    }
+//
+//    @Override
+//    public String getName() {
+//        return productName;
+//    }
+//
+//    @Override
+//    public String getDefaultImage() {
+//        return productImage;
+//    }
+//
+//    @Override
+//    public Double getPrice() {
+//        return p;
+//    }
+//
+//    @Override
+//    public Double getPriceMarket() {
+//        return pro;
+//    }
+//
+//    @Override
+//    public Integer getStock() {
+//        return null;
+//    }
+//
+//    @Override
+//    public Integer getBuyNum() {
+//        return null;
+//    }
+//
+//    @Override
+//    public Integer getSpecId() {
+//        return null;
+//    }
+//
+//    @Override
+//    public String getSpecValue() {
+//        return null;
+//    }
+//
+//    @Override
+//    public Integer getPromotionId() {
+//        return null;
+//    }
+
+    ////
 
     /**
      * 商品ID	不可
