@@ -46,4 +46,17 @@ public class OrderEmptyViewHolder extends ViewHolder {
             }
         });
     }
+
+    public void setTextAndHideBtn(String info){
+        tvInfo.setText(info);
+        tvGoHome.setVisibility(View.INVISIBLE);
+        tvGoHome.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WgMainActivity.major.startForPosition(mContext,0);
+            }
+        });
+    }
+
+
 }

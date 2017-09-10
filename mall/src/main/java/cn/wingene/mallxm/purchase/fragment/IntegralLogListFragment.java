@@ -5,9 +5,7 @@ import java.util.Date;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import junze.java.net.IHttpCacheElement.ICaheReqCallBack;
@@ -53,11 +51,6 @@ public class IntegralLogListFragment extends BasePullListFragment {
         BaseSchemeOption option = new BaseSchemeOption();
         option.bundle = getArguments();
         getScheme().onInit(option);
-        OrderEmptyViewHolder eh = new OrderEmptyViewHolder(getActivity(),"暂无明细");
-        eh.getView().setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        eh.getView().setVisibility(View.GONE);
-        ((ViewGroup) getListView().getParent()).addView(eh.getView());
-        getListView().setEmptyView(eh.getView());
         getListViewHolder().setAdapter(getScheme().getAdapter());
         getListViewHolder().loadFirstPage();
         getListViewHolder().setOnItemClickListener(this);
@@ -71,7 +64,7 @@ public class IntegralLogListFragment extends BasePullListFragment {
 
     @Override
     protected void askItem(int pageIndex) {
-        askInBack(new AskIntegralLogList.Request(pageIndex).setCallBack(getScheme().getCallback(pageIndex)));
+        askInBack(new AskIntegralLogList.Request(pageIndex).setCallBack(getScheme().getCallback(pageIndex)),false);
     }
 
 
@@ -106,12 +99,16 @@ public class IntegralLogListFragment extends BasePullListFragment {
 
                 @Override
                 public void updateUIWhenException(Exception e) {
-
+                    schemeUpdateException(pageIndex,e);
                 }
 
                 @Override
                 public void updateUI(Response rsp) {
                     schemeUpdateUI(pageIndex, rsp.getList());
+                    if(pageIndex ==1 && getItemViewHolder().isEmpty()){
+                        OrderEmptyViewHolder holder= getFragment().switchLayoutOther(OrderEmptyViewHolder.class);
+                        holder.setTextAndHideBtn("暂无明细");
+                    }
                 }
 
                 @Override

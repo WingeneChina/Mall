@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import junze.java.able.IBuilder;
@@ -30,6 +29,7 @@ import junze.android.ui.ItemViewHolder.OnItemViewClickListener;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallx.universalimageloader.ImageHelper;
+import cn.wingene.mallxm.purchase.holder.ProductEmptyHolder;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxm.D;
 import cn.wingene.mallxm.purchase.OrderAddActivity;
@@ -51,24 +51,21 @@ public class ShoppingCartFragment extends MyBaseFragment {
 
     private Tile tlBack;
     private Tile tlService;
-    private LinearLayout llytCart;
+    private LinearLayout layoutNormal;
     private ListView lvCartItem;
     private Tile tlSelectAll;
     private TextView tvTotal;
     private TextView tvOrder;
-    private RelativeLayout rlytCartEmpty;
 
     protected void initComponent(View v){
         tlBack = (Tile) v.findViewById(R.id.tl_back);
         tlService = (Tile) v.findViewById(R.id.tl_service);
-        llytCart = (LinearLayout) v.findViewById(R.id.llyt_cart);
+        layoutNormal = (LinearLayout) v.findViewById(R.id.layoutNormal);
         lvCartItem = (ListView) v.findViewById(R.id.lv_cart_item);
         tlSelectAll = (Tile) v.findViewById(R.id.tl_select_all);
         tvTotal = (TextView) v.findViewById(R.id.tv_total);
         tvOrder = (TextView) v.findViewById(R.id.tv_order);
-        rlytCartEmpty = (RelativeLayout) v.findViewById(R.id.rlyt_cart_empty);
     }
-
 
 
 
@@ -181,9 +178,12 @@ public class ShoppingCartFragment extends MyBaseFragment {
         tlSelectAll.setSelected(isAllSelect());
         tvTotal.setText(String.format("￥%.2f", total));
         mItemHolder.notifyDataSetChanged();
-        boolean empty = mItemHolder.isEmpty();
-        llytCart.setVisibility(empty ? View.GONE : View.VISIBLE);
-        rlytCartEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
+        if(!mItemHolder.isEmpty()){
+            switchLayoutNormal();
+        }else{
+            ProductEmptyHolder holder= switchLayoutOther(ProductEmptyHolder.class);
+            holder.setMsg("您的购物车空空如也~！");
+        }
 
     }
 

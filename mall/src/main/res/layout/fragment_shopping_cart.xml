@@ -37,7 +37,7 @@
     <View style="@style/Line.Horizontal"/>
 
     <LinearLayout
-        android:id="@+id/llyt_cart"
+        android:id="@id/layoutNormal"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -151,34 +151,34 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/rlyt_cart_empty"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rlyt_cart_empty"-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-        <View
-            android:id="@+id/_v_center"
-            android:layout_width="1dp"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"></View>
+        <!--<View-->
+            <!--android:id="@+id/_v_center"-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_centerInParent="true"></View>-->
 
-        <ImageView
-            android:layout_centerHorizontal="true"
-            android:layout_above="@id/_v_center"
-            android:id="@+id/_iv_empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_cart_empty"/>
+        <!--<ImageView-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_above="@id/_v_center"-->
+            <!--android:id="@+id/_iv_empty"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_cart_empty"/>-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/_iv_empty"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/p68"
-            android:text="您的购物车空空如也~！"/>
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/_iv_empty"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginTop="@dimen/p68"-->
+            <!--android:text="您的购物车空空如也~！"/>-->
+    <!--</RelativeLayout>-->
 
 
 </LinearLayout>

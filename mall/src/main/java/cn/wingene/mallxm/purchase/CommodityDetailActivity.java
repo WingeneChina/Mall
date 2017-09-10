@@ -48,9 +48,8 @@ import junze.androidxf.kit.AKit;
 import junze.androidxf.tool.HtmlLoader;
 
 import cn.wingene.mall.R;
-import cn.wingene.mall.util.LayoutSwitcher;
 import cn.wingene.mallx.universalimageloader.ImageHelper;
-import cn.wingene.mallxf.holder.ProductEmptyHolder;
+import cn.wingene.mallxm.purchase.holder.ProductEmptyHolder;
 import cn.wingene.mallxf.http.Ask.NeedLoginException;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxf.ui.banner.BannerImgLoader;
@@ -87,8 +86,6 @@ public class CommodityDetailActivity extends MyBaseActivity {
     private List<String> urlList = new ArrayList<>();
     private ProductModel mModel;
 
-    private ProductEmptyHolder mProductEmptyHolder;
-    private LayoutSwitcher mLayoutSwitcher;
 
     UiData mUiData;
 
@@ -148,7 +145,6 @@ public class CommodityDetailActivity extends MyBaseActivity {
         mBuyNumber = 1;
 
         mUiData = new UiData();
-        mProductEmptyHolder = new ProductEmptyHolder(this);
 
         tlBack.setOnClickListener(new OnClickListener() {
             @Override
@@ -183,20 +179,13 @@ public class CommodityDetailActivity extends MyBaseActivity {
         });
         askProductDetail();
 
-        mLayoutSwitcher = new LayoutSwitcher(this, R.id.layoutNormal);
-        mProductEmptyHolder.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                askProductDetail();
-            }
-        });
     }
 
     private void askProductDetail() {
         ask("数据加载中...",false,new AskProductDetail.Request(mProductId, mPromotionId) {
             @Override
             public void updateUI(Response rsp) {
-                mLayoutSwitcher.switchNormal();
+                switchLayoutNormal();
                 tvActionbarTitle.setText("商品详情");
                 mProduct = rsp.getProduct();
                 mSpecList = rsp.getProductSpecList();
@@ -224,7 +213,13 @@ public class CommodityDetailActivity extends MyBaseActivity {
 
             @Override
             protected void updateUIWhenException(Exception exception) {
-                mLayoutSwitcher.switchOther(mProductEmptyHolder.getView());
+                ProductEmptyHolder holder = switchLayoutOther(ProductEmptyHolder.class);
+                holder.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        askProductDetail();
+                    }
+                });
                 if (exception != null && exception instanceof NeedLoginException) {
                     if (CheckUtil.isInclude(getActivity().getClass(), ShoppingCartActivity.class,
                             OrderListActivity.class, AddressManagerActivity.class, RechargeIndexActivity
@@ -237,16 +232,16 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 if (exception != null && exception instanceof NotOKException) {
                     NotOKException e = (NotOKException) exception;
                     if (e.responseCode == 400) {
-                        mProductEmptyHolder.setMsg("网络不稳定!!!!");
+                        holder.setMsg("网络不稳定!!!!");
                         return;
                     }
                 }
                 if(exception != null && exception.getMessage().contains("下架")){
                     tvActionbarTitle.setText("商品已下架");
-                    mProductEmptyHolder.setMsg("很抱歉，你查看的商品已下架");
+                    holder.setMsg("很抱歉，你查看的商品已下架");
                 }else{
                     tvActionbarTitle.setText("商品详情");
-                    mProductEmptyHolder.setMsg(AKit.getFriendExceptionMessage(getActivity(), exception));
+                    holder.setMsg(AKit.getFriendExceptionMessage(getActivity(), exception));
                 }
             }
         });

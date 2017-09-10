@@ -1,17 +1,26 @@
 package cn.wingene.mallxf;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.EditText;
 
 import junze.java.net.IHttpElement.IRequest;
 import junze.java.net.IHttpElement.IResponse;
 import junze.java.util.CheckUtil;
+import junze.java.util.StringUtil;
 
+import junze.android.ui.ViewHolder;
 import junze.androidxf.core.Agent;
 import junze.androidxf.http.BaseRequest.NotOKException;
 
 import cn.wingene.mall.R;
+import cn.wingene.mall.util.LayoutSwitcher;
 import cn.wingene.mallx.frame.ui.EditViewDialogDeclare.EditViewDialog;
 import cn.wingene.mallx.frame.ui.EditViewDialogDeclare.OnEditCompleteListener;
 import cn.wingene.mallx.frame.ui.EditViewDialogDeclare.Option;
@@ -28,6 +37,8 @@ import cn.wingene.mallxm.purchase.ShoppingCartActivity;
 
 public class MyAgent extends Agent {
     private EditViewDialog mEditViewDialog;
+    LayoutSwitcher mLayoutSwitcher;
+    public Map<String, ViewHolder> mLayoutMap = new HashMap<>();
 
     public MyAgent(Activity activity) {
         super(activity);
@@ -94,5 +105,58 @@ public class MyAgent extends Agent {
         }
         this.mEditViewDialog.setParams(title, onEditComplete, option);
         this.showDialog(this.mEditViewDialog.getDialog());
+    }
+
+    public void initLayoutSwitch(LayoutSwitcher layoutSwitcher) {
+        this.mLayoutSwitcher = layoutSwitcher;
+    }
+
+    public void switchLayoutNormal() {
+        if (mLayoutSwitcher == null) {
+            return;
+        }
+        mLayoutSwitcher.switchNormal();
+    }
+
+    /**
+     * @param clazz
+     * @param <T>
+     * @return possible null
+     */
+    public <T extends ViewHolder> T switchLayoutOther(Class<T> clazz) {
+        return switchLayoutOther(null, clazz);
+    }
+
+    /**
+     * @param key
+     * @param clazz
+     * @param <T>
+     * @return possible null
+     */
+    public <T extends ViewHolder> T switchLayoutOther(String key, Class<T> clazz) {
+        if (mLayoutSwitcher == null) {
+            return null;
+        }
+        try {
+            key = key != null ? key : "";
+            String mapKey = StringUtil.spellBy(new String[]{key, clazz.getName()}, "#");
+            T holder = (T) mLayoutMap.get(mapKey);
+            if (holder != null) {
+                return holder;
+            }
+            Constructor<T> constructor = clazz.getConstructor(Context.class);
+            holder = constructor.newInstance(getActivity());
+            mLayoutSwitcher.switchOther(holder.getView());
+            return holder;
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (java.lang.InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

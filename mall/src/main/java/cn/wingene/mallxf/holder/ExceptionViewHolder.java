@@ -1,4 +1,4 @@
-package cn.wingene.mallxm.purchase.holder;
+package cn.wingene.mallxf.holder;
 
 import android.content.Context;
 import android.view.View.OnClickListener;
