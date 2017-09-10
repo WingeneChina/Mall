@@ -235,7 +235,7 @@
                 android:id="@+id/myCollectionV"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
-                android:drawableLeft="@drawable/grzx_dz"
+                android:drawableLeft="@drawable/grzx_sc"
                 android:drawablePadding="12dp"
                 android:drawableRight="@drawable/grzx_jt"
                 android:gravity="center_vertical"
