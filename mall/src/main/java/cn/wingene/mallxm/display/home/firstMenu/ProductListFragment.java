@@ -53,8 +53,9 @@ public class ProductListFragment extends MyBaseFragment implements
     private int mPagerIndex = 1;
     private List<ProductListModel.DataBean.ListBean> mListBeanList = new ArrayList<>();
     private ProductListCommentAdapter productListCommentAdapter;
-    private NestedScrollView haveDataGroupV;
+    private LinearLayout haveDataGroupV;
     private LinearLayout noDataGroup;
+    private LinearLayout noProductDataGroupV;
 
     public static ProductListFragment newInstance(Bundle bundle) {
         ProductListFragment productListFragment = new ProductListFragment();
@@ -80,8 +81,9 @@ public class ProductListFragment extends MyBaseFragment implements
         mJDRefreshLayout = (JDRefreshLayout) root.findViewById(R.id.refreshLayoutV);
         productListRecyclerV = (RecyclerView) root.findViewById(R.id.productListV);
 
-        haveDataGroupV = (NestedScrollView) root.findViewById(R.id.haveDataGroupV);
+        haveDataGroupV = (LinearLayout) root.findViewById(R.id.haveDataGroupV);
         noDataGroup = (LinearLayout) root.findViewById(R.id.noDataGroup);
+        noProductDataGroupV = (LinearLayout) root.findViewById(R.id.noProductDataGroupV);
 
         mBanner = (Banner) root.findViewById(R.id.banner);
 
@@ -141,7 +143,7 @@ public class ProductListFragment extends MyBaseFragment implements
         hasmapParams.put("OrderBy", orderBy);
         hasmapParams.put("PageIndex", mPagerIndex);
         hasmapParams.put("Type", getArguments().getString("type"));
-        hasmapParams.put("Key",getArguments().getString("key", ""));
+        hasmapParams.put("Key", getArguments().getString("key", ""));
         hasmapParams.put("CategoryCode", "");//getArguments().getString("key", "")
         responseNoHttpRequest.request(getActivity(), HttpConstant.PRODUCT_LIST, hasmapParams, 1, this, false,
                 "productList",
@@ -170,15 +172,30 @@ public class ProductListFragment extends MyBaseFragment implements
     }
 
     private void showResultData(ProductListModel productListModel) {
+        initBanner(productListModel);
+
         if ((productListModel.getData().getList() == null || productListModel.getData().getList().size() == 0) &&
-                mListBeanList.size() == 0) {
+                mListBeanList.size() == 0 && productListModel.getData().getBannerList().size() == 0) {//banner和商品都没有
             noDataGroup.setVisibility(View.VISIBLE);
             haveDataGroupV.setVisibility(View.GONE);
-        } else {
+
+        } else if (productListModel.getData().getBannerList() != null && productListModel.getData().getBannerList()
+                .size() > 0 && productListModel.getData().getList().size() == 0) {//有banner 没有商品
+            productListRecyclerV.setVisibility(View.GONE);
+            noProductDataGroupV.setVisibility(View.VISIBLE);
+
+        } else if (productListModel.getData().getList().size() > 0) {//有商品
             noDataGroup.setVisibility(View.GONE);
             haveDataGroupV.setVisibility(View.VISIBLE);
+            productListRecyclerV.setVisibility(View.VISIBLE);
+            noProductDataGroupV.setVisibility(View.GONE);
+
+        } else {//bannner和商品都有
+            noDataGroup.setVisibility(View.GONE);
+            haveDataGroupV.setVisibility(View.VISIBLE);
+            productListRecyclerV.setVisibility(View.VISIBLE);
+            noProductDataGroupV.setVisibility(View.GONE);
         }
-        initBanner(productListModel);
 
         if (mPagerIndex == 1) {
             mListBeanList.clear();
