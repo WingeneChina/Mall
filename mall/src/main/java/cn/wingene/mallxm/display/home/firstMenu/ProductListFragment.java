@@ -224,7 +224,8 @@ public class ProductListFragment extends MyBaseFragment implements
 
     @Override
     public void onFailed(int what, Object tag, Exception exception, int responseCode, long networkMillis) {
-
+        mJDRefreshLayout.stopLoadMore(true);
+        mJDRefreshLayout.stopRefresh(true);
     }
 
 }

@@ -129,9 +129,10 @@ public class HttpResponseListener<T> implements OnResponseListener<T> {
             ToastUtil.show("未知错误", context);
 
         }
-        if (callback != null)
+        if (callback != null) {
             callback.onFailed(what, response.getTag(), exception, response.getHeaders().getResponseCode(), response
                     .getNetworkMillis());
+        }
     }
 
 
