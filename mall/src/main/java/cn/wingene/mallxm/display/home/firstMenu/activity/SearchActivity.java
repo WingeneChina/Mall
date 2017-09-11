@@ -122,6 +122,7 @@ public class SearchActivity extends AppCompatActivity implements HttpListener<St
                 @Override
                 public void historySearchItemChoice(int position) {
                     searchEditV.setText(localSearchData.getLocalList().get(position));
+                    requestSearch();
                 }
             });
         } catch (Exception e) {

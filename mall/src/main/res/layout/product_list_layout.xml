@@ -12,52 +12,53 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--<android.support.v4.widget.NestedScrollView-->
-        <!--android:id="@+id/haveDataGroupV"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-
-        <LinearLayout
-            android:id="@+id/haveDataGroupV"
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/haveDataScrollGroupV"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <com.youth.banner.Banner
-                android:id="@+id/banner"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:banner_default_image="@drawable/no_banner"
-                />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/productListV"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"/>
-
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/noProductDataGroupV"
+                android:id="@+id/haveDataGroupV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/errorTextV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="10dp"
-                    android:drawableTop="@drawable/seach_kong"
-                    android:gravity="center_horizontal"
-                    android:text="sorry,还没有相关商品"
-                    android:textColor="@color/six_text_color"
-                    android:textSize="14sp"/>
+                <com.youth.banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:banner_default_image="@drawable/no_banner"
+                    />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/productListV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"/>
+
+
+                <LinearLayout
+                    android:id="@+id/noProductDataGroupV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="60dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <TextView
+                        android:id="@+id/errorTextV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:drawableTop="@drawable/seach_kong"
+                        android:gravity="center_horizontal"
+                        android:text="sorry,还没有相关商品"
+                        android:textColor="@color/six_text_color"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
             </LinearLayout>
-        </LinearLayout>
-        <!--</android.support.v4.widget.NestedScrollView>-->
+        </android.support.v4.widget.NestedScrollView>
 
         <include
             layout="@layout/not_data_layout"

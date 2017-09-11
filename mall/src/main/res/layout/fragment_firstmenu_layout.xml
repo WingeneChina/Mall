@@ -14,26 +14,45 @@
         <ImageView
             android:padding="6dp"
             android:id="@+id/logoV"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:scaleType="fitCenter"
             android:src="@drawable/search_logo"
             />
 
+        <!--<TextView-->
+            <!--android:id="@+id/searchMarkV"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:drawableLeft="@drawable/search"-->
+            <!--android:background="@drawable/line_gray_shape"-->
+            <!--android:gravity="center"-->
+            <!--android:text="搜索商品"-->
+            <!--android:textSize="12sp"/>-->
         <TextView
             android:id="@+id/searchMarkV"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="@color/translucent"
+            android:layout_height="30dp"
             android:gravity="center"
-            android:text="搜索商品"
-            android:textSize="12sp"/>
-
+            android:layout_weight="1"
+            android:background="@drawable/line_gray_shape"
+            android:drawableLeft="@drawable/search"
+            android:drawablePadding="10dp"
+            android:hint="在线搜索,海量正品等你比价"
+            android:imeActionId="@+id/searchMailV"
+            android:imeActionLabel="搜索"
+            android:imeOptions="actionSearch"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textSize="14sp"
+            />
         <ImageView
             android:id="@+id/shoppingCart"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:padding="6dp"
             android:scaleType="fitCenter"
             android:src="@drawable/shop_car_checked"

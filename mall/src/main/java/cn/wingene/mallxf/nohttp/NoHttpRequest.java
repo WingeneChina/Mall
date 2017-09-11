@@ -60,7 +60,7 @@ public class NoHttpRequest<T> {
                                           isShowDialog, boolean
                                           isCache) {
         Logger.e("url = " + url);
-        request = NoHttp.createStringRequest(url,RequestMethod.POST);
+        request = NoHttp.createStringRequest(url, RequestMethod.POST);
         request.setCancelSign(cancelSign);
         if (isCache) {
             request.setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE);
@@ -97,13 +97,16 @@ public class NoHttpRequest<T> {
                         int what, HttpListener<String> callback, boolean canCancel, String cancelSign, boolean
                                 isShowDialog, boolean
                                 isCache) {
-        request = NoHttp.createStringRequest(url,RequestMethod.POST);
-
+        request = NoHttp.createStringRequest(url, RequestMethod.POST);
         request.setCancelSign(cancelSign);
+        mergeParams(hashParams);
+
         if (isCache) {
             request.setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE);
+            if (hashParams != null) {
+                request.setCacheKey(url + hashParams.toString());
+            }
         }
-        mergeParams(hashParams);
 
         // 设置无证书https请求
         SSLContext sslContext = SSLContextUtil.getDefaultSLLContext();
@@ -129,7 +132,7 @@ public class NoHttpRequest<T> {
     public void upLoadFile(Activity activity, int what, String url, HashMap<String, Object>
             hashMap, HttpListener<String> listener) {
 
-        request = NoHttp.createStringRequest(url,RequestMethod.POST);
+        request = NoHttp.createStringRequest(url, RequestMethod.POST);
 
         mergeParams(hashMap);
 //        request.add(hashMap);

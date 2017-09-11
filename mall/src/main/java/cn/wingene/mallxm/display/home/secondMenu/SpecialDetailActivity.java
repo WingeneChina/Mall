@@ -36,6 +36,8 @@ public class SpecialDetailActivity extends AppCompatActivity implements View.OnC
     private TextView addressTextV;
     private Button clickGoV;
 
+    private SpecailDetailModel specailDetailModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,9 +70,15 @@ public class SpecialDetailActivity extends AppCompatActivity implements View.OnC
                 onBackPressed();
                 break;
             case R.id.clickGoV:
-                Toast toast = Toast.makeText(this, "暂不支持", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
+                if (specailDetailModel != null && specailDetailModel.getData() != null) {
+                    specailDetailModel.getData().getLat();
+                    specailDetailModel.getData().getLng();
+                    //TODO 去往地图导航
+                } else {
+                    Toast toast = Toast.makeText(this, "暂不支持", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
                 break;
         }
     }
@@ -110,7 +118,7 @@ public class SpecialDetailActivity extends AppCompatActivity implements View.OnC
             BaseResponse baseResponse = gsonUtil1.fromJson(response.get());
             if (baseResponse.err == 0) {
                 GsonUtil<SpecailDetailModel> gsonUtil = new GsonUtil<>(SpecailDetailModel.class);
-                SpecailDetailModel specailDetailModel = gsonUtil.fromJson(response.get());
+                specailDetailModel = gsonUtil.fromJson(response.get());
                 titleV.setText(specailDetailModel.getData().getTitle());
                 showResultData(specailDetailModel);
 
