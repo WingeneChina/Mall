@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import static cn.wingene.mallxm.display.home.SecondMenuFragment.MENU_CODE_ARG;
+
 import com.baidu.location.BDLocation;
 import com.dalong.refreshlayout.OnRefreshListener;
 import com.yanzhenjie.nohttp.rest.Response;
@@ -70,11 +71,11 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
         mPagerIndex = 1;
         LocationHelper.getInstance().start(this);
         BDLocation bdLocation = LocationHelper.getInstance().getLocation();
-        if(LocationHelper.isLocationSuccess(bdLocation)){
+        if (LocationHelper.isLocationSuccess(bdLocation)) {
             mLat = bdLocation.getLatitude() + "";
             mLong = "" + bdLocation.getLongitude();
         }
-        requestData(mLat,mLong);
+        requestData(mLat, mLong);
         return view;
     }
 
@@ -92,7 +93,7 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
                 mPagerIndex = 1;
 //                LocationHelper.getInstance().start(ThridMenuItemFragment.this);
                 BDLocation bdLocation = LocationHelper.getInstance().getLocation();
-                if(LocationHelper.isLocationSuccess(bdLocation)){
+                if (LocationHelper.isLocationSuccess(bdLocation)) {
                     mLat = bdLocation.getLatitude() + "";
                     mLong = "" + bdLocation.getLongitude();
                 }
@@ -103,7 +104,7 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
             public void onLoadMore() {
                 mPagerIndex++;
                 BDLocation bdLocation = LocationHelper.getInstance().getLocation();
-                if(LocationHelper.isLocationSuccess(bdLocation)){
+                if (LocationHelper.isLocationSuccess(bdLocation)) {
                     mLat = bdLocation.getLatitude() + "";
                     mLong = "" + bdLocation.getLongitude();
                 }
@@ -174,7 +175,8 @@ public class ThridMenuItemFragment extends MyBaseFragment implements HttpListene
 
     @Override
     public void onFailed(int what, Object tag, Exception exception, int responseCode, long networkMillis) {
-
+        mJDRefreshLayout.stopLoadMore(true);
+        mJDRefreshLayout.stopRefresh(true);
     }
 
     @Override
