@@ -84,19 +84,18 @@
                 android:layout_below="@id/_lab_2"
                 android:text="快递编号: "/>
 
-            <TextView
-                android:id="@+id/_lab_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/_lab_3"
-                android:text="官方电话: "/>
+            <!--<TextView-->
+                <!--android:id="@+id/_lab_4"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/_lab_3"-->
+                <!--android:text="官方电话: "/>-->
 
             <TextView
                 android:id="@+id/tv_value_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
-                android:layout_marginTop="@dimen/p4"
                 android:layout_toRightOf="@id/_lab_1"
                 android:layout_alignBottom="@id/_lab_1"
                 android:text=""/>
@@ -105,7 +104,6 @@
                 android:id="@+id/tv_value_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/p4"
                 android:layout_toRightOf="@id/_lab_2"
                 android:layout_alignBottom="@id/_lab_2"
                 android:text=""/>
@@ -114,19 +112,17 @@
                 android:id="@+id/tv_value_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/p4"
                 android:layout_toRightOf="@id/_lab_3"
                 android:layout_alignBottom="@id/_lab_3"
                 android:text=""/>
 
-            <TextView
-                android:id="@+id/tv_value_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/p4"
-                android:layout_toRightOf="@id/_lab_4"
-                android:layout_alignBottom="@id/_lab_4"
-                android:text=""/>
+            <!--<TextView-->
+                <!--android:id="@+id/tv_value_4"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_toRightOf="@id/_lab_4"-->
+                <!--android:layout_alignBottom="@id/_lab_4"-->
+                <!--android:text=""/>-->
 
         </RelativeLayout>
 
@@ -142,17 +138,38 @@
 
     <View style="@style/Line.Horizontal"/>
 
-    <View
-        style="@style/Line.Horizontal"
-        android:layout_height="@dimen/p78"
-        android:background="@color/white"/>
-
-    <View style="@style/Line.Horizontal"/>
-
-    <junze.widget.HightMatchListView
-        android:id="@+id/lv_content"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></junze.widget.HightMatchListView>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                style="@style/Line.Horizontal"
+                android:layout_height="@dimen/p78"
+                android:background="@color/white"/>
+
+            <View style="@style/Line.Horizontal"/>
+
+            <junze.widget.HightMatchListView
+                android:footerDividersEnabled="false"
+                android:dividerHeight="0dp"
+                android:divider="@null"
+                android:id="@+id/lv_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></junze.widget.HightMatchListView>
+
+
+            <View
+                style="@style/Line.Horizontal"
+                android:layout_height="@dimen/p78"
+                android:background="@color/white"/>
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </LinearLayout>

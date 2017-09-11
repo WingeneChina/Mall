@@ -29,6 +29,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
     //    private BigDecimal mBigDecimal;
     private Integer mIntegral;
     private Double mAmount;
+    private boolean mIsDeposit;
 
     private Tile tlBack;
     private TextView tvTitle;
@@ -128,6 +129,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
             @Override
             public void updateUI(Response rsp) {
                 mIntegral = rsp.getIntegral();
+                mIsDeposit = false;
                 setMajor(Major.MAJOR_INTEGRAL);
                 RechargeIndexActivity.this.updateUI();
             }
@@ -139,6 +141,7 @@ public class RechargeIndexActivity extends MyBaseActivity {
             @Override
             public void updateUI(AskAmountIndex.Response rsp) {
                 mAmount = rsp.getAmount();
+                mIsDeposit = rsp.isDeposit();
                 setMajor(Major.MAJOR_AMOUNT);
                 RechargeIndexActivity.this.updateUI();
             }
@@ -151,10 +154,8 @@ public class RechargeIndexActivity extends MyBaseActivity {
             tvTitle.setText("应币余额");
             tvLabel.setText("应币余额(元)");
             tvCount.setText(String.format("%s", mIntegral != null ? mIntegral : 0));
-
             //            tvRecharge // 充值
-            tvCash.setVisibility(View.INVISIBLE);
-
+            tvCash.setVisibility(mIsDeposit ? View.VISIBLE : View.INVISIBLE);
             tvIntegral.setSelected(true);
             tvAmount.setSelected(false);
             break;
@@ -163,10 +164,8 @@ public class RechargeIndexActivity extends MyBaseActivity {
             tvTitle.setText("游币余额");
             tvLabel.setText("游币余额(元)");
             tvCount.setText(String.format("%.2f", mAmount != null ? mAmount : 0f));
-
             //            tvRecharge // 充值
-            tvCash.setVisibility(View.VISIBLE);
-
+            tvCash.setVisibility(mIsDeposit ? View.VISIBLE : View.INVISIBLE);
             tvAmount.setSelected(true);
             tvIntegral.setSelected(false);
             break;

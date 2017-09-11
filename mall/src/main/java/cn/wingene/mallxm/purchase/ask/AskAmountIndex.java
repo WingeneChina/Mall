@@ -23,6 +23,10 @@ public class AskAmountIndex {
         public Double getAmount() {
             return data.getAmount();
         }
+
+        public boolean isDeposit() {
+            return data.getIsDeposit() != null && data.getIsDeposit() ==1;
+        }
     }
 
     public static class Request extends BaseSignRequest<Response> {
@@ -38,6 +42,24 @@ public class AskAmountIndex {
         @SerializedName("Amount")
         private Double amount;
 
+        /**
+         * 用户等级	不可
+         */
+        @SerializedName("Grade")
+        private String grade;
+
+        /**
+         * 用户等级名称	不可
+         */
+        @SerializedName("GradeName")
+        private String gradeName;
+
+        /**
+         * 是否可提现	不可 0、不可 1、可
+         */
+        @SerializedName("IsDeposit")
+        private Integer isDeposit;
+
 
         /**
          * 游币	不可
@@ -46,7 +68,9 @@ public class AskAmountIndex {
             return amount;
         }
 
-
+        public Integer getIsDeposit() {
+            return isDeposit;
+        }
     }
 
 

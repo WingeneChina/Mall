@@ -7,8 +7,11 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.EditText;
+
+import com.baidu.mapapi.utils.OpenClientUtil;
 
 import junze.java.net.IHttpElement.IRequest;
 import junze.java.net.IHttpElement.IResponse;
@@ -158,5 +161,33 @@ public class MyAgent extends Agent {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 启动百度地图Poi周边检索
+     */
+    private void startShowActivity() {
+        //        new LatLng(mLatitude, mLogitude)
+        //        PoiParaOption para = new PoiParaOption().key("").center(getLatLng()).radius(5);
+        //        try {
+        //            BaiduMapPoiSearch.openBaiduMapPoiNearbySearch(para, getActivity());
+        //            BaiduMapRoutePlan.
+        //        } catch (Exception e) {
+        //            e.printStackTrace();
+        //            showPromptDialog();
+        //        }
+    }
+
+    /**
+     * 提示未安装百度地图app或app版本过低
+     */
+    public void showPromptDialog() {
+        showConfirmDialog("提示", "您尚未安装百度地图app或app版本过低，点击确认安装？", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                OpenClientUtil.getLatestBaiduMapApp(getActivity());
+            }
+
+        });
     }
 }

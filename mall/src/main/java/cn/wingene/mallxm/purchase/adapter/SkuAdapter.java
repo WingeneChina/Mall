@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxm.purchase.bean.ProductModel;
+import cn.wingene.mallxm.purchase.bean.ProductModel.AttributesEntity.AttributeMembersEntity;
 
 
 /**
@@ -65,7 +66,12 @@ public class SkuAdapter extends RecyclerView.Adapter<SkuAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mAttributeMembersEntities.size();
+        for (AttributeMembersEntity item : mAttributeMembersEntities) {
+            if (item.getAttributeMemberId() != 0) {
+                return mAttributeMembersEntities.size();
+            }
+        }
+        return 0;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

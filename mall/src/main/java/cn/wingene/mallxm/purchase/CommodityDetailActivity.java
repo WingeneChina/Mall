@@ -285,17 +285,17 @@ public class CommodityDetailActivity extends MyBaseActivity {
             @Override
             public void onClick(View v) {
                 StringBuilder sb = new StringBuilder();
-                Integer[] ids = new Integer[2];
+                Integer[] ids = buildEmptyArray();
                 for (AttributeMembersEntity key : mUiData.getSelectedEntities()) {
                     sb.append(String.format("name : %s%ngroupid : %s%nmemberId : %s%nstatus:%s%n ", key.getName(), 
                             key.getAttributeGroupId(), key.getAttributeMemberId(), key.getStatus()));
                     ids[key.getAttributeGroupId() - 1] = key.getAttributeMemberId();
                 }
-                if (StringUtil.isValid(mProduct.getSpecDesp1()) && ids[0] == null) {
+                if (StringUtil.isValid(mProduct.getSpecDesp1()) && ids[0] == 0) {
                     showToast("请选择%s", mProduct.getSpecDesp1());
                     return;
                 }
-                if (StringUtil.isValid(mProduct.getSpecDesp2()) && ids[1] == null) {
+                if (StringUtil.isValid(mProduct.getSpecDesp2()) && ids[1] == 0) {
                     showToast("请选择%s", mProduct.getSpecDesp2());
                     return;
                 }
@@ -337,16 +337,16 @@ public class CommodityDetailActivity extends MyBaseActivity {
     private Integer getValidStock() {
         int max = 0;
         StringBuilder sb = new StringBuilder();
-        Integer[] ids = new Integer[2];
+        Integer[] ids = buildEmptyArray();
         for (AttributeMembersEntity key : mUiData.getSelectedEntities()) {
             sb.append(String.format("name : %s%ngroupid : %s%nmemberId : %s%nstatus:%s%n ", key.getName(), key
                     .getAttributeGroupId(), key.getAttributeMemberId(), key.getStatus()));
             ids[key.getAttributeGroupId() - 1] = key.getAttributeMemberId();
         }
-        if (StringUtil.isValid(mProduct.getSpecDesp1()) && ids[0] == null) {
+        if (StringUtil.isValid(mProduct.getSpecDesp1()) && ids[0] == 0) {
             return max;
         }
-        if (StringUtil.isValid(mProduct.getSpecDesp2()) && ids[1] == null) {
+        if (StringUtil.isValid(mProduct.getSpecDesp2()) && ids[1] == 0) {
             return max;
         }
         for (ProductSpecList item : mSpecList) {
@@ -361,16 +361,16 @@ public class CommodityDetailActivity extends MyBaseActivity {
     private Double getValidPrice() {
         Double max = mProduct.getPrice();
         StringBuilder sb = new StringBuilder();
-        Integer[] ids = new Integer[2];
+        Integer[] ids = buildEmptyArray();
         for (AttributeMembersEntity key : mUiData.getSelectedEntities()) {
             sb.append(String.format("name : %s%ngroupid : %s%nmemberId : %s%nstatus:%s%n ", key.getName(), key
                     .getAttributeGroupId(), key.getAttributeMemberId(), key.getStatus()));
             ids[key.getAttributeGroupId() - 1] = key.getAttributeMemberId();
         }
-        if (StringUtil.isValid(mProduct.getSpecDesp1()) && ids[0] == null) {
+        if (StringUtil.isValid(mProduct.getSpecDesp1()) && ids[0] == 0) {
             return max;
         }
-        if (StringUtil.isValid(mProduct.getSpecDesp2()) && ids[1] == null) {
+        if (StringUtil.isValid(mProduct.getSpecDesp2()) && ids[1] == 0) {
             return max;
         }
         for (ProductSpecList item : mSpecList) {
@@ -380,6 +380,10 @@ public class CommodityDetailActivity extends MyBaseActivity {
             }
         }
         return mProduct.getPrice();
+    }
+
+    public Integer[] buildEmptyArray() {
+        return new Integer[]{0, 0};
     }
 
 

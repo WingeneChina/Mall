@@ -36,19 +36,18 @@ public class LogisticsActivity extends MyBaseActivity {
     private TextView tvValue1;
     private TextView tvValue2;
     private TextView tvValue3;
-    private TextView tvValue4;
     private HightMatchListView lvContent;
 
-    protected void initComponent() {
+    protected void initComponent(){
         tlBack = (Tile) super.findViewById(R.id.tl_back);
         tlService = (Tile) super.findViewById(R.id.tl_service);
         ivImage = (ImageView) super.findViewById(R.id.iv_image);
         tvValue1 = (TextView) super.findViewById(R.id.tv_value_1);
         tvValue2 = (TextView) super.findViewById(R.id.tv_value_2);
         tvValue3 = (TextView) super.findViewById(R.id.tv_value_3);
-        tvValue4 = (TextView) super.findViewById(R.id.tv_value_4);
         lvContent = (HightMatchListView) super.findViewById(R.id.lv_content);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +66,7 @@ public class LogisticsActivity extends MyBaseActivity {
         tvValue2.setText(bean.getShipperName());
         tvValue3.setText(bean.getLogisticCode());
         //        tvValue4.setText(bean.getShipperName());
-        tvValue4.setText(""); // TODO: 2017/9/3 无电话
+//        tvValue4.setText(""); // TODO: 2017/9/3 无电话
         ItemHolder itemHolder = new ItemHolder(this,lvContent);
         itemHolder.addAll(bean.getTraces());
         if(StringUtil.isValid(bean.getReason())){
@@ -118,9 +117,9 @@ public class LogisticsActivity extends MyBaseActivity {
         @Override
         public void display(int i, Traces item) {
             vTop.setVisibility(i == 0 ? View.INVISIBLE : View.VISIBLE);
-            vBottom.setVisibility(i == getList().size() ? View.INVISIBLE : View.VISIBLE);
+            vBottom.setVisibility(i == getList().size()-1 ? View.INVISIBLE : View.VISIBLE);
             int color = getContext().getResources().getColor(i == 0 ? R.color.fontYellow : R.color.gray);
-            vTop.setBackgroundColor(color);
+            vTop.setBackgroundColor(getContext().getResources().getColor(i == 1 ? R.color.fontYellow : R.color.gray));
             vBottom.setBackgroundColor(color);
             tvStation.setTextColor(color);
             tvTime.setTextColor(color);
