@@ -1,7 +1,8 @@
 package cn.wingene.mallxm.display.home.secondMenu;
 
+import java.util.HashMap;
+
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -12,9 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static cn.wingene.mallxf.http.HttpConstant.NEARBY_DETAIL;
+import static cn.wingene.mallxf.http.HttpConstant.SPECIAL_DETAIL;
 import com.yanzhenjie.nohttp.rest.Response;
 
-import java.util.HashMap;
+import junze.androidxf.tool.HtmlLoader;
 
 import cn.wingene.mall.R;
 import cn.wingene.mallxf.model.BaseResponse;
@@ -22,13 +25,10 @@ import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.nohttp.ToastUtil;
+import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxm.display.home.secondMenu.data.SpecailDetailModel;
-import junze.androidxf.tool.HtmlLoader;
 
-import static cn.wingene.mallxf.http.HttpConstant.NEARBY_DETAIL;
-import static cn.wingene.mallxf.http.HttpConstant.SPECIAL_DETAIL;
-
-public class SpecialDetailActivity extends AppCompatActivity implements View.OnClickListener, HttpListener<String> {
+public class SpecialDetailActivity extends MyBaseActivity implements View.OnClickListener, HttpListener<String> {
 
     private ImageView backIcon;
     private TextView titleV;
@@ -71,9 +71,11 @@ public class SpecialDetailActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.clickGoV:
                 if (specailDetailModel != null && specailDetailModel.getData() != null) {
-                    specailDetailModel.getData().getLat();
-                    specailDetailModel.getData().getLng();
-                    //TODO 去往地图导航
+
+                   String region = specailDetailModel.getData().getRegion();
+                   double lat = Double.parseDouble(specailDetailModel.getData().getLat());
+                   double lnt = Double.parseDouble(specailDetailModel.getData().getLng());
+                    getAgent().startPoiActivity(region,lat,lnt);
                 } else {
                     Toast toast = Toast.makeText(this, "暂不支持", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);

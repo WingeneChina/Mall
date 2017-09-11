@@ -11,7 +11,10 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.EditText;
 
+import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.OpenClientUtil;
+import com.baidu.mapapi.utils.poi.BaiduMapPoiSearch;
+import com.baidu.mapapi.utils.poi.PoiParaOption;
 
 import junze.java.net.IHttpElement.IRequest;
 import junze.java.net.IHttpElement.IResponse;
@@ -166,16 +169,14 @@ public class MyAgent extends Agent {
     /**
      * 启动百度地图Poi周边检索
      */
-    private void startShowActivity() {
-        //        new LatLng(mLatitude, mLogitude)
-        //        PoiParaOption para = new PoiParaOption().key("").center(getLatLng()).radius(5);
-        //        try {
-        //            BaiduMapPoiSearch.openBaiduMapPoiNearbySearch(para, getActivity());
-        //            BaiduMapRoutePlan.
-        //        } catch (Exception e) {
-        //            e.printStackTrace();
-        //            showPromptDialog();
-        //        }
+    public void startPoiActivity(String region, double lat, double lng) {
+        PoiParaOption para = new PoiParaOption().key(region).center(new LatLng(lat, lng)).radius(5);
+        try {
+            BaiduMapPoiSearch.openBaiduMapPoiNearbySearch(para, getActivity());
+        } catch (Exception e) {
+            e.printStackTrace();
+            showPromptDialog();
+        }
     }
 
     /**

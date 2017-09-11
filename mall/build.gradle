@@ -41,6 +41,12 @@ android {
     dexOptions {
         jumboMode true
     }
+
+    sourceSets {
+        main() {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
