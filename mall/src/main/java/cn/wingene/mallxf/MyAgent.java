@@ -6,12 +6,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.widget.EditText;
 
+import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.navi.BaiduMapAppNotSupportNaviException;
+import com.baidu.mapapi.navi.BaiduMapNavigation;
+import com.baidu.mapapi.navi.NaviParaOption;
 import com.baidu.mapapi.utils.OpenClientUtil;
 import com.baidu.mapapi.utils.poi.BaiduMapPoiSearch;
 import com.baidu.mapapi.utils.poi.PoiParaOption;
@@ -22,6 +28,8 @@ import junze.java.util.CheckUtil;
 import junze.java.util.StringUtil;
 
 import junze.android.ui.ViewHolder;
+import junze.androidx.baidu.LocationHelper;
+import junze.androidx.baidu.OnReceiveLoactionListener;
 import junze.androidxf.core.Agent;
 import junze.androidxf.http.BaseRequest.NotOKException;
 
@@ -179,39 +187,53 @@ public class MyAgent extends Agent {
         }
     }
 
-    public void startNav(){
-//        NaviPara para = new NaviPara();
-//        para.startPoint = pt1;
-//        para.startName= "从这里开始";
-//        para.endPoint  = pt2;
-//        para.endName   = "到这里结束";
-//
-//        try {
-//
-//            BaiduMapNavigation.openBaiduMapNavi(para, this);
-//
-//        } catch (BaiduMapAppNotSupportNaviException e) {
-//            e.printStackTrace();
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            builder.setMessage("您尚未安装百度地图app或app版本过低，点击确认安装？");
-//            builder.setTitle("提示");
-//            builder.setPositiveButton("确认", new OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    dialog.dismiss();
-//                    BaiduMapNavigation.GetLatestBaiduMapApp(MainActivity.this);
-//                }
-//            });
-//
-//            builder.setNegativeButton("取消", new OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    dialog.dismiss();
-//                }
-//            });
-//
-//            builder.create().show();
-//        }
+    public void startNavActivity(final String region, final double lat, final double lng) {
+        showWaitDialog("定位中...");
+        LocationHelper.getInstance().start(new OnReceiveLoactionListener() {
+            @Override
+            public void onReceiveLocationListener(BDLocation loc) {
+                cancelWaitDialog();
+                if (LocationHelper.getInstance().isLocationSuccess(loc)) {
+                    _startBaiduMapNav(loc.getAddrStr(), new LatLng(loc.getLatitude(), loc.getLongitude()), region,
+                            new LatLng(lat, lng));
+                } else {
+                    showToast("定位失败！");
+                }
+            }
+        });
+    }
+
+
+    private void _startBaiduMapNav(String startName, LatLng start, String endName, LatLng end) {
+        NaviParaOption para = new NaviParaOption();
+        para.startName(startName);
+        para.startPoint(start);
+        para.endName(endName);
+        para.endPoint(end);
+        try {
+            BaiduMapNavigation.openBaiduMapNavi(para, getActivity());
+        } catch (BaiduMapAppNotSupportNaviException e) {
+            e.printStackTrace();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("您尚未安装百度地图app或app版本过低，点击确认安装？");
+            builder.setTitle("提示");
+            builder.setPositiveButton("确认", new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    //                    BaiduMapNavigation.GetLatestBaiduMapApp(getActivity());
+                    OpenClientUtil.getLatestBaiduMapApp(getActivity());
+                }
+            });
+            builder.setNegativeButton("取消", new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            builder.create().show();
+        }
     }
 
     /**

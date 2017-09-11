@@ -35,7 +35,7 @@ public class MyBaseFragment extends BaseFragment implements View.OnTouchListener
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // 拦截触摸事件，防止泄露下去
-        view.setOnTouchListener(this);
+//        view.setOnTouchListener(this);
         mMyAgent.initLayoutSwitch(initLayoutSwitch(view));
     }
 

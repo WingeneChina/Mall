@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/RelativeLayout"
+        android:background="@drawable/route_top_bar_bg"
+        android:layout_height="@dimen/p100"
+        android:baselineAligned="true" >
+
+        <ImageView
+             android:onClick="onViewClick"
+            android:id="@+id/iv_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+             android:scaleType="center"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/slic_all_back" />
+
+        <TextView
+            style="@style/TextView"
+            android:id="@+id/tv_top_title"
+            android:layout_centerInParent="true"
+            android:text="地图选点"
+            android:textSize="@dimen/f32" />
+    </RelativeLayout>
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/map"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:clickable="true" />
+
+    <View style="@style/Line.Horizontal" />
+
+    <LinearLayout
+        style="@style/LinearLayout.Horizotal"
+        android:layout_height="60dp" >
+
+        <LinearLayout
+            style="@style/LinearLayout.Vertical"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/tv_title"
+                style="@style/TextView" />
+
+            <TextView
+                android:id="@+id/tv_memo"
+                style="@style/TextView"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_ok"
+            style="@style/Button.Transparent"
+            android:padding="16dp"
+            android:text="确定"
+            android:onClick="onViewClick"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/f32" />
+    </LinearLayout>
+
+</LinearLayout>

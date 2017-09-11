@@ -35,7 +35,7 @@
             android:id="@+id/searchMarkV"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
             android:layout_weight="1"
             android:background="@drawable/line_gray_shape"
             android:drawableLeft="@drawable/search"

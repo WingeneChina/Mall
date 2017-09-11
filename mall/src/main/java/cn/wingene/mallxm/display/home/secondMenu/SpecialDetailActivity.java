@@ -27,6 +27,8 @@ import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxm.display.home.secondMenu.data.SpecailDetailModel;
+import cn.wingene.mallxm.map.Location;
+import cn.wingene.mallxm.map.MapActivity;
 
 public class SpecialDetailActivity extends MyBaseActivity implements View.OnClickListener, HttpListener<String> {
 
@@ -75,7 +77,10 @@ public class SpecialDetailActivity extends MyBaseActivity implements View.OnClic
                    String region = specailDetailModel.getData().getRegion();
                    double lat = Double.parseDouble(specailDetailModel.getData().getLat());
                    double lnt = Double.parseDouble(specailDetailModel.getData().getLng());
-                    getAgent().startPoiActivity(region,lat,lnt);
+                    //                    getAgent().startPoiActivity(region,lat,lnt);
+                    MapActivity.major.startForShowMap(getActivity(), new Location(lnt, lat, region));
+//                    MapActivity.major.startForChoisePoi(getActivity(),100);
+                    //                    getAgent().startNavActivity(region,lat,lnt);
                 } else {
                     Toast toast = Toast.makeText(this, "暂不支持", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
