@@ -39,13 +39,14 @@ public class ProductListCommentAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        try {
-            final PersonRecommendItemHolder itemHolder = (PersonRecommendItemHolder) holder;
-            final ProductListModel.DataBean.ListBean item = mDataBeanList.get(position);
-            itemHolder.onBindViewHolder(item, position);
-        } catch (Exception e) {
-            Log.e(this.getClass().getName(), "填充数据异常");
-        }
+        if (holder instanceof PersonRecommendItemHolder)
+            try {
+                final PersonRecommendItemHolder itemHolder = (PersonRecommendItemHolder) holder;
+                final ProductListModel.DataBean.ListBean item = mDataBeanList.get(position);
+                itemHolder.onBindViewHolder(item, position);
+            } catch (Exception e) {
+                Log.e(this.getClass().getName(), "填充数据异常");
+            }
     }
 
     @Override

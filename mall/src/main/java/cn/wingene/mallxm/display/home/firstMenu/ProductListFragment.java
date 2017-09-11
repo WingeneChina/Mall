@@ -192,9 +192,9 @@ public class ProductListFragment extends MyBaseFragment implements
 
         } else {//bannner和商品都有
             noDataGroup.setVisibility(View.GONE);
+//            noProductDataGroupV.setVisibility(View.GONE);
             haveDataGroupV.setVisibility(View.VISIBLE);
             productListRecyclerV.setVisibility(View.VISIBLE);
-            noProductDataGroupV.setVisibility(View.GONE);
         }
 
         if (mPagerIndex == 1) {
