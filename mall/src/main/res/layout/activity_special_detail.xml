@@ -83,7 +83,7 @@
                 android:text="点击前往"
                 android:textColor="@color/six_text_color"
                 android:textSize="14sp"
-                android:visibility="visible"/>
+                android:visibility="gone"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

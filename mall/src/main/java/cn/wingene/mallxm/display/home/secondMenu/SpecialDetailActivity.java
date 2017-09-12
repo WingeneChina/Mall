@@ -20,6 +20,7 @@ import com.yanzhenjie.nohttp.rest.Response;
 import junze.androidxf.tool.HtmlLoader;
 
 import cn.wingene.mall.R;
+import cn.wingene.mall.util.MapUtil;
 import cn.wingene.mallxf.model.BaseResponse;
 import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;
@@ -27,8 +28,6 @@ import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxm.display.home.secondMenu.data.SpecailDetailModel;
-import cn.wingene.mallxm.map.Location;
-import cn.wingene.mallxm.map.MapActivity;
 
 public class SpecialDetailActivity extends MyBaseActivity implements View.OnClickListener, HttpListener<String> {
 
@@ -73,14 +72,20 @@ public class SpecialDetailActivity extends MyBaseActivity implements View.OnClic
                 break;
             case R.id.clickGoV:
                 if (specailDetailModel != null && specailDetailModel.getData() != null) {
-
-                   String region = specailDetailModel.getData().getRegion();
-                   double lat = Double.parseDouble(specailDetailModel.getData().getLat());
-                   double lnt = Double.parseDouble(specailDetailModel.getData().getLng());
-                    //                    getAgent().startPoiActivity(region,lat,lnt);
-                    MapActivity.major.startForShowMap(getActivity(), new Location(lnt, lat, region));
-//                    MapActivity.major.startForChoisePoi(getActivity(),100);
-                    //                    getAgent().startNavActivity(region,lat,lnt);
+                    try{
+                        String region = specailDetailModel.getData().getRegion();
+                        double lat = Double.parseDouble(specailDetailModel.getData().getLat());
+                        double lnt = Double.parseDouble(specailDetailModel.getData().getLng());
+                        //                    getAgent().startPoiActivity(region,lat,lnt);
+//                        MapUtil.setUpBaiduAPPByMine(getAgent(),region,lat,lnt);
+                        MapUtil.startNavActivity(getAgent(),region,lat,lnt);
+//                        MapActivity.major.startForShowMap(getActivity(), new Location(lnt, lat, region));
+                        //                    MapActivity.major.startForChoisePoi(getActivity(),100);
+                        //                    getAgent().startNavActivity(region,lat,lnt);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                        showToast("位置信息不正确");
+                    }
                 } else {
                     Toast toast = Toast.makeText(this, "暂不支持", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
@@ -112,8 +117,17 @@ public class SpecialDetailActivity extends MyBaseActivity implements View.OnClic
         if (!TextUtils.isEmpty(webContent)) {
             HtmlLoader.loadWebViewByHtmlCode(this, mWebView, webContent, true);
             addressTextV.setText(specailDetailModel.getData().getRegion());
-
         }
+        try{
+            String region = specailDetailModel.getData().getRegion();
+            double lat = Double.parseDouble(specailDetailModel.getData().getLat());
+            double lnt = Double.parseDouble(specailDetailModel.getData().getLng());
+            clickGoV.setVisibility(View.VISIBLE);
+        }catch(Exception e){
+            e.printStackTrace();
+            clickGoV.setVisibility(View.GONE);
+        }
+
 
     }
 
