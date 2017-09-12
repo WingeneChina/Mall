@@ -182,10 +182,10 @@
             android:name="cn.wingene.mallxm.display.home.fiveMenu.MyCollectionActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity
-            android:name="cn.wingene.mallxm.map.MapActivity"
-            android:screenOrientation="portrait">
-        </activity>
+        <!--<activity-->
+            <!--android:name="cn.wingene.mallxm.map.MapActivity"-->
+            <!--android:screenOrientation="portrait">-->
+        <!--</activity>-->
     </application>
 
 </manifest>

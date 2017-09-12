@@ -6,21 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.widget.EditText;
-
-import com.baidu.location.BDLocation;
-import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.navi.BaiduMapAppNotSupportNaviException;
-import com.baidu.mapapi.navi.BaiduMapNavigation;
-import com.baidu.mapapi.navi.NaviParaOption;
-import com.baidu.mapapi.utils.OpenClientUtil;
-import com.baidu.mapapi.utils.poi.BaiduMapPoiSearch;
-import com.baidu.mapapi.utils.poi.PoiParaOption;
 
 import junze.java.net.IHttpElement.IRequest;
 import junze.java.net.IHttpElement.IResponse;
@@ -28,8 +16,6 @@ import junze.java.util.CheckUtil;
 import junze.java.util.StringUtil;
 
 import junze.android.ui.ViewHolder;
-import junze.androidx.baidu.LocationHelper;
-import junze.androidx.baidu.OnReceiveLoactionListener;
 import junze.androidxf.core.Agent;
 import junze.androidxf.http.BaseRequest.NotOKException;
 
@@ -174,78 +160,12 @@ public class MyAgent extends Agent {
         return null;
     }
 
-    /**
-     * 启动百度地图Poi周边检索
-     */
-    public void startPoiActivity(String region, double lat, double lng) {
-        PoiParaOption para = new PoiParaOption().key(region).center(new LatLng(lat, lng)).radius(5);
-        try {
-            BaiduMapPoiSearch.openBaiduMapPoiNearbySearch(para, getActivity());
-        } catch (Exception e) {
-            e.printStackTrace();
-            showPromptDialog();
-        }
-    }
-
-    public void startNavActivity(final String region, final double lat, final double lng) {
-        showWaitDialog("定位中...");
-        LocationHelper.getInstance().start(new OnReceiveLoactionListener() {
-            @Override
-            public void onReceiveLocationListener(BDLocation loc) {
-                cancelWaitDialog();
-                if (LocationHelper.getInstance().isLocationSuccess(loc)) {
-                    _startBaiduMapNav(loc.getAddrStr(), new LatLng(loc.getLatitude(), loc.getLongitude()), region,
-                            new LatLng(lat, lng));
-                } else {
-                    showToast("定位失败！");
-                }
-            }
-        });
-    }
 
 
-    private void _startBaiduMapNav(String startName, LatLng start, String endName, LatLng end) {
-        NaviParaOption para = new NaviParaOption();
-        para.startName(startName);
-        para.startPoint(start);
-        para.endName(endName);
-        para.endPoint(end);
-        try {
-            BaiduMapNavigation.openBaiduMapNavi(para, getActivity());
-        } catch (BaiduMapAppNotSupportNaviException e) {
-            e.printStackTrace();
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("您尚未安装百度地图app或app版本过低，点击确认安装？");
-            builder.setTitle("提示");
-            builder.setPositiveButton("确认", new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    //                    BaiduMapNavigation.GetLatestBaiduMapApp(getActivity());
-                    OpenClientUtil.getLatestBaiduMapApp(getActivity());
-                }
-            });
-            builder.setNegativeButton("取消", new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
 
-            builder.create().show();
-        }
-    }
 
-    /**
-     * 提示未安装百度地图app或app版本过低
-     */
-    public void showPromptDialog() {
-        showConfirmDialog("提示", "您尚未安装百度地图app或app版本过低，点击确认安装？", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                OpenClientUtil.getLatestBaiduMapApp(getActivity());
-            }
 
-        });
-    }
+
+
+
 }

@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.multidex.MultiDex;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
@@ -74,7 +73,6 @@ public class MyApp extends Application implements CrashHandleAble {
                 .init(this.getResources().getString(R.string.app_name), this).setUncaughtHandler(this));
 
         LocationHelper.getInstance().init(this);
-        SDKInitializer.initialize(this);
         PhoneManager.getInstance().init(this);
         if (AppManager.isFirstStart()) {
             AppManager.saveVisionCode();
