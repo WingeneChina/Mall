@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/refreshRecommendLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--<cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout-->
+    <!--android:id="@+id/refreshRecommendLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
 
 
     <android.support.v4.widget.NestedScrollView
@@ -55,13 +60,13 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/brandProductRecyclerV"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"/>
+                android:background="@android:color/white"
+                android:paddingBottom="2dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:paddingTop="2dp"/>
 
             <View
                 android:layout_width="match_parent"
@@ -109,10 +114,10 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/perWeekRecyclerV"
-                android:paddingLeft="8dp"
-                android:paddingRight="7dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:paddingRight="7dp"
 
                 />
 
@@ -216,4 +221,5 @@
                 android:paddingRight="7dp"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-</cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout>
+    <!--</cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout>-->
+</LinearLayout>
