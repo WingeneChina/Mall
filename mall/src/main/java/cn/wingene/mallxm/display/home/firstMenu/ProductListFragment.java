@@ -114,6 +114,11 @@ public class ProductListFragment extends MyBaseFragment implements
     }
 
     private void initBanner(final ProductListModel productListModel) {
+        if (mPagerIndex == 1) {
+            urlList.clear();
+            titleList.clear();
+            mBanner.releaseBanner();
+        }
         if (productListModel != null && productListModel.getData().getBannerList().size() > 0) {
             Collections.sort(productListModel.getData().getBannerList());
 
@@ -123,7 +128,7 @@ public class ProductListFragment extends MyBaseFragment implements
             }
         }
         mBanner.setImages(urlList).setBannerTitles(titleList).setDelayTime(3000)
-                .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+                .setBannerStyle(BannerConfig.CIRCLE_INDICATOR).setIndicatorGravity(BannerConfig.RIGHT)
                 .setImageLoader(new BannerImgLoader())
                 .setOnBannerListener(new OnBannerListener() {
                     @Override
@@ -172,7 +177,9 @@ public class ProductListFragment extends MyBaseFragment implements
     }
 
     private void showResultData(ProductListModel productListModel) {
-        initBanner(productListModel);
+        if (mPagerIndex == 1) {
+            initBanner(productListModel);
+        }
 
         if ((productListModel.getData().getList() == null || productListModel.getData().getList().size() == 0) &&
                 mListBeanList.size() == 0 && productListModel.getData().getBannerList().size() == 0) {//banner和商品都没有
