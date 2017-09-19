@@ -194,7 +194,7 @@ public class OrderAddActivity extends MyBaseActivity {
     }
 
     private void bindNumber() {
-        tvAmountNumber.setText(String.format("%.1f", mAmount));
+        tvAmountNumber.setText(String.format("%s", mAmount));
         NumberTool.bindDouble(getAgent(), "请输入使用游币的值", 0, new IBuilder<Double>() {
             @Override
             public Double build() {
@@ -281,7 +281,7 @@ public class OrderAddActivity extends MyBaseActivity {
     }
 
     public void setAccount(Account account) {
-        tvAmount.setText(String.format("当前游币￥%.1f", account.getAmount()));
+        tvAmount.setText(String.format("当前游币￥%s", account.getAmount()));
         tvIntegral.setText(String.format("当前应币￥%s", account.getIntegral()));
     }
 
