@@ -65,7 +65,7 @@ public class BindTool {
         tvPrice.setText("¥" + String.valueOf(item.getProductPrice()));
         if (!TextUtils.isEmpty(item.getAcceptIntegral())) {
             tvDeductible.setVisibility(View.VISIBLE);
-            tvDeductible.setText("可抵应币¥" + String.valueOf(item.getAcceptIntegral()));
+            tvDeductible.setText("可抵金币¥" + String.valueOf(item.getAcceptIntegral()));
         } else {
             tvDeductible.setVisibility(View.GONE);
         }

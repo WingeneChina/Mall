@@ -188,7 +188,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="游币抵用"/>
+            android:text="元宝抵用"/>
 
 
         <TextView
@@ -212,7 +212,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="应币抵用"/>
+            android:text="金币抵用"/>
 
 
         <TextView

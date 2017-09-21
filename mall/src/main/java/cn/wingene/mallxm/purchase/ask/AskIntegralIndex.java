@@ -34,14 +34,14 @@ public class AskIntegralIndex {
 
     private static class Data {
         /**
-         * 应币	不可
+         * 金币	不可
          */
         @SerializedName("Integral")
         private Integer integral;
 
 
         /**
-         * 应币	不可
+         * 金币	不可
          */
         public Integer getIntegral() {
             return integral;

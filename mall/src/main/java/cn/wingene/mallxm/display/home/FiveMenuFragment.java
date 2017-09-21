@@ -274,8 +274,8 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
                         UserData.savePersonHeadUrl(userInfoModel.getData().getAvatar());//保存服务端提供的默认头像地址
                         personHeadV.setImageURI(userInfoModel.getData().getAvatar());
                         personNameV.setText(userInfoModel.getData().getNickname());
-                        yingMoneyV.setText(String.valueOf("应币   " + userInfoModel.getData().getIntegral()));
-                        youMoneyV.setText(String.valueOf("游币   " + userInfoModel.getData().getAmount()));
+                        yingMoneyV.setText(String.valueOf("金币   " + userInfoModel.getData().getIntegral()));
+                        youMoneyV.setText(String.valueOf("元宝   " + userInfoModel.getData().getAmount()));
                     } else if (userInfoModel.getErr() != 0) {
                         personHeadV.setImageURI(userInfoModel.getData().getAvatar());
                         personNameV.setText("未登录");

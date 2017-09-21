@@ -76,14 +76,14 @@ public class AskSubmitPayNow {
         private Integer couponId;
 
         /**
-         * 游币支付金额	不可 使用比例 1:1
+         * 元宝支付金额	不可 使用比例 1:1
          */
         @SerializedName("Amount")
         @RequestArgs
         private Double amount;
 
         /**
-         * 应币支付金额	不可 使用比例 100:1
+         * 金币支付金额	不可 使用比例 100:1
          */
         @SerializedName("Integral")
         @RequestArgs

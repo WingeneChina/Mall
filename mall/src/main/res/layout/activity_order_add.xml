@@ -218,7 +218,7 @@
                     android:id="@+id/tv_integral"
                     android:layout_width="wrap_content"
                     android:layout_gravity="left|center_vertical"
-                    android:text="当前应币Y15"
+                    android:text="当前金币Y15"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:layout_marginLeft="@dimen/p30"
@@ -293,7 +293,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_gravity="left|center_vertical"
-                    android:text="当前游币Y102"
+                    android:text="当前元宝Y102"
                     android:layout_height="wrap_content"/>
                 <LinearLayout
                     android:layout_width="wrap_content"

@@ -519,13 +519,13 @@ public class AskOrderDetail {
 
     public static class OrderPay {
         /**
-         * 游币	不可
+         * 元宝	不可
          */
         @SerializedName("Amount")
         private Double amount;
 
         /**
-         * 应币	不可
+         * 金币	不可
          */
         @SerializedName("Integral")
         private Integer integral;
@@ -538,14 +538,14 @@ public class AskOrderDetail {
 
 
         /**
-         * 游币	不可
+         * 元宝	不可
          */
         public Double getAmount() {
             return amount;
         }
 
         /**
-         * 应币	不可
+         * 金币	不可
          */
         public Integer getIntegral() {
             return integral;

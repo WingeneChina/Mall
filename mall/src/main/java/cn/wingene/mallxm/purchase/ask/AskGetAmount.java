@@ -31,7 +31,7 @@ public class AskGetAmount {
 
     private static class Data {
         /**
-         * 游币	不可
+         * 元宝	不可
          */
         @SerializedName("Amount")
         private Double amount;
@@ -44,7 +44,7 @@ public class AskGetAmount {
 
 
         /**
-         * 游币	不可
+         * 元宝	不可
          */
         public Double getAmount() {
             return amount;

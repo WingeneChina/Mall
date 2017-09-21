@@ -151,8 +151,8 @@ public class RechargeIndexActivity extends MyBaseActivity {
     public void updateUI() {
         switch (getMajor()) {
         case Major.MAJOR_INTEGRAL:
-            tvTitle.setText("应币余额");
-            tvLabel.setText("应币余额(元)");
+            tvTitle.setText("金币余额");
+            tvLabel.setText("金币余额(元)");
             tvCount.setText(String.format("%s", mIntegral != null ? mIntegral : 0));
             //            tvRecharge // 充值
             tvCash.setVisibility(mIsDeposit ? View.VISIBLE : View.INVISIBLE);
@@ -161,8 +161,8 @@ public class RechargeIndexActivity extends MyBaseActivity {
             break;
         case Major.MAJOR_AMOUNT:
         default:
-            tvTitle.setText("游币余额");
-            tvLabel.setText("游币余额(元)");
+            tvTitle.setText("元宝余额");
+            tvLabel.setText("元宝余额(元)");
             tvCount.setText(String.format("%.2f", mAmount != null ? mAmount : 0f));
             //            tvRecharge // 充值
             tvCash.setVisibility(mIsDeposit ? View.VISIBLE : View.INVISIBLE);

@@ -91,7 +91,7 @@ public class Order implements IOrder, IEasyOrder {
     private Address4 address;
 
     /**
-     * 可使用应币支付
+     * 可使用金币支付
      */
     @SerializedName("AcceptIntegral")
     private Integer acceptIntegral;

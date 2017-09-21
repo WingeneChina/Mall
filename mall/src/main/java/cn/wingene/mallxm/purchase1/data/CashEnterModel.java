@@ -8,7 +8,7 @@ package cn.wingene.mallxm.purchase1.data;
 public class CashEnterModel {
     /**
      * err : 0
-     * msg : 进入游币提现成功！
+     * msg : 进入元宝提现成功！
      * data : {"Amount":9999,"BankBack":{"Id":1,"IsDefault":1,"BankType":1,"BankTypeDesp":"中国银行","BankAccount":"林泉",
      * "BankCardNo":"320125856565125845","OpenBank":"福清分行"}}
      */

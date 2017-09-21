@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="游币充值"
+            android:text="元宝充值"
             android:textColor="@color/def_action_bar_title_font"
             android:textSize="@dimen/def_action_bar_title_font"/>
 

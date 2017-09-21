@@ -132,7 +132,7 @@ public class AskProductDetail {
         private Double oldPrice;
 
         /**
-         * 可抵扣应币	不可
+         * 可抵扣金币	不可
          */
         @SerializedName("AcceptIntegral")
         private Integer acceptIntegral;

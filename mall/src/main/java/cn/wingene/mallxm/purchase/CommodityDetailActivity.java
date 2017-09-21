@@ -223,7 +223,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 tvPrice.setText(String.format("￥%.2f", mProduct.getPrice()));
                 if(mProduct.getAcceptIntegral() != 0){
                     tvAcceptIntegral.setVisibility(View.VISIBLE);
-                    tvAcceptIntegral.setText("可抵应币¥" + String.valueOf(mProduct.getAcceptIntegral
+                    tvAcceptIntegral.setText("可抵金币¥" + String.valueOf(mProduct.getAcceptIntegral
                             ()));
                 }else{
                     tvAcceptIntegral.setVisibility(View.GONE);

@@ -98,28 +98,28 @@ public class HttpAddress extends HttpConstant{
     public final static String ORDER_DETAIL = SERVER_ADDRESS + "User/Order/Detail";
 
     /**
-     * 2.5.3.1、应币
+     * 2.5.3.1、金币
      */
     public final static String INTEGRAL_INDEX = SERVER_ADDRESS + "User/Integral/Index";
 
     /**
-     * 2.5.3.1.1、应币账单明细列表（分页）
+     * 2.5.3.1.1、金币账单明细列表（分页）
      */
     public final static String INTEGRAL_LOG_LIST = SERVER_ADDRESS + "User/Integral/LogList";
     /**
-     * 2.5.3.1.2、应币充值
+     * 2.5.3.1.2、金币充值
      */
     public final static String INTEGRAL_RECHARGE = SERVER_ADDRESS + "User/Integral/Recharge";
     /**
-     * 2.5.3.2、游币
+     * 2.5.3.2、元宝
      */
     public final static String AMOUNT_INDEX = SERVER_ADDRESS + "User/Amount/Index";
     /**
-     * 2.5.3.2.1、游币账单明细列表（分页）
+     * 2.5.3.2.1、元宝账单明细列表（分页）
      */
     public final static String AMOUNT_LOG_LIST = SERVER_ADDRESS + "User/Amount/LogList";
     /**
-     * 2.5.3.2.2、游币充值
+     * 2.5.3.2.2、元宝充值
      */
     public final static String AMOUNT_RECHARGE = SERVER_ADDRESS + "User/Amount/Recharge";
     /**

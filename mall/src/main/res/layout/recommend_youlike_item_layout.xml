@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:paddingRight="10dp"
-                android:text="可抵应币"
+                android:text="可抵金币"
                 android:textColor="@color/def_product_price"
                 android:textSize="9sp"/>
 

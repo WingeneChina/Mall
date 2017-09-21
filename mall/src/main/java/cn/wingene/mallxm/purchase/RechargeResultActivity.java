@@ -55,7 +55,7 @@ public class RechargeResultActivity extends MyBaseActivity {
             finish();
             return;
         }
-        tvState.setText(getMajor() == Major.MAJOR_AMOUNT ? "游币" : "应币");
+        tvState.setText(getMajor() == Major.MAJOR_AMOUNT ? "元宝" : "金币");
         tvNumber.setText(String.format("%s", p.getCardPrice()));
         tvSubmit.setOnClickListener(new OnClickListener() {
             @Override

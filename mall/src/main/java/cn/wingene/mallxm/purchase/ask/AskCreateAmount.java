@@ -25,7 +25,7 @@ public class AskCreateAmount {
 
     public static class Request extends BaseSignRequest<Response> {
         /**
-         * 提现游币金额	不可
+         * 提现元宝金额	不可
          */
         @SerializedName("AmountPrice")
         @RequestArgs

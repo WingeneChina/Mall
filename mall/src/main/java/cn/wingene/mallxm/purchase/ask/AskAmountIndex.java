@@ -37,7 +37,7 @@ public class AskAmountIndex {
 
     private static class Data {
         /**
-         * 游币	不可
+         * 元宝	不可
          */
         @SerializedName("Amount")
         private Double amount;
@@ -62,7 +62,7 @@ public class AskAmountIndex {
 
 
         /**
-         * 游币	不可
+         * 元宝	不可
          */
         public Double getAmount() {
             return amount;

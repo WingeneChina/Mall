@@ -195,7 +195,7 @@ public class OrderAddActivity extends MyBaseActivity {
 
     private void bindNumber() {
         tvAmountNumber.setText(String.format("%s", mAmount));
-        NumberTool.bindDouble(getAgent(), "请输入使用游币的值", 0, new IBuilder<Double>() {
+        NumberTool.bindDouble(getAgent(), "请输入使用元宝的值", 0, new IBuilder<Double>() {
             @Override
             public Double build() {
                 return mAmount;
@@ -214,7 +214,7 @@ public class OrderAddActivity extends MyBaseActivity {
         });
 
         tvIntegralNumber.setText(String.format("%s", mIntegral));
-        NumberTool.bindInteger(getAgent(), "请输入使用应币的值", 0, new IBuilder<Integer>() {
+        NumberTool.bindInteger(getAgent(), "请输入使用金币的值", 0, new IBuilder<Integer>() {
             @Override
             public Integer build() {
                 return mIntegral;
@@ -281,8 +281,8 @@ public class OrderAddActivity extends MyBaseActivity {
     }
 
     public void setAccount(Account account) {
-        tvAmount.setText(String.format("当前游币￥%s", account.getAmount()));
-        tvIntegral.setText(String.format("当前应币￥%s", account.getIntegral()));
+        tvAmount.setText(String.format("当前元宝￥%s", account.getAmount()));
+        tvIntegral.setText(String.format("当前金币￥%s", account.getIntegral()));
     }
 
     @Override

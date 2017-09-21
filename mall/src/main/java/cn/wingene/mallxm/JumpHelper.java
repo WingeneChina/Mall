@@ -127,7 +127,7 @@ public class JumpHelper {
     }
 
     /**
-     * 查看账户余额，跳转到应币/游币界面
+     * 查看账户余额，跳转到金币/元宝界面
      *
      * @param context
      */

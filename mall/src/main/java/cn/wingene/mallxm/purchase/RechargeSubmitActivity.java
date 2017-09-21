@@ -67,12 +67,12 @@ public class RechargeSubmitActivity extends MyBaseActivity {
         });
         switch (getMajor()) {
         case Major.MAJOR_INTEGRAL:
-            tvTitle.setText("应币充值");
+            tvTitle.setText("金币充值");
             etNumber.setHint("请输入8位数卡号");
             etNumber.setMaxWidth(8);
             break;
         case Major.MAJOR_AMOUNT:
-            tvTitle.setText("游币充值");
+            tvTitle.setText("元宝充值");
             etNumber.setHint("请输入7位数卡号");
             etNumber.setMaxWidth(7);
         default:

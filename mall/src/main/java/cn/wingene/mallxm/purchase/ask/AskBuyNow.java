@@ -122,7 +122,7 @@ public class AskBuyNow {
         private Double payPrice;
 
         /**
-         * 可使用应币支付
+         * 可使用金币支付
          */
         @SerializedName("AcceptIntegral")
         private int acceptIntegral;

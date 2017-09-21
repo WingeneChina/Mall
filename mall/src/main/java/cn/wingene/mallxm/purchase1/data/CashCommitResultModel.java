@@ -8,7 +8,7 @@ package cn.wingene.mallxm.purchase1.data;
 public class CashCommitResultModel {
     /**
      * err : 0
-     * msg : 游币提现成功
+     * msg : 元宝提现成功
      * data : {"AmountPrice":101,"RealArrivalAmount":98.98,"CounterAmount":2.02,"BankBack":{"BankType":1,
      * "BankTypeDesp":"中国银行","BankAccount":"林泉","BankCardNo":"320125856565125845","OpenBank":"福清分行"}}
      */
