@@ -15,7 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -53,6 +52,7 @@ import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.http.Ask.NeedLoginException;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxf.ui.banner.BannerImgLoader;
+import cn.wingene.mallxf.util.SpaceItemDecoration;
 import cn.wingene.mallxm.D;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.purchase.adapter.CommodityImagePagerAdapter;
@@ -70,6 +70,7 @@ import cn.wingene.mallxm.purchase.bean.ProductModel.AttributesEntity;
 import cn.wingene.mallxm.purchase.bean.ProductModel.AttributesEntity.AttributeMembersEntity;
 import cn.wingene.mallxm.purchase.bean.UiData;
 import cn.wingene.mallxm.purchase.holder.ProductEmptyHolder;
+import cn.wingene.mallxm.purchase.layoutmanager.FlowLayoutManager;
 import cn.wingene.mallxm.purchase.listener.ItemClickListener;
 import cn.wingene.mallxm.purchase.tool.NumberTool;
 
@@ -509,8 +510,9 @@ public class CommodityDetailActivity extends MyBaseActivity {
             mUiData.getBottomSheetDialog().setContentView(view);
             View parent = (View) view.getParent();//获取ParentView
             BottomSheetBehavior behavior = BottomSheetBehavior.from(parent);
-            view.measure(0, 0);
-            behavior.setPeekHeight(view.getMeasuredHeight());
+            //            view.measure(0, 0);
+            //            behavior.setPeekHeight(view.getMeasuredHeight());
+            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) parent.getLayoutParams();
             params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
             parent.setLayoutParams(params);
@@ -613,10 +615,12 @@ public class CommodityDetailActivity extends MyBaseActivity {
 //                tvTitle.setText(attributesEntity.getName());
                 TextViewUtil.showOrGone(tvTitle,attributesEntity.getName());
                 mUiData.getAdapters().add(skuAdapter);
-                int item = 4;//设置列数
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), item);
-                recyclerViewBottom.setLayoutManager(gridLayoutManager);
+                //                int item = 4;//设置列数
+                //                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), item);
+                FlowLayoutManager layoutManager = new FlowLayoutManager();
+                recyclerViewBottom.setLayoutManager(layoutManager);
                 recyclerViewBottom.setAdapter(skuAdapter);
+                recyclerViewBottom.addItemDecoration(new SpaceItemDecoration(4, 4, 4, 4));
                 llList.addView(viewList);
             }
         }

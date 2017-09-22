@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:padding="@dimen/p10"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:text="test">
-    <TextView
+<TextView
     android:id="@+id/tv"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:minWidth="60dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
+    android:paddingLeft="6dp"
+    android:paddingRight="6dp"
+    android:minWidth="20dp"
     android:background="@android:color/darker_gray"
     android:gravity="center"
     android:text="test"/>
-</LinearLayout>
+
+<!--<LinearLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:padding="@dimen/p10"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:gravity="center"-->
+    <!--android:text="test">-->
+    <!--<TextView-->
+    <!--android:id="@+id/tv"-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingTop="5dp"-->
+    <!--android:paddingBottom="5dp"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:paddingRight="10dp"-->
+    <!--android:minWidth="60dp"-->
+    <!--android:background="@android:color/darker_gray"-->
+    <!--android:gravity="center"-->
+    <!--android:text="test"/>-->
+<!--</LinearLayout>-->
 
 
