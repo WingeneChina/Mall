@@ -1,6 +1,7 @@
 package cn.wingene.mallxm.account;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -76,8 +77,9 @@ public class LoginChoiceActivity extends AppCompatActivity implements View.OnCli
                 JumpHelper.starRegisterActivity(this);
                 break;
             case R.id.clickLoginV:
-                JumpHelper.startLoginActivity(this);
-
+//                JumpHelper.startLoginActivity(this);
+                Intent intent = new Intent(this,LoginActivity.class);
+                startActivity(intent);
                 break;
 
         }

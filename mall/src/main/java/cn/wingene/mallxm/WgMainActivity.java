@@ -15,6 +15,7 @@ import com.baidu.location.BDLocation;
 import com.limecn.ghmall.R;
 import com.yanzhenjie.nohttp.rest.Response;
 
+import cn.wingene.mallxm.display.home.FourthMenusFragment;
 import junze.java.tool.Trigger;
 import junze.java.tool.Trigger.OnTriggerListener;
 
@@ -128,7 +129,7 @@ public class WgMainActivity extends MyBaseActivity implements RadioGroup.OnCheck
                 break;
             case R.id.fourthMenuV:
                 mPostion = 3;
-                turntoFragment(FourthMenuFragment.class, null);
+                turntoFragment(FourthMenusFragment.class, null);//FourthMenuFragment
                 break;
             case R.id.fiveMenuV:
                 mPostion = 4;
