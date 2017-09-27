@@ -244,7 +244,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:tileDrawablePadding="@dimen/p8"
                 app:tileImgHeight="@dimen/p38"
                 app:tileImgSrc="@drawable/slic_commdity_detail_collect"
@@ -268,6 +268,7 @@
             <!--<View-->
             <!--style="@style/Line.Vertical"/>-->
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_add_cart"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

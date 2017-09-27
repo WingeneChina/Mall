@@ -231,6 +231,8 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 }
                 loadWebData(rsp.getProduct().getDetail());
                 tlCollect.getIvImage().setSelected(mProduct.isFavorited());
+                tlCollect.setVisibility(mProduct.isCart() ? View.VISIBLE : View.GONE);
+                tvAddCart.setVisibility(mProduct.isCart() ? View.VISIBLE : View.GONE);
                 refreshUI();
             }
 

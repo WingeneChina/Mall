@@ -263,6 +263,11 @@ public class AskProductDetail {
         @SerializedName("IsFavorited")
         private Integer isFavorited;
 
+        /**
+         * 是否购物车	不可0：隐藏,1:显示
+         */
+        @SerializedName("IsCart")
+        private Integer isCart;
 
         /**
          * 商品ID	不可
@@ -446,6 +451,8 @@ public class AskProductDetail {
         public boolean isFavorited() {
             return isFavorited != null && isFavorited == 1;
         }
+
+        public boolean isCart(){ return isCart != null && isCart==1;}
     }
 
     public static class ProductImageList {
