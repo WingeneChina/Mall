@@ -96,6 +96,12 @@ public class Order implements IOrder, IEasyOrder {
     @SerializedName("AcceptIntegral")
     private Integer acceptIntegral;
 
+    /*
+        * 是否第三方支付	不可 0：隐藏 1、显示
+        */
+    @SerializedName("IsThirdParty")
+    private Integer isThirdParty;
+
 
     /**
      * 订单单号	不可
@@ -209,6 +215,10 @@ public class Order implements IOrder, IEasyOrder {
     @Override
     public List<? extends IOrderProductItem> getOrderProductItem() {
         return productList;
+    }
+
+    public boolean showThirdPart(){
+        return isThirdParty != null && isThirdParty == 1;
     }
 
 }

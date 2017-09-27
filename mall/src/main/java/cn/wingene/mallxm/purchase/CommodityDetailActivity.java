@@ -477,7 +477,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
                     mBuyNumber = num;
                     bottomSheetHolder.updateNumber(mBuyNumber);
                 }
-            });
+            },mProduct.isCart());
             View view = bottomSheetHolder.getView();
             // SKU 计算
             mUiData.setResult(Sku.skuCollection(mModel.getProductStocks()));
@@ -582,7 +582,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
         public void dispaly(final Agent agent, final OnClickListener onBuyClick, final OnClickListener onCartClick,
                 ProductModel
                 mModel, UiData mUiData, final IBuilder<Integer> bCurrent, final IBuilder<Integer> bMax, final
-        ICallBack<Integer> numberCallback) {
+        ICallBack<Integer> numberCallback,boolean showAddCart) {
             tvBuy.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -625,6 +625,7 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 recyclerViewBottom.addItemDecoration(new SpaceItemDecoration(4, 4, 4, 4));
                 llList.addView(viewList);
             }
+            tvAddCart.setVisibility(showAddCart ? View.VISIBLE:View.GONE);
         }
 
         public void updateNumber(Integer integer) {

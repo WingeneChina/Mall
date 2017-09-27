@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 /**
  * Created by xiangcheng on 17/3/18.
  * 一种流式布局的LayoutManager
+ * https://github.com/1002326270xc/LayoutManager-FlowLayout
  */
 
 public class FlowLayoutManager extends RecyclerView.LayoutManager {
@@ -179,6 +180,7 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
                 getWidth() - getPaddingRight(), verticalScrollOffset + (getHeight() - getPaddingBottom()));
 
         //对所有的行信息进行遍历
+        removeAllViews(); // wingene: 170927
         for (int j = 0; j < lineRows.size(); j++) {
             Row row = lineRows.get(j);
             float lineTop = row.cuTop;

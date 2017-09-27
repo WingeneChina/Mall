@@ -127,6 +127,11 @@ public class AskBuyNow {
         @SerializedName("AcceptIntegral")
         private int acceptIntegral;
 
+        /*
+         * 是否第三方支付	不可 0：隐藏 1、显示
+         */
+        @SerializedName("IsThirdParty")
+        private Integer isThirdParty;
 
         /**
          * 商品信息	不可
@@ -213,6 +218,10 @@ public class AskBuyNow {
         @Override
         public List<? extends IOrderProductItem> getOrderProductItem() {
             return getProductList();
+        }
+
+        public boolean showThirdPart(){
+            return isThirdParty != null && isThirdParty == 1;
         }
     }
 

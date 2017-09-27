@@ -30,5 +30,7 @@ public interface IEasyOrder {
 
     Integer getAcceptIntegral();
 
-    public List<? extends IOrderProductItem> getOrderProductItem();
+    List<? extends IOrderProductItem> getOrderProductItem();
+
+    boolean showThirdPart();
 }

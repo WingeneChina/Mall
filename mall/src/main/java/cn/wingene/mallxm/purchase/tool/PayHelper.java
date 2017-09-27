@@ -65,7 +65,7 @@ public class PayHelper {
         });
     }
 
-    public static interface OnOrderBuild {
+    public interface OnOrderBuild {
         void onOrderBuild(PayHelper helper, PayMothed payMothed, final double amount, final int integral);
     }
 

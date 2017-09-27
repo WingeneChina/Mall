@@ -150,36 +150,7 @@ public class OrderAddActivity extends MyBaseActivity {
         tvPay.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mPayHelper == null) {
-                    mPayHelper = new PayHelper(getAgent());
-                    mPayHelper.setOnOrderBuild(new OnOrderBuild() {
-                        @Override
-                        public void onOrderBuild(final PayHelper helper, final PayMothed payMothed, final double
-                                amount, final int integral) {
-                            if (mParams.order != null) {
-                                helper.askPay(mParams.order, payMothed, amount, integral);
-                            } else if (mParams.buyNowData != null) {
-                                ask(new AskOrderCreateBuyNow.Request(mParams.buyNowData.getProduct(), ((IAddress)
-                                        mAddress)
-                                        .getId()) {
-                                    @Override
-                                    public void updateUI(AskOrderCreateBuyNow.Response rsp) {
-                                        helper.askPay(rsp.data, payMothed, amount, integral);
-                                    }
-                                });
-                            } else if (mParams.buyCarData != null) {
-                                ask(new AskOrderCreateBuyCart.Request(mParams.cartIds, ((IAddress) mAddress).getId
-                                        ()) {
-                                    @Override
-                                    public void updateUI(AskOrderCreateBuyCart.Response rsp) {
-                                        helper.askPay(rsp.data, payMothed, amount, integral);
-                                    }
-                                });
-                            }
-                        }
-                    });
-                }
-                mPayHelper.showBottomDialog(mPayPrice, mAmount, mIntegral);
+                onPay();
             }
         });
         if (mAddress == null) {
@@ -187,6 +158,43 @@ public class OrderAddActivity extends MyBaseActivity {
         }
 
         bindNumber();
+    }
+
+    private void onPay() {
+        if (mPayHelper == null) {
+            mPayHelper = new PayHelper(getAgent());
+            mPayHelper.setOnOrderBuild(new OnOrderBuild() {
+                @Override
+                public void onOrderBuild(final PayHelper helper, final PayMothed payMothed, final double
+                        amount, final int integral) {
+                    if (mParams.order != null) {
+                        helper.askPay(mParams.order, payMothed, amount, integral);
+                    } else if (mParams.buyNowData != null) {
+                        ask(new AskOrderCreateBuyNow.Request(mParams.buyNowData.getProduct(), ((IAddress)
+                                mAddress)
+                                .getId()) {
+                            @Override
+                            public void updateUI(AskOrderCreateBuyNow.Response rsp) {
+                                helper.askPay(rsp.data, payMothed, amount, integral);
+                            }
+                        });
+                    } else if (mParams.buyCarData != null) {
+                        ask(new AskOrderCreateBuyCart.Request(mParams.cartIds, ((IAddress) mAddress).getId
+                                ()) {
+                            @Override
+                            public void updateUI(AskOrderCreateBuyCart.Response rsp) {
+                                helper.askPay(rsp.data, payMothed, amount, integral);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        if (!mParams.showThirdPart() && mPayPrice != 0) {
+            showMsgDialog("提示","该订单只能用元宝与金币购买！你余额不足！");
+            return;
+        }
+        mPayHelper.showBottomDialog(mPayPrice, mAmount, mIntegral);
     }
 
     private void fillAcceptPay() {
@@ -378,6 +386,10 @@ public class OrderAddActivity extends MyBaseActivity {
             } else {
                 return buyCarData;
             }
+        }
+
+        public boolean showThirdPart(){
+            return getEasyOrder().showThirdPart();
         }
 
         //        public boolean isBuyNow() {
