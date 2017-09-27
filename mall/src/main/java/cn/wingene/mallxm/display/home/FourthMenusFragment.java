@@ -34,12 +34,20 @@ public class FourthMenusFragment extends MyBaseFragment implements HttpListener<
     private TabLayout tabLayout;
     private ViewPager contentPagerV;
 
+    public static FourthMenusFragment newInstance(Bundle bundle){
+        FourthMenusFragment fourthMenusFragment = new FourthMenusFragment();
+        fourthMenusFragment.setArguments(bundle);
+
+        return fourthMenusFragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fourth_menu_layout, container, false);
         initViews(view);
+
         return view;
     }
 

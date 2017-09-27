@@ -21,6 +21,7 @@ import cn.wingene.mallxf.util.ActivityUtils;
 import cn.wingene.mallxm.display.home.FirstMenuFragment;
 import cn.wingene.mallxm.display.home.FiveMenuFragment;
 import cn.wingene.mallxm.display.home.FourthMenuFragment;
+import cn.wingene.mallxm.display.home.FourthMenusFragment;
 import cn.wingene.mallxm.display.home.SecondMenuFragment;
 import cn.wingene.mallxm.display.home.ThirdMenuFragment;
 
@@ -98,7 +99,7 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
                             .id.contentMenuV);
                     break;
                 case 3:
-                    mFragments[3] = FourthMenuFragment.newInstance(null);
+                    mFragments[3] = FourthMenusFragment.newInstance(null);//FourthMenuFragment.newInstance(null);
                     ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragments[3], R
                             .id.contentMenuV);
                     break;
