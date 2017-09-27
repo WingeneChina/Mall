@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
 
 public class AboutAsActivity extends AppCompatActivity implements View.OnClickListener {
 

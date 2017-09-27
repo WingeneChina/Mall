@@ -8,12 +8,12 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.google.gson.annotations.SerializedName;
+import com.limecn.ghmall.R;
 
 import junze.widget.Tile;
 
 import junze.androidxf.core.Agent;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 
 /**

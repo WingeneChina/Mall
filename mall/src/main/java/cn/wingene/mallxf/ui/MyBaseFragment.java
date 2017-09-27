@@ -5,10 +5,11 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.limecn.ghmall.R;
+
 import junze.android.ui.ViewHolder;
 import junze.androidxf.ui.activity.BaseFragment;
 
-import cn.wingene.mall.R;
 import cn.wingene.mall.util.LayoutSwitcher;
 import cn.wingene.mallxf.MyAgent;
 

@@ -3,7 +3,8 @@ package cn.wingene.mallxm.purchase;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
+
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxm.purchase.ask.AskCartList;
 import cn.wingene.mallxm.purchase.ask.AskCartList.Response;

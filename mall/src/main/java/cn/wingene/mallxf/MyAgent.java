@@ -10,6 +10,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.EditText;
 
+import com.limecn.ghmall.R;
+
 import junze.java.net.IHttpElement.IRequest;
 import junze.java.net.IHttpElement.IResponse;
 import junze.java.util.CheckUtil;
@@ -19,7 +21,6 @@ import junze.android.ui.ViewHolder;
 import junze.androidxf.core.Agent;
 import junze.androidxf.http.BaseRequest.NotOKException;
 
-import cn.wingene.mall.R;
 import cn.wingene.mall.util.LayoutSwitcher;
 import cn.wingene.mallx.frame.ui.EditViewDialogDeclare.EditViewDialog;
 import cn.wingene.mallx.frame.ui.EditViewDialogDeclare.OnEditCompleteListener;

@@ -4,11 +4,11 @@ import android.content.Context;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
+
 import junze.android.ui.ViewHolder;
 
 import junze.androidxf.kit.AKit;
-
-import cn.wingene.mall.R;
 
 /**
  * Created by Wingene on 2017/9/10.

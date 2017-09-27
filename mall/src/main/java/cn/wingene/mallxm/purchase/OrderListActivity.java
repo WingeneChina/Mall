@@ -11,9 +11,10 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.limecn.ghmall.R;
+
 import junze.androidxf.core.Agent;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.model.IndexModel;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxm.purchase.adapter.OrderFragmentPagerAdapter;

@@ -16,12 +16,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.dalong.refreshlayout.OnRefreshListener;
+import com.limecn.ghmall.R;
 import com.yanzhenjie.nohttp.rest.Response;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.HttpConstant;
 import cn.wingene.mallxf.model.BaseResponse;
 import cn.wingene.mallxf.nohttp.GsonUtil;

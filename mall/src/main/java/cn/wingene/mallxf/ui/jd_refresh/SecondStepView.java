@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
 import android.view.View;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
 
 public class SecondStepView extends View {
 

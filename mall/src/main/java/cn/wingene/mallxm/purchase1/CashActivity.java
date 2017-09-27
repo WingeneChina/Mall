@@ -14,9 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
 import com.yanzhenjie.nohttp.rest.Response;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.HttpConstant;
 import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;

@@ -13,4 +13,8 @@
     <string name="to_register">
         <u>还没账号</u>
     </string>
+
+    <string name="have_account">
+        <u>请点此登陆</u>
+    </string>
 </resources>

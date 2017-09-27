@@ -12,7 +12,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
 
 /**
  * 模仿ios样式的底部弹窗菜单

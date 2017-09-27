@@ -7,10 +7,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.limecn.ghmall.R;
 
 import junze.android.util.TextViewUtil;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.firstMenu.data.IProductItem;
 

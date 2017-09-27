@@ -7,7 +7,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
+
 import cn.wingene.mallxf.model.BaseResponse;
 import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.ToastUtil;

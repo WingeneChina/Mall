@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
+
 import cn.wingene.mallxm.purchase.bean.ProductModel;
 import cn.wingene.mallxm.purchase.bean.ProductModel.AttributesEntity.AttributeMembersEntity;
 

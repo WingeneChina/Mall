@@ -9,6 +9,8 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
+
 import static com.yanzhenjie.nohttp.NoHttp.getContext;
 
 import junze.widget.HightMatchListView;
@@ -16,7 +18,6 @@ import junze.widget.Tile;
 
 import junze.androidxf.core.Agent;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxm.D;

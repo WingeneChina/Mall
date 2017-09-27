@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.limecn.ghmall.R;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageCropActivity;
@@ -27,7 +28,6 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.http.HttpConstant;
 import cn.wingene.mallxf.nohttp.GsonUtil;
@@ -35,6 +35,7 @@ import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxf.nohttp.ToastUtil;
 import cn.wingene.mallxf.util.VersionUtil;
+import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.account.LoginActivity;
 import cn.wingene.mallxm.account.RegisterFirstStepActivity;
 import cn.wingene.mallxm.account.data.LoginModel;
@@ -183,8 +184,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.loginOutV:
                 UserData.clearAllUserInfo();
-                Intent loginOutIntent = new Intent(this, LoginActivity.class);
-                startActivity(loginOutIntent);
+//                Intent loginOutIntent = new Intent(this, LoginActivity.class);
+//                startActivity(loginOutIntent);
+                JumpHelper.startLoginActivity(this);
                 break;
             case R.id.versionInfoV:
                 requestVersionInfo();

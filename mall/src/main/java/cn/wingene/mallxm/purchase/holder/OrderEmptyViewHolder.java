@@ -5,9 +5,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
+
 import junze.android.ui.ViewHolder;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxm.WgMainActivity;
 
 /**

@@ -9,8 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
 
 /**
  * Created by wangcq on 2017/8/9.

@@ -14,12 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.limecn.ghmall.R;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.ui.MyBaseFragment;
 
 /**
  * Created by wangcq on 2017/8/7.
+ * 驾培页面
  */
 
 public class FourthMenuFragment extends MyBaseFragment implements View.OnClickListener {

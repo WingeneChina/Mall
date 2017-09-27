@@ -10,6 +10,8 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
+
 import junze.java.able.ICallBack;
 import junze.java.util.StringUtil;
 
@@ -18,7 +20,6 @@ import junze.widget.Tile;
 import junze.android.util.EditTextUtil;
 import junze.androidxf.core.Agent;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxm.JumpHelper;

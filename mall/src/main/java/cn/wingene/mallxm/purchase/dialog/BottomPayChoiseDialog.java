@@ -8,13 +8,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
+
 import junze.java.able.ICallBack;
 
 import junze.android.ui.ViewHolder;
 import junze.androidxf.core.Agent;
 import junze.androidxf.kit.AKit;
-
-import cn.wingene.mall.R;
 
 /**
  * Created by Wingene on 2017/8/27.

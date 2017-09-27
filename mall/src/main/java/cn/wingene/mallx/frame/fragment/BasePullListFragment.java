@@ -15,6 +15,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListAdapter;
 
+import com.limecn.ghmall.R;
+
 import junze.java.manager.ObserverManager;
 import junze.java.manager.ObserverManager.Observer;
 import junze.java.net.IHttpCacheElement.ICacheRequest;
@@ -26,7 +28,6 @@ import junze.android.ui.ItemViewHolder;
 import junze.androidxf.http.BaseParamsRequest;
 import junze.androidxf.kit.AKit;
 
-import cn.wingene.mall.R;
 import cn.wingene.mall.util.LayoutSwitcher;
 import cn.wingene.mallx.frame.holder.PullListViewHolder;
 import cn.wingene.mallx.frame.holder.PullListViewHolder.PageAble;

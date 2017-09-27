@@ -9,8 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dalong.refreshlayout.OnHeaderListener;
-
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
 
 /**
  * 京东下拉刷新头布局

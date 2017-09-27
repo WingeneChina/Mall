@@ -9,13 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.limecn.ghmall.R;
 
 import java.util.List;
 
-import cn.wingene.mall.R;
-import cn.wingene.mallxm.MainActivity;
-import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
-import cn.wingene.mallxm.game.LuckyActivity;
 
 /**
  * Created by wangcq on 2017/8/9.

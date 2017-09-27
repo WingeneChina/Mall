@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.limecn.ghmall.R;
 
 import java.util.List;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxm.display.home.secondMenu.SpecialDetailActivity;
 import cn.wingene.mallxm.display.home.secondMenu.data.MenuItemContentModel;
 

@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
 import com.baidu.location.BDLocation;
+import com.limecn.ghmall.R;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import junze.java.tool.Trigger;
@@ -23,7 +24,6 @@ import junze.androidx.baidu.OnReceiveLoactionListener;
 import junze.androidxf.core.Agent;
 import junze.androidxf.kit.AKit;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.HttpConstant;
 import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;

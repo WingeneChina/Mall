@@ -10,11 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.limecn.ghmall.R;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.HashMap;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.http.HttpConstant;
 import cn.wingene.mallxf.nohttp.GsonUtil;

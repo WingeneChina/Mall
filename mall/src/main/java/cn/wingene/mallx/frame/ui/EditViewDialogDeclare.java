@@ -14,13 +14,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
+
 import junze.android.text.mothed.InputConfig;
 import junze.android.ui.ViewHolder;
 import junze.android.util.DialogUtil;
 import junze.android.util.EditTextUtil;
 import junze.androidxf.kit.AKit;
-
-import cn.wingene.mall.R;
 
 public class EditViewDialogDeclare {
     public interface OnEditCompleteListener {

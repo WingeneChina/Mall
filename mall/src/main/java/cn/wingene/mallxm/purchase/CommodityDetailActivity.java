@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
 import com.sennie.skulib.Sku;
 import com.sennie.skulib.model.BaseSkuModel;
 import com.youth.banner.Banner;
@@ -46,7 +47,6 @@ import junze.androidxf.core.Agent;
 import junze.androidxf.kit.AKit;
 import junze.androidxf.tool.HtmlLoader;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallx.universalimageloader.ImageHelper;
 import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.http.Ask.NeedLoginException;

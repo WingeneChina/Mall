@@ -13,8 +13,13 @@ import android.content.Intent;
 import android.support.multidex.MultiDex;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.limecn.ghmall.R;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
+import com.umeng.socialize.Config;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.common.QueuedWork;
 import com.yanzhenjie.nohttp.InitializationConfig;
 import com.yanzhenjie.nohttp.Logger;
 import com.yanzhenjie.nohttp.NoHttp;
@@ -39,7 +44,6 @@ import junze.androidxf.manager.AppManager;
 import junze.androidxf.manager.FileManager;
 import junze.androidxf.manager.PhoneManager;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.util.GlideImageLoader;
 import cn.wingene.mallxm.WgMainActivity;
 
@@ -90,7 +94,20 @@ public class MyApp extends Application implements CrashHandleAble {
                 .build());
         Logger.setDebug(true);
         initImagePicker();
+        initUmengShareSDK();
+    }
 
+    private void initUmengShareSDK(){
+//开启debug模式，方便定位错误，具体错误检查方式可以查看http://dev.umeng.com/social/android/quick-integration的报错必看，正式发布，请关闭该模式
+        Config.DEBUG = true;
+        QueuedWork.isUseThreadPool = false;
+        UMShareAPI.get(this);
+    }
+
+    //各个平台的配置，建议放在全局Application或者程序入口
+    {
+        PlatformConfig.setWeixin("wx9b67f644a38ad397", "95a382338595549c0784ac2d72dcf87d");
+        PlatformConfig.setQQZone("101431884", "7091645a3fe4ac14ff5825db2c2528b3");
     }
 
     @Override

@@ -19,12 +19,12 @@ import static cn.wingene.mallxm.display.home.SecondMenuFragment.MENU_CODE_ARG;
 
 import com.baidu.location.BDLocation;
 import com.dalong.refreshlayout.OnRefreshListener;
+import com.limecn.ghmall.R;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import junze.androidx.baidu.LocationHelper;
 import junze.androidx.baidu.OnReceiveLoactionListener;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.HttpConstant;
 import cn.wingene.mallxf.nohttp.GsonUtil;
 import cn.wingene.mallxf.nohttp.HttpListener;

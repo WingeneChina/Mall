@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
 
 public class LuckyActivity extends AppCompatActivity {
     private LuckyPanView mLuckyPanView;

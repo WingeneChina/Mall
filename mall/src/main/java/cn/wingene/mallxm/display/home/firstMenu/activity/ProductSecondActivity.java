@@ -7,7 +7,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
+
 import cn.wingene.mallxf.util.ActivityUtils;
 import cn.wingene.mallxm.display.home.firstMenu.ProductListFragment;
 

@@ -11,12 +11,12 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.limecn.ghmall.R;
 import com.yanzhenjie.nohttp.Headers;
 import com.yanzhenjie.nohttp.download.DownloadListener;
 
 import java.io.File;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.model.BaseResponse;
 import cn.wingene.mallxf.nohttp.NoHttpRequest;
 import cn.wingene.mallxm.MainActivity;

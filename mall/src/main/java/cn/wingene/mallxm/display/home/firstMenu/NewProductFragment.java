@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dalong.refreshlayout.OnRefreshListener;
+import com.limecn.ghmall.R;
 import com.yanzhenjie.nohttp.rest.Response;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.http.HttpConstant;
 import cn.wingene.mallxf.model.BaseResponse;
 import cn.wingene.mallxf.nohttp.GsonUtil;

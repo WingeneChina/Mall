@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
+
 import junze.java.able.IBuilder;
 import junze.java.able.ICallBack;
 
@@ -22,7 +24,6 @@ import junze.widget.Tile;
 import junze.android.ui.ItemViewHolder;
 import junze.androidxf.core.Agent;
 
-import cn.wingene.mall.R;
 import cn.wingene.mall.util.MathUtil;
 import cn.wingene.mallx.universalimageloader.ImageHelper;
 import cn.wingene.mallxf.ui.MyBaseActivity;

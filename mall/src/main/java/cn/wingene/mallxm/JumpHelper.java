@@ -3,6 +3,7 @@ package cn.wingene.mallxm;
 import android.app.Activity;
 import android.content.Context;
 
+import cn.wingene.mallxm.account.LoginChoiceActivity;
 import junze.java.util.StringUtil;
 
 import junze.androidxf.core.Agent.Major.IntentBuilder;
@@ -89,7 +90,7 @@ public class JumpHelper {
     ////////////////////////////////////////////////////////////////////
 
     public static void startLoginActivity(Context context) {
-        create(context, LoginActivity.class).startActivity();
+        create(context, LoginChoiceActivity.class).startActivity();//LoginActivity
     }
 
     public static void starRegisterFirstStepActivity(Context context) {

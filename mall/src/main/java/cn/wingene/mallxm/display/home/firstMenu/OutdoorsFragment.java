@@ -6,7 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
+
 import cn.wingene.mallxf.ui.MyBaseFragment;
 
 /**

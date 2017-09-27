@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
+
 import junze.java.util.StringUtil;
 
 import junze.widget.HightMatchListView;
@@ -17,7 +19,6 @@ import junze.widget.Tile;
 import junze.android.ui.ItemViewHolder;
 import junze.androidxf.core.Agent;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallx.universalimageloader.ImageHelper;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxm.purchase.ask.AskLogisticsDetail.Logistics;

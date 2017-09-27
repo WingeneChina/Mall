@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -21,7 +22,6 @@ import com.yanzhenjie.nohttp.rest.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.adapter.RecycleViewImgAdapter;
 import cn.wingene.mallxf.nohttp.HttpListener;
 import cn.wingene.mallxf.util.GlideImageLoader;

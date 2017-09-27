@@ -6,11 +6,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.limecn.ghmall.R;
 import com.lzy.imagepicker.loader.ImageLoader;
 
 import java.io.File;
 
-import cn.wingene.mall.R;
 
 public class GlideImageLoader implements ImageLoader {
     @Override

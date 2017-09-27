@@ -10,12 +10,13 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
+
 import junze.java.able.IBuilder;
 import junze.java.able.ICallBack;
 
 import junze.androidxf.core.Agent;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallx.frame.ui.EditViewDialogDeclare.OnEditCompleteListener;
 import cn.wingene.mallx.frame.ui.EditViewDialogDeclare.Option;
 import cn.wingene.mallxf.MyAgent;

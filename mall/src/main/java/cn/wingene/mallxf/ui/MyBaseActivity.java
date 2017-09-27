@@ -3,9 +3,10 @@ package cn.wingene.mallxf.ui;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 
+import com.limecn.ghmall.R;
+
 import junze.android.ui.ViewHolder;
 
-import cn.wingene.mall.R;
 import cn.wingene.mall.util.LayoutSwitcher;
 import cn.wingene.mallx.frame.activity.BaseAppCompatActivity;
 import cn.wingene.mallxf.MyAgent;

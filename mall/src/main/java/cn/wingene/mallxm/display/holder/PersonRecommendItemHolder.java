@@ -9,8 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.limecn.ghmall.R;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxm.display.home.firstMenu.data.IProductItem;
 import cn.wingene.mallxm.display.tool.BindTool;
 

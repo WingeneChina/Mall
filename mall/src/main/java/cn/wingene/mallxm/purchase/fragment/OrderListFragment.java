@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
+
 import junze.java.net.IHttpCacheElement.ICaheReqCallBack;
 import junze.java.net.IHttpElement.IReqCallBack;
 
@@ -18,7 +20,6 @@ import junze.widget.HightMatchListView;
 import junze.android.ui.ItemViewHolder;
 import junze.android.ui.ItemViewHolder.OnItemViewClickListener;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallx.frame.fragment.BasePullListFragment;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
 import cn.wingene.mallxm.purchase.LogisticsActivity;

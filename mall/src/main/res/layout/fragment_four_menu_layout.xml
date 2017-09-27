@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="光合驾培"
+            android:text="光合驾校"
             android:textColor="@color/three_text_color"
             android:textSize="16sp"/>
 

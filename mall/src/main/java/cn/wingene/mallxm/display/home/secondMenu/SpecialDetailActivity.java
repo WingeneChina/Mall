@@ -15,11 +15,12 @@ import android.widget.Toast;
 
 import static cn.wingene.mallxf.http.HttpConstant.NEARBY_DETAIL;
 import static cn.wingene.mallxf.http.HttpConstant.SPECIAL_DETAIL;
+
+import com.limecn.ghmall.R;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import junze.androidxf.tool.HtmlLoader;
 
-import cn.wingene.mall.R;
 import cn.wingene.mall.util.MapUtil;
 import cn.wingene.mallxf.model.BaseResponse;
 import cn.wingene.mallxf.nohttp.GsonUtil;

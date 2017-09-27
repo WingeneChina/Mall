@@ -8,7 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
+
 import cn.wingene.mallxm.display.holder.PersonRecommendItemHolder;
 import cn.wingene.mallxm.display.home.firstMenu.data.ProductListModel;
 

@@ -6,11 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.limecn.ghmall.R;
 import com.lzy.imagepicker.bean.ImageItem;
 
 import java.util.List;
-
-import cn.wingene.mall.R;
 
 /**
  * Created by wangcq on 2017/9/10.

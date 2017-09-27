@@ -12,7 +12,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
+
 import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxf.ui.MyBaseFragment;

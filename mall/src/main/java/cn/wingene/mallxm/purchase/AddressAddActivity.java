@@ -10,13 +10,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
+
 import junze.java.able.ICallBack;
 
 import junze.widget.Tile;
 
 import junze.androidxf.core.Agent;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.ui.MyBaseActivity;
 import cn.wingene.mallxm.purchase.ask.AskAddressList.AddressItem;
 import cn.wingene.mallxm.purchase.ask.AskAddressSave;

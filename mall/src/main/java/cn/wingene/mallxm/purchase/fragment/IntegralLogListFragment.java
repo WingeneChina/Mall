@@ -8,12 +8,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
+
 import junze.java.net.IHttpCacheElement.ICaheReqCallBack;
 import junze.java.net.IHttpElement.IReqCallBack;
 
 import junze.android.ui.ItemViewHolder;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallx.frame.fragment.BasePullListFragment;
 import cn.wingene.mallxm.purchase.ask.AskIntegralLogList;
 import cn.wingene.mallxm.purchase.ask.AskIntegralLogList.IntegralLog;

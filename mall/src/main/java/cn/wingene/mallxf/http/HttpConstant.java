@@ -151,5 +151,8 @@ public class HttpConstant {
      */
     public static final String DELETE_MY_COLLECTION = HOST + "User/Favorites/Remove";
 
-
+    /**
+     * 驾培
+     */
+    public static final String DRIVER_URL = HOST + "JiaPei/Index";
 }

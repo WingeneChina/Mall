@@ -3,7 +3,7 @@ package cn.wingene.mallxm.account;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
 
 /***
  * 忘记密码页面

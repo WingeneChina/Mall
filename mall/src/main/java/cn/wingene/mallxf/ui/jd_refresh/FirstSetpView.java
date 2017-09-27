@@ -8,7 +8,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
 
 public class FirstSetpView extends View {
 

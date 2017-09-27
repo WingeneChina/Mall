@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="cn.wingene.mall">
+          package="com.limecn.ghmall">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
@@ -182,10 +182,48 @@
             android:name="cn.wingene.mallxm.display.home.fiveMenu.MyCollectionActivity"
             android:screenOrientation="portrait">
         </activity>
-        <!--<activity-->
-            <!--android:name="cn.wingene.mallxm.map.MapActivity"-->
-            <!--android:screenOrientation="portrait">-->
-        <!--</activity>-->
+        <!-- <activity -->
+        <!-- android:name="cn.wingene.mallxm.map.MapActivity" -->
+        <!-- android:screenOrientation="portrait"> -->
+        <!-- </activity> -->
+        <activity android:name="cn.wingene.mallxm.account.LoginChoiceActivity">
+        </activity>
+
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <!-- tencent -->
+        <activity
+            android:name="com.umeng.qq.tencent.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="tencent101431884"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <!-- umengAppKey，replace to yours -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="59cb9005677baa7bbf000fe1">
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng">
+        </meta-data>
     </application>
 
 </manifest>

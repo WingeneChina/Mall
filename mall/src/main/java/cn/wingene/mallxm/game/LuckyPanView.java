@@ -15,7 +15,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
+
 
 public class LuckyPanView extends SurfaceView implements Callback, Runnable
 {

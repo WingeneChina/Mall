@@ -11,13 +11,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
 import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.adapter.MailFragmentPagerAdapter;
 import cn.wingene.mallxf.http.HttpConstant;
 import cn.wingene.mallxf.model.BaseResponse;

@@ -10,10 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 
+import com.limecn.ghmall.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.wingene.mall.R;
 import cn.wingene.mallxf.adapter.MailFragmentPagerAdapter;
 import cn.wingene.mallxf.model.IndexModel;
 import cn.wingene.mallxf.ui.MyBaseFragment;

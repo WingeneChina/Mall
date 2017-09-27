@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import cn.wingene.mall.R;
+import com.limecn.ghmall.R;
 
 /**
  * Created by zqc on 16/8/23.
