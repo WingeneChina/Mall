@@ -2,6 +2,8 @@ package cn.wingene.mallxm.display.home.firstMenu.data;
 
 import java.util.List;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 /**
@@ -722,7 +724,7 @@ public class RecommendModel {
                 this.ProductList = ProductList;
             }
 
-            public static class ProductListBean implements IProductItem {
+            public static class ProductListBean implements IProductItem, Parcelable {
                 private int ProductId;
                 private String ProductImage;
                 private String ProductName;
@@ -795,6 +797,49 @@ public class RecommendModel {
                 public void setSellingPoint(String SellingPoint) {
                     this.SellingPoint = SellingPoint;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(this.ProductId);
+                    dest.writeString(this.ProductImage);
+                    dest.writeString(this.ProductName);
+                    dest.writeDouble(this.ProductPrice);
+                    dest.writeDouble(this.ProductOldPrice);
+                    dest.writeString(this.Tag);
+                    dest.writeString(this.SellingPoint);
+                    dest.writeString(this.AcceptIntegral);
+                }
+
+                public ProductListBean() {
+                }
+
+                protected ProductListBean(Parcel in) {
+                    this.ProductId = in.readInt();
+                    this.ProductImage = in.readString();
+                    this.ProductName = in.readString();
+                    this.ProductPrice = in.readDouble();
+                    this.ProductOldPrice = in.readDouble();
+                    this.Tag = in.readString();
+                    this.SellingPoint = in.readString();
+                    this.AcceptIntegral = in.readString();
+                }
+
+                public static final Parcelable.Creator<ProductListBean> CREATOR = new Parcelable.Creator<ProductListBean>() {
+                    @Override
+                    public ProductListBean createFromParcel(Parcel source) {
+                        return new ProductListBean(source);
+                    }
+
+                    @Override
+                    public ProductListBean[] newArray(int size) {
+                        return new ProductListBean[size];
+                    }
+                };
             }
         }
 
@@ -1090,7 +1135,7 @@ public class RecommendModel {
             }
         }
 
-        public static class HeadMenuListBean implements Comparable<HeadMenuListBean> {
+        public static class HeadMenuListBean implements Comparable<HeadMenuListBean>,Parcelable {
             private String Type;
             private String Title;
             private String Param;
@@ -1133,9 +1178,44 @@ public class RecommendModel {
             public int compareTo(@NonNull HeadMenuListBean other) {
                 return this.getOrderIndex() > other.getOrderIndex() ? 1 : -1;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.Type);
+                dest.writeString(this.Title);
+                dest.writeString(this.Param);
+                dest.writeInt(this.OrderIndex);
+            }
+
+            public HeadMenuListBean() {
+            }
+
+            protected HeadMenuListBean(Parcel in) {
+                this.Type = in.readString();
+                this.Title = in.readString();
+                this.Param = in.readString();
+                this.OrderIndex = in.readInt();
+            }
+
+            public static final Parcelable.Creator<HeadMenuListBean> CREATOR = new Parcelable.Creator<HeadMenuListBean>() {
+                @Override
+                public HeadMenuListBean createFromParcel(Parcel source) {
+                    return new HeadMenuListBean(source);
+                }
+
+                @Override
+                public HeadMenuListBean[] newArray(int size) {
+                    return new HeadMenuListBean[size];
+                }
+            };
         }
 
-        public static class BannerListBean implements Comparable<BannerListBean> {
+        public static class BannerListBean implements Comparable<BannerListBean>,Parcelable {
             private String Image;
             private String Title;
             private String Type;
@@ -1186,6 +1266,43 @@ public class RecommendModel {
             public int compareTo(@NonNull BannerListBean other) {
                 return this.getOrderIndex() < other.getOrderIndex() ? 1 : -1;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.Image);
+                dest.writeString(this.Title);
+                dest.writeString(this.Type);
+                dest.writeString(this.Param);
+                dest.writeInt(this.OrderIndex);
+            }
+
+            public BannerListBean() {
+            }
+
+            protected BannerListBean(Parcel in) {
+                this.Image = in.readString();
+                this.Title = in.readString();
+                this.Type = in.readString();
+                this.Param = in.readString();
+                this.OrderIndex = in.readInt();
+            }
+
+            public static final Parcelable.Creator<BannerListBean> CREATOR = new Parcelable.Creator<BannerListBean>() {
+                @Override
+                public BannerListBean createFromParcel(Parcel source) {
+                    return new BannerListBean(source);
+                }
+
+                @Override
+                public BannerListBean[] newArray(int size) {
+                    return new BannerListBean[size];
+                }
+            };
         }
     }
 }

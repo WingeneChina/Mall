@@ -20,7 +20,7 @@
             android:onClick="onClick"
             android:padding="5dp"
             android:src="@drawable/slic_all_back"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <TextView
             android:id="@+id/titleV"

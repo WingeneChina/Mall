@@ -80,6 +80,7 @@ public class LoginChoiceActivity extends AppCompatActivity implements View.OnCli
 //                JumpHelper.startLoginActivity(this);
                 Intent intent = new Intent(this,LoginActivity.class);
                 startActivity(intent);
+                finish();
                 break;
 
         }

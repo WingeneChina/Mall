@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.multidex.MultiDex;
 
+import com.baidu.location.BDLocation;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.limecn.ghmall.R;
 import com.lzy.imagepicker.ImagePicker;
@@ -56,7 +57,7 @@ public class MyApp extends Application implements CrashHandleAble {
     public static WeakReference<Application> mApp = null;
     private final static AppState appState = AppState.TEST;
     UncaughtExceptionHandler mDefaultHandler;
-
+    private static BDLocation bdLocation;
 
     @Override
     public void onCreate() {
@@ -115,7 +116,13 @@ public class MyApp extends Application implements CrashHandleAble {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+    public static BDLocation getBdLocation() {
+        return bdLocation;
+    }
 
+    public static void setBdLocation(BDLocation bdLocation) {
+        MyApp.bdLocation = bdLocation;
+    }
     private void initImagePicker() {
         ImagePicker imagePicker = ImagePicker.getInstance();
         imagePicker.setImageLoader(new GlideImageLoader());
