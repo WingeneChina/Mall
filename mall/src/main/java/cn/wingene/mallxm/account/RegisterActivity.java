@@ -65,9 +65,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         registerBtnV = (Button) findViewById(R.id.registerBtnV);
         titleV = (TextView) findViewById(R.id.titleV);
         lookPwd = (CheckBox) findViewById(R.id.lookPwdV);
-
-        titleV.setText(getIntent().getStringExtra("title"));
-        registerBtnV.setText(getIntent().getStringExtra("title"));
+        String title = getIntent().getStringExtra("title");
+        if(!TextUtils.isEmpty(title)) {
+            titleV.setText(title);
+            registerBtnV.setText(title);
+        }
         phoneNumber.setText(mUserPhone);
         initEvent();
     }
@@ -145,38 +147,43 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onSucceed(int what, Response<String> response) {
         try {
-            switch (what) {
-                case 1://注册
-                    GsonUtil<LoginModel> gsonUtil = new GsonUtil<>(LoginModel.class);
-                    LoginModel loginModel = gsonUtil.fromJson(response.get());
-                    if (loginModel != null && loginModel.getErr() == 0) {
-                        UserData.saveUserInfo(response.get());
-                        UserData.saveUserId(loginModel.getData().getUserId());
-                        UserData.saveVerifiCode(loginModel.getData().getVerifiCode());
-                        UserData.savePersonHeadUrl(loginModel.getData().getAvatar());
-                        ToastUtil.show("注册成功", this);
+            GsonUtil<BaseResponse> baseResponseGsonUtil = new GsonUtil<>(BaseResponse.class);
+            BaseResponse baseResponse = baseResponseGsonUtil.fromJson(response.get());
+            if(baseResponse.err == 0) {
+                switch (what) {
+                    case 1://注册
+                        GsonUtil<LoginModel> gsonUtil = new GsonUtil<>(LoginModel.class);
+                        LoginModel loginModel = gsonUtil.fromJson(response.get());
+                        if (loginModel != null && loginModel.getErr() == 0) {
+                            UserData.saveUserInfo(response.get());
+                            UserData.saveUserId(loginModel.getData().getUserId());
+                            UserData.saveVerifiCode(loginModel.getData().getVerifiCode());
+                            UserData.savePersonHeadUrl(loginModel.getData().getAvatar());
+                            ToastUtil.show("注册成功", this);
 //                        JumpHelper.startMainActivity(this);
-                        finish();
-                    } else {
-                        ToastUtil.show(loginModel.getMsg(), this);
+                            finish();
+                        } else {
+                            ToastUtil.show(loginModel.getMsg(), this);
 
-                    }
-                    break;
-                case 2://修改密码
-                    GsonUtil<ChangeUserNameModel> updatePwdGson = new GsonUtil<>(ChangeUserNameModel.class);
-                    ChangeUserNameModel updatePwd = updatePwdGson.fromJson(response.get());
-                    if (updatePwd.getErr() == 0) {
-                        ToastUtil.show("修改密码成功", this);
-                        Intent intent = new Intent(this, SettingActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                    break;
+                        }
+                        break;
+                    case 2://修改密码
+                        GsonUtil<ChangeUserNameModel> updatePwdGson = new GsonUtil<>(ChangeUserNameModel.class);
+                        ChangeUserNameModel updatePwd = updatePwdGson.fromJson(response.get());
+                        if (updatePwd.getErr() == 0) {
+                            ToastUtil.show("修改密码成功", this);
+                            Intent intent = new Intent(this, SettingActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        break;
+                }
+            }else{
+                ToastUtil.show(baseResponse.msg,this);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            ToastUtil.show("出错", this);
 
         }
     }

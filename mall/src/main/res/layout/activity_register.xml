@@ -90,8 +90,8 @@
 
         <CheckBox
             android:id="@+id/lookPwdV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="19dp"
+            android:layout_height="13dp"
             android:background="@drawable/pwd_look_selector"
             android:button="@null"
             />

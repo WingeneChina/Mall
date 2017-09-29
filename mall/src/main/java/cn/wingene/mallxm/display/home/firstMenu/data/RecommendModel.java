@@ -1264,7 +1264,7 @@ public class RecommendModel {
 
             @Override
             public int compareTo(@NonNull BannerListBean other) {
-                return this.getOrderIndex() < other.getOrderIndex() ? 1 : -1;
+                return this.getOrderIndex() > other.getOrderIndex() ? 1 : -1;
             }
 
             @Override
