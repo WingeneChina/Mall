@@ -1,5 +1,8 @@
 package cn.wingene.mallxm.account;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +19,6 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.utils.SocializeUtils;
 import com.yanzhenjie.nohttp.rest.Response;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import cn.wingene.mallxf.cacheData.UserData;
 import cn.wingene.mallxf.http.HttpConstant;
@@ -100,7 +100,6 @@ public class LoginChoiceActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.qqLogin:
                 UMShareAPI.get(this).doOauthVerify(this, list[0], authListener);
-
                 break;
             case R.id.usePhoneLoginV:
                 JumpHelper.starRegisterFirstStepActivity(this);
