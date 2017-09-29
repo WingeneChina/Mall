@@ -75,7 +75,7 @@ public class BottomPayChoiseDialog extends BottomSheetDialog {
             bindSwitch(llytPay, ivAll, ivPaySelect);
             bindSwitch(llytWx, ivAll, ivWxSelect);
             ////
-            llytWx.setVisibility(View.GONE); // // TODO: 2017/9/5 微信支付未实现。
+//            llytWx.setVisibility(View.GONE); // // 2017/9/5 微信支付未实现。//2018/9/30,微信支付实现。
             ivPaySelect.setSelected(true);
             ////
             tvOk.setOnClickListener(new View.OnClickListener() {
