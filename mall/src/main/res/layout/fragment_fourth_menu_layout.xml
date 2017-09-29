@@ -9,14 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
-        <ImageView
-            android:id="@+id/backIcon"
+        <TextView
+            android:id="@+id/locationMarkV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
             android:onClick="onClick"
             android:padding="5dp"
-            android:src="@drawable/slic_all_back"
+            android:drawableLeft="@drawable/nearby_img"
+            android:drawablePadding="5dp"
+            android:textSize="12sp"
+            android:textColor="@color/six_text_color"
             android:visibility="visible"/>
 
         <TextView
@@ -40,7 +44,7 @@
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/yellow_mall"
         app:tabIndicatorHeight="2dp"
-        app:tabMode="scrollable"
+        app:tabMode="fixed"
         app:tabSelectedTextColor="@color/menu_selected_color"
         app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
         app:tabTextColor="@color/three_text_color"
