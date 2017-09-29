@@ -15,12 +15,12 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:onClick="onClick"
-            android:padding="5dp"
             android:drawableLeft="@drawable/nearby_img"
             android:drawablePadding="5dp"
-            android:textSize="12sp"
+            android:onClick="onClick"
+            android:padding="5dp"
             android:textColor="@color/six_text_color"
+            android:textSize="12sp"
             android:visibility="visible"/>
 
         <TextView
@@ -32,6 +32,10 @@
             android:textColor="@color/three_text_color"
             android:textSize="16sp"/>
     </RelativeLayout>
+
+    <View
+        style="@style/Line.Horizontal"
+        />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
