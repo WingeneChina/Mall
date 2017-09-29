@@ -5,53 +5,68 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout
-        android:id="@+id/refreshProductLayoutV"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+    <!--<cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout-->
+    <!--android:id="@+id/refreshProductLayoutV"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--&gt;-->
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/haveDataGroupView"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/haveDataGroupView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:banner_default_image="@drawable/no_banner"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <com.youth.banner.Banner
-                    android:id="@+id/banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    app:banner_default_image="@drawable/no_banner"
-                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/driverItemMenuRecyclerV"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="70dp"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginRight="30dp"
                     android:paddingTop="2dp"/>
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:background="@color/linear_bg"/>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/driverItemRecyclerV"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_weight="1"/>
 
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
 
-        <include
-            layout="@layout/not_data_layout"
-            android:visibility="visible"/>
-    </cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/linear_bg"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/driverItemRecyclerV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <include
+        layout="@layout/not_data_layout"
+        android:visibility="visible"/>
+    <!--</cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout>-->
 </LinearLayout>

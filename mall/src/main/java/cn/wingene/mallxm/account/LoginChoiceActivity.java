@@ -74,7 +74,7 @@ public class LoginChoiceActivity extends AppCompatActivity implements View.OnCli
 
                 break;
             case R.id.usePhoneLoginV:
-                JumpHelper.starRegisterActivity(this);
+                JumpHelper.starRegisterFirstStepActivity(this);
                 break;
             case R.id.clickLoginV:
 //                JumpHelper.startLoginActivity(this);

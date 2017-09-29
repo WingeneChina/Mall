@@ -19,6 +19,8 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import cn.wingene.mallxf.ui.MyBaseFragment;
@@ -39,7 +41,8 @@ import cn.wingene.mallxm.display.home.fourthMenu.data.DriveModel;
  * 驾培子菜单
  */
 
-public class FouthItemMenuFragment extends MyBaseFragment implements DriverMenuTitleItemAdapter.OnMenuItemClickListener {
+public class FouthItemMenuFragment extends MyBaseFragment implements DriverMenuTitleItemAdapter
+        .OnMenuItemClickListener {
 
     private Banner banner;
     private RecyclerView driverItemMenuRecyclerV;
@@ -47,7 +50,7 @@ public class FouthItemMenuFragment extends MyBaseFragment implements DriverMenuT
     private NestedScrollView haveDataGroupView;
     private TextView errorTextV;
     private LinearLayout noDataGroup;
-    private JDRefreshLayout refreshProductLayoutV;
+    //    private JDRefreshLayout refreshProductLayoutV;
     private List<String> urlList = new ArrayList<>();
     private List<String> titleList = new ArrayList<>();
     private PersonRecommendAdapter personRecommendAdapter;
@@ -83,7 +86,7 @@ public class FouthItemMenuFragment extends MyBaseFragment implements DriverMenuT
         haveDataGroupView = (NestedScrollView) root.findViewById(R.id.haveDataGroupView);
         errorTextV = (TextView) root.findViewById(R.id.errorTextV);
         noDataGroup = (LinearLayout) root.findViewById(R.id.noDataGroup);
-        refreshProductLayoutV = (JDRefreshLayout) root.findViewById(R.id.refreshProductLayoutV);
+//        refreshProductLayoutV = (JDRefreshLayout) root.findViewById(R.id.refreshProductLayoutV);
     }
 
     private void initDriverTitleRecycler() {
@@ -105,8 +108,8 @@ public class FouthItemMenuFragment extends MyBaseFragment implements DriverMenuT
     @Override
     public void onMenuItemClick(int position) {
         Intent intent = new Intent(this.getActivity(), WebActivity.class);
-        intent.putExtra("webUrl",menuList.get(position).getParam());
-        intent.putExtra("title",menuList.get(position).getTitle());
+        intent.putExtra("webUrl", menuList.get(position).getParam());
+        intent.putExtra("title", menuList.get(position).getTitle());
         startActivity(intent);
 
     }
@@ -132,14 +135,20 @@ public class FouthItemMenuFragment extends MyBaseFragment implements DriverMenuT
         if (getArguments() != null) {
             final DriveModel driveModel = getArguments().getParcelable("resultModel");
             if (driveModel != null) {
+
+                mProductListBeen.clear();
                 mProductListBeen.addAll(driveModel.ProductList);
                 personRecommendAdapter.notifyDataSetChanged();
+
+                urlList.clear();
+                titleList.clear();
 
                 for (RecommendModel.DataBean.BannerListBean bannerListBean : driveModel.BannerList) {
                     urlList.add(bannerListBean.getImage());
                     titleList.add(bannerListBean.getTitle());
 
                 }
+
                 banner.setImages(urlList).setBannerTitles(titleList).setDelayTime(3000).setIndicatorGravity
                         (BannerConfig.RIGHT)
                         .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
@@ -153,7 +162,10 @@ public class FouthItemMenuFragment extends MyBaseFragment implements DriverMenuT
 
                             }
                         }).start();
+
+                menuList.clear();
                 menuList.addAll(driveModel.MenuList);
+                Collections.sort(menuList);
             }
         }
     }
