@@ -155,4 +155,9 @@ public class HttpConstant {
      * 驾培
      */
     public static final String DRIVER_URL = HOST + "JiaPei/Index";
+
+    /**
+     * 第三方登陆信息提交
+     */
+    public static final String ACCOUNT_LOGIN = HOST + "Account/AuthLogin";
 }

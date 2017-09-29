@@ -187,6 +187,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 //                Intent loginOutIntent = new Intent(this, LoginActivity.class);
 //                startActivity(loginOutIntent);
                 JumpHelper.startLoginActivity(this);
+                finish();
                 break;
             case R.id.versionInfoV:
                 requestVersionInfo();
@@ -272,7 +273,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onSucceed(int what, Response<String> response) {
-        Log.e(this.getClass().getName(), "reponse.get() = " + response.get());
         try {
             switch (what) {
                 case FILE_UPLOAD:

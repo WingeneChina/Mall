@@ -63,7 +63,10 @@ public class RegisterFirstStepActivity extends AppCompatActivity implements View
         setContentView(R.layout.activity_register_first_step);
         initViews();
         if (getIntent() != null) {
-            titleV.setText(getIntent().getStringExtra("title"));
+            String title = getIntent().getStringExtra("title");
+            if(!TextUtils.isEmpty(title)) {
+                titleV.setText(title);
+            }
         }
     }
 
