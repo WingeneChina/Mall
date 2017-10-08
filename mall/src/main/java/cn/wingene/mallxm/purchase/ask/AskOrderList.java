@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import junze.androidxf.http.requestargs.RequestArgs;
 import junze.androidxf.kit.AKit;
 
+import cn.wingene.mallxf.able.IsJiaPeiable;
 import cn.wingene.mallxf.http.Ask.BaseCacheSignRequest;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
 import cn.wingene.mallxm.purchase.bean.able.IOrderProductItem;
@@ -96,7 +97,7 @@ public class AskOrderList {
 
     }
 
-    public static class OrderItem {
+    public static class OrderItem implements IsJiaPeiable {
         /**
          * 订单单号	不可
          */
@@ -210,6 +211,15 @@ public class AskOrderList {
          */
         @SerializedName("OrderProductList")
         private List<OrderProductList> orderProductList;
+
+        /**
+         * 不可 0、否 1、是
+         */
+        @SerializedName("IsJiaPei")
+        private Integer isJiaPei;
+
+
+
 
 
         /**
@@ -359,6 +369,11 @@ public class AskOrderList {
          */
         public void setState(Integer state) {
             this.state = state;
+        }
+
+        @Override
+        public boolean isJiaPei() {
+            return isJiaPei != null && isJiaPei == 1;
         }
     }
 

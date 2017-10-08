@@ -41,6 +41,7 @@ import cn.wingene.mallxm.purchase.tool.NumberTool;
 import cn.wingene.mallxm.purchase.tool.PayHelper;
 import cn.wingene.mallxm.purchase.tool.PayHelper.OnOrderBuild;
 import cn.wingene.mallxm.purchase.tool.PayHelper.PayMothed;
+import cn.wingene.mallxm.purchase.tool.ShowTool;
 
 /**
  * Created by Wingene on 2017/8/14.
@@ -75,6 +76,7 @@ public class OrderAddActivity extends MyBaseActivity {
     private ImageView ivAddressChoise;
     private HightMatchListView lvOrder;
     private TextView tvTotal;
+    private LinearLayout llytIntegral;
     private TextView tvIntegral;
     private TextView tvAcceptIntegral;
     private LinearLayout llytIntegralNumber;
@@ -102,6 +104,7 @@ public class OrderAddActivity extends MyBaseActivity {
         ivAddressChoise = (ImageView) super.findViewById(R.id.iv_address_choise);
         lvOrder = (HightMatchListView) super.findViewById(R.id.lv_order);
         tvTotal = (TextView) super.findViewById(R.id.tv_total);
+        llytIntegral = (LinearLayout) super.findViewById(R.id.llyt_integral);
         tvIntegral = (TextView) super.findViewById(R.id.tv_integral);
         tvAcceptIntegral = (TextView) super.findViewById(R.id.tv_accept_integral);
         llytIntegralNumber = (LinearLayout) super.findViewById(R.id.llyt_integral_number);
@@ -118,6 +121,7 @@ public class OrderAddActivity extends MyBaseActivity {
     }
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,12 +130,14 @@ public class OrderAddActivity extends MyBaseActivity {
         mParams = major.parseParams(this);
         mItemHolder = ProductItemHolder.createForOrderAdd(this, lvOrder);
         IEasyOrder bean = mParams.getEasyOrder();
+        mItemHolder.set__isJiaPei(bean.isJiaPei());
         mAddress = bean.getAddress();
         mItemHolder.addAll(bean.getOrderProductItem());
         mSumPrice = bean.getSumPrice();
         mAccount = bean.getAccount();
         mAcceptIntegral = bean.getAcceptIntegral();
         mPayPrice = bean.getPayPrice();
+
         fillAcceptPay();
         refreshUI();
 
@@ -190,15 +196,21 @@ public class OrderAddActivity extends MyBaseActivity {
                 }
             });
         }
+        if(mParams.isJiePei() && mPayPrice != 0){
+            showMsgDialog("提示","该订单只能用元宝支付！请确认后重试");
+            return;
+        }
         if (!mParams.showThirdPart() && mPayPrice != 0) {
-            showMsgDialog("提示","该订单只能用元宝与金币购买！你余额不足！");
+            showMsgDialog("提示","该订单只能用元宝与金币支付！请确认后重试");
             return;
         }
         mPayHelper.showBottomDialog(mPayPrice, mAmount, mIntegral);
     }
 
     private void fillAcceptPay() {
-        mIntegral = (int) Math.min((double) getRealAcceptIntegral(), mSumPrice);
+        if (!mParams.isJiePei()) {
+            mIntegral = (int) Math.min((double) getRealAcceptIntegral(), mSumPrice);
+        }
         mAmount = Math.min(mAccount.getAmount(),round2(mSumPrice-mIntegral));
     }
 
@@ -258,8 +270,9 @@ public class OrderAddActivity extends MyBaseActivity {
         updatePayPrice();
         setAddress(mAddress);
         mItemHolder.notifyDataSetChanged();
-        tvTotal.setText(String.format("￥%.2f", mSumPrice));
+        ShowTool.showPrice(tvTotal,mSumPrice,mParams.isJiePei());
         tvAmountNumber.setText(String.format("%s", mAmount));
+        llytIntegral.setVisibility(mParams.isJiePei() ? View.GONE : View.VISIBLE);
         tvIntegralNumber.setText(String.format("%s", mIntegral));
         setAccount(mAccount);
         tvRealTotal.setText(String.format("￥%s", mPayPrice));
@@ -310,6 +323,7 @@ public class OrderAddActivity extends MyBaseActivity {
     }
 
     public static class ProductItemHolder extends ItemViewHolder<IOrderProductItem> {
+        private boolean __isJiaPei;
         int mLayout;
 
         private ImageView ivProduct;
@@ -350,12 +364,25 @@ public class OrderAddActivity extends MyBaseActivity {
         }
 
         @Override
+        protected ProductItemHolder getHeader() {
+            return (ProductItemHolder)super.getHeader();
+        }
+
+        public void set__isJiaPei(boolean __isJiaPei) {
+            this.getHeader().__isJiaPei = __isJiaPei;
+        }
+
+        public boolean is__isJiaPei() {
+            return getHeader().__isJiaPei;
+        }
+
+        @Override
         public void display(int i, IOrderProductItem iProduct) {
             ImageHelper.displayImage(iProduct.getProductImage(), ivProduct);
             tvTitle.setText(iProduct.getProductName());
             tvSubTitle.setText(iProduct.getSpecDesp());
             tvNumber.setText(String.format("x %s", iProduct.getBuyNumber()));
-            tvPrice.setText(String.format("￥%.2f", iProduct.getSalePrice()));
+            ShowTool.showPrice(tvPrice,iProduct.getSalePrice(),is__isJiaPei());
         }
 
     }
@@ -390,6 +417,10 @@ public class OrderAddActivity extends MyBaseActivity {
 
         public boolean showThirdPart(){
             return getEasyOrder().showThirdPart();
+        }
+
+        public boolean isJiePei() {
+            return getEasyOrder().isJiaPei();
         }
 
         //        public boolean isBuyNow() {

@@ -53,17 +53,22 @@ public class PersonRecommendItemHolder extends ViewHolder {
     }
 
     public void onBindViewHolder(final IProductItem item, int position) {
+        onBindViewHolder(item, position,false);
+    }
+    
+    public void onBindViewHolder(final IProductItem item, int position,boolean defaultisJiaPei) {
         try {
-            _onBindViewHolder(item);
+            _onBindViewHolder(item,defaultisJiaPei);
         } catch (Exception e) {
             Log.e(this.getClass().getName(), "填充数据异常");
         }
     }
 
-    private void _onBindViewHolder(final IProductItem item) {
-        BindTool.bindProducItemView(item, itemView, personRecommendItemImgV, personRecommendProductNameV,
-                personRecommendProductDesV, personRecommendMarkGroupV, personRecommendItemMarkOneV,
-                personRecommendItemMarkTwoV, personRecommendProductPriceV, personRecommendCanDeductible);
+    private void _onBindViewHolder(final IProductItem item, boolean defaultisJiaPei) {
+        BindTool.bindProducItemView(item, itemView, personRecommendItemImgV, personRecommendProductNameV, 
+                personRecommendProductDesV, personRecommendMarkGroupV, personRecommendItemMarkOneV, 
+                personRecommendItemMarkTwoV, personRecommendProductPriceV, personRecommendCanDeductible, 
+                defaultisJiaPei);
     }
 
 

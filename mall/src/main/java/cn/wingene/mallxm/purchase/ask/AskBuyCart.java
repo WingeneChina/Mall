@@ -109,6 +109,11 @@ public class AskBuyCart {
         */
         @SerializedName("IsThirdParty")
         private Integer isThirdParty;
+        /**
+         * 不可 0、否 1、是
+         */
+        @SerializedName("IsJiaPei")
+        private Integer isJiaPei;
 
 
         /**
@@ -194,6 +199,11 @@ public class AskBuyCart {
 
         public boolean showThirdPart(){
             return isThirdParty != null && isThirdParty == 1;
+        }
+
+        @Override
+        public boolean isJiaPei() {
+            return isJiaPei != null && isJiaPei == 1;
         }
     }
 

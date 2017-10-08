@@ -73,6 +73,7 @@ import cn.wingene.mallxm.purchase.holder.ProductEmptyHolder;
 import cn.wingene.mallxm.purchase.layoutmanager.FlowLayoutManager;
 import cn.wingene.mallxm.purchase.listener.ItemClickListener;
 import cn.wingene.mallxm.purchase.tool.NumberTool;
+import cn.wingene.mallxm.purchase.tool.ShowTool;
 
 /**
  * Created by Wingene on 2017/8/6.
@@ -221,14 +222,9 @@ public class CommodityDetailActivity extends MyBaseActivity {
                 }
                 tvTitle.setText(mProduct.getName());
                 TextViewUtil.showOrGone(tvSubTitle, mProduct.getSellingPoint());
-                tvPrice.setText(String.format("￥%.2f", mProduct.getPrice()));
-                if(mProduct.getAcceptIntegral() != 0){
-                    tvAcceptIntegral.setVisibility(View.VISIBLE);
-                    tvAcceptIntegral.setText("可抵金币¥" + String.valueOf(mProduct.getAcceptIntegral
-                            ()));
-                }else{
-                    tvAcceptIntegral.setVisibility(View.GONE);
-                }
+                ShowTool.showPrice(tvPrice,mProduct.getPrice(),mProduct.isJiaPei());
+                ShowTool.showAcceptIntegralOrGone(tvAcceptIntegral,mProduct.getAcceptIntegral(),mProduct.isJiaPei());
+
                 loadWebData(rsp.getProduct().getDetail());
                 tlCollect.getIvImage().setSelected(mProduct.isFavorited());
                 tlCollect.setVisibility(mProduct.isCart() ? View.VISIBLE : View.GONE);

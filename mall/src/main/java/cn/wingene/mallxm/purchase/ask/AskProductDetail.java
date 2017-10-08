@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName;
 import junze.androidxf.http.requestargs.RequestArgs;
 import junze.androidxf.kit.AKit;
 
+import cn.wingene.mallxf.able.IsCartable;
+import cn.wingene.mallxf.able.IsJiaPeiable;
 import cn.wingene.mallxf.http.Ask.BaseSignRequest;
 import cn.wingene.mallxf.http.Ask.MyBaseResponse;
 
@@ -100,7 +102,7 @@ public class AskProductDetail {
 
     }
 
-    public static class ProductDetail {
+    public static class ProductDetail implements IsCartable,IsJiaPeiable {
         /**
          * 商品ID	不可
          */
@@ -268,6 +270,12 @@ public class AskProductDetail {
          */
         @SerializedName("IsCart")
         private Integer isCart;
+
+        /**
+         * 不可 0、否 1、是
+         */
+        @SerializedName("IsJiaPei")
+        private Integer isJiaPei;
 
         /**
          * 商品ID	不可
@@ -453,6 +461,11 @@ public class AskProductDetail {
         }
 
         public boolean isCart(){ return isCart != null && isCart==1;}
+
+        @Override
+        public boolean isJiaPei() {
+            return isJiaPei != null && isJiaPei == 1;
+        }
     }
 
     public static class ProductImageList {

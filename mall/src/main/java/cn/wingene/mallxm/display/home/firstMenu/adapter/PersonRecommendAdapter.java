@@ -14,11 +14,18 @@ import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
  */
 
 public class PersonRecommendAdapter extends RecyclerView.Adapter {
+   private boolean mDefaultisJiaPei;
+
 
     private List<RecommendModel.DataBean.RecommendBean.ProductListBean> mProductListBeen;
 
     public PersonRecommendAdapter(List<RecommendModel.DataBean.RecommendBean.ProductListBean> productListBeen) {
         mProductListBeen = productListBeen;
+    }
+    public PersonRecommendAdapter(List<RecommendModel.DataBean.RecommendBean.ProductListBean> productListBeen,
+            boolean defaultisJiaPei) {
+        mProductListBeen = productListBeen;
+        this.mDefaultisJiaPei = defaultisJiaPei;
     }
 
     @Override
@@ -30,7 +37,7 @@ public class PersonRecommendAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final PersonRecommendItemHolder itemHolder = (PersonRecommendItemHolder) holder;
         final RecommendModel.DataBean.RecommendBean.ProductListBean item = mProductListBeen.get(position);
-        itemHolder.onBindViewHolder(item,position);
+        itemHolder.onBindViewHolder(item,position, mDefaultisJiaPei);
     }
 
     @Override

@@ -11,8 +11,10 @@ import com.limecn.ghmall.R;
 
 import junze.android.util.TextViewUtil;
 
+import cn.wingene.mallxf.able.IsJiaPeiable;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.home.firstMenu.data.IProductItem;
+import cn.wingene.mallxm.purchase.tool.ShowTool;
 
 /**
  * Created by Wingene on 2017/9/9.
@@ -34,6 +36,13 @@ public class BindTool {
     public static void bindProducItemView(final IProductItem item, final View itemView, SimpleDraweeView ivImg,
             TextView tvName, TextView tvDesc, LinearLayout llytMarkGroup, TextView tvMark1, TextView tvMark2,
             TextView tvPrice, TextView tvDeductible) {
+        bindProducItemView(item, itemView, ivImg, tvName, tvDesc, llytMarkGroup, tvMark1, tvMark2, tvPrice, 
+                tvDeductible,false);
+    }
+    
+    public static void bindProducItemView(final IProductItem item, final View itemView, SimpleDraweeView ivImg,
+            TextView tvName, TextView tvDesc, LinearLayout llytMarkGroup, TextView tvMark1, TextView tvMark2,
+            TextView tvPrice, TextView tvDeductible,boolean defaultisJiaPei) {
         ivImg.setImageURI(item.getProductImage());
 
         tvName.setText(item.getProductName());
@@ -62,13 +71,13 @@ public class BindTool {
             llytMarkGroup.setVisibility(View.GONE);
         }
 
-        tvPrice.setText("¥" + String.valueOf(item.getProductPrice()));
-        if (!TextUtils.isEmpty(item.getAcceptIntegral())) {
-            tvDeductible.setVisibility(View.VISIBLE);
-            tvDeductible.setText("可抵金币¥" + String.valueOf(item.getAcceptIntegral()));
-        } else {
-            tvDeductible.setVisibility(View.GONE);
+        boolean isJiaPei = defaultisJiaPei;
+        if(item instanceof IsJiaPeiable){
+            isJiaPei = ((IsJiaPeiable) item).isJiaPei();
         }
+
+        ShowTool.showPrice(tvPrice,item.getProductPrice(),isJiaPei);
+        ShowTool.showAcceptIntegralOrGone(tvDeductible,item.getAcceptIntegral(),isJiaPei);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

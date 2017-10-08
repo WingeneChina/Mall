@@ -1,10 +1,13 @@
 package cn.wingene.mallxm.display.home.fourthMenu;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,20 +21,12 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.ui.banner.BannerImgLoader;
-import cn.wingene.mallxf.ui.jd_refresh.JDRefreshLayout;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
 import cn.wingene.mallxm.JumpHelper;
 import cn.wingene.mallxm.display.WebActivity;
 import cn.wingene.mallxm.display.home.firstMenu.adapter.PersonRecommendAdapter;
-import cn.wingene.mallxm.display.home.firstMenu.adapter.ProductGroupAdapter;
-import cn.wingene.mallxm.display.home.firstMenu.data.ProductListModel;
 import cn.wingene.mallxm.display.home.firstMenu.data.RecommendModel;
 import cn.wingene.mallxm.display.home.fourthMenu.adapter.DriverMenuTitleItemAdapter;
 import cn.wingene.mallxm.display.home.fourthMenu.data.DriveModel;
@@ -123,7 +118,7 @@ public class FouthItemMenuFragment extends MyBaseFragment implements DriverMenuT
                 false);
         driverItemRecyclerV.setLayoutManager(linearLayoutManager);
 
-        personRecommendAdapter = new PersonRecommendAdapter(mProductListBeen);
+        personRecommendAdapter = new PersonRecommendAdapter(mProductListBeen,true);
         driverItemRecyclerV.setAdapter(personRecommendAdapter);
 
         SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(0, 15, 15, 15);

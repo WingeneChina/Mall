@@ -35,6 +35,7 @@ import cn.wingene.mallxm.purchase.ask.AskOrderList.Response;
 import cn.wingene.mallxm.purchase.ask.AskOrderPayNow;
 import cn.wingene.mallxm.purchase.holder.OrderEmptyViewHolder;
 import cn.wingene.mallxm.purchase.tool.PayHelper;
+import cn.wingene.mallxm.purchase.tool.ShowTool;
 
 /**
  * Created by wangcq on 2017/8/13.
@@ -305,6 +306,7 @@ public class OrderListFragment extends BasePullListFragment {
             tvNo.setText(String.format("订单编号:%s", orderItem.getNo()));
             if (mItemHolder == null) {
                 mItemHolder = ProductItemHolder.createForOrderList(getContext(), hmlvProduct);
+                mItemHolder.set__isJiaPei(orderItem.isJiaPei());
             }
             hmlvProduct.setOnItemClickListener(new OnItemClickListener() {
                 @Override
@@ -316,7 +318,7 @@ public class OrderListFragment extends BasePullListFragment {
             mItemHolder.addAll(orderItem.getOrderProductList());
             mItemHolder.notifyDataSetChanged();
             tvNumber.setText(String.format("共%s件",orderItem.getSumNumber()));
-            tvTotal.setText(String.format("￥%.2f",orderItem.getSumPrice()));
+            ShowTool.showPrice(tvTotal,orderItem.getSumPrice(),orderItem.isJiaPei());
         }
 
     }

@@ -11,7 +11,7 @@ import cn.wingene.mallxm.purchase.bean.able.IOrderProductItem;
 /**
  * Created by Wingene on 2017/8/27.
  */
-public class Order implements IOrder, IEasyOrder {
+public class Order implements IOrder, IEasyOrder{
     /**
      * 订单单号	不可
      */
@@ -101,6 +101,12 @@ public class Order implements IOrder, IEasyOrder {
         */
     @SerializedName("IsThirdParty")
     private Integer isThirdParty;
+
+    /**
+     * 不可 0、否 1、是
+     */
+    @SerializedName("IsJiaPei")
+    private Integer isJiaPei;
 
 
     /**
@@ -219,6 +225,11 @@ public class Order implements IOrder, IEasyOrder {
 
     public boolean showThirdPart(){
         return isThirdParty != null && isThirdParty == 1;
+    }
+
+    @Override
+    public boolean isJiaPei() {
+        return isJiaPei != null && isJiaPei == 1;
     }
 
 }

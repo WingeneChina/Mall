@@ -2,6 +2,10 @@ package cn.wingene.mallxm.display.home.firstMenu.data;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
+import cn.wingene.mallxf.able.IsJiaPeiable;
+
 /**
  * Created by wangcq on 2017/8/27.
  * 商品分页数据model
@@ -117,7 +121,7 @@ public class ProductListModel {
             this.BannerList = BannerList;
         }
 
-        public static class ListBean implements IProductItem {
+        public static class ListBean implements IProductItem,IsJiaPeiable{
             private int Id;
             private String Name;
             private String DefaultImage;
@@ -131,6 +135,13 @@ public class ProductListModel {
             private String Tag;
             private String SellingPoint;
             private String AcceptIntegral;
+
+            /**
+             * 不可 0、否 1、是
+             */
+            @SerializedName("IsJiaPei")
+            private Integer isJiaPei;
+
 
             public String getAcceptIntegral() {
                 return AcceptIntegral != null && !AcceptIntegral.isEmpty() ? AcceptIntegral : "" ;
@@ -261,6 +272,11 @@ public class ProductListModel {
             @Override
             public int getProductId() {
                 return Id;
+            }
+
+            @Override
+            public boolean isJiaPei() {
+                return isJiaPei != null && isJiaPei == 1;
             }
         }
     }

@@ -32,6 +32,7 @@ import cn.wingene.mallxm.purchase.ask.AskOrderDetail.Response;
 import cn.wingene.mallxm.purchase.ask.AskOrderPayNow;
 import cn.wingene.mallxm.purchase.bean.Address4;
 import cn.wingene.mallxm.purchase.tool.PayHelper;
+import cn.wingene.mallxm.purchase.tool.ShowTool;
 
 /**
  * Created by Wingene on 2017/9/3.
@@ -198,13 +199,14 @@ public class OrderDetailActivity extends MyBaseActivity {
 
         setAddress(bean.getAddress());
 
+        mItemHolder.set__isJiaPei(bean.isJiaPei());
         mItemHolder.clear();
         mItemHolder.addAll(bean.getOrderProductList());
         mItemHolder.notifyDataSetChanged();
 
         tvNo.setText(String.format("订单编号:%s", bean.getNo()));
         tvNumber.setText(String.format("共%s件", bean.getSumNumber().intValue()));
-        tvSumPrice.setText(String.format("合计:￥%.2f", bean.getSumPrice()));
+        ShowTool.showPrice(tvSumPrice,"合计:%s",bean.getSumPrice(),bean.isJiaPei());
         tvDeliveryFee.setText(String.format("￥%.2f", bean.getDeliveryFee()));
 
         setOrderPay(bean.getOrderPay());
