@@ -285,6 +285,7 @@
                 android:layout_marginLeft="@dimen/p30"/>
 
             <LinearLayout
+                android:id="@+id/llyt_amount"
                 android:background="@color/white"
                 android:paddingLeft="@dimen/p30"
                 android:layout_width="match_parent"

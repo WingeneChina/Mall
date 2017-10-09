@@ -83,6 +83,7 @@ public class OrderAddActivity extends MyBaseActivity {
     private TextView tvIntegralReduce;
     private TextView tvIntegralNumber;
     private TextView tvIntegralIncrease;
+    private LinearLayout llytAmount;
     private TextView tvAmount;
     private LinearLayout llytAmountNumber;
     private TextView tvAmountReduce;
@@ -111,6 +112,7 @@ public class OrderAddActivity extends MyBaseActivity {
         tvIntegralReduce = (TextView) super.findViewById(R.id.tv_integral_reduce);
         tvIntegralNumber = (TextView) super.findViewById(R.id.tv_integral_number);
         tvIntegralIncrease = (TextView) super.findViewById(R.id.tv_integral_increase);
+        llytAmount = (LinearLayout) super.findViewById(R.id.llyt_amount);
         tvAmount = (TextView) super.findViewById(R.id.tv_amount);
         llytAmountNumber = (LinearLayout) super.findViewById(R.id.llyt_amount_number);
         tvAmountReduce = (TextView) super.findViewById(R.id.tv_amount_reduce);
@@ -208,10 +210,12 @@ public class OrderAddActivity extends MyBaseActivity {
     }
 
     private void fillAcceptPay() {
-        if (!mParams.isJiePei()) {
+        if (mParams.isJiePei()) {
+            mAmount = Math.min(mAccount.getAmount(),round2(mSumPrice-mIntegral));
+        }else{
             mIntegral = (int) Math.min((double) getRealAcceptIntegral(), mSumPrice);
         }
-        mAmount = Math.min(mAccount.getAmount(),round2(mSumPrice-mIntegral));
+
     }
 
     private void bindNumber() {
@@ -273,6 +277,7 @@ public class OrderAddActivity extends MyBaseActivity {
         ShowTool.showPrice(tvTotal,mSumPrice,mParams.isJiePei());
         tvAmountNumber.setText(String.format("%s", mAmount));
         llytIntegral.setVisibility(mParams.isJiePei() ? View.GONE : View.VISIBLE);
+        llytAmount.setVisibility(mParams.isJiePei() ? View.VISIBLE : View.GONE);
         tvIntegralNumber.setText(String.format("%s", mIntegral));
         setAccount(mAccount);
         tvRealTotal.setText(String.format("￥%s", mPayPrice));
