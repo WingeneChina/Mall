@@ -48,7 +48,7 @@
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/yellow_mall"
         app:tabIndicatorHeight="2dp"
-        app:tabMode="fixed"
+        app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/menu_selected_color"
         app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
         app:tabTextColor="@color/three_text_color"

@@ -111,6 +111,9 @@ public class FourthMenusFragment extends MyBaseFragment implements HttpListener<
 
             }
         }
+        if (listMenus.size() <= 4) {
+            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        }
         mMailFragmentPagerAdapter = new MailFragmentPagerAdapter(getChildFragmentManager(), listMenus);
         contentPagerV.setAdapter(mMailFragmentPagerAdapter);
         tabLayout.setupWithViewPager(contentPagerV);
