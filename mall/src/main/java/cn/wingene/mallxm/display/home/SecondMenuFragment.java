@@ -88,7 +88,9 @@ public class SecondMenuFragment extends MyBaseFragment implements HttpListener<S
             Log.e(this.getClass().getName(), "indexList.size() = " + indexModelList.size());
             mMailFragmentPagerAdapter = new MailFragmentPagerAdapter(getChildFragmentManager(), indexModelList);
             specialPagerV.setAdapter(mMailFragmentPagerAdapter);
-
+            if (indexModelList.size() <= 4) {
+                selectTabLayout.setTabMode(TabLayout.MODE_FIXED);
+            }
             selectTabLayout.setupWithViewPager(specialPagerV, true);
 
         } catch (Exception e) {

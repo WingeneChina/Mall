@@ -95,6 +95,10 @@ public class ThirdMenuFragment extends MyBaseFragment implements HttpListener<St
             Log.e(this.getClass().getName(), "indexList.size() = " + indexModelList.size());
             mMailFragmentPagerAdapter = new MailFragmentPagerAdapter(getChildFragmentManager(), indexModelList);
             nearbyPagerV.setAdapter(mMailFragmentPagerAdapter);
+
+            if (indexModelList.size() <= 4) {
+                selectTabLayout.setTabMode(TabLayout.MODE_FIXED);
+            }
             selectTabLayout.setupWithViewPager(nearbyPagerV, true);
 
         } catch (Exception e) {
