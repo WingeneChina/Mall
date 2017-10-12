@@ -214,24 +214,28 @@ public class OrderListFragment extends BasePullListFragment {
     private static class OrderItemHolder extends ItemViewHolder<OrderItem> {
         ProductItemHolder mItemHolder;
 
-        private HightMatchListView hmlvProduct;
-        private TextView tvState;
-        private TextView tvNumber;
-        private TextView tvTotal;
         private TextView tvNo;
+        private TextView tvState;
+        private HightMatchListView hmlvProduct;
+        private TextView tvNumber;
+        private TextView tvTotalOld;
+        private TextView tvTotal;
         private TextView tvLeft;
         private TextView tvRight;
 
         @Override
-        protected void initComponent() {
-            hmlvProduct = (HightMatchListView) super.findViewById(R.id.hmlv_product);
-            tvState = (TextView) super.findViewById(R.id.tv_state);
-            tvNumber = (TextView) super.findViewById(R.id.et_number);
-            tvTotal = (TextView) super.findViewById(R.id.tv_total);
+        protected void initComponent(){
             tvNo = (TextView) super.findViewById(R.id.tv_no);
+            tvState = (TextView) super.findViewById(R.id.tv_state);
+            hmlvProduct = (HightMatchListView) super.findViewById(R.id.hmlv_product);
+            tvNumber = (TextView) super.findViewById(R.id.tv_number);
+            tvTotalOld = (TextView) super.findViewById(R.id.tv_total_old);
+            tvTotal = (TextView) super.findViewById(R.id.tv_total);
             tvLeft = (TextView) super.findViewById(R.id.tv_left);
             tvRight = (TextView) super.findViewById(R.id.tv_right);
         }
+
+
 
         public OrderItemHolder(Context mContext) {
             super(mContext, R.layout.listitem_order_item);
@@ -318,7 +322,8 @@ public class OrderListFragment extends BasePullListFragment {
             mItemHolder.addAll(orderItem.getOrderProductList());
             mItemHolder.notifyDataSetChanged();
             tvNumber.setText(String.format("共%s件",orderItem.getSumNumber()));
-            ShowTool.showPrice(tvTotal,orderItem.getSumPrice(),orderItem.isJiaPei());
+            ShowTool.showSumPrice(tvTotalOld,orderItem.getSumPrice(),tvTotal,orderItem.getPayPrice(),orderItem
+                    .isJiaPei());
         }
 
     }

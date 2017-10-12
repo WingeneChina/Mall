@@ -55,6 +55,7 @@ public class OrderAddActivity extends MyBaseActivity {
     private IAddress4 mAddress;
     private double mSumPrice;
     private double mPayPrice;
+    private double mOrderPay;
     private Account mAccount;
     private double mAmount;
     private int mIntegral;
@@ -75,6 +76,7 @@ public class OrderAddActivity extends MyBaseActivity {
     private TextView tvAddress2;
     private ImageView ivAddressChoise;
     private HightMatchListView lvOrder;
+    private TextView tvTotalOld;
     private TextView tvTotal;
     private LinearLayout llytIntegral;
     private TextView tvIntegral;
@@ -104,6 +106,7 @@ public class OrderAddActivity extends MyBaseActivity {
         tvAddress2 = (TextView) super.findViewById(R.id.tv_address_2);
         ivAddressChoise = (ImageView) super.findViewById(R.id.iv_address_choise);
         lvOrder = (HightMatchListView) super.findViewById(R.id.lv_order);
+        tvTotalOld = (TextView) super.findViewById(R.id.tv_total_old);
         tvTotal = (TextView) super.findViewById(R.id.tv_total);
         llytIntegral = (LinearLayout) super.findViewById(R.id.llyt_integral);
         tvIntegral = (TextView) super.findViewById(R.id.tv_integral);
@@ -124,6 +127,7 @@ public class OrderAddActivity extends MyBaseActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,9 +140,10 @@ public class OrderAddActivity extends MyBaseActivity {
         mAddress = bean.getAddress();
         mItemHolder.addAll(bean.getOrderProductItem());
         mSumPrice = bean.getSumPrice();
+        mPayPrice = bean.getPayPrice();
+        mOrderPay = 0;
         mAccount = bean.getAccount();
         mAcceptIntegral = bean.getAcceptIntegral();
-        mPayPrice = bean.getPayPrice();
 
         fillAcceptPay();
         refreshUI();
@@ -198,22 +203,22 @@ public class OrderAddActivity extends MyBaseActivity {
                 }
             });
         }
-        if(mParams.isJiePei() && mPayPrice != 0){
+        if(mParams.isJiePei() && mOrderPay != 0){
             showMsgDialog("提示","该订单只能用元宝支付！请确认后重试");
             return;
         }
-        if (!mParams.showThirdPart() && mPayPrice != 0) {
+        if (!mParams.showThirdPart() && mOrderPay != 0) {
             showMsgDialog("提示","该订单只能用元宝与金币支付！请确认后重试");
             return;
         }
-        mPayHelper.showBottomDialog(mPayPrice, mAmount, mIntegral);
+        mPayHelper.showBottomDialog(mOrderPay, mAmount, mIntegral);
     }
 
     private void fillAcceptPay() {
         if (mParams.isJiePei()) {
-            mAmount = Math.min(mAccount.getAmount(),round2(mSumPrice-mIntegral));
+            mAmount = Math.min(mAccount.getAmount(),round2(mPayPrice -mIntegral));
         }else{
-            mIntegral = (int) Math.min((double) getRealAcceptIntegral(), mSumPrice);
+            mIntegral = (int) Math.min((double) getRealAcceptIntegral(), mPayPrice);
         }
 
     }
@@ -228,7 +233,7 @@ public class OrderAddActivity extends MyBaseActivity {
         }, new IBuilder<Double>() {
             @Override
             public Double build() {
-                return Math.min(mAccount.getAmount(), mSumPrice - (double) mIntegral);
+                return Math.min(mAccount.getAmount(), mPayPrice - (double) mIntegral);
             }
         }, tvAmountReduce, tvAmountNumber, tvAmountIncrease, new ICallBack<Double>() {
             @Override
@@ -247,7 +252,7 @@ public class OrderAddActivity extends MyBaseActivity {
         }, new IBuilder<Integer>() {
             @Override
             public Integer build() {
-                return Math.min(getRealAcceptIntegral(), (int) (mSumPrice - mAmount));
+                return Math.min(getRealAcceptIntegral(), (int) (mPayPrice - mAmount));
             }
         }, tvIntegralReduce, tvIntegralNumber, tvIntegralIncrease, new ICallBack<Integer>() {
             @Override
@@ -258,8 +263,8 @@ public class OrderAddActivity extends MyBaseActivity {
         });
     }
 
-    void updatePayPrice() {
-        mPayPrice = round2(mSumPrice - mAmount - mIntegral);
+    void updateOrderPrice() {
+        mOrderPay = round2(mPayPrice - mAmount - mIntegral);
     }
 
     public static double round2(double value){
@@ -271,16 +276,16 @@ public class OrderAddActivity extends MyBaseActivity {
     }
 
     public void refreshUI() {
-        updatePayPrice();
+        updateOrderPrice();
         setAddress(mAddress);
         mItemHolder.notifyDataSetChanged();
-        ShowTool.showPrice(tvTotal,mSumPrice,mParams.isJiePei());
+        ShowTool.showSumPrice(tvTotalOld,mSumPrice,tvTotal,mPayPrice,mParams.isJiePei());
         tvAmountNumber.setText(String.format("%s", mAmount));
         llytIntegral.setVisibility(mParams.isJiePei() ? View.GONE : View.VISIBLE);
         llytAmount.setVisibility(mParams.isJiePei() ? View.VISIBLE : View.GONE);
         tvIntegralNumber.setText(String.format("%s", mIntegral));
         setAccount(mAccount);
-        tvRealTotal.setText(String.format("￥%s", mPayPrice));
+        tvRealTotal.setText(String.format("￥%s", mOrderPay));
         if (mAcceptIntegral == 0) {
             tvAcceptIntegral.setText("不可抵用");
         } else {

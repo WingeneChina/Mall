@@ -194,6 +194,15 @@
                     android:text="商品合计 : "
                     android:layout_height="wrap_content"/>
                 <TextView
+                    android:id="@+id/tv_total_old"
+                    android:layout_weight="0"
+                    android:paddingRight="@dimen/p8"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/darkgray"
+                    android:layout_gravity="center"
+                    android:text="Y299.00"
+                    android:layout_height="wrap_content"/>
+                <TextView
                     android:id="@+id/tv_total"
                     android:layout_weight="0"
                     android:paddingRight="@dimen/p30"

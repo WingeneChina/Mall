@@ -131,7 +131,7 @@
             android:text="订单编号：12324234"/>
 
         <TextView
-            android:id="@+id/et_number"
+            android:id="@+id/tv_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
@@ -166,6 +166,31 @@
 
         <TextView
             android:id="@+id/tv_delivery_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/p30"
+            android:layout_weight="0"
+            android:text="Y0"/>
+    </LinearLayout>
+    <View
+        style="@style/Line.Horizontal"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/p62"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/p30"
+        android:paddingRight="@dimen/p30">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="应付合计"/>
+
+
+        <TextView
+            android:id="@+id/tv_pay_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/p30"

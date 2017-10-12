@@ -59,13 +59,14 @@ public class OrderDetailActivity extends MyBaseActivity {
     private TextView tvNumber;
     private TextView tvSumPrice;
     private TextView tvDeliveryFee;
+    private TextView tvPayPrice;
     private TextView tvAmount;
     private TextView tvIntegral;
     private TextView tvRealTotal;
     private TextView tvLeft;
     private TextView tvRight;
 
-    protected void initComponent() {
+    protected void initComponent(){
         tlBack = (Tile) super.findViewById(R.id.tl_back);
         tlService = (Tile) super.findViewById(R.id.tl_service);
         rlytBanner = (RelativeLayout) super.findViewById(R.id.rlyt_banner);
@@ -75,15 +76,18 @@ public class OrderDetailActivity extends MyBaseActivity {
         tvPhone = (TextView) super.findViewById(R.id.tv_phone);
         hmlvProduct = (HightMatchListView) super.findViewById(R.id.hmlv_product);
         tvNo = (TextView) super.findViewById(R.id.tv_no);
-        tvNumber = (TextView) super.findViewById(R.id.et_number);
+        tvNumber = (TextView) super.findViewById(R.id.tv_number);
         tvSumPrice = (TextView) super.findViewById(R.id.tv_sum_price);
         tvDeliveryFee = (TextView) super.findViewById(R.id.tv_delivery_fee);
+        tvPayPrice = (TextView) super.findViewById(R.id.tv_pay_price);
         tvAmount = (TextView) super.findViewById(R.id.tv_amount);
         tvIntegral = (TextView) super.findViewById(R.id.tv_integral);
         tvRealTotal = (TextView) super.findViewById(R.id.tv_real_total);
         tvLeft = (TextView) super.findViewById(R.id.tv_left);
         tvRight = (TextView) super.findViewById(R.id.tv_right);
     }
+
+
 
 
     @Override
@@ -207,6 +211,7 @@ public class OrderDetailActivity extends MyBaseActivity {
         tvNo.setText(String.format("订单编号:%s", bean.getNo()));
         tvNumber.setText(String.format("共%s件", bean.getSumNumber().intValue()));
         ShowTool.showPrice(tvSumPrice,"合计:%s",bean.getSumPrice(),bean.isJiaPei());
+        ShowTool.showPrice(tvPayPrice,"%s",bean.getPayPrice(),bean.isJiaPei());
         tvDeliveryFee.setText(String.format("￥%.2f", bean.getDeliveryFee()));
 
         setOrderPay(bean.getOrderPay());

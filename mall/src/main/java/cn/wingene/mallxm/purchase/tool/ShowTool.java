@@ -1,5 +1,6 @@
 package cn.wingene.mallxm.purchase.tool;
 
+import android.graphics.Paint;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,6 +11,13 @@ import junze.java.util.StringUtil;
  */
 
 public class ShowTool {
+
+    public static void showSumPrice(TextView tvSum, double sum, TextView tvPay, double pay, boolean isJiaPei) {
+        tvSum.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        ShowTool.showPrice(tvSum, sum, isJiaPei);
+        tvSum.setVisibility(sum != pay ? View.VISIBLE : View.GONE);
+        ShowTool.showPrice(tvPay, pay, isJiaPei);
+    }
 
     public static void showPrice(TextView tv, Double price, boolean isJiaPei) {
         showPrice(tv, "%s", price, isJiaPei);
