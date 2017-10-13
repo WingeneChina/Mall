@@ -258,7 +258,6 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
         super.onHiddenChanged(hidden);
         if (!hidden) {
             personHeadV.setImageURI(UserData.getPersonHeadUrl());
-
         }
     }
 
@@ -268,17 +267,21 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
         try {
             switch (what) {
                 case USER_INFO_WHAT:
-                    GsonUtil<UserInfoModel> gsonUtil = new GsonUtil<>(UserInfoModel.class);
-                    UserInfoModel userInfoModel = gsonUtil.fromJson(response.get());
-                    if (userInfoModel != null && userInfoModel.getErr() == 0 && userInfoModel.getData() != null) {
-                        UserData.savePersonHeadUrl(userInfoModel.getData().getAvatar());//保存服务端提供的默认头像地址
-                        personHeadV.setImageURI(userInfoModel.getData().getAvatar());
-                        personNameV.setText(userInfoModel.getData().getNickname());
-                        yingMoneyV.setText(String.valueOf("金币   " + userInfoModel.getData().getIntegral()));
-                        youMoneyV.setText(String.valueOf("元宝   " + userInfoModel.getData().getAmount()));
-                    } else if (userInfoModel.getErr() != 0) {
-                        personHeadV.setImageURI(userInfoModel.getData().getAvatar());
-                        personNameV.setText("未登录");
+                    GsonUtil<BaseResponse> baseResponseGsonUtil = new GsonUtil<>(BaseResponse.class);
+                    BaseResponse baseResponse = baseResponseGsonUtil.fromJson(response.get());
+                    if (baseResponse.err == 0) {
+                        GsonUtil<UserInfoModel> gsonUtil = new GsonUtil<>(UserInfoModel.class);
+                        UserInfoModel userInfoModel = gsonUtil.fromJson(response.get());
+                        if (userInfoModel != null && userInfoModel.getErr() == 0 && userInfoModel.getData() != null) {
+                            UserData.savePersonHeadUrl(userInfoModel.getData().getAvatar());//保存服务端提供的默认头像地址
+                            personHeadV.setImageURI(userInfoModel.getData().getAvatar());
+                            personNameV.setText(userInfoModel.getData().getNickname());
+                            yingMoneyV.setText(String.valueOf("金币   " + userInfoModel.getData().getIntegral()));
+                            youMoneyV.setText(String.valueOf("元宝   " + userInfoModel.getData().getAmount()));
+                        }
+                    } else {
+                        personHeadV.setImageURI("file://com.limecn.ghmall/"+R.drawable.nologin);
+                        personNameV.setText("光合用户");
                         yingMoneyV.setText("0");
                         youMoneyV.setText("0");
                     }

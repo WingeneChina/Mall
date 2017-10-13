@@ -50,7 +50,7 @@
                     android:layout_below="@+id/personHeadV"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:text="未登录"
+                    android:text="光合用户"
                     android:textColor="@color/white"
                     android:textSize="16sp"/>
 
