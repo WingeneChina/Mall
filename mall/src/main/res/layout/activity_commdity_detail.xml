@@ -255,16 +255,7 @@
 
             <!--<View-->
             <!--style="@style/Line.Vertical"/>-->
-            <TextView
-                android:id="@+id/tv_buy"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#F8DB54"
-                android:gravity="center"
-                android:text="立即购买"
-                android:textColor="@color/white"
-                android:textSize="@dimen/p32"/>
+
             <!--<View-->
             <!--style="@style/Line.Vertical"/>-->
             <TextView
@@ -273,9 +264,19 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#F72b28"
+                android:background="#F8DB54"
                 android:gravity="center"
                 android:text="加入购物车"
+                android:textColor="@color/white"
+                android:textSize="@dimen/p32"/>
+            <TextView
+                android:id="@+id/tv_buy"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#F72b28"
+                android:gravity="center"
+                android:text="立即购买"
                 android:textColor="@color/white"
                 android:textSize="@dimen/p32"/>
         </LinearLayout>

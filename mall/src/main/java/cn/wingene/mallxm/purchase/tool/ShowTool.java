@@ -4,6 +4,8 @@ import android.graphics.Paint;
 import android.view.View;
 import android.widget.TextView;
 
+import com.limecn.ghmall.R;
+
 import junze.java.util.StringUtil;
 
 /**
@@ -11,6 +13,8 @@ import junze.java.util.StringUtil;
  */
 
 public class ShowTool {
+
+//    public
 
     public static void showSumPrice(TextView tvSum, double sum, TextView tvPay, double pay, boolean isJiaPei) {
         tvSum.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -27,6 +31,17 @@ public class ShowTool {
         String strPrice = isJiaPei ? String.format("%s元宝", price) : String.format("￥%s", price);
         tv.setText(String.format(format, strPrice));
     }
+
+    public static void showDeliveryFee(TextView tv,double deliveryFee){
+        if(deliveryFee != 0){
+            tv.setText(String.format("￥%s",deliveryFee));
+            tv.setTextColor(tv.getResources().getColor(R.color.red));
+        }else{
+            tv.setText("免费");
+            tv.setTextColor(tv.getResources().getColor(R.color.black));
+        }
+    }
+
 
     public static void showAcceptIntegralOrGone(TextView tv, Integer acceptIntegral, boolean isJiaPei) {
         if (acceptIntegral != null && acceptIntegral != 0 && !isJiaPei) {

@@ -28,9 +28,6 @@ public interface IAddOrder extends IEasyOrder {
          */
         Double getDiscountPrice();
 
-        /**
-         * 运费金额	不可
-         */
-        Double getDeliveryFee();
+
 
 }

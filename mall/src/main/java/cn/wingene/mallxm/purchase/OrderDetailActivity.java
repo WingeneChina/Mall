@@ -212,7 +212,7 @@ public class OrderDetailActivity extends MyBaseActivity {
         tvNumber.setText(String.format("共%s件", bean.getSumNumber().intValue()));
         ShowTool.showPrice(tvSumPrice,"合计:%s",bean.getSumPrice(),bean.isJiaPei());
         ShowTool.showPrice(tvPayPrice,"%s",bean.getPayPrice(),bean.isJiaPei());
-        tvDeliveryFee.setText(String.format("￥%.2f", bean.getDeliveryFee()));
+        ShowTool.showDeliveryFee(tvDeliveryFee,bean.getDeliveryFee());
 
         setOrderPay(bean.getOrderPay());
 

@@ -54,8 +54,9 @@ public class OrderAddActivity extends MyBaseActivity {
     Params mParams;
     private IAddress4 mAddress;
     private double mSumPrice;
-    private double mPayPrice;
+    private double mDeliveryFee;
     private double mOrderPay;
+    private double mPayPrice;
     private Account mAccount;
     private double mAmount;
     private int mIntegral;
@@ -77,6 +78,8 @@ public class OrderAddActivity extends MyBaseActivity {
     private ImageView ivAddressChoise;
     private HightMatchListView lvOrder;
     private TextView tvTotalOld;
+    private TextView tvDeliveryFee;
+    private LinearLayout llytTotal;
     private TextView tvTotal;
     private LinearLayout llytIntegral;
     private TextView tvIntegral;
@@ -107,6 +110,8 @@ public class OrderAddActivity extends MyBaseActivity {
         ivAddressChoise = (ImageView) super.findViewById(R.id.iv_address_choise);
         lvOrder = (HightMatchListView) super.findViewById(R.id.lv_order);
         tvTotalOld = (TextView) super.findViewById(R.id.tv_total_old);
+        tvDeliveryFee = (TextView) super.findViewById(R.id.tv_delivery_fee);
+        llytTotal = (LinearLayout) super.findViewById(R.id.llyt_total);
         tvTotal = (TextView) super.findViewById(R.id.tv_total);
         llytIntegral = (LinearLayout) super.findViewById(R.id.llyt_integral);
         tvIntegral = (TextView) super.findViewById(R.id.tv_integral);
@@ -125,9 +130,6 @@ public class OrderAddActivity extends MyBaseActivity {
         tvPay = (TextView) super.findViewById(R.id.tv_pay);
     }
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +142,7 @@ public class OrderAddActivity extends MyBaseActivity {
         mAddress = bean.getAddress();
         mItemHolder.addAll(bean.getOrderProductItem());
         mSumPrice = bean.getSumPrice();
+        mDeliveryFee = bean.getDeliveryFee();
         mPayPrice = bean.getPayPrice();
         mOrderPay = 0;
         mAccount = bean.getAccount();
@@ -279,7 +282,10 @@ public class OrderAddActivity extends MyBaseActivity {
         updateOrderPrice();
         setAddress(mAddress);
         mItemHolder.notifyDataSetChanged();
-        ShowTool.showSumPrice(tvTotalOld,mSumPrice,tvTotal,mPayPrice,mParams.isJiePei());
+        ShowTool.showPrice(tvTotalOld, mSumPrice, mParams.isJiePei());
+        ShowTool.showDeliveryFee(tvDeliveryFee, mDeliveryFee);
+        ShowTool.showPrice(tvTotal, mPayPrice, mParams.isJiePei());
+        llytTotal.setVisibility(mSumPrice + mDeliveryFee != mPayPrice ? View.VISIBLE : View.GONE);
         tvAmountNumber.setText(String.format("%s", mAmount));
         llytIntegral.setVisibility(mParams.isJiePei() ? View.GONE : View.VISIBLE);
         llytAmount.setVisibility(mParams.isJiePei() ? View.VISIBLE : View.GONE);

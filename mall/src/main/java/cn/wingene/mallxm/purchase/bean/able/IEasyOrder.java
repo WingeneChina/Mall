@@ -25,6 +25,11 @@ public interface IEasyOrder extends IsJiaPeiable{
     Double getSumPrice();
 
     /**
+     * 运费金额	不可
+     */
+    Double getDeliveryFee();
+
+    /**
      * 实付金额	不可
      */
     Double getPayPrice();
