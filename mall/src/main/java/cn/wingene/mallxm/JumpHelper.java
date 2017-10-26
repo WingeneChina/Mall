@@ -2,8 +2,11 @@ package cn.wingene.mallxm;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
+import cn.wingene.mallxf.http.HttpConstant;
 import cn.wingene.mallxm.account.LoginChoiceActivity;
+import cn.wingene.mallxm.display.WebActivity;
 import junze.java.util.StringUtil;
 
 import junze.androidxf.core.Agent.Major.IntentBuilder;
@@ -142,7 +145,11 @@ public class JumpHelper {
      * @param context
      */
     public static void startLuckyGame(Context context) {
-        create(context, LuckyActivity.class).startActivity();
+        Intent intent = new Intent(context, WebActivity.class);
+        intent.putExtra("title", "幸运大抽奖");
+        intent.putExtra("webUrl", HttpConstant.HOST + "Lottery/LargeTurntable?Id=" + UserData.getUserId());
+        context.startActivity(intent);
+//        create(context, LuckyActivity.class).startActivity();
 
     }
 

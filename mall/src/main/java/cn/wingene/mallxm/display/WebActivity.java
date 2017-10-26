@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -17,7 +18,7 @@ import com.limecn.ghmall.R;
 /**
  * web加载页面
  */
-public class WebActivity extends AppCompatActivity implements View.OnClickListener{
+public class WebActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView backIcon;
     private TextView titleV;
@@ -35,10 +36,10 @@ public class WebActivity extends AppCompatActivity implements View.OnClickListen
         webUrl = getIntent().getStringExtra("webUrl");
         initWebView(webUrl);
         initEvent();
-
+        Log.e(this.getClass().getName(), "weburl = " + webUrl);
     }
 
-    private void initEvent(){
+    private void initEvent() {
         backIcon.setOnClickListener(this);
 
     }
@@ -53,7 +54,7 @@ public class WebActivity extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.backIcon:
                 onBackPressed();
                 break;
@@ -77,19 +78,19 @@ public class WebActivity extends AppCompatActivity implements View.OnClickListen
         });
 
         driverWebView.setWebViewClient(new WebViewClient() {
-                                      @Override
-                                      public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                                           @Override
+                                           public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //                                         mWebView.addJavascriptInterface(new JSClient(), "js");
-                                          view.loadUrl(url);
-                                          return super.shouldOverrideUrlLoading(view, url);
-                                      }
+                                               view.loadUrl(url);
+                                               return super.shouldOverrideUrlLoading(view, url);
+                                           }
 
                                            @Override
                                            public void onPageFinished(WebView view, String url) {
                                                super.onPageFinished(view, url);
-                                               if(view.canGoBack()){
+                                               if (view.canGoBack()) {
                                                    backIcon.setVisibility(View.GONE);
-                                               }else{
+                                               } else {
                                                    backIcon.setVisibility(View.VISIBLE);
                                                }
                                            }

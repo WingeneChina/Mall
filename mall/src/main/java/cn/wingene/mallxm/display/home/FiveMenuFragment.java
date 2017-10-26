@@ -37,6 +37,7 @@ import cn.wingene.mallxm.display.home.fiveMenu.MyCollectionActivity;
 import cn.wingene.mallxm.display.home.fiveMenu.UserInfoModel;
 import cn.wingene.mallxm.display.home.setting.AboutAsActivity;
 import cn.wingene.mallxm.display.home.setting.data.VersionModel;
+import junze.androidxf.core.Agent;
 
 import static cn.wingene.mallxf.http.HttpConstant.USER_INFO;
 
@@ -219,7 +220,11 @@ public class FiveMenuFragment extends MyBaseFragment implements View.OnClickList
                 mDialog.dismiss();
                 break;
             case R.id.luckGroupV:
-                JumpHelper.startLuckyGame(this.getActivity());
+                if(UserData.getUserId()!=0) {
+                    JumpHelper.startLuckyGame(this.getActivity());
+                }else{
+                    agent().showToast("请先登录");
+                }
                 break;
             case R.id.myCollectionV:
                 Intent intent = new Intent(this.getActivity(), MyCollectionActivity.class);
