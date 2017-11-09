@@ -118,7 +118,7 @@ public class FouthItemMenuFragment extends MyBaseFragment implements DriverMenuT
                 false);
         driverItemRecyclerV.setLayoutManager(linearLayoutManager);
 
-        personRecommendAdapter = new PersonRecommendAdapter(mProductListBeen,true);
+        personRecommendAdapter = new PersonRecommendAdapter(mProductListBeen, true);
         driverItemRecyclerV.setAdapter(personRecommendAdapter);
 
         SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(0, 15, 15, 15);
@@ -151,10 +151,18 @@ public class FouthItemMenuFragment extends MyBaseFragment implements DriverMenuT
                         .setOnBannerListener(new OnBannerListener() {
                             @Override
                             public void OnBannerClick(int position) {
-                                JumpHelper.startCommodityDetailActivity(getActivity(), Integer.parseInt(driveModel
-                                        .BannerList.get
-                                                (position).getParam()));
-
+                                if (!"5".equals(driveModel.BannerList.get(position).getType())) {
+                                    JumpHelper.startCommodityDetailActivity(getActivity(), Integer.parseInt(driveModel
+                                            .BannerList.get
+                                                    (position).getParam()));
+                                } else {
+                                    Intent intent = new Intent(getActivity(), WebActivity.class);
+                                    intent.putExtra("webUrl", driveModel
+                                            .BannerList.get(position).getParam());
+                                    intent.putExtra("title", driveModel
+                                            .BannerList.get(position).getTitle());
+                                    startActivity(intent);
+                                }
                             }
                         }).start();
 

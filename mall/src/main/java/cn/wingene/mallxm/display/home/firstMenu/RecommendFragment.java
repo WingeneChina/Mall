@@ -32,6 +32,7 @@ import cn.wingene.mallxf.ui.MyBaseFragment;
 import cn.wingene.mallxf.ui.banner.BannerImgLoader;
 import cn.wingene.mallxf.util.SpaceItemDecoration;
 import cn.wingene.mallxm.JumpHelper;
+import cn.wingene.mallxm.display.WebActivity;
 import cn.wingene.mallxm.display.home.FirstMenuFragment;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductActivity;
 import cn.wingene.mallxm.display.home.firstMenu.activity.ProductRecommendActivity;
@@ -307,9 +308,22 @@ public class RecommendFragment extends MyBaseFragment implements View
                 .setOnBannerListener(new OnBannerListener() {
                     @Override
                     public void OnBannerClick(int position) {
-                        JumpHelper.startCommodityDetailActivity(getActivity(), Integer.parseInt(bannerListBeens.get
-                                (position).getParam()));
+                        try {
+                            if (!"5".equals(bannerListBeens.get(position).getType())) {
 
+                                JumpHelper.startCommodityDetailActivity(getActivity(), Integer.parseInt
+                                        (bannerListBeens.get
+
+                                        (position).getParam()));
+                            } else {
+                                Intent intent = new Intent(getActivity(), WebActivity.class);
+                                intent.putExtra("webUrl", bannerListBeens.get(position).getParam());
+                                intent.putExtra("title", bannerListBeens.get(position).getTitle());
+                                startActivity(intent);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }).start();
     }
